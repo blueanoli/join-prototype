@@ -1,0 +1,36 @@
+:root {
+    --background-grey: #F6F7F8;
+    --dark-blue: #2A3647;
+    --highlighted: #091931;
+    --light-blue: #29ABE2;
+    --user-story-task: #0038FF;
+    --technical-task: #1FD7C1;
+    --urgent: #FF4910;
+    --medium: #FFA800;
+    --low: #9BE95E;
+    --user-orange: #FF7A00;
+    --user-mid-orange: #FFA35E;
+    --user-light-orange: #FFBB2B;
+    --user-green: #1FD7C1;
+    --user-light-green: #C3FF2B;
+    --user-purple: #9327FF;
+    --user-light-purple: #6E52FF;
+    --user-red: #FF4646;
+    --user-light-red: #FF745E;
+    --user-yellow: #FFC701;
+    --user-light-yellow: #FFE62B;
+    --user-pink: #FF5EB3;
+    --user-light-pink: #FC71FF;
+    --user-blue: #0038FF;
+    --user-light-blue: #00BEE8;
+}
+html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+}
+body {
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}

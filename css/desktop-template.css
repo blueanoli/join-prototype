@@ -3,7 +3,7 @@
     justify-content: space-between;
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
     align-items: center;
-    padding: 20px 40px 20px 350px;   
+    padding: 20px 40px 20px 350px;
 }
 
 .user-icon {
@@ -54,3 +54,28 @@ h4 {
     margin: 70px 60px 0 328px;
 }
 
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding-top: 114px;
+}
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: var(--background-grey);
+    font-weight: 300;
+}
+
+.privacy-section {
+    padding-top: 300px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-direction: column;
+}

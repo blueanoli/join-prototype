@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/add-task.css">
+    <script src="js/add_task.js"></script>
+    <link rel="shortcut icon" href="assets/img/logo_dark.svg" type="image/x-icon">
+    <title>Add Task</title>
+</head>
+
+<body>
+    <div class="add-task-headline">
+        <h1>Add Task</h1>
+    </div>
+    <form id="add-task" class="add-task">
+        <div class="add-task-left">
+            <label for="title">Title*</label>
+            <input required type="text" id="title" placeholder="Enter a title">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Enter a description"></textarea>
+            <label for="assignedTo">Assigned to</label>
+            <select id="assigned-to">
+                <option value="">Select contacts to assign</option>
+            </select>
+        </div>
+        <div class="divider"></div>
+        <div class="add-task-right">
+            <label for="due-date">Due date*</label>
+            <input required type="date" id="due-date">
+            <label for="priority">Prio</label>
+            <label for="category">Category*</label>
+            <select required id="category" name="category">
+                <option value="">Select a category</option>
+            </select>
+            <label for="subtasks">Subtasks</label>
+            <input type="text" id="subtasks" placeholder="Add new subtask">
+        </div>
+        <div class="add-task-buttons">
+            <button id="add-task-btn">Add Task</button>
+            <button id="clear-btn">Reset</button>
+        </div>
+    </form>
+</body>
+
+</html>

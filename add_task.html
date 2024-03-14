@@ -22,7 +22,7 @@
             <input required type="text" id="title" placeholder="Enter a title">
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description"></textarea>
-            <label for="assignedTo">Assigned to</label>
+            <label for="assigned-to">Assigned to</label>
             <select id="assigned-to">
                 <option value="">Select contacts to assign</option>
             </select>
@@ -31,19 +31,27 @@
         <div class="add-task-right">
             <label for="due-date">Due date*</label>
             <input required type="date" id="due-date">
-            <label for="priority">Prio</label>
+            <div id="priority">
+                <p>Prio</p>
+                <div class="priority-container">
+                    <div id="priority-urgent">Urgent <img src="assets/img/addtask_urgent.svg"></div>
+                    <div id="priority-medium">Medium <img src="assets/img/addtask_medium.svg"></div>
+                    <div id="priority-low">Low <img src="assets/img/addtask_low.svg"></div>
+                </div>
+            </div>
             <label for="category">Category*</label>
             <select required id="category" name="category">
-                <option value="">Select a category</option>
+                <option value="">Select task category</option>
             </select>
             <label for="subtasks">Subtasks</label>
             <input type="text" id="subtasks" placeholder="Add new subtask">
         </div>
         <div class="add-task-buttons">
-            <button id="add-task-btn">Add Task</button>
-            <button id="clear-btn">Reset</button>
+            <button id="clear-btn">Clear</button>
+            <button id="add-task-btn">Create Task</button>
         </div>
     </form>
+    <p class="field-required-info">* This field is required</p>
 </body>
 
 </html>

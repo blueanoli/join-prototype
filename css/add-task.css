@@ -1,6 +1,13 @@
 body{
     background-color: var(--background-grey);
 }
+label{
+    font-size: 20px;
+}
+input, textarea, select, button, p{
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+}
 .add-task-headline {
     position: fixed;
     top: 206px;
@@ -14,17 +21,47 @@ body{
     left: 328px;
     top: 315px;
     display: flex;
+    margin-top: 48px;
+    gap: 96px;
 }
 .add-task-left {
+    width: 440px;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 .add-task-right {
+    width: 440px;
     display: flex;
     flex-direction: column;
+    gap: 16px;
 }
 .divider{
     width: 1px;
+    height: 424px;
     background-color: #D9D9D9;
     margin: 0 20px;
+}
+.priority-container {
+    display: flex;
+    gap: 16px;
+}
+#priority-urgent, #priority-medium, #priority-low {
+    width: 136px;
+    height: 56px;
+    border-radius: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.add-task-buttons {
+    position: fixed;
+    right: 136px;
+    bottom: 79px;
+}
+.field-required-info{
+    position: fixed;
+    bottom: 71px;
+    left: 328px;
 }

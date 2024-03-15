@@ -18,7 +18,7 @@
     </div>
     <form id="add-task" class="add-task">
         <div class="add-task-left">
-            <label for="title">Title*</label>
+            <label for="title">Title<span class="red-asterisk">*</span></label>
             <input required type="text" id="title" placeholder="Enter a title">
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description"></textarea>
@@ -29,17 +29,17 @@
         </div>
         <div class="divider"></div>
         <div class="add-task-right">
-            <label for="due-date">Due date*</label>
+            <label for="due-date">Due date<span class="red-asterisk">*</span></label>
             <input required type="date" id="due-date">
             <div id="priority">
                 <p>Prio</p>
                 <div class="priority-container">
-                    <div id="priority-urgent">Urgent <img src="assets/img/addtask_urgent.svg"></div>
-                    <div id="priority-medium">Medium <img src="assets/img/addtask_medium.svg"></div>
-                    <div id="priority-low">Low <img src="assets/img/addtask_low.svg"></div>
+                    <div onclick="setPriority()" id="priority-urgent">Urgent <img id="img-urgent" src="assets/img/addtask_urgent.svg"></div>
+                    <div onclick="setPriority()" id="priority-medium">Medium <img id="img-medium" src="assets/img/addtask_medium.svg"></div>
+                    <div onclick="setPriority()" id="priority-low">Low <img id="img-low" src="assets/img/addtask_low.svg"></div>
                 </div>
             </div>
-            <label for="category">Category*</label>
+            <label for="category">Category<span class="red-asterisk">*</span></label>
             <select required id="category" name="category">
                 <option value="">Select task category</option>
             </select>
@@ -47,11 +47,11 @@
             <input type="text" id="subtasks" placeholder="Add new subtask">
         </div>
         <div class="add-task-buttons">
-            <button id="clear-btn">Clear</button>
-            <button id="add-task-btn">Create Task</button>
+            <button id="clear-btn">Clear<img src="assets/img/cancel_dark.svg"></button>
+            <button disabled id="add-task-btn">Create Task<img src="assets/img/addtask_check.svg"></button>
         </div>
     </form>
-    <p class="field-required-info">* This field is required</p>
+    <p class="field-required-info"><span class="red-asterisk">*</span> This field is required</p>
 </body>
 
 </html>

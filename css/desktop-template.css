@@ -72,13 +72,16 @@ h4 {
     padding-top: 114px;
 }
 
+
 .menu-link {
     display: flex;
     align-items: center;
     gap: 15px;
     text-decoration: none;
-    color: var(--background-grey);
-    font-weight: 300;
+    padding: 8px 0px 8px 56px;
+    box-sizing: border-box;
+    width: 232px;
+    height: 46px;
 }
 
 .menu-link:hover {

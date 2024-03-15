@@ -21,13 +21,22 @@
     cursor: pointer;
 }
 
+.user-icon:hover {
+    background-color: #E2E6EC;
+}
+
 .help-and-user-icon {
     display: flex;
     gap: 16px;
+    align-items: center;
 }
 
 .help-icon {
     cursor: pointer;
+}
+
+.help-icon:hover {
+    transform: scale(1.2);    
 }
 
 h4 {
@@ -72,10 +81,55 @@ h4 {
     font-weight: 300;
 }
 
+.menu-link:hover {
+    background-color: #344256;
+}
+
 .privacy-section {
     padding-top: 300px;
     display: flex;
     gap: 4px;
     align-items: center;
     flex-direction: column;
+    
 }
+
+.privacy-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35px; 
+    width: 232px;  
+}
+
+.privacy-link-container:focus {
+      background-color: var(--highlighted); 
+}
+
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: var(--background-grey);
+    font-weight: 300;
+}
+
+
+
+.privacy-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+    color: var(--background-grey);
+    font-weight: 300;
+}
+
+.privacy-link:hover {
+    color: var(--light-blue); 
+    font-weight: 500;
+}
+
+

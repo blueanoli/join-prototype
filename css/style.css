@@ -24,11 +24,19 @@
   --user-blue: #0038ff;
   --user-light-blue: #00bee8;
 }
+
 html {
   scroll-behavior: smooth;
   font-family: "Inter", sans-serif;
 }
+
 body {
+  margin: 0 auto;
+  background-color: var(--background-grey);
+}
+
+
+.login-body {
   margin: 0 auto;
   box-sizing: border-box;
   display: flex;

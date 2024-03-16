@@ -84,3 +84,22 @@ function clearForm() {
 function addTask() {
     window.location.href = 'board.html';
 }
+
+function addSubtask(){
+    let subtask = document.getElementById('subtasks').value;
+    let subtaskcontainer = document.getElementById('subtask-container');
+
+    subtaskcontainer.innerHTML += /*html*/ `
+    <div class="subtask">
+        <ul>
+            <li>${subtask}</li>
+        </ul>
+        <div class="subtask-icons">
+            <img onclick="editSubtask()" class="icon-plus" src="assets/img/pencil_grey.svg" alt="">
+            <div class="subtask-line"></div>
+            <img onclick="removeSubtask()" class="icon-plus" src="assets/img/delete.svg" alt="">
+        </div>
+    </div>
+    `;
+    document.getElementById('subtasks').value = '';
+}

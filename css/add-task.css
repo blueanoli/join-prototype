@@ -6,6 +6,9 @@ label {
     font-size: 20px;
     margin-bottom: 8px;
 }
+ul{
+    margin: 0;
+}
 input, textarea, select, button, p, option {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
@@ -17,6 +20,10 @@ input, textarea, select {
     border-radius: 5px;
     border: 1px solid #D9D9D9;
 }
+input:focus, textarea:focus{
+    border: 1px solid var(--light-blue);
+    outline: none;
+}
 .add-task-container{
     max-width: calc(100% - 300px); 
     box-sizing: border-box; 
@@ -26,7 +33,7 @@ input, textarea, select {
     align-items: center;
     justify-content: flex-start;
     margin-left: 300px;
-    margin-top: 85px;
+    margin-top: 90px;
 }
 .add-task-headline h1 {
     font-size: 61px;
@@ -141,6 +148,19 @@ input, textarea, select {
 .red-asterisk {
     color: red;
 }
+.add-subtask{
+    display: flex;
+    align-items: flex-start;
+}
+.icon-plus{
+    display: flex;
+    z-index: 3;
+    cursor: pointer;
+}
+.icon-plus:hover{
+    background-color: #d1d1d1;
+    border-radius: 50%;
+}
 /* ADD TASK ANIMATION */
 #notification-container {
     position: fixed;
@@ -165,4 +185,25 @@ input, textarea, select {
     align-items: center;
     border-radius: 16px;
     padding: 8px 16px;
+}
+/* SUBTASK STYLE */
+.subtask{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.subtask:hover{
+    background-color: #d1d1d1;
+    border-radius: 8px;
+}
+.subtask-icons{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.subtask-line{
+    width: 1px;
+    height: 20px;
+    background-color: #d9d9d9;
 }

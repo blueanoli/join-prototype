@@ -101,5 +101,6 @@ function addSubtask(){
         </div>
     </div>
     `;
+    
     document.getElementById('subtasks').value = '';
 }

@@ -1,3 +1,5 @@
+let subtaskCounter = 0;
+
 function init() {
     includeHTML();
 }
@@ -88,19 +90,27 @@ function addTask() {
 function addSubtask(){
     let subtask = document.getElementById('subtasks').value;
     let subtaskcontainer = document.getElementById('subtask-container');
+    let subtaskId = 'subtask-' + subtaskCounter++; 
 
     subtaskcontainer.innerHTML += /*html*/ `
-    <div class="subtask">
+    <div id="${subtaskId}" class="subtask">
         <ul>
             <li>${subtask}</li>
         </ul>
         <div class="subtask-icons">
             <img onclick="editSubtask()" class="icon-plus" src="assets/img/pencil_grey.svg" alt="">
             <div class="subtask-line"></div>
-            <img onclick="removeSubtask()" class="icon-plus" src="assets/img/delete.svg" alt="">
+            <img onclick="removeSubtask('${subtaskId}')" class="icon-plus" src="assets/img/delete.svg" alt="">
         </div>
     </div>
     `;
     
     document.getElementById('subtasks').value = '';
+}
+
+function removeSubtask(subtaskId){
+    let subtaskElement = document.getElementById(subtaskId);
+    if(subtaskElement) {
+        subtaskElement.remove(); 
+    }
 }

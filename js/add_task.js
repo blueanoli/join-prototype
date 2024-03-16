@@ -15,3 +15,61 @@ async function includeHTML() {
         }
     }
 }
+
+function chooseUrgentPrio(){
+    let urgent = document.getElementById("priority-urgent");
+    let urgentimg = document.getElementById("img-urgent");
+    
+    urgent.classList.add("urgent-priority-active");
+    urgentimg.src = "assets/img/addtask_urgent_white.svg";
+
+    let medium = document.getElementById("priority-medium");
+    let mediumimg = document.getElementById("img-medium");
+    medium.classList.remove("medium-priority-active");
+    mediumimg.src = "assets/img/addtask_medium.svg";
+    
+    let low = document.getElementById("priority-low");
+    let lowimg = document.getElementById("img-low");
+    low.classList.remove("low-priority-active");
+    lowimg.src = "assets/img/addtask_low.svg";
+}
+
+function chooseMediumPrio(){
+    let medium = document.getElementById("priority-medium");
+    let mediumimg = document.getElementById("img-medium");
+    
+    medium.classList.add("medium-priority-active");
+    mediumimg.src = "assets/img/addtask_medium_white.svg";
+
+    let urgent = document.getElementById("priority-urgent");
+    let urgentimg = document.getElementById("img-urgent");
+    urgent.classList.remove("urgent-priority-active");
+    urgentimg.src = "assets/img/addtask_urgent.svg";
+    
+    let low = document.getElementById("priority-low");
+    let lowimg = document.getElementById("img-low");
+    low.classList.remove("low-priority-active");
+    lowimg.src = "assets/img/addtask_low.svg";
+}
+
+function chooseLowPrio(){
+    let low = document.getElementById("priority-low");
+    let lowimg = document.getElementById("img-low");
+    
+    low.classList.add("low-priority-active");
+    lowimg.src = "assets/img/addtask_low_white.svg";
+
+    let urgent = document.getElementById("priority-urgent");
+    let urgentimg = document.getElementById("img-urgent");
+    urgent.classList.remove("urgent-priority-active");
+    urgentimg.src = "assets/img/addtask_urgent.svg";
+    
+    let medium = document.getElementById("priority-medium");
+    let mediumimg = document.getElementById("img-medium");
+    medium.classList.remove("medium-priority-active");
+    mediumimg.src = "assets/img/addtask_medium.svg";
+}
+
+function clearForm(){
+    document.getElementById('add-task').reset();
+}

@@ -14,50 +14,51 @@
 </head>
 
 <body onload="init()">
+    <section class="add-task-container"></section>
     <div w3-include-html="assets/templates/desktop-template.html"></div>
-    <section>
-        <div class="add-task-headline">
-            <h1>Add Task</h1>
+
+    <div class="add-task-headline">
+        <h1>Add Task</h1>
+    </div>
+    <form id="add-task" class="add-task">
+        <div class="add-task-left">
+            <label for="title">Title<span class="red-asterisk">*</span></label>
+            <input required type="text" id="title" placeholder="Enter a title">
+            <label for="description">Description</label>
+            <textarea id="description" placeholder="Enter a description"></textarea>
+            <label for="assigned-to">Assigned to</label>
+            <select id="assigned-to">
+                <option value="">Select contacts to assign</option>
+            </select>
         </div>
-        <form id="add-task" class="add-task">
-            <div class="add-task-left">
-                <label for="title">Title<span class="red-asterisk">*</span></label>
-                <input required type="text" id="title" placeholder="Enter a title">
-                <label for="description">Description</label>
-                <textarea id="description" placeholder="Enter a description"></textarea>
-                <label for="assigned-to">Assigned to</label>
-                <select id="assigned-to">
-                    <option value="">Select contacts to assign</option>
-                </select>
-            </div>
-            <div class="divider"></div>
-            <div class="add-task-right">
-                <label for="due-date">Due date<span class="red-asterisk">*</span></label>
-                <input required type="date" id="due-date">
-                <div id="priority">
-                    <p>Prio</p>
-                    <div class="priority-container">
-                        <div onclick="setPriority()" id="priority-urgent">Urgent <img id="img-urgent"
-                                src="assets/img/addtask_urgent.svg"></div>
-                        <div onclick="setPriority()" id="priority-medium">Medium <img id="img-medium"
-                                src="assets/img/addtask_medium.svg"></div>
-                        <div onclick="setPriority()" id="priority-low">Low <img id="img-low"
-                                src="assets/img/addtask_low.svg"></div>
-                    </div>
-                </div>
-                <label for="category">Category<span class="red-asterisk">*</span></label>
-                <select required id="category" name="category">
-                    <option value="">Select task category</option>
-                </select>
-                <label for="subtasks">Subtasks</label>
-                <input type="text" id="subtasks" placeholder="Add new subtask">
-                <div class="add-task-buttons">
-                    <button id="clear-btn">Clear<img src="assets/img/cancel_dark.svg"></button>
-                    <button disabled id="add-task-btn">Create Task<img src="assets/img/addtask_check.svg"></button>
+        <div class="divider"></div>
+        <div class="add-task-right">
+            <label for="due-date">Due date<span class="red-asterisk">*</span></label>
+            <input required type="date" id="due-date">
+            <div id="priority">
+                <p>Prio</p>
+                <div class="priority-container">
+                    <div onclick="setPriority()" id="priority-urgent">Urgent <img id="img-urgent"
+                            src="assets/img/addtask_urgent.svg"></div>
+                    <div onclick="setPriority()" id="priority-medium">Medium <img id="img-medium"
+                            src="assets/img/addtask_medium.svg"></div>
+                    <div onclick="setPriority()" id="priority-low">Low <img id="img-low"
+                            src="assets/img/addtask_low.svg"></div>
                 </div>
             </div>
-        </form>
-        <p class="field-required-info"><span class="red-asterisk">*</span> This field is required</p>
+            <label for="category">Category<span class="red-asterisk">*</span></label>
+            <select required id="category" name="category">
+                <option value="">Select task category</option>
+            </select>
+            <label for="subtasks">Subtasks</label>
+            <input type="text" id="subtasks" placeholder="Add new subtask">
+            <div class="add-task-buttons">
+                <button id="clear-btn">Clear<img src="assets/img/cancel_dark.svg"></button>
+                <button disabled id="add-task-btn">Create Task<img src="assets/img/addtask_check.svg"></button>
+            </div>
+        </div>
+    </form>
+    <p class="field-required-info"><span class="red-asterisk">*</span> This field is required</p>
     </section>
 </body>
 

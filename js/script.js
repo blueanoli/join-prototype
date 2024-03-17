@@ -13,8 +13,9 @@ async function getItem(key) {
     return fetch(url).then(res => res.json());
 }
 
-function init() {
-    includeHTML();
+async function init() {
+    await includeHTML();
+    setActive();
 }
 
 async function includeHTML() {
@@ -29,4 +30,14 @@ async function includeHTML() {
             element.innerHTML = 'Page not found';
         }
     }
+}
+
+function setActive() {
+    let currentPagePath = window.location.pathname;
+    document.querySelectorAll('.menu-link, .privacy-link-container a').forEach(link => {
+        let isActive = new URL(link.href, document.baseURI).pathname === currentPagePath;
+        link.classList.toggle("active", isActive);
+        let parent = link.closest('.privacy-link-container');
+        if (parent) parent.classList.toggle("active", isActive);
+    });
 }

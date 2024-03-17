@@ -12,16 +12,27 @@
   <body class="login-body">
     <div class="login-container">
       <img class="login-logo" src="assets/img/logo_dark.svg" alt="join-logo" />
-      <div class="login-register-forwarding">
-        <span>Not a Join user?</span>
-        <a href="sign_up.html"
-          ><button class="login-sign-up-button">Sign up</button></a
-        >
-      </div>
-      <div class="login-main">
-        <h1>Log in</h1>
+      <div class="signup-main">
+        <div class="singup-arrow-container">
+          <a href="index.html"
+            ><img
+              class="signup-arrow-left"
+              src="assets/img/left_arrow.svg"
+              alt="back to login button"
+          /></a>
+        </div>
+        <h1>Sign up</h1>
         <span class="login-underline"></span>
-        <form class="login-input-area">
+        <form class="signup-input-area">
+          <div class="login-input-container">
+            <input
+              required
+              class="login-input"
+              type="text"
+              placeholder="Name"
+            />
+            <img src="assets/img/person.svg" />
+          </div>
           <div class="login-input-container">
             <input
               required
@@ -40,14 +51,27 @@
             />
             <img src="assets/img/password.svg" />
           </div>
+          <div class="login-input-container">
+            <input
+              required
+              class="login-input"
+              type="password"
+              placeholder="Confirm Password"
+            />
+            <img src="assets/img/password.svg" />
+          </div>
         </form>
-        <div class="login-remember">
-          <img class="login-checkbox" src="assets/img/checkboxempty.svg" />
-          <span>Remember me</span>
+        <div class="signup-policy">
+          <img class="signup-checkbox" src="assets/img/checkboxempty.svg" />
+          <span class="signup-accept-privacy"
+            >I accept the
+            <a class="signup-policy-link" href="privacy.html"
+              >Privacy Policy</a
+            ></span
+          >
         </div>
         <div class="log-in-button-container">
-          <button class="log-in-button">Log in</button>
-          <button class="log-in-guest-button">Guest Log in</button>
+          <button class="log-in-button">Sign up</button>
         </div>
       </div>
       <div class="login-legal-footer">

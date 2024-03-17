@@ -166,13 +166,12 @@ input:focus, textarea:focus{
 #notification-container {
     position: fixed;
     left: 50%;
-    transform: translateX(-50%);
-    bottom: -100px;
+    right: 50%;
+    transform: translateX(-50%) translateY(100%);
     z-index: 1;
-    transition: visibility 0s, opacity 0.5s linear;
 }
-.notification-visible {
-    opacity: 1;
+#notification-container.animate {
+    animation: slideIn 0.5s ease-in-out forwards;
 }
 .notification {
     width: 232px;
@@ -186,6 +185,14 @@ input:focus, textarea:focus{
     align-items: center;
     border-radius: 16px;
     padding: 8px 16px;
+}
+@keyframes slideIn {
+    from {
+        transform: translateX(-50%) translateY(100%); 
+    }
+    to {
+        transform: translateX(-50%) translateY(-600%); 
+    }
 }
 /* SUBTASK STYLE */
 .subtask{
@@ -202,6 +209,7 @@ input:focus, textarea:focus{
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-right: 10px;
 }
 .subtask-line{
     width: 1px;

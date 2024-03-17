@@ -25,15 +25,8 @@ function chooseUrgentPrio() {
     urgent.classList.add("urgent-priority-active");
     urgentimg.src = "assets/img/addtask_urgent_white.svg";
 
-    let medium = document.getElementById("priority-medium");
-    let mediumimg = document.getElementById("img-medium");
-    medium.classList.remove("medium-priority-active");
-    mediumimg.src = "assets/img/addtask_medium.svg";
-
-    let low = document.getElementById("priority-low");
-    let lowimg = document.getElementById("img-low");
-    low.classList.remove("low-priority-active");
-    lowimg.src = "assets/img/addtask_low.svg";
+    removeMediumPrio();
+    removeLowPrio();
 }
 
 function chooseMediumPrio() {
@@ -43,15 +36,8 @@ function chooseMediumPrio() {
     medium.classList.add("medium-priority-active");
     mediumimg.src = "assets/img/addtask_medium_white.svg";
 
-    let urgent = document.getElementById("priority-urgent");
-    let urgentimg = document.getElementById("img-urgent");
-    urgent.classList.remove("urgent-priority-active");
-    urgentimg.src = "assets/img/addtask_urgent.svg";
-
-    let low = document.getElementById("priority-low");
-    let lowimg = document.getElementById("img-low");
-    low.classList.remove("low-priority-active");
-    lowimg.src = "assets/img/addtask_low.svg";
+    removeLowPrio();
+    removeUrgentPrio();
 }
 
 function chooseLowPrio() {
@@ -61,30 +47,37 @@ function chooseLowPrio() {
     low.classList.add("low-priority-active");
     lowimg.src = "assets/img/addtask_low_white.svg";
 
-    let urgent = document.getElementById("priority-urgent");
-    let urgentimg = document.getElementById("img-urgent");
-    urgent.classList.remove("urgent-priority-active");
-    urgentimg.src = "assets/img/addtask_urgent.svg";
-
-    let medium = document.getElementById("priority-medium");
-    let mediumimg = document.getElementById("img-medium");
-    medium.classList.remove("medium-priority-active");
-    mediumimg.src = "assets/img/addtask_medium.svg";
+    removeMediumPrio();
+    removeUrgentPrio();
 }
 
 function clearForm() {
     document.getElementById('add-task').reset();
-    document.getElementById("priority-urgent").classList.remove("urgent-priority-active");
-    document.getElementById("priority-medium").classList.remove("medium-priority-active");
-    document.getElementById("priority-low").classList.remove("low-priority-active");
-    document.getElementById("img-urgent").src = "assets/img/addtask_urgent.svg";
-    document.getElementById("img-medium").src = "assets/img/addtask_medium.svg";
-    document.getElementById("img-low").src = "assets/img/addtask_low.svg";
     document.getElementById("add-task-btn").disabled = true;
+
+    removeUrgentPrio();
+    removeMediumPrio();
+    removeLowPrio();
 }
 
 function addTask() {
-    window.location.href = 'board.html';
+    let notification = document.getElementById('notification-container');
+
+    notification.classList.add("animate");
+
+    notification.innerHTML = /*html*/ `
+    <div class="notification">
+        <p>Task added to board</p>
+        <img src="assets/img/board_grey.svg" alt="Board">
+    </div>
+    `;
+
+    setTimeout(() => {
+        notification.classList.remove("animate");
+        notification.innerHTML = ''
+        clearForm();
+        window.location.href = "board.html";
+    }, 3000);
 }
 
 function addSubtask(){
@@ -98,9 +91,9 @@ function addSubtask(){
             <li>${subtask}</li>
         </ul>
         <div class="subtask-icons">
-            <img onclick="editSubtask()" class="icon-plus" src="assets/img/pencil_grey.svg" alt="">
+            <img onclick="editSubtask()" src="assets/img/pencil_grey.svg" alt="">
             <div class="subtask-line"></div>
-            <img onclick="removeSubtask('${subtaskId}')" class="icon-plus" src="assets/img/delete.svg" alt="">
+            <img onclick="removeSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
         </div>
     </div>
     `;
@@ -113,4 +106,26 @@ function removeSubtask(subtaskId){
     if(subtaskElement) {
         subtaskElement.remove(); 
     }
+}
+
+// HILFSFUNKTIONEN
+function removeMediumPrio(){
+    let medium = document.getElementById("priority-medium");
+    let mediumimg = document.getElementById("img-medium");
+    medium.classList.remove("medium-priority-active");
+    mediumimg.src = "assets/img/addtask_medium.svg";
+}
+
+function removeLowPrio(){
+    let low = document.getElementById("priority-low");
+    let lowimg = document.getElementById("img-low");
+    low.classList.remove("low-priority-active");
+    lowimg.src = "assets/img/addtask_low.svg";
+}
+
+function removeUrgentPrio(){
+    let urgent = document.getElementById("priority-urgent");
+    let urgentimg = document.getElementById("img-urgent");
+    urgent.classList.remove("urgent-priority-active");
+    urgentimg.src = "assets/img/addtask_urgent.svg";
 }

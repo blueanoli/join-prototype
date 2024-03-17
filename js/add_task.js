@@ -1,5 +1,5 @@
 let subtaskCounter = 0;
-let contacts = ['Max Mustermann', 'Susi Sonne'];
+let testContacts = ['Max Mustermann', 'Susi Sonne'];
 
 /**
  * Initializes the script by including HTML content dynamically.
@@ -158,13 +158,13 @@ function renderContacts() {
 
     itemsDiv.innerHTML = '';
 
-    contacts.forEach(contact => {
+    testContacts.forEach(testContacts => {
         let optionDiv = document.createElement(`div`);
         optionDiv.innerHTML = /*html*/ `
-        ${contact} <img id="img-checkbox" onclick="assignContact('${contact}')" src="assets/img/checkboxempty.svg">
+        ${testContacts} <img id="img-checkbox" onclick="assignContact('${testContacts}')" src="assets/img/checkboxempty.svg">
         `;
         optionDiv.addEventListener('click', function() {
-            selectedDiv.innerHTML = `${contact}`;
+            selectedDiv.innerHTML = `${testContacts}`;
             itemsDiv.classList.add('select-hide');
             changeDropdownImg('close');
         });
@@ -172,10 +172,10 @@ function renderContacts() {
     });
 }
 
-function assignContact(contact) {
+function assignContact(testContacts) {
     let assignedTo = document.getElementById('assign-contacts');
     assignedTo.innerHTML += /*html*/ `
-    <div class="assigned-contact">${contact}</div>
+    <div class="assigned-contact">${testContacts}</div>
     `;
 }
 
@@ -211,7 +211,3 @@ function changeDropdownImg(state) {
     let img = document.getElementById("img-dropdown");
     img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
 }
-
-document.getElementById('assigned-to').addEventListener('click', function(e) {
-    e.stopPropagation();
-});

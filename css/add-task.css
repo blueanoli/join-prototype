@@ -116,7 +116,7 @@ textarea{
     display: flex;
     justify-content: flex-end;
     gap: 16px;
-    margin-top: 100px;
+    margin-top: 125px;
 }
 .priority-active {
     color: white;
@@ -248,7 +248,6 @@ textarea{
 }
 .custom-select {
     position: relative;
-    font-family: 'Inter', sans-serif;
     font-size: 16px;
     border: 1px solid #d1d1d1;
     border-radius: 5px;
@@ -257,7 +256,7 @@ textarea{
     justify-content: space-between;
     align-items: center;
     height: 40px;
-    padding: 0 8px;
+    padding: 0 4px 0 8px;
     background-color: white;
   }
   .select-items div, .select-selected {
@@ -271,12 +270,13 @@ textarea{
     display: flex;
     flex-direction: column;
     justify-content: center;
+    font-family: 'Inter', sans-serif;
   }
   .select-items div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 16px;
+    padding: 8px;
   }
   .select-hide {
     display: none;
@@ -287,4 +287,8 @@ textarea{
   #img-dropdown {
     cursor: pointer;
     z-index: 1;
+  }
+  #img-dropdown:hover {
+    background-color: #d1d1d1;
+    border-radius: 50%;
   }

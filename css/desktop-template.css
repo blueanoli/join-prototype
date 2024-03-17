@@ -4,6 +4,7 @@
     box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
     align-items: center;
     padding: 20px 40px 20px 350px;
+    height: 96px;
 }
 
 .user-icon {
@@ -141,7 +142,7 @@ h4 {
     padding: 10px;
     font-weight: 400;
     border-radius: 20px 0px 20px 20px;
-    top: 134.8px;
+    top: 136px;
     right: 10px;
     position: fixed;
     width: 150px;
@@ -161,3 +162,4 @@ h4 {
     margin-top: 8px;
     border-radius: 8px;
 }
+

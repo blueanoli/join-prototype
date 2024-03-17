@@ -44,4 +44,14 @@ function setActive() {
 
 function openUserMenu() {
     document.getElementById('user-menu').classList.remove('d-none');
+    document.addEventListener('click', closeUserMenu, true);
+}
+
+function closeUserMenu(event) {
+    const userMenu = document.getElementById('user-menu');
+    if (userMenu.contains(event.target)) {
+        return;
+    }
+    userMenu.classList.add('d-none');
+    document.removeEventListener('click', closeUserMenu, true);
 }

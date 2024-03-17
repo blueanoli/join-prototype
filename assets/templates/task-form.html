@@ -8,10 +8,15 @@
             <input required type="text" id="title" placeholder="Enter a title">
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description"></textarea>
-            <label for="assigned-to">Assigned to</label>
-            <select id="assigned-to">
-                <option value="">Select contacts to assign</option>
-            </select>
+            <p>Assigned to</p>
+            <div class="custom-select-wrapper" onclick="toggleDropdown(); renderContacts()">
+                <div id="assigned-to" class="custom-select">
+                    <div class="select-selected">Select contacts to assign</div>
+                    <img id="img-dropdown" src="assets/img/addtask_dropdown.svg">
+                    <div class="select-items select-hide"></div>
+                </div>
+            </div>
+            <div id="assign-contacts"></div>
         </div>
         <div class="info-container">
             <p class="field-required-info"><span class="red-asterisk">*</span> This field is required</p>

@@ -77,7 +77,7 @@ function addTask() {
         notification.innerHTML = ''
         clearForm();
         window.location.href = "board.html";
-    }, 3000);
+    }, 1000);
 }
 
 function addSubtask(){

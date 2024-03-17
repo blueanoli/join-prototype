@@ -227,12 +227,84 @@ h1 {
   color: var(--light-blue);
 }
 
+.signup-main {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 632px;
+  width: 402px;
+  border-radius: 30px;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 4%);
+  padding: 48px 88px 48px 88px;
+  background-color: rgb(255, 255, 255);
+}
+
+.singup-arrow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 64px;
+  left: 48px;
+  width: 32px;
+  height: 32px;
+  border-radius: 43px;
+}
+
+.singup-arrow-container a {
+  width: 21px;
+  height: 21px;
+}
+
+.signup-arrow-left {
+  width: 21px;
+  height: 21px;
+}
+
+.singup-arrow-container:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.signup-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.signup-policy {
+  display: flex;
+  align-items: center;
+  margin-top: 22.5px;
+}
+
+.signup-checkbox {
+  margin-right: 8px;
+}
+
+.signup-accept-privacy {
+  color: #a8a8a8;
+}
+
+.signup-policy-link {
+  font-size: 16px;
+  color: var(--light-blue);
+  text-decoration: none;
+}
+
+.signup-policy-link:hover {
+  text-decoration: underline;
+  font-weight: 400;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 10px var(--dark-blue); 
+  box-shadow: inset 0 0 10px var(--dark-blue);
   border-radius: 8px;
 }
 

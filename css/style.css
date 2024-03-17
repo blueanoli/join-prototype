@@ -39,6 +39,10 @@ body {
   background-color: var(--background-grey);
 }
 
+.d-none {
+  display: none !important;
+}
+
 .login-body {
   margin: 0 auto;
   box-sizing: border-box;

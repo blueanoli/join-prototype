@@ -41,3 +41,7 @@ function setActive() {
         if (parent) parent.classList.toggle("active", isActive);
     });
 }
+
+function openUserMenu() {
+    document.getElementById('user-menu').classList.remove('d-none');
+}

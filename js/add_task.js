@@ -4,9 +4,9 @@ let testContacts = ['Max Mustermann', 'Susi Sonne'];
 /**
  * Initializes the script by including HTML content dynamically.
  */
-function init() {
-    includeHTML();
-}
+// function init() {
+//    includeHTML();
+// } 
 
 /**
  * Sets the task priority to urgent by updating the UI elements' class and image source accordingly.

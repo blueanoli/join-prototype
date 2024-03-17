@@ -25,6 +25,10 @@
   --user-light-blue: #00bee8;
 }
 
+.active {
+  background-color: var(--highlighted);
+}
+
 html {
   scroll-behavior: smooth;
   font-family: "Inter", sans-serif;

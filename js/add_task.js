@@ -9,24 +9,6 @@ function init() {
 }
 
 /**
- * Dynamically includes HTML content into elements with the 'w3-include-html' attribute.
- * The function fetches the HTML file specified in the attribute and embeds its content into the element.
- */
-async function includeHTML() {
-    let includeElements = document.querySelectorAll('[w3-include-html]');
-    for (let i = 0; i < includeElements.length; i++) {
-        const element = includeElements[i];
-        file = element.getAttribute("w3-include-html");
-        let resp = await fetch(file);
-        if (resp.ok) {
-            element.innerHTML = await resp.text();
-        } else {
-            element.innerHTML = 'Page not found';
-        }
-    }
-}
-
-/**
  * Sets the task priority to urgent by updating the UI elements' class and image source accordingly.
  * It also removes the medium and low priority indicators if they are active.
  */

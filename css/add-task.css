@@ -69,12 +69,12 @@ textarea{
 .left-input-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 95%;
 }
 .right-input-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 95%;
 }
 .divider {
     width: 1px;

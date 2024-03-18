@@ -2,6 +2,47 @@ let subtaskCounter = 0;
 let testContacts = ['Max Mustermann', 'Susi Sonne'];
 let testCategories = ['Technical Task', 'User Story'];
 
+function checkRequiredField() {
+    let fields = [
+        {id: 'title', errorId: 'title-error'},
+        {id: 'due-date', errorId: 'due-date-error'},
+        {id: 'choose-category', errorId: 'category-error', isDiv: true},
+    ];
+
+    fields.forEach(field => {
+        let inputElement = document.getElementById(field.id);
+        let errorMessage = document.getElementById(field.errorId);
+
+        let isFieldEmpty;
+
+        if (field.isDiv) {
+            isFieldEmpty = !inputElement.getAttribute('data-value');
+        } else {
+            isFieldEmpty = inputElement.value.trim() === '';
+        }
+
+        if (isFieldEmpty) {
+            inputElement.classList.add('input-error');
+            errorMessage.style.display = 'block';
+        } else {
+            inputElement.classList.remove('input-error');
+            errorMessage.style.display = 'none';
+        }
+    });
+}
+
+
+function resetFieldStyle(element) {
+    element.classList.remove('input-error');
+
+    let errorId = element.id + '-error';
+    let errorElement = document.getElementById(errorId);
+
+    if (errorElement) { 
+        errorElement.style.display = 'none';
+    }
+}
+
 /**
  * Sets the task priority to urgent by updating the UI elements' class and image source accordingly.
  * It also removes the medium and low priority indicators if they are active.
@@ -65,11 +106,15 @@ function clearForm() {
 function addTask() {
     let notification = document.getElementById('notification-container');
 
-    if (notification.innerHTML !== '') {
-        return;
-    }else{
-    notification.classList.add("animate");
+    checkRequiredField();
 
+    let isErrorVisible = Array.from(document.querySelectorAll('.error-message')).some(element => element.style.display === 'block');
+
+    if (isErrorVisible) {
+        return; 
+    }
+
+    notification.classList.add("animate");
     notification.innerHTML = /*html*/ `
     <div class="notification">
         <p>Task added to board</p>
@@ -79,12 +124,12 @@ function addTask() {
 
     setTimeout(() => {
         notification.classList.remove("animate");
-        notification.innerHTML = ''
+        notification.innerHTML = '';
         clearForm();
         window.location.href = "board.html";
     }, 1000);
 }
-}
+
 
 /**
  * Adds a subtask to the task form.
@@ -162,25 +207,18 @@ function renderCategories() {
 
     itemsDiv.innerHTML = '';
 
-    testCategories.forEach(testCategories => {
+    testCategories.forEach(category => {
         let optionDiv = document.createElement(`div`);
-        optionDiv.innerHTML = /*html*/ `
-        ${testCategories}
-        `;
+        optionDiv.textContent = category;
         optionDiv.addEventListener('click', function() {
-            selectedDiv.innerHTML = `${testCategories}`;
+            selectedDiv.textContent = category;
+            dropdown.setAttribute('data-value', category); 
             itemsDiv.classList.add('select-hide');
             changeDropdownImgCat('close');
+            resetFieldStyle(dropdown); 
         });
         itemsDiv.appendChild(optionDiv);
     });
-}
-
-function assignCategory(testCategories) {
-    let taskCategory = document.getElementById('choose-category');
-    taskCategory.innerHTML = /*html*/ `
-    <div>${testCategories}</div>
-    `;
 }
 
 // HILFSFUNKTIONEN
@@ -219,6 +257,7 @@ function changeDropdownImgAssign(state) {
 function toggleDropdownCat() {
     let itemsDiv = document.getElementById('choose-category').querySelector('.select-items');
     itemsDiv.classList.toggle('select-hide');
+    changeDropdownImgCat(itemsDiv.classList.contains('select-hide') ? 'close' : 'open');
 }
 
 function changeDropdownImgCat(state) {

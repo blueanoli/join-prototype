@@ -10,10 +10,13 @@ p{
     margin-top: 0;
     margin-bottom: 8px;
 }
+.font-size20{
+    font-size: 20px;
+}
 ul{
     margin: 0;
 }
-input, textarea, button, p, option {
+input, textarea, button, option {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
     padding-left: 8px;
@@ -29,6 +32,7 @@ input:focus, textarea:focus{
     border: 1px solid var(--light-blue);
     outline: none;
 }
+
 input{
     height: 40px;
 }
@@ -65,12 +69,12 @@ textarea{
 .left-input-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 95%;
 }
 .right-input-container {
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 95%;
 }
 .divider {
     width: 1px;
@@ -185,7 +189,7 @@ textarea{
     left: 50%;
     right: 50%;
     transform: translateX(-50%) translateY(100%);
-    z-index: 1;
+    z-index: 999;
 }
 #notification-container.animate {
     animation: slideIn 0.2s ease-in-out forwards;
@@ -208,7 +212,7 @@ textarea{
         transform: translateX(-50%) translateY(100%); 
     }
     to {
-        transform: translateX(-50%) translateY(-700%); 
+        transform: translateX(-50%) translateY(-800%); 
     }
 }
 /* SUBTASK STYLE */
@@ -249,7 +253,7 @@ textarea{
 }
 .custom-select {
     position: relative;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #d1d1d1;
     border-radius: 5px;
     cursor: pointer;
@@ -280,7 +284,7 @@ textarea{
     justify-content: space-between;
     padding: 8px;
     background-color: white;
-    z-index: 999;
+    z-index: 5;
   }
   .select-hide {
     display: none;
@@ -297,3 +301,14 @@ textarea{
     background-color: #d1d1d1;
     border-radius: 50%;
   }
+  /* ERROR MESSAGE */
+  .error-message {
+    display: none;
+    color: red;
+    font-size: 10px;
+    margin-bottom: 16px;
+    margin-top: -10px;
+}
+.input-error {
+    border: 1px solid var(--urgent);
+}

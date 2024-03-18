@@ -29,6 +29,7 @@ input:focus, textarea:focus{
     border: 1px solid var(--light-blue);
     outline: none;
 }
+
 input{
     height: 40px;
 }
@@ -305,7 +306,6 @@ textarea{
     margin-bottom: 16px;
     margin-top: -10px;
 }
-
 .input-error {
     border: 1px solid var(--urgent);
 }

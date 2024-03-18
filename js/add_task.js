@@ -1,12 +1,6 @@
 let subtaskCounter = 0;
 let testContacts = ['Max Mustermann', 'Susi Sonne'];
-
-/**
- * Initializes the script by including HTML content dynamically.
- */
-// function init() {
-//    includeHTML();
-// } 
+let testCategories = ['Technical Task', 'User Story'];
 
 /**
  * Sets the task priority to urgent by updating the UI elements' class and image source accordingly.
@@ -143,12 +137,12 @@ function renderContacts() {
     testContacts.forEach(testContacts => {
         let optionDiv = document.createElement(`div`);
         optionDiv.innerHTML = /*html*/ `
-        ${testContacts} <img id="img-checkbox" onclick="assignContact('${testContacts}')" src="assets/img/checkboxempty.svg">
+        ${testContacts} <img id="img-checkbox-con" onclick="assignContact('${testContacts}')" src="assets/img/checkboxempty.svg">
         `;
         optionDiv.addEventListener('click', function() {
             selectedDiv.innerHTML = `${testContacts}`;
             itemsDiv.classList.add('select-hide');
-            changeDropdownImg('close');
+            changeDropdownImgAssign('close');
         });
         itemsDiv.appendChild(optionDiv);
     });
@@ -158,6 +152,34 @@ function assignContact(testContacts) {
     let assignedTo = document.getElementById('assign-contacts');
     assignedTo.innerHTML += /*html*/ `
     <div class="assigned-contact">${testContacts}</div>
+    `;
+}
+
+function renderCategories() {
+    let dropdown = document.getElementById('choose-category');
+    let itemsDiv = dropdown.querySelector('.select-items');
+    let selectedDiv = dropdown.querySelector('.select-selected');
+
+    itemsDiv.innerHTML = '';
+
+    testCategories.forEach(testCategories => {
+        let optionDiv = document.createElement(`div`);
+        optionDiv.innerHTML = /*html*/ `
+        ${testCategories}
+        `;
+        optionDiv.addEventListener('click', function() {
+            selectedDiv.innerHTML = `${testCategories}`;
+            itemsDiv.classList.add('select-hide');
+            changeDropdownImgCat('close');
+        });
+        itemsDiv.appendChild(optionDiv);
+    });
+}
+
+function assignCategory(testCategories) {
+    let taskCategory = document.getElementById('choose-category');
+    taskCategory.innerHTML = /*html*/ `
+    <div>${testCategories}</div>
     `;
 }
 
@@ -183,13 +205,23 @@ function removeUrgentPrio(){
     urgentimg.src = "assets/img/addtask_urgent.svg";
 }
 
-function toggleDropdown() {
+function toggleDropdownAssign() {
     let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
     itemsDiv.classList.toggle('select-hide');
-    changeDropdownImg(itemsDiv.classList.contains('select-hide') ? 'close' : 'open');
+    changeDropdownImgAssign(itemsDiv.classList.contains('select-hide') ? 'close' : 'open');
 }
 
-function changeDropdownImg(state) {
+function changeDropdownImgAssign(state) {
     let img = document.getElementById("img-dropdown");
+    img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
+}
+
+function toggleDropdownCat() {
+    let itemsDiv = document.getElementById('choose-category').querySelector('.select-items');
+    itemsDiv.classList.toggle('select-hide');
+}
+
+function changeDropdownImgCat(state) {
+    let img = document.getElementById("img-dropdown-cat");
     img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
 }

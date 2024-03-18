@@ -9,10 +9,10 @@
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description"></textarea>
             <p>Assigned to</p>
-            <div class="custom-select-wrapper" onclick="toggleDropdown(); renderContacts()">
+            <div class="custom-select-wrapper" onclick="toggleDropdownAssign(); renderContacts()">
                 <div id="assigned-to" class="custom-select">
                     <div class="select-selected">Select contacts to assign</div>
-                    <img id="img-dropdown" src="assets/img/addtask_dropdown.svg">
+                    <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
                     <div class="select-items select-hide"></div>
                 </div>
             </div>
@@ -38,12 +38,14 @@
                             src="assets/img/addtask_low.svg"></div>
                 </div>
             </div>
-            <label for="category">Category<span class="red-asterisk">*</span></label>
-            <select required id="category" name="category">
-                <option value="">Select task category</option>
-                <option value="1">Technical Task</option>
-                <option value="2">User Story</option>
-            </select>
+            <p>Category<span class="red-asterisk">*</span></p>
+            <div class="custom-select-wrapper" onclick="toggleDropdownCat(); renderCategories()">
+                <div id="choose-category" class="custom-select">
+                    <div class="select-selected">Select task category</div>
+                    <img class="dropdown-arrow" id="img-dropdown-cat" src="assets/img/addtask_dropdown.svg">
+                    <div class="select-items select-hide"></div>
+                </div>
+            </div>
             <label for="subtasks">Subtasks</label>
             <div class="add-subtask">
                 <input type="text" id="subtasks" placeholder="Add new subtask">

@@ -13,11 +13,12 @@ p{
 ul{
     margin: 0;
 }
-input, textarea, select, button, p, option {
+input, textarea, button, p, option {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
+    padding-left: 8px;
 }
-input, textarea, select {
+input, textarea {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
     margin-bottom: 16px;
@@ -28,7 +29,7 @@ input:focus, textarea:focus{
     border: 1px solid var(--light-blue);
     outline: none;
 }
-input, select{
+input{
     height: 40px;
 }
 textarea{
@@ -43,7 +44,7 @@ textarea{
     align-items: center;
     justify-content: flex-start;
     margin-left: 340px;
-    margin-top: 90px;
+    margin-top: 80px;
 }
 .add-task-headline h1 {
     font-size: 61px;
@@ -244,7 +245,7 @@ textarea{
 }
 /* SELECT CONTACTS FIELD */
 .custom-select-wrapper{
-    z-index: 3;
+    z-index: 99;
 }
 .custom-select {
     position: relative;
@@ -258,6 +259,7 @@ textarea{
     height: 40px;
     padding: 0 4px 0 8px;
     background-color: white;
+    margin-bottom: 16px;
   }
   .select-items div, .select-selected {
     cursor: pointer;
@@ -277,18 +279,21 @@ textarea{
     align-items: center;
     justify-content: space-between;
     padding: 8px;
+    background-color: white;
+    z-index: 999;
   }
   .select-hide {
     display: none;
   }
   .select-items div:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: #d1d1d1;
+    border-radius: 8px;
   }
-  #img-dropdown {
+  .dropdown-arrow {
     cursor: pointer;
     z-index: 1;
   }
-  #img-dropdown:hover {
+  .dropdown-arrow:hover {
     background-color: #d1d1d1;
     border-radius: 50%;
   }

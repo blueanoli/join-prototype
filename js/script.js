@@ -44,6 +44,7 @@ function setActive() {
 
 function openUserMenu() {
     document.getElementById('user-menu').classList.remove('d-none');
+    document.body.style.overflow = 'hidden';
     document.addEventListener('click', closeUserMenu, true);
 }
 
@@ -53,5 +54,6 @@ function closeUserMenu(event) {
         return;
     }
     userMenu.classList.add('d-none');
+    document.body.style.overflow = '';
     document.removeEventListener('click', closeUserMenu, true);
 }

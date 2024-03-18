@@ -10,6 +10,9 @@ p{
     margin-top: 0;
     margin-bottom: 8px;
 }
+.font-size20{
+    font-size: 20px;
+}
 ul{
     margin: 0;
 }
@@ -250,7 +253,7 @@ textarea{
 }
 .custom-select {
     position: relative;
-    font-size: 16px;
+    font-size: 20px;
     border: 1px solid #d1d1d1;
     border-radius: 5px;
     cursor: pointer;

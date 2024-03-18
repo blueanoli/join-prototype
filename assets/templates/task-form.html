@@ -5,7 +5,8 @@
     <div class="add-task-left">
         <div class="left-input-container">
             <label for="title">Title<span class="red-asterisk">*</span></label>
-            <input required type="text" id="title" placeholder="Enter a title">
+            <input onfocus="resetFieldStyle(this)" required type="text" id="title" placeholder="Enter a title">
+            <span class="error-message" id="title-error">This field is required</span>
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description"></textarea>
             <p>Assigned to</p>
@@ -26,7 +27,8 @@
     <div class="add-task-right">
         <div class="right-input-container">
             <label for="due-date">Due date<span class="red-asterisk">*</span></label>
-            <input required type="date" id="due-date">
+            <input onfocus="resetFieldStyle(this)" required type="date" id="due-date">
+            <span class="error-message" id="due-date-error">This field is required</span>
             <div id="priority">
                 <p>Prio</p>
                 <div class="priority-container">
@@ -40,12 +42,13 @@
             </div>
             <p>Category<span class="red-asterisk">*</span></p>
             <div class="custom-select-wrapper" onclick="toggleDropdownCat(); renderCategories()">
-                <div id="choose-category" class="custom-select">
+                <div onfocus="resetFieldStyle(this)" id="choose-category" class="custom-select" data-value="">
                     <div class="select-selected">Select task category</div>
                     <img class="dropdown-arrow" id="img-dropdown-cat" src="assets/img/addtask_dropdown.svg">
                     <div class="select-items select-hide"></div>
                 </div>
             </div>
+            <span class="error-message" id="category-error">This field is required</span>
             <label for="subtasks">Subtasks</label>
             <div class="add-subtask">
                 <input type="text" id="subtasks" placeholder="Add new subtask">

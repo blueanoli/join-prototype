@@ -311,6 +311,7 @@ textarea{
   .test-contact{
     color: white;
     border-radius: 45px;
+    border: 1px solid white;
     height: 24px;
     width: 24px;
     padding: 8px;
@@ -329,6 +330,7 @@ textarea{
 }
 #assign-contacts{
     display: flex;
+    gap: 4px;
 }
   /* ERROR MESSAGE */
   .error-message {

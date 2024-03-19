@@ -88,12 +88,7 @@ function addTask() {
     }
 
     notification.classList.add("animate");
-    notification.innerHTML = /*html*/ `
-    <div class="notification">
-        <p>Task added to board</p>
-        <img src="assets/img/board_grey.svg" alt="Board">
-    </div>
-    `;
+    notification.innerHTML = renderNotificationHTML();
 
     setTimeout(() => {
         notification.classList.remove("animate");
@@ -108,18 +103,7 @@ function addSubtask() {
     let subtaskcontainer = document.getElementById('subtask-container');
     let subtaskId = 'subtask-' + subtaskCounter++;
 
-    subtaskcontainer.innerHTML += /*html*/ `
-    <div id="${subtaskId}" class="subtask">
-        <ul>
-            <li>${subtask}</li>
-        </ul>
-        <div class="subtask-icons">
-            <img onclick="editSubtask()" src="assets/img/pencil_grey.svg" alt="">
-            <div class="subtask-line"></div>
-            <img onclick="removeSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
-        </div>
-    </div>
-    `;
+    subtaskcontainer.innerHTML += renderSubtaskHTML(subtask, subtaskId);
 
     document.getElementById('subtasks').value = '';
 }
@@ -146,12 +130,7 @@ function renderContacts() {
 
         let isChecked = selectedContacts[contact] === true;
         let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
-        optionDiv.innerHTML = /*html*/` 
-            <div class="test-contact-container">
-            <p class="test-contact" style="background-color: ${color};">${initials}</p>
-            ${contact} 
-            </div>
-            <img class="checkbox-icon" src="assets/img/${checkboxImage}">`;
+        optionDiv.innerHTML = renderContactHTML(contact, color, initials, checkboxImage);
 
         optionDiv.addEventListener('click', function (event) {
             event.stopImmediatePropagation();
@@ -180,10 +159,7 @@ function addAssignedContact(contact) {
         let initials = getInitials(contact); 
         let color = getColorForInitials(initials); 
 
-        assignedTo.innerHTML += /*html*/`
-        <div class="assigned-contact">
-            <div class="test-contact" style="background-color: ${color};">${initials}</div>
-        </div>`;
+        assignedTo.innerHTML += renderAssignedContactHTML(initials, color);
     }
 }
 
@@ -241,27 +217,27 @@ function clearForm() {
     document.getElementById('add-task').reset();
     document.getElementById("add-task-btn").disabled = true;
 
-    removeUrgentPrio();
-    removeMediumPrio();
     removeLowPrio();
+    removeMediumPrio();
+    removeUrgentPrio();
     clearAssignedContacts();
     resetCategorySelection();
     clearSubtasks();
 }
 
 // HILFSFUNKTIONEN
-function removeMediumPrio() {
-    let medium = document.getElementById("priority-medium");
-    let mediumimg = document.getElementById("img-medium");
-    medium.classList.remove("medium-priority-active");
-    mediumimg.src = "assets/img/addtask_medium.svg";
-}
-
 function removeLowPrio() {
     let low = document.getElementById("priority-low");
     let lowimg = document.getElementById("img-low");
     low.classList.remove("low-priority-active");
     lowimg.src = "assets/img/addtask_low.svg";
+}
+
+function removeMediumPrio() {
+    let medium = document.getElementById("priority-medium");
+    let mediumimg = document.getElementById("img-medium");
+    medium.classList.remove("medium-priority-active");
+    mediumimg.src = "assets/img/addtask_medium.svg";
 }
 
 function removeUrgentPrio() {
@@ -308,7 +284,7 @@ function resetCategorySelection() {
     let dropdown = document.getElementById('choose-category');
     dropdown.removeAttribute('data-value'); 
     let selectedDiv = dropdown.querySelector('.select-selected');
-    selectedDiv.textContent = 'Choose category'; 
+    selectedDiv.textContent = 'Select task category'; 
     resetFieldStyle(dropdown); 
 }
 

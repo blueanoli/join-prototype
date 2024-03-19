@@ -76,15 +76,6 @@ function chooseLowPrio() {
     removeUrgentPrio();
 }
 
-function clearForm() {
-    document.getElementById('add-task').reset();
-    document.getElementById("add-task-btn").disabled = true;
-
-    removeUrgentPrio();
-    removeMediumPrio();
-    removeLowPrio();
-}
-
 function addTask() {
     let notification = document.getElementById('notification-container');
 
@@ -143,8 +134,7 @@ function removeSubtask(subtaskId) {
 function renderContacts() {
     let dropdown = document.getElementById('assigned-to');
     let itemsDiv = dropdown.querySelector('.select-items');
-    let assignedTo = document.getElementById('assign-contacts').textContent;
-
+    
     itemsDiv.innerHTML = '';
 
     testContacts.forEach(contact => {
@@ -247,6 +237,18 @@ function renderCategories() {
     });
 }
 
+function clearForm() {
+    document.getElementById('add-task').reset();
+    document.getElementById("add-task-btn").disabled = true;
+
+    removeUrgentPrio();
+    removeMediumPrio();
+    removeLowPrio();
+    clearAssignedContacts();
+    resetCategorySelection();
+    clearSubtasks();
+}
+
 // HILFSFUNKTIONEN
 function removeMediumPrio() {
     let medium = document.getElementById("priority-medium");
@@ -289,4 +291,29 @@ function toggleDropdownCat() {
 function changeDropdownImgCat(state) {
     let img = document.getElementById("img-dropdown-cat");
     img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
+}
+
+function clearAssignedContacts() {
+    let assignedTo = document.getElementById('assign-contacts');
+    assignedTo.innerHTML = '';
+
+    Object.keys(selectedContacts).forEach(key => {
+        selectedContacts[key] = false;
+    });
+
+    renderContacts();
+}
+
+function resetCategorySelection() {
+    let dropdown = document.getElementById('choose-category');
+    dropdown.removeAttribute('data-value'); 
+    let selectedDiv = dropdown.querySelector('.select-selected');
+    selectedDiv.textContent = 'Choose category'; 
+    resetFieldStyle(dropdown); 
+}
+
+function clearSubtasks() {
+    let subtaskContainer = document.getElementById('subtask-container');
+    subtaskContainer.innerHTML = '';
+    subtaskCounter = 0; 
 }

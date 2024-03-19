@@ -2,19 +2,18 @@ let subtaskCounter = 0;
 let testContacts = ['Max Mustermann', 'Susi Sonne', 'John Doe'];
 let testCategories = ['Technical Task', 'User Story'];
 let selectedContacts = {};
+let fields = [
+    { id: 'title', errorId: 'title-error' },
+    { id: 'due-date', errorId: 'due-date-error' },
+    { id: 'choose-category', errorId: 'category-error', isDiv: true },
+];
+let isFieldEmpty;
 
 function checkRequiredField() {
-    let fields = [
-        { id: 'title', errorId: 'title-error' },
-        { id: 'due-date', errorId: 'due-date-error' },
-        { id: 'choose-category', errorId: 'category-error', isDiv: true },
-    ];
-
+    
     fields.forEach(field => {
         let inputElement = document.getElementById(field.id);
         let errorMessage = document.getElementById(field.errorId);
-
-        let isFieldEmpty;
 
         if (field.isDiv) {
             isFieldEmpty = !inputElement.getAttribute('data-value');

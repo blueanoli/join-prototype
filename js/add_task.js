@@ -185,7 +185,12 @@ function renderContacts() {
   
         let isChecked = assignedTo.includes(contact);
         let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
-        optionDiv.innerHTML = `${contact} <img class="checkbox-icon" src="assets/img/${checkboxImage}">`;
+        optionDiv.innerHTML = /*html*/` 
+            <div class="test-contact-container">
+            <p class="test-contact">MM</p>
+            ${contact} 
+            </div>
+            <img class="checkbox-icon" src="assets/img/${checkboxImage}">`;
 
         optionDiv.addEventListener('click', function(event) {
             event.stopImmediatePropagation();

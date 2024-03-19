@@ -164,7 +164,7 @@ textarea{
     filter: invert(55%) sepia(100%) saturate(3000%) hue-rotate(175deg) brightness(90%) contrast(90%);
 }
 .field-required-info {
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: 100px;
 }
 .red-asterisk {
@@ -284,7 +284,6 @@ textarea{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px;
     background-color: white;
     z-index: 5;
   }
@@ -292,8 +291,8 @@ textarea{
     display: none;
   }
   .select-items div:hover {
-    background-color: #d1d1d1;
-    border-radius: 8px;
+    background-color: #d1d1d1 !important;
+    border-radius: 8px !important;
   }
   .dropdown-arrow {
     cursor: pointer;
@@ -303,6 +302,32 @@ textarea{
     background-color: #d1d1d1;
     border-radius: 50%;
   }
+  /* TEST CONTACTS */
+  .test-contact-container{
+    display: flex;
+    align-items: center; /* Zentriert die Inhalte vertikal */
+    gap: 8px;
+}
+  .test-contact{
+    background-color: var(--user-light-green);
+    color: white;
+    border-radius: 45px;
+    height: 24px;
+    width: 24px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+  }
+.option-item{
+    display: flex;
+    align-items: center; 
+    gap: 8px;
+    padding: 4px 8px; 
+    border-radius: 8px; 
+}
   /* ERROR MESSAGE */
   .error-message {
     display: none;

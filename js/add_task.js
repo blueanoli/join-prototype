@@ -1,6 +1,7 @@
 let subtaskCounter = 0;
 let testContacts = ['Max Mustermann', 'Susi Sonne', 'John Doe'];
 let testCategories = ['Technical Task', 'User Story'];
+let selectedContacts = {};
 
 function checkRequiredField() {
     let fields = [
@@ -31,7 +32,6 @@ function checkRequiredField() {
     });
 }
 
-
 function resetFieldStyle(element) {
     element.classList.remove('input-error');
 
@@ -43,10 +43,6 @@ function resetFieldStyle(element) {
     }
 }
 
-/**
- * Sets the task priority to urgent by updating the UI elements' class and image source accordingly.
- * It also removes the medium and low priority indicators if they are active.
- */
 function chooseUrgentPrio() {
     let urgent = document.getElementById("priority-urgent");
     let urgentimg = document.getElementById("img-urgent");
@@ -58,10 +54,6 @@ function chooseUrgentPrio() {
     removeLowPrio();
 }
 
-/**
- * Sets the task priority to medium by updating the UI elements' class and image source accordingly.
- * It also removes the low and urgent priority indicators if they are active.
- */
 function chooseMediumPrio() {
     let medium = document.getElementById("priority-medium");
     let mediumimg = document.getElementById("img-medium");
@@ -73,10 +65,6 @@ function chooseMediumPrio() {
     removeUrgentPrio();
 }
 
-/**
- * Sets the task priority to low by updating the UI elements' class and image source accordingly.
- * It also removes the medium and urgent priority indicators if they are active.
- */
 function chooseLowPrio() {
     let low = document.getElementById("priority-low");
     let lowimg = document.getElementById("img-low");
@@ -88,9 +76,6 @@ function chooseLowPrio() {
     removeUrgentPrio();
 }
 
-/**
- * Clears the task form, resets priority indicators and disables the add task button.
- */
 function clearForm() {
     document.getElementById('add-task').reset();
     document.getElementById("add-task-btn").disabled = true;
@@ -100,9 +85,6 @@ function clearForm() {
     removeLowPrio();
 }
 
-/**
- * Adds a new task and displays a notification for a brief period before navigating to the board page.
- */
 function addTask() {
     let notification = document.getElementById('notification-container');
 
@@ -130,11 +112,6 @@ function addTask() {
     }, 1000);
 }
 
-
-/**
- * Adds a subtask to the task form.
- * Each subtask is assigned a unique ID and can be edited or removed.
- */
 function addSubtask() {
     let subtask = document.getElementById('subtasks').value;
     let subtaskcontainer = document.getElementById('subtask-container');
@@ -156,10 +133,6 @@ function addSubtask() {
     document.getElementById('subtasks').value = '';
 }
 
-/**
- * Removes a subtask from the task form based on its unique ID.
- * @param {string} subtaskId - The ID of the subtask to be removed.
- */
 function removeSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
     if (subtaskElement) {
@@ -167,11 +140,6 @@ function removeSubtask(subtaskId) {
     }
 }
 
-/**
- * Populates the assigned-to select element with contact names.
- * Each contact is assigned a unique ID and can be edited or removed.
- * 
- */
 function renderContacts() {
     let dropdown = document.getElementById('assigned-to');
     let itemsDiv = dropdown.querySelector('.select-items');
@@ -186,7 +154,7 @@ function renderContacts() {
         let optionDiv = document.createElement('div');
         optionDiv.className = 'option-item';
 
-        let isChecked = assignedTo.includes(contact);
+        let isChecked = selectedContacts[contact] === true;
         let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
         optionDiv.innerHTML = /*html*/` 
             <div class="test-contact-container">
@@ -200,19 +168,20 @@ function renderContacts() {
             let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
             let checkbox = isCheckboxClicked ? event.target : this.querySelector('.checkbox-icon');
 
-            if (checkbox.src.includes('checkboxempty')) {
+            if (!selectedContacts[contact]) {
                 checkbox.src = "assets/img/checkboxchecked.svg";
                 addAssignedContact(contact);
+                selectedContacts[contact] = true;
             } else {
                 checkbox.src = "assets/img/checkboxempty.svg";
                 removeAssignedContact(contact);
+                selectedContacts[contact] = false;
             }
         });
 
         itemsDiv.appendChild(optionDiv);
     });
 }
-
 
 function addAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
@@ -230,11 +199,29 @@ function addAssignedContact(contact) {
 
 function removeAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
-
     let contacts = assignedTo.querySelectorAll('.assigned-contact');
+    let contactInitials = getInitials(contact); 
+
     contacts.forEach((elem) => {
-        if (elem.textContent === contact) {
-            elem.remove();
+        let elemInitials = elem.querySelector('.test-contact').textContent; 
+        if (elemInitials === contactInitials) {
+            elem.remove(); 
+        }
+    });
+
+    selectedContacts[contact] = false;
+    updateCheckboxForContact(contact, false);
+}
+
+function updateCheckboxForContact(contact, isChecked) {
+    let dropdown = document.getElementById('assigned-to');
+    let itemsDiv = dropdown.querySelector('.select-items');
+    let options = itemsDiv.querySelectorAll('.option-item');
+
+    options.forEach((option) => {
+        if (option.textContent.includes(contact)) {
+            let checkbox = option.querySelector('.checkbox-icon');
+            checkbox.src = isChecked ? "assets/img/checkboxchecked.svg" : "assets/img/checkboxempty.svg";
         }
     });
 }

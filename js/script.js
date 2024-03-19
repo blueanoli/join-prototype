@@ -1,5 +1,8 @@
 const STORAGE_TOKEN = 'SUAP8YLQYG530FE8HDED8CKFONZBVXBSJ39FDPIR';
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item';
+const colors = ['--user-orange', '--user-mid-orange','--user-light-orange','--user-green',
+    '--user-light-green','--user-purple','--user-light-purple','--user-red','--user-light-red',
+    '--user-yellow','--user-light-yellow','--user-pink','--user-light-pink','--user-blue','--user-light-blue'];
 
 
 async function setItem(key, value) {
@@ -56,4 +59,17 @@ function closeUserMenu(event) {
     userMenu.classList.add('d-none');
     document.body.style.overflow = '';
     document.removeEventListener('click', closeUserMenu, true);
+}
+
+//ASSIGN COLOR FOR USER AND GET INITALS
+function getColorForInitials(initials) {
+    let sum = 0;
+    for (let i = 0; i < initials.length; i++) {
+        sum += initials.charCodeAt(i);
+    }
+    return `var(${colors[sum % colors.length]})`; 
+}
+
+function getInitials(name) {
+    return name.split(' ').map(part => part[0]).join('').toUpperCase(); 
 }

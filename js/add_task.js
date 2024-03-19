@@ -180,6 +180,9 @@ function renderContacts() {
     itemsDiv.innerHTML = '';
 
     testContacts.forEach(contact => {
+        let initials = getInitials(contact); 
+        let color = getColorForInitials(initials); 
+
         let optionDiv = document.createElement('div');
         optionDiv.className = 'option-item';
   
@@ -187,7 +190,7 @@ function renderContacts() {
         let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
         optionDiv.innerHTML = /*html*/` 
             <div class="test-contact-container">
-            <p class="test-contact">MM</p>
+            <p class="test-contact" style="background-color: ${color};">${initials}</p>
             ${contact} 
             </div>
             <img class="checkbox-icon" src="assets/img/${checkboxImage}">`;

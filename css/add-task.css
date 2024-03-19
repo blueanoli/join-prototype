@@ -309,7 +309,6 @@ textarea{
     gap: 8px;
 }
   .test-contact{
-    background-color: var(--user-light-green);
     color: white;
     border-radius: 45px;
     height: 24px;

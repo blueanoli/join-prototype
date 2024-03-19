@@ -175,29 +175,54 @@ function removeSubtask(subtaskId){
 function renderContacts() {
     let dropdown = document.getElementById('assigned-to');
     let itemsDiv = dropdown.querySelector('.select-items');
-    let selectedDiv = dropdown.querySelector('.select-selected');
+    let assignedTo = document.getElementById('assign-contacts').textContent; 
 
     itemsDiv.innerHTML = '';
 
-    testContacts.forEach(testContacts => {
-        let optionDiv = document.createElement(`div`);
-        optionDiv.innerHTML = /*html*/ `
-        ${testContacts} <img id="img-checkbox-con" onclick="assignContact('${testContacts}')" src="assets/img/checkboxempty.svg">
-        `;
-        optionDiv.addEventListener('click', function() {
-            selectedDiv.innerHTML = `${testContacts}`;
-            itemsDiv.classList.add('select-hide');
-            changeDropdownImgAssign('close');
+    testContacts.forEach(contact => {
+        let optionDiv = document.createElement('div');
+        optionDiv.className = 'option-item';
+  
+        let isChecked = assignedTo.includes(contact);
+        let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
+        optionDiv.innerHTML = `${contact} <img class="checkbox-icon" src="assets/img/${checkboxImage}">`;
+
+        optionDiv.addEventListener('click', function(event) {
+            event.stopImmediatePropagation();
+            let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
+            let checkbox = isCheckboxClicked ? event.target : this.querySelector('.checkbox-icon');
+
+            if (checkbox.src.includes('checkboxempty')) {
+                checkbox.src = "assets/img/checkboxchecked.svg";
+                addAssignedContact(contact);
+            } else {
+                checkbox.src = "assets/img/checkboxempty.svg";
+                removeAssignedContact(contact);
+            }
         });
+
         itemsDiv.appendChild(optionDiv);
     });
 }
 
-function assignContact(testContacts) {
+
+function addAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
-    assignedTo.innerHTML += /*html*/ `
-    <div class="assigned-contact">${testContacts}</div>
-    `;
+  
+    if (!assignedTo.innerHTML.includes(contact)) {
+        assignedTo.innerHTML += `<div class="assigned-contact">${contact}</div>`;
+    }
+}
+
+function removeAssignedContact(contact) {
+    let assignedTo = document.getElementById('assign-contacts');
+ 
+    let contacts = assignedTo.querySelectorAll('.assigned-contact');
+    contacts.forEach((elem) => {
+        if (elem.textContent === contact) {
+            elem.remove();
+        }
+    });
 }
 
 function renderCategories() {

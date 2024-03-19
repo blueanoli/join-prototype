@@ -22,3 +22,21 @@ h3 {
     font-weight: 400;
     font-size: 27px;
 }
+
+.greetingTime {
+    font-weight: 500;
+    font-size: 47px;
+    color: var(--dark-blue);
+}
+
+.greetingUserName {
+    font-size: 64px;
+    font-weight: 700;
+    color: var(--light-blue);
+}
+
+.greeting {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}

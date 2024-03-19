@@ -1,0 +1,24 @@
+.summary-head {
+    display: flex;
+    height: 100px;
+    align-items: center;
+}
+
+.vertical-line {
+    display: inline-block;
+    height: 59px;
+    width: 2px;
+    background-color: var(--light-blue);
+    margin: 0 20px;
+    vertical-align: middle;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 61px;
+}
+
+h3 {
+    font-weight: 400;
+    font-size: 27px;
+}

@@ -1,12 +1,12 @@
 let subtaskCounter = 0;
-let testContacts = ['Max Mustermann', 'Susi Sonne'];
+let testContacts = ['Max Mustermann', 'Susi Sonne', 'John Doe'];
 let testCategories = ['Technical Task', 'User Story'];
 
 function checkRequiredField() {
     let fields = [
-        {id: 'title', errorId: 'title-error'},
-        {id: 'due-date', errorId: 'due-date-error'},
-        {id: 'choose-category', errorId: 'category-error', isDiv: true},
+        { id: 'title', errorId: 'title-error' },
+        { id: 'due-date', errorId: 'due-date-error' },
+        { id: 'choose-category', errorId: 'category-error', isDiv: true },
     ];
 
     fields.forEach(field => {
@@ -38,7 +38,7 @@ function resetFieldStyle(element) {
     let errorId = element.id + '-error';
     let errorElement = document.getElementById(errorId);
 
-    if (errorElement) { 
+    if (errorElement) {
         errorElement.style.display = 'none';
     }
 }
@@ -111,7 +111,7 @@ function addTask() {
     let isErrorVisible = Array.from(document.querySelectorAll('.error-message')).some(element => element.style.display === 'block');
 
     if (isErrorVisible) {
-        return; 
+        return;
     }
 
     notification.classList.add("animate");
@@ -135,10 +135,10 @@ function addTask() {
  * Adds a subtask to the task form.
  * Each subtask is assigned a unique ID and can be edited or removed.
  */
-function addSubtask(){
+function addSubtask() {
     let subtask = document.getElementById('subtasks').value;
     let subtaskcontainer = document.getElementById('subtask-container');
-    let subtaskId = 'subtask-' + subtaskCounter++; 
+    let subtaskId = 'subtask-' + subtaskCounter++;
 
     subtaskcontainer.innerHTML += /*html*/ `
     <div id="${subtaskId}" class="subtask">
@@ -152,7 +152,7 @@ function addSubtask(){
         </div>
     </div>
     `;
-    
+
     document.getElementById('subtasks').value = '';
 }
 
@@ -160,10 +160,10 @@ function addSubtask(){
  * Removes a subtask from the task form based on its unique ID.
  * @param {string} subtaskId - The ID of the subtask to be removed.
  */
-function removeSubtask(subtaskId){
+function removeSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
-    if(subtaskElement) {
-        subtaskElement.remove(); 
+    if (subtaskElement) {
+        subtaskElement.remove();
     }
 }
 
@@ -175,17 +175,17 @@ function removeSubtask(subtaskId){
 function renderContacts() {
     let dropdown = document.getElementById('assigned-to');
     let itemsDiv = dropdown.querySelector('.select-items');
-    let assignedTo = document.getElementById('assign-contacts').textContent; 
+    let assignedTo = document.getElementById('assign-contacts').textContent;
 
     itemsDiv.innerHTML = '';
 
     testContacts.forEach(contact => {
-        let initials = getInitials(contact); 
-        let color = getColorForInitials(initials); 
+        let initials = getInitials(contact);
+        let color = getColorForInitials(initials);
 
         let optionDiv = document.createElement('div');
         optionDiv.className = 'option-item';
-  
+
         let isChecked = assignedTo.includes(contact);
         let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
         optionDiv.innerHTML = /*html*/` 
@@ -195,7 +195,7 @@ function renderContacts() {
             </div>
             <img class="checkbox-icon" src="assets/img/${checkboxImage}">`;
 
-        optionDiv.addEventListener('click', function(event) {
+        optionDiv.addEventListener('click', function (event) {
             event.stopImmediatePropagation();
             let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
             let checkbox = isCheckboxClicked ? event.target : this.querySelector('.checkbox-icon');
@@ -216,15 +216,21 @@ function renderContacts() {
 
 function addAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
-  
+
     if (!assignedTo.innerHTML.includes(contact)) {
-        assignedTo.innerHTML += `<div class="assigned-contact">${contact}</div>`;
+        let initials = getInitials(contact); 
+        let color = getColorForInitials(initials); 
+
+        assignedTo.innerHTML += /*html*/`
+        <div class="assigned-contact">
+            <div class="test-contact" style="background-color: ${color};">${initials}</div>
+        </div>`;
     }
 }
 
 function removeAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
- 
+
     let contacts = assignedTo.querySelectorAll('.assigned-contact');
     contacts.forEach((elem) => {
         if (elem.textContent === contact) {
@@ -243,33 +249,33 @@ function renderCategories() {
     testCategories.forEach(category => {
         let optionDiv = document.createElement(`div`);
         optionDiv.textContent = category;
-        optionDiv.addEventListener('click', function() {
+        optionDiv.addEventListener('click', function () {
             selectedDiv.textContent = category;
-            dropdown.setAttribute('data-value', category); 
+            dropdown.setAttribute('data-value', category);
             itemsDiv.classList.add('select-hide');
             changeDropdownImgCat('close');
-            resetFieldStyle(dropdown); 
+            resetFieldStyle(dropdown);
         });
         itemsDiv.appendChild(optionDiv);
     });
 }
 
 // HILFSFUNKTIONEN
-function removeMediumPrio(){
+function removeMediumPrio() {
     let medium = document.getElementById("priority-medium");
     let mediumimg = document.getElementById("img-medium");
     medium.classList.remove("medium-priority-active");
     mediumimg.src = "assets/img/addtask_medium.svg";
 }
 
-function removeLowPrio(){
+function removeLowPrio() {
     let low = document.getElementById("priority-low");
     let lowimg = document.getElementById("img-low");
     low.classList.remove("low-priority-active");
     lowimg.src = "assets/img/addtask_low.svg";
 }
 
-function removeUrgentPrio(){
+function removeUrgentPrio() {
     let urgent = document.getElementById("priority-urgent");
     let urgentimg = document.getElementById("img-urgent");
     urgent.classList.remove("urgent-priority-active");

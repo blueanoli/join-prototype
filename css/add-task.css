@@ -27,7 +27,6 @@ input, textarea {
     margin-bottom: 16px;
     border-radius: 5px;
     border: 1px solid #D9D9D9;
-    color: #d1d1d1;
 }
 input:focus, textarea:focus{
     border: 1px solid var(--light-blue);
@@ -165,7 +164,7 @@ textarea{
     filter: invert(55%) sepia(100%) saturate(3000%) hue-rotate(175deg) brightness(90%) contrast(90%);
 }
 .field-required-info {
-    font-size: 16px;
+    font-size: 12px;
     margin-bottom: 100px;
 }
 .red-asterisk {
@@ -310,7 +309,7 @@ textarea{
     color: red;
     font-size: 10px;
     margin-bottom: 16px;
-    margin-top: -10px;
+    margin-top: -15px;
 }
 .input-error {
     border: 1px solid var(--urgent);

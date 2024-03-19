@@ -25,3 +25,13 @@ function playLogoAnimation() {
     animatedLogo.classList.add("animate");
   }
 }
+
+function checkedLoginRemeber() {
+  let checkbox = document.getElementById("loginCheckbox");
+
+  if (checkbox.src == "assets/img/checkboxempty.svg") {
+    checkbox.src = "assets/img/checkboxchecked.svg";
+  } else {
+    checkbox.src = "assets/img/checkboxempty.svg";
+  }
+}

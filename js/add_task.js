@@ -202,12 +202,20 @@ function renderCategories() {
     testCategories.forEach(category => {
         let optionDiv = document.createElement(`div`);
         optionDiv.textContent = category;
-        optionDiv.addEventListener('click', function () {
+        optionDiv.addEventListener('click', function (event) {
+            event.stopPropagation();
+        
             selectedDiv.textContent = category;
             dropdown.setAttribute('data-value', category);
-            itemsDiv.classList.add('select-hide');
-            changeDropdownImgCat('close');
             resetFieldStyle(dropdown);
+            
+            let errorElement = document.getElementById('category-error');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
+   
+            itemsDiv.classList.add('select-hide');
+            changeDropdownImg('choose-category', 'close');
         });
         itemsDiv.appendChild(optionDiv);
     });
@@ -247,26 +255,23 @@ function removeUrgentPrio() {
     urgentimg.src = "assets/img/addtask_urgent.svg";
 }
 
-function toggleDropdownAssign() {
-    let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
-    itemsDiv.classList.toggle('select-hide');
-    changeDropdownImgAssign(itemsDiv.classList.contains('select-hide') ? 'close' : 'open');
+function toggleDropdown(elementId, forceClose = false) {
+    let itemsDiv = document.getElementById(elementId).querySelector('.select-items');
+    if (forceClose || !itemsDiv.classList.contains('select-hide')) {
+        itemsDiv.classList.add('select-hide');
+        changeDropdownImg(elementId, 'close');
+    } else {
+        itemsDiv.classList.remove('select-hide');
+        changeDropdownImg(elementId, 'open');
+    }
 }
 
-function changeDropdownImgAssign(state) {
-    let img = document.getElementById("img-dropdown");
-    img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
-}
-
-function toggleDropdownCat() {
-    let itemsDiv = document.getElementById('choose-category').querySelector('.select-items');
-    itemsDiv.classList.toggle('select-hide');
-    changeDropdownImgCat(itemsDiv.classList.contains('select-hide') ? 'close' : 'open');
-}
-
-function changeDropdownImgCat(state) {
-    let img = document.getElementById("img-dropdown-cat");
-    img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
+function changeDropdownImg(elementId, state) {
+    let imgId = elementId === 'choose-category' ? "img-dropdown-cat" : "img-dropdown";
+    let img = document.getElementById(imgId);
+    if (img) { 
+        img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
+    }
 }
 
 function clearAssignedContacts() {

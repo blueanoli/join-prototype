@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="assets/img/logo_dark.svg" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js"defer></script>
+    <script src="js/script.js" defer></script>
     <script src="js/login.js"></script>
   </head>
   <body class="login-body" onload="initLogin()">
@@ -44,7 +44,12 @@
           </div>
         </form>
         <div class="login-remember">
-          <img class="login-checkbox" src="assets/img/checkboxempty.svg" />
+          <img
+            onclick="checkedLoginRemeber()"
+            id="loginCheckbox"
+            class="login-checkbox"
+            src="assets/img/checkboxempty.svg"
+          />
           <span>Remember me</span>
         </div>
         <div class="log-in-button-container">
@@ -53,8 +58,12 @@
         </div>
       </div>
       <div class="login-legal-footer">
-        <a class="login-legal-link" href="external_privacy.html" target="_blank">Privacy Policy</a>
-        <a class="login-legal-link" href="external_legal.html" target="_blank">Legal Notice</a>
+        <a class="login-legal-link" href="external_privacy.html" target="_blank"
+          >Privacy Policy</a
+        >
+        <a class="login-legal-link" href="external_legal.html" target="_blank"
+          >Legal Notice</a
+        >
       </div>
     </div>
   </body>

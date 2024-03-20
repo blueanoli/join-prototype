@@ -285,17 +285,16 @@ textarea{
 }
 .select-items {
     position: absolute;
-    top: 100%;
+    top: 40px; 
     left: 0;
     right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     font-family: 'Inter', sans-serif;
     z-index: -1;
     background-color: white;
-    overflow-y: auto; 
+    overflow-y: auto;
     max-height: 175px;
+    border: 1px solid #d1d1d1;
+    border-radius: 0 0 5px 5px; 
 }
 .select-items div {
     display: flex;
@@ -347,6 +346,8 @@ textarea{
 #assign-contacts{
     display: flex;
     gap: 4px;
+    flex-wrap: nowrap;
+    width: 100%;
 }
 .contact-search-input {
     width: 100%; 

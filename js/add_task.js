@@ -255,12 +255,21 @@ function removeUrgentPrio() {
 }
 
 function toggleDropdown(elementId, forceClose = false) {
-    let itemsDiv = document.getElementById(elementId).querySelector('.select-items');
+    let dropdown = document.getElementById(elementId);
+    let itemsDiv = dropdown.querySelector('.select-items');
+    let searchInput = document.getElementById('contact-search-input');
+    let selectSelected = dropdown.querySelector('.select-selected');
+
     if (forceClose || !itemsDiv.classList.contains('select-hide')) {
         itemsDiv.classList.add('select-hide');
+        searchInput.classList.add('select-hide');
+        selectSelected.style.display = 'block';
         changeDropdownImg(elementId, 'close');
     } else {
         itemsDiv.classList.remove('select-hide');
+        searchInput.classList.remove('select-hide');
+        selectSelected.style.display = 'none';
+        searchInput.focus();
         changeDropdownImg(elementId, 'open');
     }
 }

@@ -279,6 +279,7 @@ textarea{
     flex-direction: column;
     justify-content: center;
     font-family: 'Inter', sans-serif;
+    z-index: -1;
   }
   .select-items div {
     display: flex;
@@ -331,6 +332,19 @@ textarea{
 #assign-contacts{
     display: flex;
     gap: 4px;
+}
+.contact-search-input {
+    width: 100%; 
+    padding: 4px; 
+    box-sizing: border-box; 
+    margin-bottom: 0;
+}
+.contact-search-input:focus {
+    outline: none; 
+    border: none;
+}
+.contact-search-input.select-show {
+    display: block; 
 }
   /* ERROR MESSAGE */
   .error-message {

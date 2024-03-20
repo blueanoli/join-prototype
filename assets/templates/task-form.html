@@ -13,6 +13,7 @@
             <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
                 <div id="assigned-to" class="custom-select">
                     <div class="select-selected">Select contacts to assign</div>
+                    <input onchange="filterContacts(this.value)" id="contact-search-input" type="text" class="contact-search-input select-hide" placeholder="Type to search...">
                     <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
                     <div class="select-items select-hide"></div>
                 </div>

@@ -267,6 +267,10 @@ textarea{
     background-color: white;
     margin-bottom: 16px;
   }
+  .custom-select:focus-within {
+    outline: none;
+    border: 1px solid var(--light-blue);
+  }
   .select-items div, .select-selected {
     cursor: pointer;
   }

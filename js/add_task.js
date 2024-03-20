@@ -114,6 +114,39 @@ function removeSubtask(subtaskId) {
     }
 }
 
+function createContactOption(contact, itemsDiv) {
+    let initials = getInitials(contact);
+    let color = getColorForInitials(initials);
+    let isChecked = selectedContacts[contact] === true;
+    let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
+
+    let optionDiv = document.createElement('div');
+    optionDiv.className = 'option-item';
+    optionDiv.innerHTML = renderContactHTML(contact, color, initials, checkboxImage);
+    
+    optionDiv.addEventListener('click', function (event) {
+        handleContactClick(event, contact, optionDiv);
+    });
+
+    itemsDiv.appendChild(optionDiv);
+}
+
+function handleContactClick(event, contact, optionDiv) {
+    event.stopImmediatePropagation();
+    let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
+    let checkbox = isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
+
+    if (!selectedContacts[contact]) {
+        checkbox.src = "assets/img/checkboxchecked.svg";
+        addAssignedContact(contact);
+        selectedContacts[contact] = true;
+    } else {
+        checkbox.src = "assets/img/checkboxempty.svg";
+        removeAssignedContact(contact);
+        selectedContacts[contact] = false;
+    }
+}
+
 function renderContacts() {
     let dropdown = document.getElementById('assigned-to');
     let itemsDiv = dropdown.querySelector('.select-items');
@@ -121,33 +154,7 @@ function renderContacts() {
     itemsDiv.innerHTML = '';
 
     testContacts.forEach(contact => {
-        let initials = getInitials(contact);
-        let color = getColorForInitials(initials);
-
-        let optionDiv = document.createElement('div');
-        optionDiv.className = 'option-item';
-
-        let isChecked = selectedContacts[contact] === true;
-        let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
-        optionDiv.innerHTML = renderContactHTML(contact, color, initials, checkboxImage);
-
-        optionDiv.addEventListener('click', function (event) {
-            event.stopImmediatePropagation();
-            let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
-            let checkbox = isCheckboxClicked ? event.target : this.querySelector('.checkbox-icon');
-
-            if (!selectedContacts[contact]) {
-                checkbox.src = "assets/img/checkboxchecked.svg";
-                addAssignedContact(contact);
-                selectedContacts[contact] = true;
-            } else {
-                checkbox.src = "assets/img/checkboxempty.svg";
-                removeAssignedContact(contact);
-                selectedContacts[contact] = false;
-            }
-        });
-
-        itemsDiv.appendChild(optionDiv);
+        createContactOption(contact, itemsDiv);
     });
 }
 
@@ -191,6 +198,34 @@ function updateCheckboxForContact(contact, isChecked) {
     });
 }
 
+function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
+    let optionDiv = document.createElement('div');
+    optionDiv.textContent = category;
+    optionDiv.addEventListener('click', function (event) {
+        handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv);
+    });
+    itemsDiv.appendChild(optionDiv);
+}
+
+function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
+    event.stopPropagation();
+
+    selectedDiv.textContent = category;
+    dropdown.setAttribute('data-value', category);
+    resetFieldStyle(dropdown);
+    hideCategoryError();
+
+    itemsDiv.classList.add('select-hide');
+    changeDropdownImg('choose-category', 'close');
+}
+
+function hideCategoryError() {
+    let errorElement = document.getElementById('category-error');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+    }
+}
+
 function renderCategories() {
     let dropdown = document.getElementById('choose-category');
     let itemsDiv = dropdown.querySelector('.select-items');
@@ -199,24 +234,7 @@ function renderCategories() {
     itemsDiv.innerHTML = '';
 
     testCategories.forEach(category => {
-        let optionDiv = document.createElement(`div`);
-        optionDiv.textContent = category;
-        optionDiv.addEventListener('click', function (event) {
-            event.stopPropagation();
-        
-            selectedDiv.textContent = category;
-            dropdown.setAttribute('data-value', category);
-            resetFieldStyle(dropdown);
-            
-            let errorElement = document.getElementById('category-error');
-            if (errorElement) {
-                errorElement.style.display = 'none';
-            }
-   
-            itemsDiv.classList.add('select-hide');
-            changeDropdownImg('choose-category', 'close');
-        });
-        itemsDiv.appendChild(optionDiv);
+        createCategoryOption(category, itemsDiv, selectedDiv, dropdown);
     });
 }
 
@@ -262,14 +280,14 @@ function toggleDropdown(elementId, forceClose = false) {
 
     if (forceClose || !itemsDiv.classList.contains('select-hide')) {
         itemsDiv.classList.add('select-hide');
-        if (elementId === 'assigned-to') { // Diese Zeile hinzufügen
+        if (elementId === 'assigned-to') { 
             searchInput.classList.add('select-hide');
             selectSelected.style.display = 'block';
         }
         changeDropdownImg(elementId, 'close');
     } else {
         itemsDiv.classList.remove('select-hide');
-        if (elementId === 'assigned-to') { // Diese Zeile hinzufügen
+        if (elementId === 'assigned-to') { 
             searchInput.classList.remove('select-hide');
             selectSelected.style.display = 'none';
             searchInput.focus();
@@ -277,7 +295,6 @@ function toggleDropdown(elementId, forceClose = false) {
         changeDropdownImg(elementId, 'open');
     }
 }
-
 
 function changeDropdownImg(elementId, state) {
     let imgId = elementId === 'choose-category' ? "img-dropdown-cat" : "img-dropdown";

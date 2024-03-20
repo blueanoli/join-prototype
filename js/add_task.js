@@ -150,8 +150,6 @@ function saveEditedSubtask(subtaskId) {
 
     subtaskDiv.querySelector('li').innerText = newValue;
     subtaskDiv.classList.remove('editing');
-    
-    //TO DO: save edited subtask
 }
 
 

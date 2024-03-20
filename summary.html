@@ -16,24 +16,76 @@
 
 <body onload="init()">
     <div w3-include-html="assets/templates/desktop-template.html"></div>
+
     <div class="text-container">
         <div class="summary-head">
             <h1>Join 360</h1>
             <div class="vertical-line"></div>
             <h3>Key Metrics at a Glance</h3>
         </div>
+
         <div class="summary-container">
-            <div class="dashboard">
-                <div class="summary-todo"></div>
-                <div class="summary-urgent"></div>
-                <div class="summary-tasks"></div>
+            <div class="left-container">
+
+                <div class="row-1">
+                    <div class="todo-box">
+                        <div class="summary-item">
+                            <img src="/assets/img/pencil_white.svg">
+                        </div>
+                        <div class="summary-text">
+                            <h1 class="number">1</h1>
+                            <span class="summary-text">To-Do</span>
+                        </div>
+                    </div>
+                    <div class="todo-box">
+                        <div class="summary-item">
+                            <img src="/assets/img/summary_done_white.svg">
+                        </div>
+                        <div class="summary-text">
+                            <h1 class="number">1</h1>
+                            <span class="summary-text">Done</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-2 todo-box">
+                    <img src="/assets/img/summary_urgent.svg" alt="">
+                    <div class="summary-text">
+                        <h1 class="number">1</h1>
+                        <span class="summary-text">Urgent</span>
+                    </div>
+                    <div class="vertical-line-urgent"></div>
+                    <div class="deadline">
+                        <span class="deadline-date">
+                            April 10, 2024
+                        </span>
+                        <span class="deadline-text">
+                            Upcoming Deadline
+                        </span>
+                    </div>
+                </div>
+
+                <div class="row-3">
+                    <div class="summary-text todo-box row-3-box">
+                        <h1 class="number">5</h1>
+                        <span class="summary-text">Tasks in Board</span>
+                    </div>
+                    <div class="summary-text todo-box row-3-box">
+                        <h1 class="number">2</h1>
+                        <span class="summary-text">Tasks in Progress</span>
+                    </div>
+                    <div class="summary-text todo-box row-3-box">
+                        <h1 class="number">2</h1>
+                        <span class="summary-text">Awaiting Feedback</span>
+                    </div>
+                </div>
             </div>
-            <div class="greeting">
+
+            <div class="right-container">
                 <span id="greeting"></span>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

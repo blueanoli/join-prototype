@@ -7,7 +7,9 @@
     <link rel="icon" type="image/png" href="assets/img/logo_dark.svg" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="js/login.js" defer></script>
     <script src="js/script.js" defer></script>
+    <script src="js/register.js" defer></script>
   </head>
   <body class="login-body">
     <div class="login-container">
@@ -23,59 +25,82 @@
         </div>
         <h1>Sign up</h1>
         <span class="login-underline"></span>
-        <form class="signup-input-area">
-          <div class="login-input-container">
-            <input
-              required
-              class="login-input"
-              type="text"
-              placeholder="Name"
-            />
-            <img src="assets/img/person.svg" />
+        <form onsubmit="addNewUser(); return false;">
+          <div class="signup-input-area">
+            <div class="login-input-container">
+              <input
+                required
+                id="name"
+                class="login-input"
+                type="text"
+                placeholder="Name"
+              />
+              <img src="assets/img/person.svg" />
+            </div>
+            <div class="login-input-container">
+              <input
+                required
+                id="email"
+                class="login-input"
+                type="email"
+                placeholder="Email"
+              />
+              <img src="assets/img/mail.svg" />
+            </div>
+            <div class="login-input-container">
+              <input
+                required
+                id="password"
+                class="login-input"
+                type="password"
+                placeholder="Password"
+              />
+              <img src="assets/img/password.svg" />
+            </div>
+            <div class="login-input-container">
+              <input
+                required
+                id="passwordConfirmed"
+                class="login-input"
+                type="password"
+                placeholder="Confirm Password"
+              />
+              <img src="assets/img/password.svg" />
+            </div>
           </div>
-          <div class="login-input-container">
-            <input
-              required
-              class="login-input"
-              type="email"
-              placeholder="Email"
+          <div class="signup-policy">
+            <img
+              onclick="checkedLoginCheckbox()"
+              id="login-checkbox"
+              class="signup-checkbox login-checkbox"
+              src="assets/img/checkboxempty.svg"
             />
-            <img src="assets/img/mail.svg" />
+            <span class="signup-accept-privacy"
+              >I accept the
+              <a
+                class="signup-policy-link"
+                target="_blank"
+                href="external_privacy.html"
+                >Privacy Policy</a
+              ></span
+            >
           </div>
-          <div class="login-input-container">
-            <input
-              required
-              class="login-input"
-              type="password"
-              placeholder="Password"
-            />
-            <img src="assets/img/password.svg" />
-          </div>
-          <div class="login-input-container">
-            <input
-              required
-              class="login-input"
-              type="password"
-              placeholder="Confirm Password"
-            />
-            <img src="assets/img/password.svg" />
-          </div>
-        </form>
-        <div class="signup-policy">
-          <img class="signup-checkbox" src="assets/img/checkboxempty.svg" />
-          <span class="signup-accept-privacy"
-            >I accept the
-            <a class="signup-policy-link" target="_blank" href="external_privacy.html"
-              >Privacy Policy</a></span
+          <div
+            id="signup-button"
+            class="log-in-button-container signup-button-visibility"
           >
-        </div>
-        <div class="log-in-button-container">
-          <button class="log-in-button">Sign up</button>
-        </div>
+            <button class="log-in-button">Sign up</button>
+          </div>
+          <div id="msgBox"></div>
+        </form>
       </div>
       <div class="login-legal-footer">
-        <a class="login-legal-link" href="external_privacy.html" target="_blank">"Privacy Policy</a>
-        <a class="login-legal-link" href="external_legal.html" target="_blank">Legal Notice</a>
+        <a class="login-legal-link" href="external_privacy.html" target="_blank"
+          >Privacy Policy</a
+        >
+        <a class="login-legal-link" href="external_legal.html" target="_blank"
+          >Legal Notice</a
+        >
       </div>
     </div>
   </body>

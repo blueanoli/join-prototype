@@ -26,12 +26,33 @@ function playLogoAnimation() {
   }
 }
 
-function checkedLoginRemeber() {
-  let checkbox = document.getElementById("loginCheckbox");
+function searchUser() {
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
 
-  if (checkbox.src == "assets/img/checkboxempty.svg") {
+  let user = users.find(
+    (u) => u.email == email.value && u.password == password.value
+  );
+  console.log(user);
+
+  if (user) {
+    console.log("User registered");
+  } else {
+    console.log("User not registered");
+  }
+}
+
+/* Changes the src of the checkbox-img and the visibility of the sign-up button 
+either if it's checked or not*/
+function checkedLoginCheckbox() {
+  let checkbox = document.getElementById("login-checkbox");
+  let signUpButton = document.getElementById("signup-button");
+
+  if (checkbox.src.includes("checkboxempty.svg")) {
     checkbox.src = "assets/img/checkboxchecked.svg";
+    signUpButton.classList.remove("signup-button-visibility");
   } else {
     checkbox.src = "assets/img/checkboxempty.svg";
+    signUpButton.classList.add("signup-button-visibility");
   }
 }

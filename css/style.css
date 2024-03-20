@@ -178,8 +178,6 @@ h1 {
 .login-input-area {
   display: flex;
   flex-direction: column;
-  height: 152px;
-  gap: 32px;
 }
 
 .login-input-container {
@@ -207,6 +205,10 @@ h1 {
   color: #d1d1d1;
 }
 
+.mrg-bottom {
+  margin-bottom: 32px;
+}
+
 .login-remember {
   display: flex;
   align-items: center;
@@ -226,6 +228,7 @@ h1 {
 
 .log-in-button-container {
   display: flex;
+  justify-content: center;
   gap: 35px;
   margin-top: 32px;
 }
@@ -330,13 +333,14 @@ h1 {
 .signup-input-area {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .signup-policy {
   display: flex;
   align-items: center;
-  margin-top: 22.5px;
+  justify-content: center;
+  margin-top: 38px;
 }
 
 .signup-checkbox {
@@ -356,6 +360,10 @@ h1 {
 .signup-policy-link:hover {
   text-decoration: underline;
   font-weight: 400;
+}
+
+.signup-button-visibility {
+  display: none;
 }
 
 ::-webkit-scrollbar {

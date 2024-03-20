@@ -9,11 +9,21 @@ let fields = [
 ];
 let isFieldEmpty;
 
+function showErrorMessage(inputElement, errorMessage) {
+    inputElement.classList.add('input-error');
+    errorMessage.style.display = 'block';
+}
+
+function hideErrorMessage(inputElement, errorMessage) {
+    inputElement.classList.remove('input-error');
+    errorMessage.style.display = 'none';
+}
+
 function checkRequiredField() {
-    
     fields.forEach(field => {
         let inputElement = document.getElementById(field.id);
         let errorMessage = document.getElementById(field.errorId);
+        let isFieldEmpty;
 
         if (field.isDiv) {
             isFieldEmpty = !inputElement.getAttribute('data-value');
@@ -22,11 +32,9 @@ function checkRequiredField() {
         }
 
         if (isFieldEmpty) {
-            inputElement.classList.add('input-error');
-            errorMessage.style.display = 'block';
+            showErrorMessage(inputElement, errorMessage);
         } else {
-            inputElement.classList.remove('input-error');
-            errorMessage.style.display = 'none';
+            hideErrorMessage(inputElement, errorMessage);
         }
     });
 }

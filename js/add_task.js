@@ -262,17 +262,22 @@ function toggleDropdown(elementId, forceClose = false) {
 
     if (forceClose || !itemsDiv.classList.contains('select-hide')) {
         itemsDiv.classList.add('select-hide');
-        searchInput.classList.add('select-hide');
-        selectSelected.style.display = 'block';
+        if (elementId === 'assigned-to') { // Diese Zeile hinzufügen
+            searchInput.classList.add('select-hide');
+            selectSelected.style.display = 'block';
+        }
         changeDropdownImg(elementId, 'close');
     } else {
         itemsDiv.classList.remove('select-hide');
-        searchInput.classList.remove('select-hide');
-        selectSelected.style.display = 'none';
-        searchInput.focus();
+        if (elementId === 'assigned-to') { // Diese Zeile hinzufügen
+            searchInput.classList.remove('select-hide');
+            selectSelected.style.display = 'none';
+            searchInput.focus();
+        }
         changeDropdownImg(elementId, 'open');
     }
 }
+
 
 function changeDropdownImg(elementId, state) {
     let imgId = elementId === 'choose-category' ? "img-dropdown-cat" : "img-dropdown";

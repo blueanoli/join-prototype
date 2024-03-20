@@ -266,15 +266,15 @@ textarea{
     padding: 0 4px 0 8px;
     background-color: white;
     margin-bottom: 16px;
-  }
-  .custom-select:focus-within {
+}
+.custom-select:focus-within {
     outline: none;
     border: 1px solid var(--light-blue);
-  }
-  .select-items div, .select-selected {
+}
+.select-items div, .select-selected {
     cursor: pointer;
-  }
-  .select-items {
+}
+.select-items {
     position: absolute;
     top: 100%;
     left: 0;
@@ -284,36 +284,36 @@ textarea{
     justify-content: center;
     font-family: 'Inter', sans-serif;
     z-index: -1;
-  }
-  .select-items div {
+    background-color: white;
+}
+.select-items div {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
     z-index: 5;
-  }
-  .select-hide {
+}
+.select-hide {
     display: none;
-  }
-  .select-items div:hover {
+}
+.select-items div:hover {
     background-color: #d1d1d1 !important;
     border-radius: 8px !important;
-  }
-  .dropdown-arrow {
+}
+.dropdown-arrow {
     cursor: pointer;
     z-index: 1;
-  }
-  .dropdown-arrow:hover {
+}
+.dropdown-arrow:hover {
     background-color: #d1d1d1;
     border-radius: 50%;
-  }
+}
   /* TEST CONTACTS */
-  .test-contact-container{
+.test-contact-container{
     display: flex;
-    align-items: center; /* Zentriert die Inhalte vertikal */
+    align-items: center; 
     gap: 8px;
 }
-  .test-contact{
+.test-contact{
     color: white;
     border-radius: 45px;
     border: 1px solid white;

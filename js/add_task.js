@@ -125,14 +125,19 @@ function removeSubtask(subtaskId) {
 function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
-    let isChecked = selectedContacts[contact] === true;
+    let isChecked = selectedContacts[contact] === true; 
     let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
-
     let optionDiv = document.createElement('div');
+
     optionDiv.className = 'option-item';
     optionDiv.id = 'contact-' + index;
     optionDiv.innerHTML = renderContactHTML(contact, color, initials, checkboxImage);
-    
+
+    if (isChecked) {
+        optionDiv.style.backgroundColor = "var(--dark-blue)"; 
+        optionDiv.classList.add("selected");
+    }
+
     optionDiv.addEventListener('click', function (event) {
         handleContactClick(event, contact, optionDiv);
     });
@@ -163,7 +168,7 @@ function handleContactClick(event, contact, optionDiv) {
 function renderContacts() {
     let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
     itemsDiv.innerHTML = '';
-
+    
     testContacts.forEach((contact, index) => {
         createContactOption(contact, itemsDiv, index);
     });

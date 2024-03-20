@@ -188,8 +188,7 @@ textarea{
 /* ADD TASK ANIMATION */
 #notification-container {
     position: fixed;
-    left: 50%;
-    right: 50%;
+    left: calc(50% + 116px); 
     transform: translateX(-50%) translateY(100%);
     z-index: 999;
 }
@@ -211,10 +210,10 @@ textarea{
 }
 @keyframes slideIn {
     from {
-        transform: translateX(-50%) translateY(100%); 
+        transform: translateX(-50%) translateY(100%);
     }
     to {
-        transform: translateX(-50%) translateY(-800%); 
+        transform: translateX(-50%) translateY(calc(-50vh + 48px + 96px - 200px));
     }
 }
 /* SUBTASK STYLE */

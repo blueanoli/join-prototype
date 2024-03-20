@@ -1,5 +1,5 @@
 let subtaskCounter = 0;
-let testContacts = ['Max Mustermann', 'Susi Sonne', 'John Doe', 'Jane Doe', 'Albert Wesker', 'Tom Hopper', 'Harry Potter'];
+let testContacts = ['Albert Wesker', 'Chris Redfield', 'Jill Valentine', 'Brad Vickers', 'Claire Redfield', 'Barry Burton', 'Brian Irons'];
 let testCategories = ['Technical Task', 'User Story'];
 let selectedContacts = {};
 let fields = [

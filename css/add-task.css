@@ -68,6 +68,10 @@ textarea{
     flex-direction: column;
     justify-content: space-between;
 }
+.add-task-right {
+    position: relative; /* Make this a positioning context for its children */
+    padding-bottom: 100px; /* Provide enough padding at the bottom for the buttons */
+}
 .left-input-container {
     display: flex;
     flex-direction: column;
@@ -121,9 +125,10 @@ textarea{
 }
 .add-task-buttons {
     display: flex;
-    justify-content: flex-end;
+    position: absolute;
     gap: 16px;
-    margin-top: 125px;
+    bottom: 95px;
+    right: 16px;
 }
 .priority-active {
     color: white;
@@ -220,6 +225,11 @@ textarea{
 #subtasks{
     margin-bottom: 0;
 }
+#subtask-container{
+    max-height: 72px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
 .subtask{
     display: flex;
     align-items: center;
@@ -284,6 +294,8 @@ textarea{
     font-family: 'Inter', sans-serif;
     z-index: -1;
     background-color: white;
+    overflow-y: auto; 
+    max-height: 175px;
 }
 .select-items div {
     display: flex;

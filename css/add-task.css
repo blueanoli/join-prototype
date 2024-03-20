@@ -36,7 +36,7 @@ input{
     height: 40px;
 }
 ::placeholder{
-    color: #d1d1d1;
+    color: #E7E7E7;
 }
 textarea{
     height: 120px;
@@ -187,7 +187,7 @@ textarea{
     cursor: pointer;
 }
 .icon-plus:hover{
-    background-color: #d1d1d1;
+    background-color: #E7E7E7;
     border-radius: 50%;
 }
 /* ADD TASK ANIMATION */
@@ -237,7 +237,7 @@ textarea{
     gap: 8px;
 }
 .subtask:hover{
-    background-color: #d1d1d1;
+    background-color: #E7E7E7;
     border-radius: 8px;
 }
 .subtask-icons{
@@ -265,7 +265,7 @@ textarea{
 .custom-select {
     position: relative;
     font-size: 20px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid #E7E7E7;
     border-radius: 5px;
     cursor: pointer;
     display: flex;
@@ -293,7 +293,7 @@ textarea{
     background-color: white;
     overflow-y: auto;
     max-height: 175px;
-    border: 1px solid #d1d1d1;
+    box-shadow: 0px 0px 14px 3px #0000000A;
     border-radius: 0 0 5px 5px; 
 }
 .select-items div {
@@ -305,16 +305,12 @@ textarea{
 .select-hide {
     display: none;
 }
-.select-items div:hover {
-    background-color: #d1d1d1 !important;
-    border-radius: 8px !important;
-}
 .dropdown-arrow {
     cursor: pointer;
     z-index: 1;
 }
 .dropdown-arrow:hover {
-    background-color: #d1d1d1;
+    background-color: #E7E7E7;
     border-radius: 50%;
 }
   /* TEST CONTACTS */
@@ -347,6 +343,9 @@ textarea{
     background-color: var(--dark-blue); 
     color: white;
 }
+.option-item:hover{
+    background-color: #E7E7E7;
+}
 .option-item img:hover{
     transform: scale(1.1);
 }
@@ -371,6 +370,14 @@ textarea{
 }
 .contact-search-input.select-show {
     display: block; 
+}
+/* CATEGORIES */
+.select-cat div{
+    padding: 8px 16px;
+}
+.select-cat div:hover{
+    background-color: #E7E7E7;
+    border-radius: 5px;
 }
   /* ERROR MESSAGE */
   .error-message {

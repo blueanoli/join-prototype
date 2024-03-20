@@ -126,7 +126,7 @@ function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
     let isChecked = selectedContacts[contact] === true; 
-    let checkboxImage = isChecked ? "checkboxchecked.svg" : "checkboxempty.svg";
+    let checkboxImage = isChecked ? "checkboxchecked_white.svg" : "checkboxempty.svg";
     let optionDiv = document.createElement('div');
 
     optionDiv.className = 'option-item';
@@ -151,7 +151,7 @@ function handleContactClick(event, contact, optionDiv) {
     let checkbox = isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
 
     if (!selectedContacts[contact]) {
-        checkbox.src = "assets/img/checkboxchecked.svg";
+        checkbox.src = "assets/img/checkboxchecked_white.svg";
         addAssignedContact(contact);
         selectedContacts[contact] = true;
         optionDiv.style.backgroundColor = "var(--dark-blue)"; 
@@ -209,7 +209,7 @@ function updateCheckboxForContact(contact, isChecked) {
     options.forEach((option) => {
         if (option.textContent.includes(contact)) {
             let checkbox = option.querySelector('.checkbox-icon');
-            checkbox.src = isChecked ? "assets/img/checkboxchecked.svg" : "assets/img/checkboxempty.svg";
+            checkbox.src = isChecked ? "assets/img/checkboxchecked_white.svg" : "assets/img/checkboxempty.svg";
         }
     });
 }

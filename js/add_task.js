@@ -122,7 +122,7 @@ function removeSubtask(subtaskId) {
     }
 }
 
-function createContactOption(contact, itemsDiv) {
+function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
     let isChecked = selectedContacts[contact] === true;
@@ -130,6 +130,7 @@ function createContactOption(contact, itemsDiv) {
 
     let optionDiv = document.createElement('div');
     optionDiv.className = 'option-item';
+    optionDiv.id = 'contact-' + index;
     optionDiv.innerHTML = renderContactHTML(contact, color, initials, checkboxImage);
     
     optionDiv.addEventListener('click', function (event) {
@@ -156,13 +157,11 @@ function handleContactClick(event, contact, optionDiv) {
 }
 
 function renderContacts() {
-    let dropdown = document.getElementById('assigned-to');
-    let itemsDiv = dropdown.querySelector('.select-items');
-    
+    let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
     itemsDiv.innerHTML = '';
 
-    testContacts.forEach(contact => {
-        createContactOption(contact, itemsDiv);
+    testContacts.forEach((contact, index) => {
+        createContactOption(contact, itemsDiv, index);
     });
 }
 
@@ -204,6 +203,25 @@ function updateCheckboxForContact(contact, isChecked) {
             checkbox.src = isChecked ? "assets/img/checkboxchecked.svg" : "assets/img/checkboxempty.svg";
         }
     });
+}
+
+function filterContacts(){
+    let search = document.getElementById('contact-search-input').value.toLowerCase();
+    filterContactsBySearch(search);
+}
+
+function filterContactsBySearch(search) {
+   
+    for (let i = 0; i < testContacts.length; i++) {
+        let contact = testContacts[i].toLowerCase();
+        let option = document.getElementById('contact-' + i);
+
+        if (contact.includes(search)) {
+            option.style.display = 'flex';
+        } else {
+            option.style.display = 'none';
+        }
+    }
 }
 
 function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {

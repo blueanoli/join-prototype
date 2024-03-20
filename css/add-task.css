@@ -254,6 +254,37 @@ textarea{
     height: 20px;
     background-color: #d9d9d9;
 }
+/* EDIT SUBTASK STYLE */
+.edit-subtask-container{
+    display: flex;
+}
+.subtask input {
+    background-color: white; 
+    border: none; 
+    border-bottom: 1px solid var(--light-blue); 
+    height: 20px; 
+    font-size: 20px; 
+    padding: 0; 
+    margin: 0; 
+    width: 100%;
+}
+.subtask.editing .subtask-icons img {
+    display: none;
+}
+.subtask .icon-container {
+    display: flex;
+    align-items: center; 
+    gap: 8px; 
+}
+.subtask .icon-container img {
+    cursor: pointer;
+    width: 20px; 
+    height: 20px; 
+}
+.subtask.editing {
+    display: flex; 
+    align-items: center; 
+}
 /* DISPLAY NONE */
 .d-none{
     display: none;

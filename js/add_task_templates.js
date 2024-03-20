@@ -14,7 +14,7 @@ function renderSubtaskHTML(subtask, subtaskId) {
             <li>${subtask}</li>
         </ul>
         <div class="subtask-icons">
-            <img onclick="editSubtask()" src="assets/img/pencil_grey.svg" alt="">
+            <img onclick="editSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
             <div class="subtask-line"></div>
             <img onclick="removeSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
         </div>

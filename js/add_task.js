@@ -149,10 +149,14 @@ function handleContactClick(event, contact, optionDiv) {
         checkbox.src = "assets/img/checkboxchecked.svg";
         addAssignedContact(contact);
         selectedContacts[contact] = true;
+        optionDiv.style.backgroundColor = "var(--dark-blue)"; 
+        optionDiv.classList.add("selected");
     } else {
         checkbox.src = "assets/img/checkboxempty.svg";
         removeAssignedContact(contact);
         selectedContacts[contact] = false;
+        optionDiv.style.backgroundColor = ""; 
+        optionDiv.classList.remove("selected");
     }
 }
 

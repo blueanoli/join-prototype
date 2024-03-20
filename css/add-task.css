@@ -343,6 +343,16 @@ textarea{
     padding: 4px 8px; 
     border-radius: 8px; 
 }
+.option-item.selected {
+    background-color: var(--dark-blue); 
+    color: white;
+}
+.option-item img:hover{
+    transform: scale(1.1);
+}
+.option-item.selected:hover {
+    background-color: var(--highlighted) !important; 
+}
 #assign-contacts{
     display: flex;
     gap: 4px;

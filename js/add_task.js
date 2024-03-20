@@ -1,5 +1,5 @@
 let subtaskCounter = 0;
-let testContacts = ['Max Mustermann', 'Susi Sonne', 'John Doe'];
+let testContacts = ['Max Mustermann', 'Susi Sonne', 'John Doe', 'Jane Doe', 'Albert Wesker', 'Tom Hopper', 'Harry Potter'];
 let testCategories = ['Technical Task', 'User Story'];
 let selectedContacts = {};
 let fields = [
@@ -211,12 +211,14 @@ function filterContacts(){
 }
 
 function filterContactsBySearch(search) {
-   
+    search = search.toLowerCase();
+
     for (let i = 0; i < testContacts.length; i++) {
         let contact = testContacts[i].toLowerCase();
         let option = document.getElementById('contact-' + i);
+        let names = contact.split(' ');
 
-        if (contact.includes(search)) {
+        if (names[0].startsWith(search) || (names.length > 1 && names[1].startsWith(search))) {
             option.style.display = 'flex';
         } else {
             option.style.display = 'none';

@@ -25,10 +25,10 @@ function hideErrorMessage(inputElement, errorMessage) {
 }
 
 function checkRequiredField() {
-    fields.forEach(field => {
+    for (let i = 0; i < fields.length; i++) {
+        let field = fields[i];
         let inputElement = document.getElementById(field.id);
         let errorMessage = document.getElementById(field.errorId);
-        let isFieldEmpty;
 
         if (field.isDiv) {
             isFieldEmpty = !inputElement.getAttribute('data-value');
@@ -41,7 +41,7 @@ function checkRequiredField() {
         } else {
             hideErrorMessage(inputElement, errorMessage);
         }
-    });
+    }
 }
 
 function resetFieldStyle(element) {
@@ -89,20 +89,31 @@ function chooseLowPrio() {
 }
 
 function addTask() {
-    let notification = document.getElementById('notification-container');
+    let isErrorVisible = false;
+    let errorElements = document.querySelectorAll('.error-message');
 
     checkRequiredField();
-
-    let isErrorVisible = Array.from(document.querySelectorAll('.error-message')).some(element => element.style.display === 'block');
+    
+    for (let i = 0; i < errorElements.length; i++) {
+        if (errorElements[i].style.display === 'block') {
+            isErrorVisible = true;
+            break;
+        }
+    }
 
     if (isErrorVisible) {
         return;
     }
+    addTaskAnimation();
+}
+
+function addTaskAnimation(){
+    let notification = document.getElementById('notification-container');
 
     notification.classList.add("animate");
     notification.innerHTML = renderNotificationHTML();
 
-    setTimeout(() => {
+    setTimeout(function() {
         notification.classList.remove("animate");
         notification.innerHTML = '';
         clearForm();
@@ -316,8 +327,8 @@ function clearForm() {
     document.getElementById("add-task-btn").disabled = true;
 
     removeLowPrio();
-    removeMediumPrio();
     removeUrgentPrio();
+    chooseMediumPrio();
     clearAssignedContacts();
     resetCategorySelection();
     clearSubtasks();

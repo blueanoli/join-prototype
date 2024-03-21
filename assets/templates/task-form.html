@@ -5,7 +5,7 @@
     <div class="add-task-left">
         <div class="left-input-container">
             <label for="title">Title<span class="red-asterisk">*</span></label>
-            <input onfocus="resetFieldStyle(this)" type="text" id="title" placeholder="Enter a title">
+            <input required onfocus="resetFieldStyle(this)" type="text" id="title" placeholder="Enter a title">
             <span class="error-message" id="title-error">This field is required</span>
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description"></textarea>
@@ -30,7 +30,7 @@
         <div class="right-input-container">
             <div class="date-input-container">
                 <label for="due-date">Due date<span class="red-asterisk">*</span></label>
-                <input onfocus="resetFieldStyle(this)" type="date" id="due-date" class="date-input"
+                <input required onfocus="resetFieldStyle(this)" type="date" id="due-date" class="date-input"
                     placeholder="dd/mm/yyyy">
                 <svg class="date-icon" width="19" height="20" viewBox="0 0 19 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

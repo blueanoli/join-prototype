@@ -259,16 +259,18 @@ textarea{
 }
 /* EDIT SUBTASK STYLE */
 .edit-subtask-container{
+    width: 100%;
     display: flex;
 }
 .subtask input {
     background-color: white; 
     border: none; 
     border-bottom: 1px solid var(--light-blue); 
+    border-radius: 0 !important;
     height: 20px; 
     font-size: 20px; 
-    padding: 0; 
-    margin: 0; 
+    padding-top: 0; 
+    margin-top: 4px; 
     width: 100%;
 }
 .subtask.editing .subtask-icons img {

@@ -19,11 +19,9 @@ function removeSubtask(subtaskId) {
 function editSubtask(subtaskId) {
     let subtaskDiv = document.getElementById(subtaskId);
     subtaskDiv.classList.add('editing');
+    let subtaskText = subtaskDiv.innerText;
 
-    let subtaskLi = subtaskDiv.querySelector('li');
-    let subtaskText = subtaskLi.innerText;
-
-    subtaskLi.innerHTML = renderSubtaskListHTML(subtaskText, subtaskId);
+    subtaskDiv.innerHTML = renderSubtaskListHTML(subtaskText, subtaskId);
 
     document.getElementById(`edit-${subtaskId}`).focus();
 }
@@ -33,7 +31,7 @@ function saveEditedSubtask(subtaskId) {
     let inputField = document.getElementById(`edit-${subtaskId}`);
     let newValue = inputField.value;
 
-    subtaskDiv.querySelector('li').innerText = newValue;
+    subtaskDiv.innerText = newValue;
     subtaskDiv.classList.remove('editing');
 }
 

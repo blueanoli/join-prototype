@@ -243,10 +243,10 @@ textarea{
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-right: 10px;
 }
 .subtask-icons img{
     cursor: pointer;
+    margin-left: 4px;
 }
 .subtask-line{
     width: 1px;

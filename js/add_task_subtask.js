@@ -12,6 +12,7 @@ function removeSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
     if (subtaskElement) {
         subtaskElement.remove();
+        subtaskCounter--;
     }
 }
 
@@ -34,4 +35,10 @@ function saveEditedSubtask(subtaskId) {
 
     subtaskDiv.querySelector('li').innerText = newValue;
     subtaskDiv.classList.remove('editing');
+}
+
+function clearSubtasks() {
+    let subtaskContainer = document.getElementById('subtask-container');
+    subtaskContainer.innerHTML = '';
+    subtaskCounter = 0; 
 }

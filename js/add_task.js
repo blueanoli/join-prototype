@@ -359,12 +359,6 @@ function resetCategorySelection() {
     resetFieldStyle(dropdown); 
 }
 
-function clearSubtasks() {
-    let subtaskContainer = document.getElementById('subtask-container');
-    subtaskContainer.innerHTML = '';
-    subtaskCounter = 0; 
-}
-
 document.addEventListener('DOMContentLoaded', function() {
      let form = document.getElementById('add-task');
      if (form) {

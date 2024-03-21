@@ -125,7 +125,7 @@ textarea{
     display: flex;
     position: absolute;
     gap: 16px;
-    bottom: -125px;
+    bottom: -160px;
     right: 5%;
 }
 .priority-active {
@@ -185,6 +185,8 @@ textarea{
     justify-content: center;
     z-index: 3;
     cursor: pointer;
+    position: absolute;
+    right: 6%;
 }
 .icon-plus:hover{
     background-color: #E7E7E7;
@@ -224,6 +226,7 @@ textarea{
 /* SUBTASK STYLE */
 #subtasks{
     margin-bottom: 0;
+    width: 100%;
 }
 #subtask-container{
     max-height: 48px;
@@ -411,7 +414,7 @@ textarea{
     justify-content: start;
 }
 .date-input {
-    width: 95%; 
+    width: 98%; 
     -webkit-appearance: none;
     -moz-appearance: textfield; 
     appearance: none; 
@@ -419,7 +422,7 @@ textarea{
 }
 .date-icon {
     position: absolute;
-    right: 5%;
+    right: 5px;
     top: 53px;
     transform: translateY(-50%);
     pointer-events: none; 

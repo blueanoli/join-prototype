@@ -228,9 +228,10 @@ textarea{
     width: 100%;
 }
 #subtask-container{
-    max-height: 48px;
+    max-height: 46px;
     overflow-y: auto;
     margin-bottom: 16px;
+    margin-top: 8px;
 }
 .subtask{
     display: flex;
@@ -238,10 +239,10 @@ textarea{
     justify-content: space-between;
     gap: 8px;
 }
-.subtask:hover{
+/* .subtask:hover{
     background-color: #E7E7E7;
     border-radius: 8px;
-}
+} */
 .subtask-icons{
     display: flex;
     align-items: center;
@@ -269,7 +270,7 @@ textarea{
 .subtask input {
     background-color: white; 
     border: none; 
-    border-bottom: 1px solid var(--light-blue); 
+    border-bottom: 1px solid #005DFF; 
     border-radius: 0 !important;
     height: 20px; 
     font-size: 20px; 
@@ -280,12 +281,15 @@ textarea{
 .subtask.editing .subtask-icons img {
     display: none;
 }
+.subtask-icons img:hover{
+    transform: perspective(1.05);
+}
 .subtask .icon-container {
     display: flex;
     align-items: center; 
     gap: 8px;
     position: absolute;
-    right: 22px;
+    right: 30px;
     margin-top: 4px;
 }
 .subtask .icon-container img {
@@ -293,12 +297,19 @@ textarea{
     width: 20px; 
     height: 20px; 
 }
+.subtask .subtask-icons {
+    visibility: hidden;
+}
+.subtask:hover .subtask-icons {
+    visibility: visible;
+}
+.subtask:hover{
+    background-color: #E7E7E7;
+    border-radius: 8px;
+}
 .subtask.editing {
     display: flex; 
     align-items: center; 
-}
-.subtask:not(.editing):hover {
-    background-color: transparent;
 }
 /* DISPLAY NONE */
 .d-none{

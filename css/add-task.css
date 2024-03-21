@@ -402,6 +402,35 @@ textarea{
 .contact-search-input.select-show {
     display: block; 
 }
+/* DATE STYLE */
+.date-input-container {
+    position: relative;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+}
+.date-input {
+    width: 95%; 
+    -webkit-appearance: none;
+    -moz-appearance: textfield; 
+    appearance: none; 
+    display: flex;
+}
+.date-icon {
+    position: absolute;
+    right: 5%;
+    top: 53px;
+    transform: translateY(-50%);
+    pointer-events: none; 
+}
+.date-input:focus {
+    border-color: #4A90E2;
+    outline: none;
+}
+.date-input::-webkit-calendar-picker-indicator {
+    display: none;
+}
 /* CATEGORIES */
 .select-cat div{
     padding: 8px 16px;

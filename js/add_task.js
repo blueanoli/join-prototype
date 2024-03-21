@@ -397,14 +397,14 @@ function clearSubtasks() {
     subtaskCounter = 0; 
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    let form = document.getElementById('add-task');
-    if (form) {
-        form.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                return false;
-            }
-        });
-    }
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     let form = document.getElementById('add-task');
+//     if (form) {
+//         form.addEventListener('keydown', function(event) {
+//             if (event.key === 'Enter') {
+//                 event.preventDefault();
+//                 return false;
+//             }
+//         });
+//     }
+// });

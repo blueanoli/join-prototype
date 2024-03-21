@@ -239,10 +239,6 @@ textarea{
     justify-content: space-between;
     gap: 8px;
 }
-/* .subtask:hover{
-    background-color: #E7E7E7;
-    border-radius: 8px;
-} */
 .subtask-icons{
     display: flex;
     align-items: center;
@@ -280,6 +276,9 @@ textarea{
 }
 .subtask.editing .subtask-icons img {
     display: none;
+}
+.subtask.editing:hover{
+    background-color: transparent;
 }
 .subtask-icons img:hover{
     transform: perspective(1.05);

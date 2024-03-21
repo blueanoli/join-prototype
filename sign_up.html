@@ -7,11 +7,11 @@
     <link rel="icon" type="image/png" href="assets/img/logo_dark.svg" />
     <link rel="stylesheet" href="css/fonts.css" />
     <link rel="stylesheet" href="css/style.css" />
-    <script src="js/login.js" defer></script>
     <script src="js/script.js" defer></script>
+    <script src="js/login.js" defer></script>
     <script src="js/register.js" defer></script>
   </head>
-  <body class="login-body">
+  <body onload="initRegister()" class="login-body">
     <div class="login-container">
       <img class="login-logo" src="assets/img/logo_dark.svg" alt="join-logo" />
       <div class="signup-main">
@@ -57,7 +57,7 @@
               />
               <img src="assets/img/password.svg" />
             </div>
-            <div class="login-input-container">
+            <div id="password-confirmed-container" class="login-input-container">
               <input
                 required
                 id="passwordConfirmed"
@@ -66,6 +66,9 @@
                 placeholder="Confirm Password"
               />
               <img src="assets/img/password.svg" />
+            </div>
+            <div id="password-wrong-text" class="login-wrong-password-hidden">
+              <span>Ups! your password don't match.</span>
             </div>
           </div>
           <div class="signup-policy">

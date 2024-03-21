@@ -1,5 +1,6 @@
 function initLogin() {
   statusVisit();
+  loadUsers();
 }
 
 /* Used to check if it's the person first visit in the current session 
@@ -29,16 +30,23 @@ function playLogoAnimation() {
 function searchUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
+  let passwordContainer = document.getElementById("password-container");
+  let wrongPassword = document.getElementById("password-wrong-text");
 
   let user = users.find(
-    (u) => u.email == email.value && u.password == password.value
+    (u) => u.password == password.value && u.email == email.value
   );
-  console.log(user);
+  let correctEmail = users.find((u) => u.email == email.value);
 
   if (user) {
-    console.log("User registered");
+    window.location.href = "summary.html";
+  } else if (correctEmail) {
+    passwordContainer.classList.add("login-wrong-password-container");
+    wrongPassword.classList.add("login-wrong-password-text");
   } else {
-    console.log("User not registered");
+    passwordContainer.classList.remove("login-wrong-password-container");
+    wrongPassword.classList.remove("login-wrong-password-text");
+    console.log("Not registered!");
   }
 }
 

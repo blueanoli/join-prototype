@@ -11,7 +11,7 @@
     <script src="js/login.js"></script>
     <script src="js/register.js"></script>
   </head>
-  <body class="login-body" onload="initLogin()">
+  <body onload="initLogin()" class="login-body">
     <div class="login-container">
       <div class="animated-logo-container"></div>
       <img id="animated-logo" src="assets/img/logo_dark.svg" alt="join-logo" />
@@ -35,7 +35,7 @@
             />
             <img src="assets/img/mail.svg" />
           </div>
-          <div class="login-input-container">
+          <div id="password-container" class="login-input-container">
             <input
               required
               id="password"
@@ -44,6 +44,9 @@
               placeholder="Password"
             />
             <img src="assets/img/password.svg" />
+          </div>
+          <div id="password-wrong-text" class="login-wrong-password-hidden">
+            <span>Wrong Password Ups! Try again.</span>
           </div>
           <div class="login-remember">
             <img

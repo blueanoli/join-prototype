@@ -194,6 +194,10 @@ h1 {
   cursor: pointer;
 }
 
+.login-input-container:focus-within {
+  border: 1px solid var(--user-light-blue);
+}
+
 .login-input {
   outline: none;
   border: none;
@@ -207,6 +211,22 @@ h1 {
 
 .mrg-bottom {
   margin-bottom: 32px;
+}
+
+.login-wrong-password-container {
+  border: 1px solid #FF001F;
+}
+
+.login-wrong-password-hidden {
+  margin-top: 8px;
+  visibility: hidden;
+}
+
+.login-wrong-password-text {
+  visibility: visible;
+  font-size: 13px;
+  font-weight: 400;
+  color: #FF8190;
 }
 
 .login-remember {

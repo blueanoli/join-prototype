@@ -9,6 +9,11 @@ let fields = [
 ];
 let isFieldEmpty;
 
+async function renderAddTask(){
+    await init();
+    chooseMediumPrio();
+}
+
 function showErrorMessage(inputElement, errorMessage) {
     inputElement.classList.add('input-error');
     errorMessage.style.display = 'block';
@@ -397,14 +402,14 @@ function clearSubtasks() {
     subtaskCounter = 0; 
 }
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     let form = document.getElementById('add-task');
-//     if (form) {
-//         form.addEventListener('keydown', function(event) {
-//             if (event.key === 'Enter') {
-//                 event.preventDefault();
-//                 return false;
-//             }
-//         });
-//     }
-// });
+document.addEventListener('DOMContentLoaded', function() {
+     let form = document.getElementById('add-task');
+     if (form) {
+        form.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                return false;
+            }
+        });
+    }
+});

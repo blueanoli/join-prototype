@@ -1,5 +1,4 @@
 body {
-    background-color: var(--background-grey);
     min-height: 100vh;
 }
 label {
@@ -175,23 +174,6 @@ textarea{
 .red-asterisk {
     color: red;
 }
-.add-subtask{
-    display: flex;
-    align-items: center;
-}
-.icon-plus{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 3;
-    cursor: pointer;
-    position: absolute;
-    right: 6%;
-}
-.icon-plus:hover{
-    background-color: #E7E7E7;
-    border-radius: 50%;
-}
 /* ADD TASK ANIMATION */
 #notification-container {
     position: fixed;
@@ -224,6 +206,23 @@ textarea{
     }
 }
 /* SUBTASK STYLE */
+.add-subtask{
+    display: flex;
+    align-items: center;
+}
+.icon-plus{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    cursor: pointer;
+    position: absolute;
+    right: 6%;
+}
+.icon-plus:hover{
+    background-color: #E7E7E7;
+    border-radius: 50%;
+}
 #subtasks{
     margin-bottom: 0;
     width: 100%;
@@ -262,6 +261,11 @@ textarea{
     width: 100%;
     display: flex;
 }
+.edit-subtask-container:focus{
+    background-color: transparent;
+    height: 20px;
+    width: 100%;
+}
 .subtask input {
     background-color: white; 
     border: none; 
@@ -279,7 +283,10 @@ textarea{
 .subtask .icon-container {
     display: flex;
     align-items: center; 
-    gap: 8px; 
+    gap: 8px;
+    position: absolute;
+    right: 22px;
+    margin-top: 4px;
 }
 .subtask .icon-container img {
     cursor: pointer;
@@ -289,6 +296,9 @@ textarea{
 .subtask.editing {
     display: flex; 
     align-items: center; 
+}
+.subtask:not(.editing):hover {
+    background-color: transparent;
 }
 /* DISPLAY NONE */
 .d-none{

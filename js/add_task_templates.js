@@ -18,8 +18,19 @@ function renderSubtaskHTML(subtask, subtaskId) {
             <div class="subtask-line"></div>
             <img onclick="removeSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
         </div>
-    </div>
-    `;
+    </div>`;
+}
+
+function renderSubtaskListHTML(subtaskText, subtaskId) {
+    return /*html*/`
+        <div class="edit-subtask-container">
+        <input type="text" value="${subtaskText}" id="edit-${subtaskId}">
+        <span class="icon-container">
+            <img onclick="removeSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
+            <span>|</span>
+            <img onclick="saveEditedSubtask('${subtaskId}')" src="assets/img/addtask_check.svg" alt="">
+        </span>
+        </div>`;
 }
 
 function renderContactHTML(contact, color, initials, checkboxImage) {

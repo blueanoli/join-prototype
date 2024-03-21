@@ -121,54 +121,6 @@ function addTaskAnimation(){
     }, 1000);
 }
 
-function addSubtask() {
-    let subtask = document.getElementById('subtasks').value;
-    let subtaskcontainer = document.getElementById('subtask-container');
-    let subtaskId = 'subtask-' + subtaskCounter++;
-
-    subtaskcontainer.innerHTML += renderSubtaskHTML(subtask, subtaskId);
-
-    document.getElementById('subtasks').value = '';
-}
-
-function removeSubtask(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
-    if (subtaskElement) {
-        subtaskElement.remove();
-    }
-}
-
-function editSubtask(subtaskId) {
-    let subtaskDiv = document.getElementById(subtaskId);
-    subtaskDiv.classList.add('editing');
-
-    let subtaskLi = subtaskDiv.querySelector('li');
-    let subtaskText = subtaskLi.innerText;
-
-    subtaskLi.innerHTML = /*html*/`
-        <div class="edit-subtask-container">
-        <input type="text" value="${subtaskText}" id="edit-${subtaskId}">
-        <span class="icon-container">
-            <img onclick="removeSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
-            <span>|</span>
-            <img onclick="saveEditedSubtask('${subtaskId}')" src="assets/img/addtask_check.svg" alt="">
-        </span>
-        </div>
-    `;
-
-    document.getElementById(`edit-${subtaskId}`).focus();
-}
-
-function saveEditedSubtask(subtaskId) {
-    let subtaskDiv = document.getElementById(subtaskId);
-    let inputField = document.getElementById(`edit-${subtaskId}`);
-    let newValue = inputField.value;
-
-    subtaskDiv.querySelector('li').innerText = newValue;
-    subtaskDiv.classList.remove('editing');
-}
-
-
 function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);

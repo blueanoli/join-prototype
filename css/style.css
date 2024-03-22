@@ -401,18 +401,22 @@ h1 {
 .login-register-msg-hidden {
   display: none;
   position: absolute;
-  background-color: var(--highlighted);
-  border-radius: 8px;
-  text-align: center;
-  padding: 16px;
-  font-size: 16px;
+  background-color: var(--dark-blue);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 15%);
+  border-radius: 20px;
+  height: 74px;
+  padding: 0 25px 0 25px;
+  font-size: 20px;
+  font-weight: 400;
   color: white;
   animation: register 1s ease 0s 1 normal forwards;
   z-index: 1;
 }
 
 .login-register-msg-shown {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes register {

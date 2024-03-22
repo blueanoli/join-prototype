@@ -25,7 +25,7 @@
         <h1>Log in</h1>
         <span class="login-underline"></span>
         <form onsubmit="searchUser(); return false;">
-          <div class="login-input-container mrg-bottom">
+          <div id="login-email-container" class="login-input-container mrg-bottom">
             <input
               required
               id="email"
@@ -65,7 +65,9 @@
           </div>
           <div class="log-in-button-container">
             <button class="log-in-button">Log in</button>
-            <button class="log-in-guest-button" onclick="guestLogin()">Guest Log in</button>
+            <button class="log-in-guest-button" onclick="guestLogin()">
+              Guest Log in
+            </button>
           </div>
         </form>
       </div>

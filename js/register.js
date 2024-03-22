@@ -60,7 +60,7 @@ async function registerNewEmail(
   showRegisterMsg();
   setTimeout(function () {
     window.location.href = "index.html?msg=You Singed up successfully";
-  }, 2000);
+  }, 1000);
 }
 
 /* Shows registration message by successfully registration */

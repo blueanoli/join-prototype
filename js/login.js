@@ -47,13 +47,42 @@ function searchUser() {
   if (user) {
     window.location.href = "summary.html";
   } else if (correctEmail) {
-    passwordContainer.classList.add("login-wrong-password-container");
-    wrongPassword.classList.add("login-wrong-password-text");
+    isWrongPassword(passwordContainer, wrongPassword);
   } else {
-    passwordContainer.classList.remove("login-wrong-password-container");
-    wrongPassword.classList.remove("login-wrong-password-text");
-    console.log("Not registered!");
+    emailNotRegistered(passwordContainer, wrongPassword);
   }
+}
+
+/* Shows appropriate text and adds border-color if password is wrong + removes the changes from emailNotRegistered() */
+function isWrongPassword(passwordContainer, wrongPassword) {
+  let emailContainer = document.getElementById("login-email-container");
+  let isNotRegisteredText = wrongPassword.querySelector("span");
+
+  emailContainer.classList.remove("login-wrong-password-container");
+
+  if (isNotRegisteredText === "Not registered!") {
+    isNotRegisteredText.innerHTML = "Wrong Password Ups! Try again.";
+  } else {
+    isNotRegisteredText.innerHTML = "Wrong Password Ups! Try again.";
+  }
+  passwordContainer.classList.add("login-wrong-password-container");
+  wrongPassword.classList.add("login-wrong-password-text");
+}
+
+/* Shows appropriate text and adds border-color if email is not registered + removes the changes from isWrongPassword() */
+function emailNotRegistered(passwordContainer, wrongPassword) {
+  let emailContainer = document.getElementById("login-email-container");
+  let isNotRegisteredText = wrongPassword.querySelector("span");
+
+  passwordContainer.classList.remove("login-wrong-password-container");
+
+  if (isNotRegisteredText === "Wrong Password Ups! Try again.") {
+    isNotRegisteredText.innerHTML = "Not registered!";
+  } else {
+    isNotRegisteredText.innerHTML = "Not registered!";
+  }
+  emailContainer.classList.add("login-wrong-password-container");
+  wrongPassword.classList.add("login-wrong-password-text");
 }
 
 /* Changes the src of the checkbox-img and the visibility of the sign-up button 

@@ -54,29 +54,44 @@
                 class="login-input"
                 type="password"
                 placeholder="Password"
+                onfocus="hidePasswordImg()"
+                onblur="defaultPasswordImg()"
               />
-              <img src="assets/img/password.svg" />
+              <img
+                id="login-password-icon"
+                src="assets/img/password.svg"
+                onclick="toggleVisibilityPassword()"
+              />
             </div>
-            <div id="password-confirmed-container" class="login-input-container">
+            <div
+              id="password-confirmed-container"
+              class="login-input-container"
+            >
               <input
                 required
-                id="passwordConfirmed"
+                id="password-confirmed"
                 class="login-input"
                 type="password"
                 placeholder="Confirm Password"
+                onfocus="hidePasswordConfirmedImg()"
+                onblur="defaultPasswordConfirmedImg()"
               />
-              <img src="assets/img/password.svg" />
+              <img
+                id="login-password-confirmed-icon"
+                src="assets/img/password.svg"
+                onclick="toggleVisibilityPasswordConfirmed()"
+              />
             </div>
-            <div id="password-wrong-text" class="login-wrong-password-hidden">
-              <span>Ups! your password don't match.</span>
-            </div>
+          </div>
+          <div id="password-wrong-text" class="login-wrong-password-hidden">
+            <span>Ups! your password don't match.</span>
           </div>
           <div class="signup-policy">
             <img
-              onclick="checkedLoginCheckbox()"
               id="login-checkbox"
               class="signup-checkbox login-checkbox"
               src="assets/img/checkboxempty.svg"
+              onclick="checkedLoginCheckbox()"
             />
             <span class="signup-accept-privacy"
               >I accept the
@@ -94,8 +109,12 @@
           >
             <button class="log-in-button">Sign up</button>
           </div>
-          <div id="msgBox"></div>
         </form>
+      </div>
+      <div class="login-register-msg-container-hidden" id="register-msg-container">
+        <span class="login-register-msg-hidden" id="register-msg"
+          >You Singed up successfully</span
+        >
       </div>
       <div class="login-legal-footer">
         <a class="login-legal-link" href="external_privacy.html" target="_blank"

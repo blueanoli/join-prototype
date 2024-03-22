@@ -4,6 +4,7 @@ async function initRegister() {
   loadUsers();
 }
 
+/* Loads registered users from backend storage */
 async function loadUsers() {
   try {
     users = JSON.parse(await getItem("users"));
@@ -16,14 +17,14 @@ async function addNewUser() {
   let name = document.getElementById("name");
   let email = document.getElementById("email");
   let password = document.getElementById("password");
-  let passwordConfirmed = document.getElementById("passwordConfirmed");
+  let passwordConfirmed = document.getElementById("password-confirmed");
   let signupButton = document.getElementById("signup-button");
-  signupButton.disabled = true;
-
   let wrongPassword = document.getElementById("password-wrong-text");
   let wrongPasswordContainer = document.getElementById(
     "password-confirmed-container"
   );
+
+  signupButton.disabled = true;
 
   let isEmailRegistered = users.find((u) => u.email == email.value);
   let isPasswordIdentical = password.value == passwordConfirmed.value;
@@ -40,6 +41,7 @@ async function addNewUser() {
   }
 }
 
+/* Pushes the values of the input-fields into the registration storage by successfully registration */
 async function registerNewEmail(
   name,
   email,
@@ -55,9 +57,22 @@ async function registerNewEmail(
   });
   await setItem("users", JSON.stringify(users));
   clearInputField(name, email, password, passwordConfirmed, signupButton);
-  window.location.href = "index.html?msg=You have successfully signed up";
+  showRegisterMsg();
+  setTimeout(function () {
+    window.location.href = "index.html?msg=You Singed up successfully";
+  }, 2000);
 }
 
+/* Shows registration message by successfully registration */
+function showRegisterMsg() {
+  let registerMsgContainer = document.getElementById("register-msg-container");
+  let registerMsg = document.getElementById("register-msg");
+
+  registerMsg.classList.add("login-register-msg-shown");
+  registerMsgContainer.classList.add("login-register-msg-container-shown");
+}
+
+/* Clears input-fields and disables the sign-up button */
 function clearInputField(
   name,
   email,
@@ -71,4 +86,3 @@ function clearInputField(
   passwordConfirmed.value = "";
   signupButton.disabled = false;
 }
-

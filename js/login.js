@@ -27,6 +27,12 @@ function playLogoAnimation() {
   }
 }
 
+/* Used to Log-in throught Guest Log-in button*/
+function guestLogin() {
+  window.location.href = "summary.html";
+}
+
+/* Searches for the login data by Log-in submit */
 function searchUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -62,5 +68,63 @@ function checkedLoginCheckbox() {
   } else {
     checkbox.src = "assets/img/checkboxempty.svg";
     signUpButton.classList.add("signup-button-visibility");
+  }
+}
+
+/* Changes the src of password img on input focus */
+function hidePasswordImg() {
+  let passwordImg = document.getElementById("login-password-icon");
+  passwordImg.src = "assets/img/visibility_off.svg";
+}
+
+/* Toggles the visibility of the password on image-click and changes the password img */
+function toggleVisibilityPassword() {
+  let passwordImg = document.getElementById("login-password-icon");
+  let password = document.getElementById("password");
+
+  if (passwordImg.src.includes("visibility_off.svg")) {
+    passwordImg.src = "assets/img/visibility.svg";
+    password.type = "text";
+  } else {
+    passwordImg.src = "assets/img/visibility_off.svg";
+    password.type = "password";
+  }
+}
+
+/* Sets the password img to the default img when the inputfield is empty and not focused */
+function defaultPasswordImg() {
+  let passwordImg = document.getElementById("login-password-icon");
+  let passwordInput = document.getElementById("password");
+
+  if (passwordInput.value === "") {
+    passwordImg.src = "assets/img/password.svg";
+  }
+}
+
+/* Same Code as above but for the second password field in sign_up.html */
+function hidePasswordConfirmedImg() {
+  let passwordImg = document.getElementById("login-password-confirmed-icon");
+  passwordImg.src = "assets/img/visibility_off.svg";
+}
+
+function toggleVisibilityPasswordConfirmed() {
+  let passwordImg = document.getElementById("login-password-confirmed-icon");
+  let password = document.getElementById("password-confirmed");
+
+  if (passwordImg.src.includes("visibility_off.svg")) {
+    passwordImg.src = "assets/img/visibility.svg";
+    password.type = "text";
+  } else {
+    passwordImg.src = "assets/img/visibility_off.svg";
+    password.type = "password";
+  }
+}
+
+function defaultPasswordConfirmedImg() {
+  let passwordImg = document.getElementById("login-password-confirmed-icon");
+  let passwordInput = document.getElementById("password-confirmed");
+
+  if (passwordInput.value === "") {
+    passwordImg.src = "assets/img/password.svg";
   }
 }

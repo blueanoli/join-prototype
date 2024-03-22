@@ -79,3 +79,20 @@ document.getElementById('subtasks').addEventListener('input', function() {
     }
 });
 }
+
+function setupInputEventListener() {
+    document.getElementById('subtasks').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === 13) {
+            event.preventDefault(); 
+
+            let isEditing = document.querySelector('.editing');
+
+            if (isEditing) {
+                let subtaskId = isEditing.id; 
+                saveEditedSubtask(subtaskId);
+            } else {
+                addSubtask();
+            }
+        }
+    });
+}

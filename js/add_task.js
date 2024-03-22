@@ -13,6 +13,7 @@ async function renderAddTask(){
     await init();
     chooseMediumPrio();
     addSubtaskEventListener();
+    setupInputEventListener();
 }
 
 function showErrorMessage(inputElement, errorMessage) {

@@ -12,6 +12,7 @@ let isFieldEmpty;
 async function renderAddTask(){
     await init();
     chooseMediumPrio();
+    addSubtaskEventListener();
 }
 
 function showErrorMessage(inputElement, errorMessage) {

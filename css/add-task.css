@@ -218,8 +218,20 @@ textarea{
     cursor: pointer;
     position: absolute;
     right: 6%;
+    bottom: -12px;
 }
 .icon-plus:hover{
+    background-color: #E7E7E7;
+    border-radius: 50%;
+}
+#icon-container{
+    display: flex;
+    align-items: center;
+    position: absolute;
+    gap: 8px;
+    right: 6%;
+}
+#icon-container img:hover{
     background-color: #E7E7E7;
     border-radius: 50%;
 }

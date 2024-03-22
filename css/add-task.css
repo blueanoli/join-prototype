@@ -272,7 +272,8 @@ textarea{
     font-size: 20px; 
     padding-top: 0; 
     margin-top: 4px; 
-    width: 100%;
+    width: 92%;
+    position: absolute;
 }
 .subtask.editing .subtask-icons img {
     display: none;
@@ -287,8 +288,8 @@ textarea{
     display: flex;
     align-items: center; 
     gap: 8px;
-    position: absolute;
-    right: 30px;
+    position: relative;
+    right: -350px;
     margin-top: 4px;
 }
 .subtask .icon-container img {

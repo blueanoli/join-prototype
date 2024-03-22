@@ -14,6 +14,7 @@ function removeSubtask(subtaskId) {
         subtaskElement.remove();
         subtaskCounter--;
     }
+    document.getElementById('subtask-container').style.overflowY = 'auto';
 }
 
 function editSubtask(subtaskId) {
@@ -21,8 +22,8 @@ function editSubtask(subtaskId) {
     subtaskDiv.classList.add('editing');
     let subtaskText = subtaskDiv.innerText;
 
+    document.getElementById('subtask-container').style.overflowY = 'hidden';
     subtaskDiv.innerHTML = renderSubtaskListHTML(subtaskText, subtaskId);
-
     document.getElementById(`edit-${subtaskId}`).focus();
 }
 
@@ -42,6 +43,7 @@ function saveEditedSubtask(subtaskId) {
         </div>
     `;
     subtaskDiv.classList.remove('editing');
+    document.getElementById('subtask-container').style.overflowY = 'auto';
 }
 
 function clearSubtasks() {

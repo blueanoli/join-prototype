@@ -276,7 +276,7 @@ function renderCategories() {
 
 function clearForm() {
     document.getElementById('add-task').reset();
-    document.getElementById("add-task-btn").disabled = true;
+    document.getElementById("add-task-btn").disabled = false;
 
     removeLowPrio();
     removeUrgentPrio();

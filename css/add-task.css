@@ -202,7 +202,7 @@ textarea{
         transform: translateX(-50%) translateY(100%);
     }
     to {
-        transform: translateX(-50%) translateY(calc(-50vh + 48px + 96px - 200px));
+        transform: translateX(-50%) translateY(calc(-50vh + 48px + 96px));
     }
 }
 /* SUBTASK STYLE */

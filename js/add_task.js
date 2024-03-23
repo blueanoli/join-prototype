@@ -163,26 +163,6 @@ function createContactOption(contact, itemsDiv, index) {
     itemsDiv.appendChild(optionDiv);
 }
 
-function handleContactClick(event, contact, optionDiv) {
-    event.stopImmediatePropagation();
-    let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
-    let checkbox = isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
-
-    if (!selectedContacts[contact]) {
-        checkbox.src = "assets/img/checkboxchecked_white.svg";
-        addAssignedContact(contact);
-        selectedContacts[contact] = true;
-        optionDiv.style.backgroundColor = "var(--dark-blue)"; 
-        optionDiv.classList.add("selected");
-    } else {
-        checkbox.src = "assets/img/checkboxempty.svg";
-        removeAssignedContact(contact);
-        selectedContacts[contact] = false;
-        optionDiv.style.backgroundColor = ""; 
-        optionDiv.classList.remove("selected");
-    }
-}
-
 function renderContacts() {
     let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
     itemsDiv.innerHTML = '';
@@ -262,18 +242,6 @@ function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
     itemsDiv.appendChild(optionDiv);
 }
 
-function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
-    event.stopPropagation();
-
-    selectedDiv.textContent = category;
-    dropdown.setAttribute('data-value', category);
-    resetFieldStyle(dropdown);
-    hideCategoryError();
-
-    itemsDiv.classList.add('select-hide');
-    changeDropdownImg('choose-category', 'close');
-}
-
 function hideCategoryError() {
     let errorElement = document.getElementById('category-error');
     if (errorElement) {
@@ -303,29 +271,6 @@ function clearForm() {
     clearAssignedContacts();
     resetCategorySelection();
     clearSubtasks();
-}
-
-function setupFormEventListeners() {
-    document.getElementById('add-task').addEventListener('submit', function(event) {
-        event.preventDefault();
-    });
-
-    document.getElementById('add-task').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-        }
-    });
-}
-
-function setupDropdownCloseListener() {
-    document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('assigned-to');
-        const isClickInsideDropdown = dropdown.contains(event.target);
-
-        if (!isClickInsideDropdown && !dropdown.querySelector('.select-items').classList.contains('select-hide')) {
-            toggleDropdown('assigned-to', true); 
-        }
-    });
 }
 
 // HILFSFUNKTIONEN
@@ -400,15 +345,3 @@ function resetCategorySelection() {
     selectedDiv.textContent = 'Select task category'; 
     resetFieldStyle(dropdown); 
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-     let form = document.getElementById('add-task');
-     if (form) {
-        form.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                return false;
-            }
-        });
-    }
-});

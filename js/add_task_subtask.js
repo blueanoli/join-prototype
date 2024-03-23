@@ -60,39 +60,3 @@ function cancelSubtask() {
         <img onclick="addSubtask()" class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
     `;
 }
-
-function addSubtaskEventListener(){
-document.getElementById('subtasks').addEventListener('input', function() {
-    let inputField = document.getElementById('subtasks');
-    let iconContainer = document.getElementById('icon-container');
-
-    if(inputField.value.trim() !== '') {
-        iconContainer.innerHTML = `
-            <img onclick="cancelSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
-            <div class="subtask-line"></div>
-            <img onclick="addSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">
-        `;
-    } else {
-        iconContainer.innerHTML = `
-            <img onclick="addSubtask()" class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
-        `;
-    }
-});
-}
-
-function setupInputEventListener() {
-    document.getElementById('subtasks').addEventListener('keydown', function(event) {
-        if (event.key === 'Enter' || event.key === 13) {
-            event.preventDefault(); 
-
-            let isEditing = document.querySelector('.editing');
-
-            if (isEditing) {
-                let subtaskId = isEditing.id; 
-                saveEditedSubtask(subtaskId);
-            } else {
-                addSubtask();
-            }
-        }
-    });
-}

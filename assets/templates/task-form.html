@@ -5,10 +5,10 @@
     <div class="add-task-left">
         <div class="left-input-container">
             <label for="title">Title<span class="red-asterisk">*</span></label>
-            <input required onfocus="resetFieldStyle(this)" type="text" id="title" placeholder="Enter a title">
+            <input required onfocus="resetFieldStyle(this)" type="text" id="title" placeholder="Enter a title" title="Please enter a title">
             <span class="error-message" id="title-error">This field is required</span>
             <label for="description">Description</label>
-            <textarea id="description" placeholder="Enter a description"></textarea>
+            <textarea id="description" placeholder="Enter a description" title="Please enter a description"></textarea>
             <p class="font-size20">Assigned to</p>
             <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
                 <div id="assigned-to" class="custom-select">
@@ -30,9 +30,9 @@
         <div class="right-input-container">
             <div class="date-input-container">
                 <label for="due-date">Due date<span class="red-asterisk">*</span></label>
-                <input required onfocus="resetFieldStyle(this)" type="date" id="due-date" class="date-input"
-                    placeholder="dd/mm/yyyy">
-                <svg class="date-icon" width="19" height="20" viewBox="0 0 19 20" fill="none"
+                <input required onfocus="resetFieldStyle(this)" type="text" id="due-date" class="date-input"
+                    placeholder="dd/mm/yyyy" pattern="\d{2}/\d{2}/\d{4}" title="Please enter correct format dd/mm/yyyy">
+                <svg class="date-icon" id="date-picker-icon" width="19" height="20" viewBox="0 0 19 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M11.7485 16C11.0485 16 10.4569 15.7583 9.97354 15.275C9.4902 14.7917 9.24854 14.2 

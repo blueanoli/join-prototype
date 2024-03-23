@@ -49,3 +49,11 @@ function renderAssignedContactHTML(initials, color) {
         <div class="test-contact" style="background-color: ${color};">${initials}</div>
     </div>`;
 }
+
+function renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index){
+    return /*html*/`
+        <div class='option-item${selectedClass}' id='contact-${index}'${backgroundColorStyle}>
+            ${renderContactHTML(contact, color, initials, checkboxImage)}
+        </div>
+`;
+}

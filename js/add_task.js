@@ -16,6 +16,7 @@ async function renderAddTask(){
     setupInputEventListener();
     setupFormEventListeners();
     setupDropdownCloseListener();
+    setupEventListenersForItemsDiv();
 }
 
 function validateDate(inputElement) {
@@ -145,31 +146,22 @@ function createContactOption(contact, itemsDiv, index) {
     let color = getColorForInitials(initials);
     let isChecked = selectedContacts[contact] === true; 
     let checkboxImage = isChecked ? "checkboxchecked_white.svg" : "checkboxempty.svg";
-    let optionDiv = document.createElement('div');
+    let selectedClass = isChecked ? " selected" : "";
+    let backgroundColorStyle = isChecked ? " style='background-color: var(--dark-blue);'" : "";
 
-    optionDiv.className = 'option-item';
-    optionDiv.id = 'contact-' + index;
-    optionDiv.innerHTML = renderContactHTML(contact, color, initials, checkboxImage);
+    let optionHTML = renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index);
 
-    if (isChecked) {
-        optionDiv.style.backgroundColor = "var(--dark-blue)"; 
-        optionDiv.classList.add("selected");
-    }
-
-    optionDiv.addEventListener('click', function (event) {
-        handleContactClick(event, contact, optionDiv);
-    });
-
-    itemsDiv.appendChild(optionDiv);
+    itemsDiv.innerHTML += optionHTML;
 }
 
 function renderContacts() {
     let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
     itemsDiv.innerHTML = '';
     
-    testContacts.forEach((contact, index) => {
-        createContactOption(contact, itemsDiv, index);
-    });
+    for (let i = 0; i < testContacts.length; i++) {
+        let contact = testContacts[i];
+        createContactOption(contact, itemsDiv, i);
+    }
 }
 
 function addAssignedContact(contact) {
@@ -331,9 +323,11 @@ function clearAssignedContacts() {
     let assignedTo = document.getElementById('assign-contacts');
     assignedTo.innerHTML = '';
 
-    Object.keys(selectedContacts).forEach(key => {
-        selectedContacts[key] = false;
-    });
+    for (let key in selectedContacts) {
+        if (selectedContacts.hasOwnProperty(key)) { 
+            selectedContacts[key] = false; 
+        }
+    }
 
     renderContacts();
 }

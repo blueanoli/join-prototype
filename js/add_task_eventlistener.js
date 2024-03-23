@@ -100,3 +100,18 @@ function addSubtaskEventListener(){
             }
         });
     }
+
+    function setupEventListenersForItemsDiv() {
+        let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
+        
+        itemsDiv.addEventListener('click', function(event) {
+            let optionDiv = event.target.closest('.option-item');
+            if (!optionDiv) return; 
+    
+            let index = optionDiv.id.split('-')[1]; 
+            let contact = testContacts[index]; 
+    
+            handleContactClick(event, contact, optionDiv);
+        });
+    }
+    

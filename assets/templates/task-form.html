@@ -30,7 +30,7 @@
         <div class="right-input-container">
             <div class="date-input-container">
                 <label for="due-date">Due date<span class="red-asterisk">*</span></label>
-                <input required onfocus="resetFieldStyle(this)" type="text" id="due-date" class="date-input"
+                <input required onfocus="resetFieldStyle(this)" onblur="validateDate(this)" type="text" id="due-date" class="date-input"
                     placeholder="dd/mm/yyyy" pattern="\d{2}/\d{2}/\d{4}" title="Please enter correct format dd/mm/yyyy">
                 <svg class="date-icon" id="date-picker-icon" width="19" height="20" viewBox="0 0 19 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">

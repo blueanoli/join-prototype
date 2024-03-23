@@ -18,6 +18,21 @@ async function renderAddTask(){
     setupDropdownCloseListener();
 }
 
+function validateDate(inputElement) {
+    let inputValue = inputElement.value;
+    let datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
+    let addTaskButton = document.getElementById('add-task-btn');
+    
+    if (!datePattern.test(inputValue)) {
+      inputElement.setCustomValidity('Please enter correct format dd/mm/yyyy');
+      addTaskButton.disabled = true; 
+    } else {
+      inputElement.setCustomValidity('');
+      addTaskButton.disabled = false; 
+    }
+    inputElement.reportValidity();
+  }
+
 function showErrorMessage(inputElement, errorMessage) {
     inputElement.classList.add('input-error');
     errorMessage.style.display = 'block';

@@ -14,6 +14,8 @@ async function renderAddTask(){
     chooseMediumPrio();
     addSubtaskEventListener();
     setupInputEventListener();
+    setupFormEventListeners();
+    setupDropdownCloseListener();
 }
 
 function showErrorMessage(inputElement, errorMessage) {
@@ -286,6 +288,29 @@ function clearForm() {
     clearAssignedContacts();
     resetCategorySelection();
     clearSubtasks();
+}
+
+function setupFormEventListeners() {
+    document.getElementById('add-task').addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
+
+    document.getElementById('add-task').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
+}
+
+function setupDropdownCloseListener() {
+    document.addEventListener('click', function(event) {
+        const dropdown = document.getElementById('assigned-to');
+        const isClickInsideDropdown = dropdown.contains(event.target);
+
+        if (!isClickInsideDropdown && !dropdown.querySelector('.select-items').classList.contains('select-hide')) {
+            toggleDropdown('assigned-to', true); 
+        }
+    });
 }
 
 // HILFSFUNKTIONEN

@@ -86,3 +86,18 @@ function clearInputField(
   passwordConfirmed.value = "";
   signupButton.disabled = false;
 }
+
+/* Changes the src of the checkbox-img and the visibility of the sign-up button 
+either if it's checked or not*/
+function checkedSignUpCheckbox() {
+  let checkbox = document.getElementById("signup-checkbox");
+  let signUpButton = document.getElementById("signup-button");
+
+  if (checkbox.src.includes("checkboxempty.svg")) {
+    checkbox.src = "assets/img/checkboxchecked.svg";
+    signUpButton.classList.remove("signup-button-visibility");
+  } else {
+    checkbox.src = "assets/img/checkboxempty.svg";
+    signUpButton.classList.add("signup-button-visibility");
+  }
+}

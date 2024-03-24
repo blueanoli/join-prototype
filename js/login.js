@@ -1,6 +1,7 @@
 function initLogin() {
   statusVisit();
   loadUsers();
+  showLoginData();
 }
 
 /* Used to check if it's the person first visit in the current session 
@@ -85,19 +86,62 @@ function emailNotRegistered(passwordContainer, wrongPassword) {
   wrongPassword.classList.add("login-wrong-password-text");
 }
 
-/* Changes the src of the checkbox-img and the visibility of the sign-up button 
-either if it's checked or not*/
+/* Changes the src of the checkbox-img either if it's checked or not*/
 function checkedLoginCheckbox() {
   let checkbox = document.getElementById("login-checkbox");
-  let signUpButton = document.getElementById("signup-button");
 
   if (checkbox.src.includes("checkboxempty.svg")) {
     checkbox.src = "assets/img/checkboxchecked.svg";
-    signUpButton.classList.remove("signup-button-visibility");
+    rememberLoginData();
   } else {
     checkbox.src = "assets/img/checkboxempty.svg";
-    signUpButton.classList.add("signup-button-visibility");
+    deleteLoginData();
   }
+}
+
+/* Saves the Login Data in localStorage if the remember checkbox is clicked */
+function rememberLoginData() {
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+
+  localStorage.setItem("email", email.value);
+  localStorage.setItem("password", password.value);
+}
+
+/* Shows the saved Login Data from localStorage and displays it in the Input-field if the value is not null */
+function showLoginData() {
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+
+  let emailData = localStorage.getItem("email");
+  let passwordData = localStorage.getItem("password");
+  changeCheckboxImg(emailData, passwordData);
+
+  email.value = emailData;
+  password.value = passwordData;
+}
+
+/* Changes the Checkbox-Img to the appropriate src by checking the localStorage */
+function changeCheckboxImg(emailData, passwordData) {
+  let checkbox = document.getElementById("login-checkbox");
+
+  if (emailData == "" || passwordData == "") {
+    checkbox.src = "assets/img/checkboxempty.svg";
+  } else {
+    checkbox.src = "assets/img/checkboxchecked.svg";
+  }
+}
+
+/* Sets the localStorage value of the appropriate key to null and displays it in the input-fields */
+function deleteLoginData() {
+  let email = document.getElementById("email");
+  let password = document.getElementById("password");
+
+  localStorage.setItem("email", "");
+  localStorage.setItem("password", "");
+
+  email.value = "";
+  password.value = "";
 }
 
 /* Changes the src of password img on input focus */

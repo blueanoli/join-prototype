@@ -11,6 +11,7 @@ let isFieldEmpty;
 const priorities = ["low", "medium", "urgent"];
 const imgBaseURL = "assets/img/addtask_";
 
+// INIT LOGIC
 async function renderAddTask(){
     await init();
     chooseMediumPrio(); 
@@ -22,6 +23,7 @@ async function renderAddTask(){
     disableFormEnterKeySubmission();
 }
 
+// DATE LOGIC
 function validateDate(inputElement) {
     let inputValue = inputElement.value;
     let datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
@@ -35,8 +37,9 @@ function validateDate(inputElement) {
       addTaskButton.disabled = false; 
     }
     inputElement.reportValidity();
-  }
+}
 
+// ERROR MESSAGE LOGIC
 function showErrorMessage(inputElement, errorMessage) {
     inputElement.classList.add('input-error');
     errorMessage.style.display = 'block';
@@ -78,6 +81,7 @@ function resetFieldStyle(element) {
     }
 }
 
+// PRIORITY LOGIC
 function chooseUrgentPrio() {
     setPriority("urgent");
 }
@@ -90,6 +94,23 @@ function chooseLowPrio() {
     setPriority("low");
 }
 
+function setPriority(priorityLevel) {
+ 
+    priorities.forEach(prio => {
+        const elem = document.getElementById(`priority-${prio}`);
+        const imgElem = document.getElementById(`img-${prio}`);
+        
+        if (prio === priorityLevel) {
+            elem.classList.add(`${prio}-priority-active`);
+            imgElem.src = `${imgBaseURL}${prio}_white.svg`;
+        } else {
+            elem.classList.remove(`${prio}-priority-active`);
+            imgElem.src = `${imgBaseURL}${prio}.svg`;
+        }
+    });
+}
+
+// ADD TASK LOGIC
 function addTask() {
     let isErrorVisible = false;
     let errorElements = document.querySelectorAll('.error-message');
@@ -123,6 +144,7 @@ function addTaskAnimation(){
     }, 1000);
 }
 
+// CONTACT LOGIC
 function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
@@ -207,6 +229,20 @@ function filterContactsBySearch(search) {
     }
 }
 
+function clearAssignedContacts() {
+    let assignedTo = document.getElementById('assign-contacts');
+    assignedTo.innerHTML = '';
+
+    for (let key in selectedContacts) {
+        if (selectedContacts.hasOwnProperty(key)) { 
+            selectedContacts[key] = false; 
+        }
+    }
+
+    renderContacts();
+}
+
+// CATEGORY LOGIC
 function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
     let optionDiv = document.createElement('div');
     optionDiv.textContent = category;
@@ -235,6 +271,14 @@ function renderCategories() {
     });
 }
 
+function resetCategorySelection() {
+    let dropdown = document.getElementById('choose-category');
+    dropdown.removeAttribute('data-value'); 
+    let selectedDiv = dropdown.querySelector('.select-selected');
+    selectedDiv.textContent = 'Select task category'; 
+    resetFieldStyle(dropdown); 
+}
+
 function clearForm() {
     document.getElementById('add-task').reset();
     chooseMediumPrio(); 
@@ -244,21 +288,6 @@ function clearForm() {
 }
 
 // HILFSFUNKTIONEN
-function setPriority(priorityLevel) {
- 
-    priorities.forEach(prio => {
-        const elem = document.getElementById(`priority-${prio}`);
-        const imgElem = document.getElementById(`img-${prio}`);
-        
-        if (prio === priorityLevel) {
-            elem.classList.add(`${prio}-priority-active`);
-            imgElem.src = `${imgBaseURL}${prio}_white.svg`;
-        } else {
-            elem.classList.remove(`${prio}-priority-active`);
-            imgElem.src = `${imgBaseURL}${prio}.svg`;
-        }
-    });
-}
 
 function toggleDropdown(elementId, forceClose = false) {
     let dropdown = document.getElementById(elementId);
@@ -290,25 +319,4 @@ function changeDropdownImg(elementId, state) {
     if (img) { 
         img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
     }
-}
-
-function clearAssignedContacts() {
-    let assignedTo = document.getElementById('assign-contacts');
-    assignedTo.innerHTML = '';
-
-    for (let key in selectedContacts) {
-        if (selectedContacts.hasOwnProperty(key)) { 
-            selectedContacts[key] = false; 
-        }
-    }
-
-    renderContacts();
-}
-
-function resetCategorySelection() {
-    let dropdown = document.getElementById('choose-category');
-    dropdown.removeAttribute('data-value'); 
-    let selectedDiv = dropdown.querySelector('.select-selected');
-    selectedDiv.textContent = 'Select task category'; 
-    resetFieldStyle(dropdown); 
 }

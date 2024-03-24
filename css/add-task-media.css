@@ -1,3 +1,4 @@
+/* MAX-WIDTH: 1170PX */
 @media (max-width: 1170px) {
 .add-task-left, .add-task-right {
     width: 350px;
@@ -6,7 +7,7 @@
     right: -80%;
 }
 }
-
+/* MAX-WIDTH: 1070PX */
 @media (max-width: 1070px) {
 .add-task-left, .add-task-right {
     width: 280px;
@@ -15,7 +16,7 @@
     right: -75%;
 }
 }
-
+/* MAX-WIDTH: 1000PX */
 @media (max-width: 1000px) {
 .add-task{
     flex-direction: column;
@@ -43,7 +44,7 @@
     left: 270px;
 }
 }
-
+/* MAX-WIDTH: 760PX */
 @media (max-width: 760px) {
     .field-required-info{
       bottom: -400px;  

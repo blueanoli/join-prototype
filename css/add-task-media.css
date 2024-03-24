@@ -43,3 +43,10 @@
     left: 270px;
 }
 }
+
+@media (max-width: 760px) {
+    .field-required-info{
+      bottom: -400px;  
+      padding-bottom: 10px;
+    }
+}

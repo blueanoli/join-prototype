@@ -44,11 +44,18 @@ function setupFormEventListeners() {
 
 function setupDropdownCloseListener() {
     document.addEventListener('click', function(event) {
-        const dropdown = document.getElementById('assigned-to');
-        const isClickInsideDropdown = dropdown.contains(event.target);
+        let dropdownContacts = document.getElementById('assigned-to');
+        let isClickInsideDropdownContacts = dropdownContacts.contains(event.target);
+        let dropdownCategory = document.getElementById('choose-category');
+        let isClickInsideDropdownCategory = dropdownCategory.contains(event.target);
 
-        if (!isClickInsideDropdown && !dropdown.querySelector('.select-items').classList.contains('select-hide')) {
+        if (!isClickInsideDropdownContacts && !dropdownContacts.querySelector('.select-items').classList.contains('select-hide')) {
             toggleDropdown('assigned-to', true); 
+        }
+
+        if (!isClickInsideDropdownCategory && !dropdownCategory.querySelector('.select-items').classList.contains('select-hide')) {
+            toggleDropdown('choose-category', true); 
+            changeDropdownImg('choose-category', 'open'); 
         }
     });
 }

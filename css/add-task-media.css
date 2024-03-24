@@ -20,6 +20,7 @@
 .add-task{
     flex-direction: column;
     align-items: center;
+    margin-left: 270px;
 }
 .add-task-left, .add-task-right {
     width: 100%;
@@ -31,12 +32,14 @@
     display: none;
 }
 .add-task-headline{
-    align-self: center;
+    text-align: center;
+    margin-left: 270px;
 }
 .add-task-buttons{
     padding-bottom: 32px;
 }
 .field-required-info{
-    bottom: -360px;
+    bottom: -345px;
+    left: 270px;
 }
 }

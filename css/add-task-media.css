@@ -1,0 +1,42 @@
+@media (max-width: 1170px) {
+.add-task-left, .add-task-right {
+    width: 350px;
+}
+.subtask .icon-container{
+    right: -80%;
+}
+}
+
+@media (max-width: 1070px) {
+.add-task-left, .add-task-right {
+    width: 280px;
+}
+.subtask .icon-container{
+    right: -75%;
+}
+}
+
+@media (max-width: 1000px) {
+.add-task{
+    flex-direction: column;
+    align-items: center;
+}
+.add-task-left, .add-task-right {
+    width: 100%;
+}
+.subtask .icon-container{
+    right: -85%;
+}
+.divider{
+    display: none;
+}
+.add-task-headline{
+    align-self: center;
+}
+.add-task-buttons{
+    padding-bottom: 32px;
+}
+.field-required-info{
+    bottom: -360px;
+}
+}

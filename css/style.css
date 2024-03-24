@@ -244,6 +244,7 @@ h1 {
 .login-checkbox:hover {
   cursor: pointer;
   background-color: #edf2fa;
+  transform: scale(1.1);
 }
 
 .log-in-button-container {
@@ -348,6 +349,7 @@ h1 {
 .singup-arrow-container:hover {
   cursor: pointer;
   background-color: #eeeeee;
+  transform: scale(1.1);
 }
 
 .signup-input-area {

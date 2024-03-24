@@ -100,3 +100,8 @@ function getInitials(name) {
     .join("")
     .toUpperCase();
 }
+
+function logout() {
+  sessionStorage.clear(); 
+  window.location.href = 'index.html';
+}

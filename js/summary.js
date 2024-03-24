@@ -3,7 +3,7 @@ function dashboardGreeting() {
     let hour = now.getHours();
     let greeting, userName; 
 
-    userName = "<span class='greetingUserName'>Team 122</span>" //später eingeloggter User 
+    userName = "<span class='greetingUserName'>Team 122</span>";     
 
     if (hour < 12) {
         greeting = "<span class='greetingTime'>Good morning,</span><br>";

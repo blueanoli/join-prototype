@@ -19,6 +19,7 @@ async function renderAddTask(){
     setupFormEventListeners();
     setupDropdownCloseListener();
     setupEventListenersForItemsDiv();
+    disableFormEnterKeySubmission();
 }
 
 function validateDate(inputElement) {

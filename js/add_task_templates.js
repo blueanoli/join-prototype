@@ -33,6 +33,13 @@ function renderSubtaskListHTML(subtaskText, subtaskId) {
         </div>`;
 }
 
+function renderSubtaskIconHTML() {
+    return /*html*/`
+    <img onclick="cancelSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
+    <div class="subtask-line"></div>
+    <img onclick="addSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
+}
+
 function renderContactHTML(contact, color, initials, checkboxImage) {
     return /*html*/ `
         <div class="test-contact-container">

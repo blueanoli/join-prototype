@@ -60,17 +60,17 @@ function setupDropdownCloseListener() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+function disableFormEnterKeySubmission() {
     let form = document.getElementById('add-task');
     if (form) {
-       form.addEventListener('keydown', function(event) {
-           if (event.key === 'Enter') {
-               event.preventDefault();
-               return false;
-           }
-       });
-   }
-});
+        form.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                return false;
+            }
+        });
+    }
+}
 
 function addSubtaskEventListener(){
     document.getElementById('subtasks').addEventListener('input', function() {
@@ -78,11 +78,7 @@ function addSubtaskEventListener(){
         let iconContainer = document.getElementById('icon-container');
     
         if(inputField.value.trim() !== '') {
-            iconContainer.innerHTML = `
-                <img onclick="cancelSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
-                <div class="subtask-line"></div>
-                <img onclick="addSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">
-            `;
+            iconContainer.innerHTML = renderSubtaskIconHTML();
         } else {
             iconContainer.innerHTML = `
                 <img onclick="addSubtask()" class="icon-plus" src="assets/img/addtask_plus.svg" alt="">

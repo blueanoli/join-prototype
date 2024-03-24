@@ -290,35 +290,37 @@ function clearForm() {
 }
 
 // HILFSFUNKTIONEN -------------------------------------------------------------------------------------------------------------------------------
-
 function toggleDropdown(elementId, forceClose = false) {
-    let dropdown = document.getElementById(elementId);
-    let itemsDiv = dropdown.querySelector('.select-items');
-    let searchInput = document.getElementById('contact-search-input');
-    let selectSelected = dropdown.querySelector('.select-selected');
+    const dropdown = document.getElementById(elementId);
+    const itemsDiv = dropdown.querySelector('.select-items');
+    const isOpen = !itemsDiv.classList.contains('select-hide');
+    const action = forceClose || isOpen ? 'add' : 'remove';
 
-    if (forceClose || !itemsDiv.classList.contains('select-hide')) {
-        itemsDiv.classList.add('select-hide');
-        if (elementId === 'assigned-to') { 
-            searchInput.classList.add('select-hide');
-            selectSelected.style.display = 'block';
-        }
-        changeDropdownImg(elementId, 'close');
-    } else {
-        itemsDiv.classList.remove('select-hide');
-        if (elementId === 'assigned-to') { 
-            searchInput.classList.remove('select-hide');
-            selectSelected.style.display = 'none';
-            searchInput.focus();
-        }
-        changeDropdownImg(elementId, 'open');
+    toggleElement(itemsDiv, action, 'select-hide');
+    if (elementId === 'assigned-to') {
+        toggleAssignedTo(dropdown, action);
     }
+
+    const state = action === 'add' ? 'close' : 'open';
+    changeDropdownImg(elementId, state);
+}
+function toggleElement(element, action, className) {
+    element.classList[action](className);
+}
+
+function toggleAssignedTo(dropdown, action) {
+    const searchInput = document.getElementById('contact-search-input');
+    const selectSelected = dropdown.querySelector('.select-selected');
+
+    toggleElement(searchInput, action, 'select-hide');
+    selectSelected.style.display = action === 'add' ? 'block' : 'none';
+    if (action === 'remove') searchInput.focus();
 }
 
 function changeDropdownImg(elementId, state) {
-    let imgId = elementId === 'choose-category' ? "img-dropdown-cat" : "img-dropdown";
-    let img = document.getElementById(imgId);
-    if (img) { 
+    const imgId = elementId === 'choose-category' ? 'img-dropdown-cat' : 'img-dropdown';
+    const img = document.getElementById(imgId);
+    if (img) {
         img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
     }
 }

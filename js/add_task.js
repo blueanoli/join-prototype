@@ -291,17 +291,17 @@ function clearForm() {
 
 // HILFSFUNKTIONEN -------------------------------------------------------------------------------------------------------------------------------
 function toggleDropdown(elementId, forceClose = false) {
-    const dropdown = document.getElementById(elementId);
-    const itemsDiv = dropdown.querySelector('.select-items');
-    const isOpen = !itemsDiv.classList.contains('select-hide');
-    const action = forceClose || isOpen ? 'add' : 'remove';
+    let dropdown = document.getElementById(elementId);
+    let itemsDiv = dropdown.querySelector('.select-items');
+    let isOpen = !itemsDiv.classList.contains('select-hide');
+    let action = forceClose || isOpen ? 'add' : 'remove';
 
     toggleElement(itemsDiv, action, 'select-hide');
     if (elementId === 'assigned-to') {
         toggleAssignedTo(dropdown, action);
     }
 
-    const state = action === 'add' ? 'close' : 'open';
+    let state = action === 'add' ? 'close' : 'open';
     changeDropdownImg(elementId, state);
 }
 function toggleElement(element, action, className) {
@@ -309,8 +309,8 @@ function toggleElement(element, action, className) {
 }
 
 function toggleAssignedTo(dropdown, action) {
-    const searchInput = document.getElementById('contact-search-input');
-    const selectSelected = dropdown.querySelector('.select-selected');
+    let searchInput = document.getElementById('contact-search-input');
+    let selectSelected = dropdown.querySelector('.select-selected');
 
     toggleElement(searchInput, action, 'select-hide');
     selectSelected.style.display = action === 'add' ? 'block' : 'none';
@@ -318,8 +318,8 @@ function toggleAssignedTo(dropdown, action) {
 }
 
 function changeDropdownImg(elementId, state) {
-    const imgId = elementId === 'choose-category' ? 'img-dropdown-cat' : 'img-dropdown';
-    const img = document.getElementById(imgId);
+    let imgId = elementId === 'choose-category' ? 'img-dropdown-cat' : 'img-dropdown';
+    let img = document.getElementById(imgId);
     if (img) {
         img.src = state === 'open' ? "assets/img/addtask_dropdown_up.svg" : "assets/img/addtask_dropdown.svg";
     }

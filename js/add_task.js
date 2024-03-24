@@ -8,10 +8,12 @@ let fields = [
     { id: 'choose-category', errorId: 'category-error', isDiv: true },
 ];
 let isFieldEmpty;
+const priorities = ["low", "medium", "urgent"];
+const imgBaseURL = "assets/img/addtask_";
 
 async function renderAddTask(){
     await init();
-    chooseMediumPrio();
+    chooseMediumPrio(); 
     addSubtaskEventListener();
     setupInputEventListener();
     setupFormEventListeners();
@@ -76,36 +78,15 @@ function resetFieldStyle(element) {
 }
 
 function chooseUrgentPrio() {
-    let urgent = document.getElementById("priority-urgent");
-    let urgentimg = document.getElementById("img-urgent");
-
-    urgent.classList.add("urgent-priority-active");
-    urgentimg.src = "assets/img/addtask_urgent_white.svg";
-
-    removeMediumPrio();
-    removeLowPrio();
+    setPriority("urgent");
 }
 
 function chooseMediumPrio() {
-    let medium = document.getElementById("priority-medium");
-    let mediumimg = document.getElementById("img-medium");
-
-    medium.classList.add("medium-priority-active");
-    mediumimg.src = "assets/img/addtask_medium_white.svg";
-
-    removeLowPrio();
-    removeUrgentPrio();
+    setPriority("medium");
 }
 
 function chooseLowPrio() {
-    let low = document.getElementById("priority-low");
-    let lowimg = document.getElementById("img-low");
-
-    low.classList.add("low-priority-active");
-    lowimg.src = "assets/img/addtask_low_white.svg";
-
-    removeMediumPrio();
-    removeUrgentPrio();
+    setPriority("low");
 }
 
 function addTask() {
@@ -255,35 +236,27 @@ function renderCategories() {
 
 function clearForm() {
     document.getElementById('add-task').reset();
-
-    removeLowPrio();
-    removeUrgentPrio();
-    chooseMediumPrio();
+    chooseMediumPrio(); 
     clearAssignedContacts();
     resetCategorySelection();
     clearSubtasks();
 }
 
 // HILFSFUNKTIONEN
-function removeLowPrio() {
-    let low = document.getElementById("priority-low");
-    let lowimg = document.getElementById("img-low");
-    low.classList.remove("low-priority-active");
-    lowimg.src = "assets/img/addtask_low.svg";
-}
-
-function removeMediumPrio() {
-    let medium = document.getElementById("priority-medium");
-    let mediumimg = document.getElementById("img-medium");
-    medium.classList.remove("medium-priority-active");
-    mediumimg.src = "assets/img/addtask_medium.svg";
-}
-
-function removeUrgentPrio() {
-    let urgent = document.getElementById("priority-urgent");
-    let urgentimg = document.getElementById("img-urgent");
-    urgent.classList.remove("urgent-priority-active");
-    urgentimg.src = "assets/img/addtask_urgent.svg";
+function setPriority(priorityLevel) {
+ 
+    priorities.forEach(prio => {
+        const elem = document.getElementById(`priority-${prio}`);
+        const imgElem = document.getElementById(`img-${prio}`);
+        
+        if (prio === priorityLevel) {
+            elem.classList.add(`${prio}-priority-active`);
+            imgElem.src = `${imgBaseURL}${prio}_white.svg`;
+        } else {
+            elem.classList.remove(`${prio}-priority-active`);
+            imgElem.src = `${imgBaseURL}${prio}.svg`;
+        }
+    });
 }
 
 function toggleDropdown(elementId, forceClose = false) {

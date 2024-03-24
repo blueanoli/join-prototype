@@ -1,3 +1,4 @@
+// GLOBAL VARIABLE -------------------------------------------------------------------------------------------------------------------------------
 let subtaskCounter = 0;
 let testContacts = ['Albert Wesker', 'Chris Redfield', 'Jill Valentine', 'Brad Vickers', 'Claire Redfield', 'Barry Burton', 'Brian Irons'];
 let testCategories = ['Technical Task', 'User Story'];
@@ -11,7 +12,7 @@ let isFieldEmpty;
 const priorities = ["low", "medium", "urgent"];
 const imgBaseURL = "assets/img/addtask_";
 
-// INIT LOGIC
+// INIT LOGIC -------------------------------------------------------------------------------------------------------------------------------
 async function renderAddTask(){
     await init();
     chooseMediumPrio(); 
@@ -23,7 +24,7 @@ async function renderAddTask(){
     disableFormEnterKeySubmission();
 }
 
-// DATE LOGIC
+// DATE LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function validateDate(inputElement) {
     let inputValue = inputElement.value;
     let datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
@@ -39,7 +40,7 @@ function validateDate(inputElement) {
     inputElement.reportValidity();
 }
 
-// ERROR MESSAGE LOGIC
+// ERROR MESSAGE LOGIC -----------------------------------------------------------------------------------------------------------------------------
 function showErrorMessage(inputElement, errorMessage) {
     inputElement.classList.add('input-error');
     errorMessage.style.display = 'block';
@@ -81,7 +82,7 @@ function resetFieldStyle(element) {
     }
 }
 
-// PRIORITY LOGIC
+// PRIORITY LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function chooseUrgentPrio() {
     setPriority("urgent");
 }
@@ -110,7 +111,7 @@ function setPriority(priorityLevel) {
     });
 }
 
-// ADD TASK LOGIC
+// ADD TASK LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function addTask() {
     let isErrorVisible = false;
     let errorElements = document.querySelectorAll('.error-message');
@@ -144,7 +145,7 @@ function addTaskAnimation(){
     }, 1000);
 }
 
-// CONTACT LOGIC
+// CONTACT LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
@@ -242,7 +243,7 @@ function clearAssignedContacts() {
     renderContacts();
 }
 
-// CATEGORY LOGIC
+// CATEGORY LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
     let optionDiv = document.createElement('div');
     optionDiv.textContent = category;
@@ -279,6 +280,7 @@ function resetCategorySelection() {
     resetFieldStyle(dropdown); 
 }
 
+// CLEAR FORM LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function clearForm() {
     document.getElementById('add-task').reset();
     chooseMediumPrio(); 
@@ -287,7 +289,7 @@ function clearForm() {
     clearSubtasks();
 }
 
-// HILFSFUNKTIONEN
+// HILFSFUNKTIONEN -------------------------------------------------------------------------------------------------------------------------------
 
 function toggleDropdown(elementId, forceClose = false) {
     let dropdown = document.getElementById(elementId);

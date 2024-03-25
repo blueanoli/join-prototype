@@ -27,7 +27,7 @@ input, textarea {
     font-size: 20px;
     font-family: 'Inter', sans-serif;
     margin-bottom: 16px;
-    border-radius: 5px;
+    border-radius: 10px;
     border: 1px solid #D9D9D9;
 }
 input:focus, textarea:focus{
@@ -339,7 +339,7 @@ textarea{
     position: relative;
     font-size: 20px;
     border: 1px solid #E7E7E7;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;

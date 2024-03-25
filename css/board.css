@@ -121,3 +121,53 @@
     font-weight: 400;
     color: #a8a8a8;
 }
+/* ADD TASK CONTAINER OVERLAY */
+#add-task-container-board {
+    visibility: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(50%, -50%) translateX(100%);
+    max-width: 1116px;
+    max-height: 870px;
+    width: 100%;
+    height: 90%;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: transform 225ms ease-in-out;
+}
+#add-task-container-board.active {
+    visibility: visible;
+    display: block; 
+    transform: translate(-50%, -50%); 
+}
+/* ADD TASK SECTION ON BOARD */
+.add-task{
+    margin-left: 74px;
+    width: 100%;
+}
+.add-task-headline{
+    margin-left: 74px;
+}
+.field-required-info{
+    margin-left: -260px;
+}
+.date-icon{
+    right: 16px;
+}
+/* PAGE OVERLAY */
+#page-overlay{
+    display: none;
+}
+#page-overlay.active {
+    display: block;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); 
+    z-index: 999; 
+}

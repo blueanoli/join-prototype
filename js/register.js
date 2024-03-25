@@ -32,12 +32,9 @@ async function addNewUser() {
   if (!isEmailRegistered && isPasswordIdentical) {
     registerNewEmail(name, email, password, passwordConfirmed, signupButton);
   } else if (!isPasswordIdentical) {
-    wrongPasswordContainer.classList.add("login-wrong-password-container");
-    wrongPassword.classList.add("login-wrong-password-text");
+    handlePasswordMismatch(wrongPassword, wrongPasswordContainer);
   } else {
-    wrongPasswordContainer.classList.remove("login-wrong-password-container");
-    wrongPassword.classList.remove("login-wrong-password-text");
-    console.log("Email already in use!");
+    emailAlreadyRegisteredMsg(wrongPassword, wrongPasswordContainer);
   }
 }
 
@@ -63,15 +60,6 @@ async function registerNewEmail(
   }, 1000);
 }
 
-/* Shows registration message by successfully registration */
-function showRegisterMsg() {
-  let registerMsgContainer = document.getElementById("register-msg-container");
-  let registerMsg = document.getElementById("register-msg");
-
-  registerMsg.classList.add("login-register-msg-shown");
-  registerMsgContainer.classList.add("login-register-msg-container-shown");
-}
-
 /* Clears input-fields and disables the sign-up button */
 function clearInputField(
   name,
@@ -85,6 +73,47 @@ function clearInputField(
   password.value = "";
   passwordConfirmed.value = "";
   signupButton.disabled = false;
+}
+
+/* Shows registration message by successfully registration */
+function showRegisterMsg() {
+  let registerMsgContainer = document.getElementById("register-msg-container");
+  let registerMsg = document.getElementById("register-msg");
+
+  registerMsg.classList.add("login-register-msg-shown");
+  registerMsgContainer.classList.add("login-register-msg-container-shown");
+}
+
+/* Shows message if the passwords don't match and adds a red border around the container 
++ removes cahnges of the emailAlreadyRegisteredMsg()-function if it's triggered*/
+function handlePasswordMismatch(wrongPassword, wrongPasswordContainer) {
+  let emailContainer = document.getElementById("signup-email-container");
+  let text = wrongPassword.querySelector("span");
+
+  emailContainer.classList.remove("login-wrong-password-container");
+  if (text === "Email already in use!") {
+    text.innerHTML = "Ups! your password don't match.";
+  } else {
+    text.innerHTML = "Ups! your password don't match.";
+  }
+  wrongPasswordContainer.classList.add("login-wrong-password-container");
+  wrongPassword.classList.add("login-wrong-password-text");
+}
+
+/* Shows message if the email is already registered and adds a red border around the container 
++ removes cahnges of the handlePasswordMismatch()-function if it's triggered*/
+function emailAlreadyRegisteredMsg(wrongPassword, wrongPasswordContainer) {
+  let emailContainer = document.getElementById("signup-email-container");
+  let text = wrongPassword.querySelector("span");
+
+  wrongPasswordContainer.classList.remove("login-wrong-password-container");
+  if (text === "Ups! your password don't match.") {
+    text.innerHTML = "Email already in use!";
+  } else {
+    text.innerHTML = "Email already in use!";
+  }
+  emailContainer.classList.add("login-wrong-password-container");
+  wrongPassword.classList.add("login-wrong-password-text");
 }
 
 /* Changes the src of the checkbox-img and the visibility of the sign-up button 

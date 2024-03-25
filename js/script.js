@@ -40,6 +40,9 @@ async function externalInit() {
   await includeHTML();
   document.getElementById('menu-items').style.display = 'none';   
   document.getElementById('user-menu-icons').style.display = 'none';   
+  document.getElementById('privacy-section').classList.add('external-privacy');
+  document.getElementById('privacy-link').setAttribute('href', 'external_privacy.html');
+  document.getElementById('legal-link').setAttribute('href', 'external_legal.html');
   setActive();
 }
 

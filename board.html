@@ -5,6 +5,9 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/desktop-template.css">
+    <link rel="stylesheet" href="css/add-task.css">
+    <link rel="stylesheet" href="css/board.css">
+    <script src="js/board.js" defer></script>
     <script src="js/script.js" defer></script>
     <link rel="shortcut icon" href="assets/img/logo_dark.svg" type="image/x-icon">
 </head>
@@ -12,5 +15,11 @@
 <body onload="init()">
     <div w3-include-html="assets/templates/desktop-template.html"></div>
 </body>
-
+    <div class="board-header">
+        <h1>Board</h1>
+        <div class="board-search-container">
+            <input type="text" id="search-tasks" placeholder="Find task...">
+            <button id="add-task-btn-board" onclick="showAddTask()">Add task <img src="assets/img/plus_white.svg"></button>
+        </div>
+    </div>
 </html>

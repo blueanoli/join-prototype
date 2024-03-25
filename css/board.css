@@ -1,0 +1,32 @@
+.board-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 96px;
+    width: 1056px;
+    margin: 80px 88px 80px 280px;
+}
+#add-task-btn-board {
+    background-color: var(--dark-blue);
+    display: flex;
+    color: white;
+    padding: 16px;
+    gap: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+    align-items: center;
+    border: none;
+    height: 48px;
+}
+#add-task-btn-board:hover {
+    background-color: var(--light-blue);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.board-search-container{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+#search-tasks{
+    height: 48px;
+}

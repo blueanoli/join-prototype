@@ -121,3 +121,28 @@
     font-weight: 400;
     color: #a8a8a8;
 }
+/* ADD TASK CONTAINER OVERLAY */
+#add-task-container-board {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 1116px;
+    max-height: 870px;
+    width: 100%;
+    height: 90%;
+    background-color: white;
+    border-radius: 34px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 1000;
+}
+/* ADD TASK SECTION ON BOARD */
+.add-task{
+    margin: auto;
+    width: 100%;
+}
+.add-task-headline{
+    margin-left: 40px;
+}

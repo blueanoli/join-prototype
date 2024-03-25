@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="css/desktop-template.css">
     <link rel="stylesheet" href="css/add-task.css">
     <link rel="stylesheet" href="css/board.css">
+    <script src="js/add_task.js" defer></script>
+    <script src="js/add_task_templates.js" defer></script>
+    <script src="js/add_task_subtask.js" defer></script>
+    <script src="js/add_task_eventlistener.js" defer></script>
     <script src="js/board.js" defer></script>
     <script src="js/script.js" defer></script>
     <link rel="shortcut icon" href="assets/img/logo_dark.svg" type="image/x-icon">
@@ -39,7 +43,7 @@
                 <!-- PLATZHALTER ZUM STYLE TESTEN!!! UNBEDINGT PER JS EINBINDEN -->
                 <div class="dotted-container" id="board-todo-container">
                     <div id="todo-section">
-                        <span>No tasks To do</span> 
+                        <span>No tasks To do</span>
                     </div>
                 </div>
             </div>
@@ -81,5 +85,8 @@
         </div>
     </div>
 </section>
+<div id="add-task-container-board">
+    <div w3-include-html="assets/templates/task-form.html"></div>
+</div>
 
 </html>

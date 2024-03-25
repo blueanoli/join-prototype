@@ -62,10 +62,37 @@
     padding-left: 16px;
 }
 /* BOARD CONTENT STYLE */
-.progress-container{
-    background-color: rgb(170, 188, 204);
+.progress-container {
     width: 75%;
-    height: 48px;
     margin-left: 280px;
     display: flex;
+}
+.progress-header {
+    height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between; 
+    gap: 35px;
+}
+.progress-column {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 25%; 
+}
+.progress-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.progress-title img:hover{
+    cursor: pointer;
+    filter: invert(55%) sepia(100%) saturate(3000%) hue-rotate(175deg) brightness(90%) contrast(90%);
+}
+.progress-title span{
+    font-size: 20px;
+    font-weight: 700;
+    color: #42526E;
 }

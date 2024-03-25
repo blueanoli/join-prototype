@@ -16,20 +16,46 @@
     <div w3-include-html="assets/templates/desktop-template.html"></div>
 </body>
 <section class="board-container">
-<div class="board-header">
-    <h1>Board</h1>
-    <div class="board-search-container">
-        <div class="board-input-wrapper">
-            <input type="text" id="search-tasks" placeholder="Find task...">
-            <div class="board-input-icons">
-                <img id="search-task-icon" src="assets/img/search.svg" alt="">
+    <div class="board-header">
+        <h1>Board</h1>
+        <div class="board-search-container">
+            <div class="board-input-wrapper">
+                <input type="text" id="search-tasks" placeholder="Find task...">
+                <div class="board-input-icons">
+                    <img id="search-task-icon" src="assets/img/search.svg" alt="">
+                </div>
+            </div>
+            <button id="add-task-btn-board" onclick="openAddTask()">Add task <img
+                    src="assets/img/plus_white.svg"></button>
+        </div>
+    </div>
+    <div class="progress-container">
+        <div class="progress-header">
+            <div class="progress-column">
+                <div class="progress-title">
+                    <span>To do</span>
+                    <img onclick="openAddTask()" src="assets/img/plus_button.svg" alt="">
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-title">
+                    <span>In progress</span>
+                    <img onclick="openAddTask()" src="assets/img/plus_button.svg" alt="">
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-title">
+                    <span>Await feedback</span>
+                    <img onclick="openAddTask()" src="assets/img/plus_button.svg" alt="">
+                </div>
+            </div>
+            <div class="progress-column">
+                <div class="progress-title">
+                    <span>Done</span>
+                </div>
             </div>
         </div>
-        <button id="add-task-btn-board" onclick="openAddTask()">Add task <img src="assets/img/plus_white.svg"></button>
     </div>
-</div>
-<div class="progress-container">
-    <div class="progress-header"></div>
-</div>
 </section>
+
 </html>

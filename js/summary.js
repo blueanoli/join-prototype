@@ -1,3 +1,7 @@
+if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'index.html'; 
+}
+
 function dashboardGreeting() {
     let now = new Date();
     let hour = now.getHours();

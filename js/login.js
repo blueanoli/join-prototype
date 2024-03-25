@@ -30,6 +30,7 @@ function playLogoAnimation() {
 
 /* Used to Log-in throught Guest Log-in button*/
 function guestLogin() {
+  sessionStorage.setItem('isLoggedIn', 'true');
   window.location.href = "summary.html";
 }
 
@@ -46,6 +47,7 @@ function searchUser() {
   let correctEmail = users.find((u) => u.email == email.value);
 
   if (user) {
+    sessionStorage.setItem('isLoggedIn', 'true');
     window.location.href = "summary.html";
   } else if (correctEmail) {
     isWrongPassword(passwordContainer, wrongPassword);

@@ -30,14 +30,19 @@ async function getItem(key) {
   const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
   return fetch(url)
     .then((res) => res.json()).then(res => {
-        if (res.data) {
-            return res.data.value;
-        } throw `Could not find data with key "${key}".`;
+      if (res.data) {
+        return res.data.value;
+      } throw `Could not find data with key "${key}".`;
     });
+}
+
+async function externalInit() {
+  await includeHTML();
 }
 
 async function init() {
   await includeHTML();
+  await checkIfIsLoggedIn();
   setActive();
 }
 
@@ -52,6 +57,12 @@ async function includeHTML() {
     } else {
       element.innerHTML = "Page not found";
     }
+  }
+}
+
+function checkIfIsLoggedIn() {
+  if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'index.html';
   }
 }
 
@@ -102,6 +113,6 @@ function getInitials(name) {
 }
 
 function logout() {
-  sessionStorage.clear(); 
+  sessionStorage.clear();
   window.location.href = 'index.html';
 }

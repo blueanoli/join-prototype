@@ -41,20 +41,17 @@
 }
 #search-task-icon:hover{
     cursor: pointer;
-    transform: perspective(1.05);
     background-color: #e7e7e7;
-    border-radius: 50%;    
+    border-radius: 50%;
+    border-left: 1px solid #e7e7e7;    
 }
 .board-input-icons {
     display: flex;
     align-items: center;
     position: absolute;
     right: 10px; 
-    height: 100%;
-}
-.board-input-icons span{
-    color: #e7e7e7;
-}
-.board-input-icons span, .board-input-icons img {
-    margin-left: 4px;
+    height: 32px;
+    border-left:1px solid #e7e7e7;
+    box-sizing: border-box;
+    padding-left: 16px;
 }

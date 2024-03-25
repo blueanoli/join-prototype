@@ -149,5 +149,11 @@
     width: 100%;
 }
 .add-task-headline{
-    margin-left: 40px;
+    margin-left: 74px;
+}
+.field-required-info{
+    margin-left: -260px;
+}
+.date-icon{
+    right: 16px;
 }

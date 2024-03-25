@@ -12,14 +12,21 @@
     <link rel="shortcut icon" href="assets/img/logo_dark.svg" type="image/x-icon">
 </head>
 
-<body onload="init()">
+<body onload="renderBoard()">
     <div w3-include-html="assets/templates/desktop-template.html"></div>
 </body>
-    <div class="board-header">
-        <h1>Board</h1>
-        <div class="board-search-container">
+<div class="board-header">
+    <h1>Board</h1>
+    <div class="board-search-container">
+        <div class="board-input-wrapper">
             <input type="text" id="search-tasks" placeholder="Find task...">
-            <button id="add-task-btn-board" onclick="showAddTask()">Add task <img src="assets/img/plus_white.svg"></button>
+            <div class="board-input-icons">
+                <span>|</span>
+                <img id="search-task-icon" src="assets/img/search.svg" alt="">
+            </div>
         </div>
+        <button id="add-task-btn-board" onclick="showAddTask()">Add task <img src="assets/img/plus_white.svg"></button>
     </div>
+</div>
+
 </html>

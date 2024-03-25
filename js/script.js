@@ -38,12 +38,26 @@ async function getItem(key) {
 
 async function externalInit() {
   await includeHTML();
+  document.getElementById('menu-items').style.display = 'none';   
+  document.getElementById('user-menu-icons').style.display = 'none';   
+  setActive();
+}
+
+async function helpInit() {
+  await includeHTML();
+  document.getElementById('help-icon').style.display = 'none';
 }
 
 async function init() {
-  await includeHTML();
   await checkIfIsLoggedIn();
+  await includeHTML();
   setActive();
+}
+
+function checkIfIsLoggedIn() {
+  if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'index.html';
+  }
 }
 
 async function includeHTML() {
@@ -57,12 +71,6 @@ async function includeHTML() {
     } else {
       element.innerHTML = "Page not found";
     }
-  }
-}
-
-function checkIfIsLoggedIn() {
-  if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-    window.location.href = 'index.html';
   }
 }
 

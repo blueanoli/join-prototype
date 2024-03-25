@@ -355,6 +355,7 @@ h1 {
 .signup-input-area {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
 }
 
@@ -449,4 +450,91 @@ ul.a {
 
 h3 {
   margin: 0;
+}
+
+@media (max-width: 1000px) {
+  .login-main {
+    padding: 32px 115px;
+  }
+
+  .signup-policy {
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 700px) {
+  .login-main {
+    width: auto;
+    padding: 32px 10px;
+  }
+
+  .login-register-forwarding {
+    right: 50px;
+    gap: 12px;
+  }
+
+  .signup-main {
+    padding: 32px 44px;
+  }
+
+  .singup-arrow-container {
+    top: 48px;
+  }
+}
+
+@media (max-width: 500px) {
+  #animated-logo {
+    left: 25px;
+  }
+
+  .login-main {
+    width: 90%;
+  }
+
+  .login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .login-input-container {
+    width: 95%;
+  }
+
+  .login-input {
+    width: 100px;
+  }
+
+  .login-remember {
+    width: auto;
+    margin: 22.5px 0 0 0;
+  }
+
+  .login-register-forwarding {
+    display: flex;
+    flex-direction: column;
+    right: 20px;
+  }
+
+  .log-in-button-container {
+    gap: 12px;
+  }
+
+  .log-in-button {
+    padding: 15px 12px;
+  }
+
+  .log-in-guest-button {
+    padding: 15px 12px;
+  }
+
+  .signup-main {
+    width: 75%;
+    padding: 32px 36px;
+  }
+
+  .singup-arrow-container {
+    left: 12px;
+  }
 }

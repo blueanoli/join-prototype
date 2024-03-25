@@ -1,0 +1,11 @@
+.contacts-contact-container {
+    background-color: white;
+    height: 100vh;
+    box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 8%);
+}
+
+.contact-add-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

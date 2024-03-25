@@ -133,14 +133,14 @@
     width: 100%;
     height: 90%;
     background-color: white;
-    border-radius: 34px;
+    border-radius: 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
     z-index: 1000;
 }
 /* ADD TASK SECTION ON BOARD */
 .add-task{
-    margin: auto;
+    margin-left: 74px;
     width: 100%;
 }
 .add-task-headline{

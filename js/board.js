@@ -9,4 +9,6 @@ function openAddTask() {
     includeHTML().then(() => {
         container.style.display = 'block';
     });
+
+    renderAddTask();
 }

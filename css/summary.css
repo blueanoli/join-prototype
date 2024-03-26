@@ -91,6 +91,11 @@ h3 {
     cursor: pointer;
 }
 
+.todo-box:hover {
+    background-color: var(--dark-blue);
+    transform: scale(1.05); 
+}
+
 .summary-text {
     display: flex;
     align-items: center;
@@ -158,4 +163,8 @@ h3 {
     font-weight: 400;
     font-size: 16px;
     color: var(--dark-blue);
+}
+
+.todo-box:hover .summary-item {
+    background-color: white; 
 }

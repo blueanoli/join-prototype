@@ -107,7 +107,7 @@
     box-sizing: border-box;
     margin-top: 16px;
 }
-#todo-section, #in-progress-section, #feedback-section, #done-section{
+.empty-column {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -116,7 +116,7 @@
     height: 48px;
     box-sizing: border-box;
 }
-#todo-section, #in-progress-section, #feedback-section, #done-section span{
+.empty-column span{
     font-size: 16px;
     font-weight: 400;
     color: #a8a8a8;

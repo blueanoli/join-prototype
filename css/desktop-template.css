@@ -142,11 +142,12 @@ h4 {
     padding: 10px;
     font-weight: 400;
     border-radius: 20px 0px 20px 20px;
-    top: 136px;
+    top: 96px;
     right: 10px;
     position: fixed;
     width: 150px;
     height: 150px;
+    z-index: 999;
 }
 
 .user-menu-item:hover {

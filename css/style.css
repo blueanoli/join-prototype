@@ -422,6 +422,28 @@ h1 {
   align-items: center;
 }
 
+.arrow-container button {
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer; 
+  padding: 0; 
+  outline: none; 
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 188px;
+  right: 40px;
+}
+
+.arrow-container button:hover {
+  transform: scale(1.1); 
+  border-radius: 43px;
+  background-color: rgba(0, 0, 0, 0.05); 
+}
+
 @keyframes register {
   0% {
     top: 95%;

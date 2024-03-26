@@ -38,8 +38,8 @@ async function getItem(key) {
 
 async function externalInit() {
   await includeHTML();
-  document.getElementById('menu-items').style.display = 'none';   
-  document.getElementById('user-menu-icons').style.display = 'none';   
+  document.getElementById('menu-items').style.display = 'none';
+  document.getElementById('user-menu-icons').style.display = 'none';
   document.getElementById('privacy-section').classList.add('external-privacy');
   document.getElementById('privacy-link').setAttribute('href', 'external_privacy.html');
   document.getElementById('legal-link').setAttribute('href', 'external_legal.html');
@@ -135,11 +135,17 @@ function goBack() {
 
 function updateUserIcon() {
   let userIcon = document.querySelector('.user-icon');
-  let username = sessionStorage.getItem('username'); 
+  let username = sessionStorage.getItem('username');
 
-  if (username) {
-      userIcon.textContent = username.charAt(0).toUpperCase();
+  if (username && username !== 'Guest') {
+    let names = username.split(' ');
+    if (names.length > 1) {
+      userIcon.textContent = names[0].charAt(0).toUpperCase() + names[1].charAt(0).toUpperCase();
+    } else {
+      userIcon.textContent = names[0].charAt(0).toUpperCase();
+    }
   } else {
-      userIcon.textContent = 'G';
+    userIcon.textContent = 'G';
   }
+
 }

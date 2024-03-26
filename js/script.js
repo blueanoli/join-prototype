@@ -133,6 +133,10 @@ function goBack() {
   window.history.back();
 }
 
+function showBoardFromSummary() {
+  window.location.href = 'board.html';
+}
+
 function updateUserIcon() {
   let userIcon = document.querySelector('.user-icon');
   let username = sessionStorage.getItem('username');

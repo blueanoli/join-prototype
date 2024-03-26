@@ -1,5 +1,5 @@
 let sections = [
-    { id: 'board-todo-container', text: 'No tasks to do' },
+    { id: 'board-todo-container', text: 'No tasks To do' },
     { id: 'board-in-progress-container', text: 'No tasks in progress' },
     { id: 'board-feedback-container', text: 'No tasks await feedback' },
     { id: 'board-done-container', text: 'No tasks done' }

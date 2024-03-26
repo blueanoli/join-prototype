@@ -55,6 +55,7 @@ async function init() {
   await checkIfIsLoggedIn();
   await includeHTML();
   setActive();
+  updateUserIcon();
 }
 
 function checkIfIsLoggedIn() {
@@ -130,4 +131,15 @@ function logout() {
 
 function goBack() {
   window.history.back();
+}
+
+function updateUserIcon() {
+  let userIcon = document.querySelector('.user-icon');
+  let username = sessionStorage.getItem('username'); 
+
+  if (username) {
+      userIcon.textContent = username.charAt(0).toUpperCase();
+  } else {
+      userIcon.textContent = 'G';
+  }
 }

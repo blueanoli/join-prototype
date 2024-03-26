@@ -1,6 +1,7 @@
 .board-container{
     display: flex;
     flex-direction: column;
+    max-width: 1440px;
 }
 /* BOARD HEADER STYLE */
 .board-header {

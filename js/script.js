@@ -60,9 +60,17 @@ async function init() {
 
 function checkIfIsLoggedIn() {
   if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+    sessionStorage.setItem('promptLogin', 'true');
     window.location.href = 'index.html';
   }
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (sessionStorage.getItem('promptLogin') === 'true') {
+    alert('Bitte loggen Sie sich ein.');
+    sessionStorage.removeItem('promptLogin');
+  }
+});
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");

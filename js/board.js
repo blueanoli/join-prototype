@@ -34,6 +34,7 @@ function openAddTask() {
 
     overlay.classList.add('active');
     body.classList.add('no-scroll');
+    container.classList.remove('closing');
     container.classList.add('active');
     container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
 
@@ -49,7 +50,8 @@ function closeAddTask() {
     const overlay = document.getElementById('page-overlay');
     const body = document.body;
 
-    container.classList.remove('active'); 
+    container.classList.add('closing');
+    overlay.classList.remove('active'); 
     overlay.style.display = 'none'; 
     body.style.overflow = ''; 
 }

@@ -143,6 +143,9 @@
     display: block; 
     transform: translate(-50%, -50%); 
 }
+#add-task-container-board.closing { 
+    transform: translate(50%, -50%) translateX(100%); 
+}
 #close-task-btn{
     position: fixed;
     top: 64px;

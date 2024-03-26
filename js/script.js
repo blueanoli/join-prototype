@@ -48,6 +48,7 @@ async function externalInit() {
 
 async function helpInit() {
   await includeHTML();
+  updateUserIcon();
   document.getElementById('help-icon').style.display = 'none';
 }
 

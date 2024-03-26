@@ -1,9 +1,8 @@
 function dashboardGreeting() {
     let now = new Date();
     let hour = now.getHours();
-    let greeting, userName; 
-
-    userName = "<span class='greetingUserName'>Team 122</span>";     
+    let greeting; 
+    let userName = sessionStorage.getItem('username') || 'Guest'; 
 
     if (hour < 12) {
         greeting = "<span class='greetingTime'>Good morning,</span><br>";
@@ -13,7 +12,7 @@ function dashboardGreeting() {
         greeting = "<span class='greetingTime'>Good evening,</span><br>";
     }
 
-    document.getElementById('greeting').innerHTML = greeting + " " + userName;
+    document.getElementById('greeting').innerHTML = greeting + " " + "<span class='greetingUserName'>" + userName + "</span>";
 }
 
 dashboardGreeting();

@@ -53,3 +53,8 @@ function closeAddTask() {
     overlay.style.display = 'none'; 
     body.style.overflow = ''; 
 }
+
+function closeTaskOverlay(){
+    let container = document.getElementById('edit-task-overlay');
+    container.style.display = 'none';
+}

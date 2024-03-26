@@ -22,9 +22,11 @@ function openAddTask() {
 function closeAddTask() {
     const container = document.getElementById('add-task-container-board');
     const overlay = document.getElementById('page-overlay');
+    const close = document.getElementById('close-task-btn');
     const body = document.body;
 
     container.classList.remove('active'); 
+    close.classList.remove('active');
     overlay.style.display = 'none'; 
     body.style.overflow = ''; 
 }

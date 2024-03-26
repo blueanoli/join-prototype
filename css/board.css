@@ -143,6 +143,16 @@
     display: block; 
     transform: translate(-50%, -50%); 
 }
+#close-task-btn{
+    position: fixed;
+    top: 64px;
+    right: 40px;
+}
+#close-task-btn:hover{
+    cursor: pointer;
+    background-color: #e7e7e7;
+    border-radius: 50%;
+}
 /* ADD TASK SECTION ON BOARD */
 .add-task{
     margin-left: 74px;

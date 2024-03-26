@@ -58,3 +58,18 @@ function closeTaskOverlay(){
     let container = document.getElementById('edit-task-overlay');
     container.style.display = 'none';
 }
+
+// function openEditTask(){
+//     let container = document.getElementById('edit-task-overlay');
+
+//     container.innerHTML = /*html*/`
+//     <div class="edit-task-container">
+//     <div w3-include-html="assets/templates/task-form.html"></div>
+//     </div>`;
+
+//     includeHTML().then(() => {
+//         container.style.display = 'flex';
+//     });
+
+//     renderAddTask();
+// }

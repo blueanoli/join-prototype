@@ -116,5 +116,4 @@ function addSubtaskEventListener(){
     
             handleContactClick(event, contact, optionDiv);
         });
-    }
-    
+    }    

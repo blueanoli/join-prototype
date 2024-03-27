@@ -307,3 +307,88 @@
     cursor: pointer;
     filter: invert(55%) sepia(100%) saturate(3000%) hue-rotate(175deg) brightness(90%) contrast(90%);
 }
+/* MINITASK STYLE */
+.mini-task-container{
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 24px;
+    height: fit-content;
+    min-height: 200px;
+    width: 100%;
+    box-shadow: 0px 0px 10px 3px #00000014;
+}
+.mini-task-container:hover{
+    cursor: pointer;
+}
+.mini-task-header{
+    box-sizing: border-box;
+    padding: 16px 0 0 16px;
+    display: flex;
+}
+.mini-task-category{
+    font-size: 16px;
+}
+.mini-task-title-container{
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 24px;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-weight: 700;
+}
+.mini-task-description-container{
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    color: #a8a8a8;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.mini-task-subtask-container{
+    padding: 24px 16px 0 16px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+.progress-bar-container {
+    display: flex;
+    width: 128px;
+    height: 8px;
+    border-radius: 8px;
+    background-color: #F4F4F4;
+}
+.progress-bar {
+    height: 100%;
+    background-color: #4589FF;
+    border-radius: 8px;
+}
+.subtask-counter {
+    padding-left: 11px;
+}
+.mini-task-footer-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mini-task-contacts-container{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    box-sizing: border-box;
+}
+.mini-contact-icons-container{
+    display: flex;
+    flex-direction: row;
+    padding-left: 16px;
+    padding-bottom: 16px;
+}
+.mini-contact-icons{
+    margin-left: -20px;
+}
+.mini-task-prio-container{
+    padding-right: 16px;
+}

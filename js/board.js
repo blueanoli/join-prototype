@@ -8,7 +8,6 @@ let sections = [
 async function renderBoard() {
     await init();
     checkAllSections();
-    renderTaskOverlayHTML(taskData);
 }
 
 function checkAllSections() {
@@ -25,6 +24,12 @@ function checkColumnEmpty(sectionId, emptyText) {
         <div class='empty-column'>
         <span>${emptyText}</span>
         </div>`;
+    }else{
+        section.innerHTML = renderMiniTaskHTML(taskData, sectionId);
+        renderSubtaskProgress(taskData, sectionId);
+        section.style.border = 'none';
+        section.style.backgroundColor = 'transparent';
+        section.style.boxShadow = 'none';
     }
 }
 
@@ -64,6 +69,18 @@ function closeTaskOverlay() {
 
 function openEditTask() {
     const editOverlay = document.getElementById('edit-task-overlay');
+    const assignedContactsHtml = taskData.assignedTo.map(contact => `
+    <div class="contact-icon-container">
+        <p class="test-contact" style="background-color: ${contact.color}">${contact.initials}</p>
+    </div>
+`).join('');
+
+const subtasksHtml = taskData.subtasks.map(subtask => `
+    <div class="subtasks-check-container">
+        <span ${subtask.completed ? 'checked' : ''}>
+        <span>${subtask.title}</span>
+    </div>
+`).join('');
     
 
     const htmlContent = /*html*/`
@@ -104,19 +121,21 @@ function openEditTask() {
                     <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
                     <div class="select-items select-hide"></div>
                 </div>
+                ${assignedContactsHtml}
             </div>
             <div id="assign-contacts"></div>
             </div>
             <div class="edit-task-subtasks-container">
                 <span class="task-container-mini-headlines">Subtasks:</span>
-                <label for="subtasks">Subtasks</label>
             <div class="add-subtask">
                 <input type="text" id="subtasks" placeholder="Add new subtask">
                 <div id="icon-container">
                     <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
                 </div>
             </div>
-            <div id="subtask-container"></div>
+            <div id="subtask-container">
+                ${subtasksHtml}
+            </div>
             </div>
             <div class="add-task-buttons">
                 <button class="add-task-btn-style" onclick="addTask(); return false" id="add-task-btn">Ok<img
@@ -125,4 +144,21 @@ function openEditTask() {
         </div>`;
 
     editOverlay.innerHTML = htmlContent;
+}
+
+function renderSubtaskProgress(taskData) {
+    let completedSubtasks = taskData.subtasks.filter(subtask => subtask.completed).length;
+    let totalSubtasks = taskData.subtasks.length;
+    let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+    let progressHTML = `
+    <div class="progress-bar-container">
+        <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+    </div>
+    <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>
+`;
+    let miniTaskSubtaskContainer = document.querySelector('.mini-task-subtask-container');
+    if (miniTaskSubtaskContainer) {
+        miniTaskSubtaskContainer.innerHTML = progressHTML;
+    }
 }

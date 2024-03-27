@@ -76,3 +76,32 @@ let taskData = {
     overlayContainer.innerHTML = htmlContent;
   }
   
+  function renderMiniTaskHTML(taskData, sectionId) {
+    return /*html*/`
+      <div onclick="renderTaskOverlayHTML(taskData)" id="minitask-${sectionId}" class="mini-task-container">
+            <div class="mini-task-header">
+                <span class="category-headline mini-task-category">${taskData.category}</span>
+            </div>
+            <div class="mini-task-title-container">
+                <span>${taskData.title}</span>
+            </div>
+            <div class="mini-task-description-container">
+                <span>${taskData.description}</span>
+            </div>
+            <div class="mini-task-subtask-container"></div>
+            <div class="mini-task-footer-container">
+                <div class="mini-task-contacts-container">
+                    <div class="test-contact-container-board mini-contact-icons-container">
+                        ${taskData.assignedTo.map(person => `
+                        <div class="contact-icon-container mini-contact-icons">
+                            <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
+                        </div>
+                        `).join('')}
+                    </div>
+                </div>
+                <div class="mini-task-prio-container">
+                    <img src="assets/img/addtask_${taskData.priority.toLowerCase()}.svg" alt="${taskData.priority}">
+                </div>
+            </div>
+        </div>`;
+  }

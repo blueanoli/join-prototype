@@ -18,7 +18,7 @@ let taskData = {
     const overlayContainer = document.getElementById('edit-task-overlay');
   
     const htmlContent = /*html*/`
-      <div class="edit-task-container">
+      <div class="edit-task-container" id="edit-task-container">
         <div class="edit-task-header">
           <span class="category-headline">${taskData.category}</span>
           <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">

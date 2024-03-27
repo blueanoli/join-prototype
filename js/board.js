@@ -5,7 +5,7 @@ let sections = [
     { id: 'board-done-container', text: 'No tasks done' }
 ];
 
-async function renderBoard(){
+async function renderBoard() {
     await init();
     checkAllSections();
     renderTaskOverlayHTML(taskData);
@@ -52,27 +52,77 @@ function closeAddTask() {
     const body = document.body;
 
     container.classList.add('closing');
-    overlay.classList.remove('active'); 
-    overlay.style.display = 'none'; 
-    body.style.overflow = ''; 
+    overlay.classList.remove('active');
+    overlay.style.display = 'none';
+    body.style.overflow = '';
 }
 
-function closeTaskOverlay(){
+function closeTaskOverlay() {
     let container = document.getElementById('edit-task-overlay');
     container.style.display = 'none';
 }
 
-// function openEditTask(){
-//     let container = document.getElementById('edit-task-overlay');
+function openEditTask() {
+    const editOverlay = document.getElementById('edit-task-overlay');
+    
 
-//     container.innerHTML = /*html*/`
-//     <div class="edit-task-container">
-//     <div w3-include-html="assets/templates/task-form.html"></div>
-//     </div>`;
+    const htmlContent = /*html*/`
+        <div class="edit-task-container">
+            <div class="edit-task-header">
+                <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
+            </div>
+            <div class="edit-task-title-container">
+                <span class="task-container-mini-headlines">Title:</span>
+                <input type="text" value="${taskData.title}" class="edit-input" id="edit-title">
+            </div>
+            <div class="edit-task-description-container">
+                <span class="task-container-mini-headlines">Description:</span>
+                <textarea class="edit-textarea" id="edit-description">${taskData.description}</textarea>
+            </div>
+            <div class="edit-task-due-date-container">
+                <span class="task-container-mini-headlines">Due date:</span>
+                <input type="text" value="${taskData.dueDate}" class="edit-input" id="edit-due-date">
+            </div>
+            <div class="edit-task-priority-container">
+                <span class="task-container-mini-headlines">Priority:</span>
+                <div class="priority-container">
+                    <div onclick="chooseUrgentPrio()" id="priority-urgent">Urgent <img id="img-urgent"
+                            src="assets/img/addtask_urgent.svg"></div>
+                    <div onclick="chooseMediumPrio()" id="priority-medium">Medium <img id="img-medium"
+                            src="assets/img/addtask_medium.svg"></div>
+                    <div onclick="chooseLowPrio()" id="priority-low">Low <img id="img-low"
+                            src="assets/img/addtask_low.svg"></div>
+                </div>
+            </div>
+            <div class="edit-task-contacts-container">
+                <span class="task-container-mini-headlines">Assigned to:</span>
+                <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
+                <div id="assigned-to" class="custom-select">
+                    <div class="select-selected">Select contacts to assign</div>
+                    <input oninput="filterContacts()" id="contact-search-input" type="text"
+                        class="contact-search-input select-hide" placeholder="Type to search...">
+                    <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
+                    <div class="select-items select-hide"></div>
+                </div>
+            </div>
+            <div id="assign-contacts"></div>
+            </div>
+            <div class="edit-task-subtasks-container">
+                <span class="task-container-mini-headlines">Subtasks:</span>
+                <label for="subtasks">Subtasks</label>
+            <div class="add-subtask">
+                <input type="text" id="subtasks" placeholder="Add new subtask">
+                <div id="icon-container">
+                    <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
+                </div>
+            </div>
+            <div id="subtask-container"></div>
+            </div>
+            <div class="add-task-buttons">
+                <button class="add-task-btn-style" onclick="addTask(); return false" id="add-task-btn">Ok<img
+                        src="assets/img/addtask_check_white.svg"></button>
+            </div>
+        </div>`;
 
-//     includeHTML().then(() => {
-//         container.style.display = 'flex';
-//     });
-
-//     renderAddTask();
-// }
+    editOverlay.innerHTML = htmlContent;
+}

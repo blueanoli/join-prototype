@@ -8,6 +8,7 @@ let sections = [
 async function renderBoard(){
     await init();
     checkAllSections();
+    renderTaskOverlayHTML(taskData);
 }
 
 function checkAllSections() {

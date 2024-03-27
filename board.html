@@ -11,6 +11,7 @@
     <script src="js/add_task_templates.js" defer></script>
     <script src="js/add_task_subtask.js" defer></script>
     <script src="js/add_task_eventlistener.js" defer></script>
+    <script src="js/board_templates.js" defer></script>
     <script src="js/board.js" defer></script>
     <script src="js/script.js" defer></script>
     <link rel="shortcut icon" href="assets/img/logo_dark.svg" type="image/x-icon">
@@ -68,73 +69,7 @@
         <div w3-include-html="assets/templates/task-form.html"></div>
     </div>
     <div id="page-overlay"></div>
-    <div id="edit-task-overlay">
-        <!-- UNBEDINGT PER JS EINBINDEN!!! PLATZHALTER ZUM STYLE TESTEN!!!! -->
-        <div class="edit-task-container">
-            <div class="edit-task-header">
-                <!-- GET CATEGORY VARIABLE! -->
-                <span class="category-headline">User Story</span>
-                <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="">
-            </div>
-            <!-- GET TITLE VARIABLE -->
-            <div class="edit-task-title-container">
-                <h1>Kochwelt Page & Recipe Recommender</h1>
-            </div>
-            <!-- GET DESCRIPTION VARIABLE -->
-            <div class="edit-task-description-container">
-                <span>Build start page with recipe recommondation.</span>
-            </div>
-            <!-- GET DUE DATE VARIABLE -->
-            <div class="edit-task-due-date-container">
-                <span class="task-container-mini-headlines">Due date:</span>
-                <span>10/05/2023</span>
-            </div>
-            <!-- GET PRIORITY VARIABLE -->
-            <div class="edit-task-priority-container">
-                <span class="task-container-mini-headlines">Priority:</span>
-                <div class="priority-icon-container">
-                    <span>Medium</span>
-                    <img src="assets/img/addtask_medium.svg" alt="">
-                </div>
-            </div>
-            <!-- GET CONTACTS VARIABLE -->
-            <div class="edit-task-contacts-container">
-                <span class="task-container-mini-headlines">Assigned to:</span>
-                <div class="test-contact-container-board">
-                    <div class="contact-icon-container">
-                        <p class="test-contact" style="background-color: var(--user-blue)">CR</p>
-                        Chris Redfield
-                    </div>
-                    <div class="contact-icon-container">
-                        <p class="test-contact" style="background-color: var(--user-red)">JV</p>
-                        Jill Valentine
-                    </div>
-                </div>
-            </div>
-            <!-- GET SUBTASK VARIABLE -->
-            <div class="edit-task-subtasks-container">
-                <span class="task-container-mini-headlines">Subtasks:</span>
-                <div class="subtasks-check-container">
-                    <img src="assets/img/checkboxchecked.svg" alt="">
-                    <span>Implement Recipe Recommondation</span>
-                </div>
-                <div class="subtasks-check-container">
-                    <img src="assets/img/checkboxempty.svg" alt="">
-                    <span>Start Page Layout</span>
-                </div>
-            </div>
-            <div class="edit-task-footer">
-                <div class="edit-task-footer-icons">
-                    <img src="assets/img/delete.svg" alt="">
-                    <span>Delete</span>
-                </div>
-                <span class="subtask-line"></span>
-                <div onclick="openEditTask()" class="edit-task-footer-icons">
-                    <img src="assets/img/pencil_grey.svg" alt="">
-                    <span>Edit</span>
-                </div>
-            </div>
-        </div>
+    <div id="edit-task-overlay"></div>
 </body>
 
 </html>

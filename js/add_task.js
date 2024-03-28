@@ -19,18 +19,25 @@ async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact,
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
-// DATE LOGIC
-function openDatePicker(date) {
-    document.addEventListener('DOMContentLoaded', function() {
-        var datePickerIcon = document.getElementById('date-picker-icon');
-        var dateInput = document.getElementById('due-date');
-    
-        datePickerIcon.addEventListener('click', function() {
-            dateInput.click();
-        });
-    }); 
-}
+// DATE LOGIC -------------------------------------------------------------------------------------------------------------------------------
+function checkDueDate() {
+    let dueDateInput = document.getElementById('due-date');
+    let dueDate = dueDateInput.value;
+    let today = new Date();
+    let dueDateObj = new Date(dueDate);
 
+    today.setHours(0, 0, 0, 0);
+    dueDateObj.setHours(0, 0, 0, 0);
+
+    if (dueDateObj < today) {
+        dueDateInput.setCustomValidity("Please choose a date in the future");
+        dueDateInput.reportValidity();
+        return false; 
+    } else {
+        dueDateInput.setCustomValidity("");
+        return true; 
+    }
+}
 
 // ERROR MESSAGE LOGIC -----------------------------------------------------------------------------------------------------------------------------
 function showErrorMessage(inputElement, errorMessage) {
@@ -107,6 +114,7 @@ function setPriority(priorityLevel) {
 function addTask() {
     let isErrorVisible = false;
     let errorElements = document.querySelectorAll('.error-message');
+    let isDateValid = checkDueDate();
 
     checkRequiredField();
     
@@ -117,7 +125,7 @@ function addTask() {
         }
     }
 
-    if (isErrorVisible) {
+    if (isErrorVisible || !isDateValid) {
         return;
     }
     addTaskAnimation();

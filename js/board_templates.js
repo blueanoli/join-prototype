@@ -97,11 +97,11 @@ function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml)
       <div class="edit-task-priority-container edit-mode-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
           <div class="priority-container edit-mode-priority-container">
-              <div onclick="chooseUrgentPrio()" id="priority-urgent">Urgent <img id="img-urgent"
+              <div onclick="chooseUrgentPrio()" id="priority-urgent-board">Urgent <img id="img-urgent-board"
                       src="assets/img/addtask_urgent.svg"></div>
-              <div onclick="chooseMediumPrio()" id="priority-medium">Medium <img id="img-medium"
+              <div onclick="chooseMediumPrio()" id="priority-medium-board">Medium <img id="img-medium-board"
                       src="assets/img/addtask_medium.svg"></div>
-              <div onclick="chooseLowPrio()" id="priority-low">Low <img id="img-low"
+              <div onclick="chooseLowPrio()" id="priority-low-board">Low <img id="img-low-board"
                       src="assets/img/addtask_low.svg"></div>
           </div>
       </div>
@@ -125,7 +125,7 @@ function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml)
       <div class="add-subtask">
           <input type="text" id="subtasks" placeholder="Add new subtask">
           <div id="icon-container">
-              <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
+              <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">
           </div>
       </div>
       <div id="subtask-container">

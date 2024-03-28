@@ -365,6 +365,9 @@
    flex-direction: column;  
    gap: 8px; 
 }
+.edit-mode-plus-icon{
+    right: 16px;
+}
 /* MINITASK STYLE */
 .mini-task-container{
     background-color: white;

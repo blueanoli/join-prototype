@@ -91,11 +91,11 @@ function chooseLowPrio() {
 }
 
 function setPriority(priorityLevel) {
- 
-    priorities.forEach(prio => {
-        const elem = document.getElementById(`priority-${prio}`);
-        const imgElem = document.getElementById(`img-${prio}`);
-        
+    for (let i = 0; i < priorities.length; i++) {
+        let prio = priorities[i];
+        let elem = document.getElementById(`priority-${prio}`);
+        let imgElem = document.getElementById(`img-${prio}`);
+
         if (prio === priorityLevel) {
             elem.classList.add(`${prio}-priority-active`);
             imgElem.src = `${imgBaseURL}${prio}_white.svg`;
@@ -103,7 +103,7 @@ function setPriority(priorityLevel) {
             elem.classList.remove(`${prio}-priority-active`);
             imgElem.src = `${imgBaseURL}${prio}.svg`;
         }
-    });
+    }
 }
 
 // ADD TASK LOGIC -------------------------------------------------------------------------------------------------------------------------------

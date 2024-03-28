@@ -81,7 +81,7 @@ function addSubtaskEventListener(){
             iconContainer.innerHTML = renderSubtaskIconHTML();
         } else {
             iconContainer.innerHTML = `
-                <img onclick="addSubtask()" class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
+                <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
             `;
         }
     });

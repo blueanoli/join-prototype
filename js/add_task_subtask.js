@@ -7,7 +7,7 @@ function addSubtask() {
 
     document.getElementById('subtasks').value = '';
     document.getElementById('icon-container').innerHTML = `
-    <img onclick="addSubtask()" class="icon-plus" src="assets/img/addtask_plus.svg" alt="">`;
+    <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">`;
 }
 
 function removeSubtask(subtaskId) {

@@ -20,19 +20,23 @@ async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact,
 }
 
 // DATE LOGIC -------------------------------------------------------------------------------------------------------------------------------
-function validateDate(inputElement) {
-    let inputValue = inputElement.value;
-    let datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
-    let addTaskButton = document.getElementById('add-task-btn');
-    
-    if (!datePattern.test(inputValue)) {
-      inputElement.setCustomValidity('Please enter correct format dd/mm/yyyy');
-      addTaskButton.disabled = true; 
+function checkDueDate() {
+    let dueDateInput = document.getElementById('due-date');
+    let dueDate = dueDateInput.value;
+    let today = new Date();
+    let dueDateObj = new Date(dueDate);
+
+    today.setHours(0, 0, 0, 0);
+    dueDateObj.setHours(0, 0, 0, 0);
+
+    if (dueDateObj < today) {
+        dueDateInput.setCustomValidity("Please choose a date in the future");
+        dueDateInput.reportValidity();
+        return false; 
     } else {
-      inputElement.setCustomValidity('');
-      addTaskButton.disabled = false; 
+        dueDateInput.setCustomValidity("");
+        return true; 
     }
-    inputElement.reportValidity();
 }
 
 // ERROR MESSAGE LOGIC -----------------------------------------------------------------------------------------------------------------------------
@@ -110,6 +114,7 @@ function setPriority(priorityLevel) {
 function addTask() {
     let isErrorVisible = false;
     let errorElements = document.querySelectorAll('.error-message');
+    let isDateValid = checkDueDate();
 
     checkRequiredField();
     
@@ -120,7 +125,7 @@ function addTask() {
         }
     }
 
-    if (isErrorVisible) {
+    if (isErrorVisible || !isDateValid) {
         return;
     }
     addTaskAnimation();

@@ -471,7 +471,12 @@ textarea{
     outline: none;
 }
 .date-input::-webkit-calendar-picker-indicator {
-    display: none;
+    position: absolute;
+    right: 0;
+    top: 42px;
+    cursor: pointer;    
+    opacity: 0;
+    z-index: 2;
 }
 /* CATEGORIES */
 .select-cat div{

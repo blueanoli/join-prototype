@@ -78,56 +78,57 @@ function renderTaskOverlayHTML(taskData) {
  
 function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml) {
   return /*html*/`
-  <div class="edit-task-container">
-      <div class="edit-task-header">
+  <div class="edit-task-container edit-mode-task-container">
+      <div class="edit-task-header edit-mode-task-header">
           <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
       </div>
-      <div class="edit-task-title-container">
+      <div class="edit-task-title-container edit-mode-task-title-container">
           <span class="task-container-mini-headlines">Title:</span>
           <input type="text" value="${taskData.title}" class="edit-input" id="edit-title">
       </div>
-      <div class="edit-task-description-container">
+      <div class="edit-task-description-container edit-mode-task-description-container">
           <span class="task-container-mini-headlines">Description:</span>
           <textarea class="edit-textarea" id="edit-description">${taskData.description}</textarea>
       </div>
-      <div class="edit-task-due-date-container">
+      <div class="edit-task-due-date-container edit-mode-task-due-date-container">
           <span class="task-container-mini-headlines">Due date:</span>
           <input type="text" value="${taskData.dueDate}" class="edit-input" id="edit-due-date">
       </div>
-      <div class="edit-task-priority-container">
+      <div class="edit-task-priority-container edit-mode-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
-          <div class="priority-container">
-              <div onclick="chooseUrgentPrio()" id="priority-urgent-board">Urgent <img id="img-urgent-board"
+          <div class="priority-container edit-mode-priority-container">
+              <div onclick="chooseUrgentPrio()" id="priority-urgent">Urgent <img id="img-urgent"
                       src="assets/img/addtask_urgent.svg"></div>
-              <div onclick="chooseMediumPrio()" id="priority-medium-board">Medium <img id="img-medium-board"
+              <div onclick="chooseMediumPrio()" id="priority-medium">Medium <img id="img-medium"
                       src="assets/img/addtask_medium.svg"></div>
-              <div onclick="chooseLowPrio()" id="priority-low-board">Low <img id="img-low-board"
+              <div onclick="chooseLowPrio()" id="priority-low">Low <img id="img-low"
                       src="assets/img/addtask_low.svg"></div>
           </div>
       </div>
-      <div class="edit-task-contacts-container">
+      <div class="edit-task-contacts-container edit-mode-task-contacts-container">
           <span class="task-container-mini-headlines">Assigned to:</span>
-          <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
-          <div id="assigned-to-board" class="custom-select">
+          <div class="custom-select-wrapper edit-mode-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
+          <div id="assigned-to" class="custom-select edit-mode--custom-select">
               <div class="select-selected">Select contacts to assign</div>
-              <input oninput="filterContacts()" id="contact-search-input-board" type="text"
+              <input oninput="filterContacts()" id="contact-search-input" type="text"
                   class="contact-search-input select-hide" placeholder="Type to search...">
               <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
               <div class="select-items select-hide"></div>
-          </div>
-          ${assignedContactsHtml}
+          </div> 
       </div>
-      <div id="assign-contacts-board"></div>
+      <div id="assign-contacts">
+      ${assignedContactsHtml}
       </div>
-      <div class="edit-task-subtasks-container">
+      </div>
+      <div class="edit-task-subtasks-container edit-mode-task-subtasks-container">
           <span class="task-container-mini-headlines">Subtasks:</span>
       <div class="add-subtask">
-          <input type="text" id="subtasks-board" placeholder="Add new subtask">
+          <input type="text" id="subtasks" placeholder="Add new subtask">
           <div id="icon-container">
               <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
           </div>
       </div>
-      <div id="subtask-container-board">
+      <div id="subtask-container">
           ${subtasksHtml}
       </div>
       </div>

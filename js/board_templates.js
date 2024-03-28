@@ -7,7 +7,7 @@ let taskData = {
     ],
     dueDate: "10/05/2023",
     priority: "Medium",
-    category: "User Story",
+    category: "assets/img/user_story.svg",
     subtasks: [
       { title: "Implement Recipe Recommendation", completed: true },
       { title: "Start Page Layout", completed: false }
@@ -20,7 +20,7 @@ function renderTaskOverlayHTML(taskData) {
     const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
         <div class="edit-task-header">
-          <span class="category-headline">${taskData.category}</span>
+          <img src="${taskData.category}" alt="Task Category">
           <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
         </div>
         <div class="edit-task-title-container">
@@ -142,7 +142,7 @@ function renderMiniTaskHTML(taskData, sectionId) {
     return /*html*/`
       <div onclick="renderTaskOverlayHTML(taskData)" id="minitask-${sectionId}" class="mini-task-container">
             <div class="mini-task-header">
-                <span class="category-headline mini-task-category">${taskData.category}</span>
+            <img src="${taskData.category}" alt="Task Category">
             </div>
             <div class="mini-task-title-container">
                 <span>${taskData.title}</span>

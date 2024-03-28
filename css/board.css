@@ -187,7 +187,6 @@
 }
 /* EDIT TASK CONTAINER */
 .edit-task-container {
-    /* display: none; FÜR TESTZWECKE----------------------------------------------------------------------------------------- */
     background-color: white;
     height: fit-content;
     max-width: 525px;

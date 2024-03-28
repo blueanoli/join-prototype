@@ -19,21 +19,18 @@ async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact,
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
-// DATE LOGIC -------------------------------------------------------------------------------------------------------------------------------
-function validateDate(inputElement) {
-    let inputValue = inputElement.value;
-    let datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
-    let addTaskButton = document.getElementById('add-task-btn');
+// DATE LOGIC
+function openDatePicker(date) {
+    document.addEventListener('DOMContentLoaded', function() {
+        var datePickerIcon = document.getElementById('date-picker-icon');
+        var dateInput = document.getElementById('due-date');
     
-    if (!datePattern.test(inputValue)) {
-      inputElement.setCustomValidity('Please enter correct format dd/mm/yyyy');
-      addTaskButton.disabled = true; 
-    } else {
-      inputElement.setCustomValidity('');
-      addTaskButton.disabled = false; 
-    }
-    inputElement.reportValidity();
+        datePickerIcon.addEventListener('click', function() {
+            dateInput.click();
+        });
+    }); 
 }
+
 
 // ERROR MESSAGE LOGIC -----------------------------------------------------------------------------------------------------------------------------
 function showErrorMessage(inputElement, errorMessage) {

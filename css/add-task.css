@@ -98,7 +98,7 @@ textarea{
     gap: 16px;
     margin-bottom: 16px;
 }
-#priority-urgent, #priority-medium, #priority-low {
+#priority-urgent, #priority-medium, #priority-low, #priority-urgent-board, #priority-medium-board, #priority-low-board {
     width: 136px;
     height: 56px;
     border-radius: 10px;
@@ -108,7 +108,7 @@ textarea{
     justify-content: center;
     cursor: pointer;
 }
-#priority-urgent:hover, #priority-medium:hover, #priority-low:hover {
+#priority-urgent:hover, #priority-medium:hover, #priority-low:hover, #priority-urgent-board:hover, #priority-medium-board:hover, #priority-low-board:hover {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .urgent-priority-active {
@@ -239,11 +239,11 @@ textarea{
     background-color: #E7E7E7;
     border-radius: 50%;
 }
-#subtasks{
+#subtasks, #subtask-board{
     margin-bottom: 0;
     width: 100%;
 }
-#subtask-container{
+#subtask-container, #subtask-container-board{
     max-height: 40px;
     overflow-y: auto;
     margin-bottom: 16px;
@@ -425,7 +425,7 @@ textarea{
 .option-item.selected:hover {
     background-color: var(--highlighted) !important; 
 }
-#assign-contacts{
+#assign-contacts, #assign-contacts-board {
     display: flex;
     gap: 4px;
     flex-wrap: nowrap;

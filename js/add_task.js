@@ -13,15 +13,10 @@ const priorities = ["low", "medium", "urgent"];
 const imgBaseURL = "assets/img/addtask_";
 
 // INIT LOGIC -------------------------------------------------------------------------------------------------------------------------------
-async function renderAddTask(){
+async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
     await init();
     chooseMediumPrio(); 
-    addSubtaskEventListener();
-    setupInputEventListener();
-    setupFormEventListeners();
-    setupDropdownCloseListener();
-    setupEventListenersForItemsDiv();
-    disableFormEnterKeySubmission();
+    addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
 // DATE LOGIC -------------------------------------------------------------------------------------------------------------------------------

@@ -117,3 +117,12 @@ function addSubtaskEventListener(){
             handleContactClick(event, contact, optionDiv);
         });
     }    
+
+function addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
+    setupFormEventListeners();
+    setupDropdownCloseListener();
+    setupInputEventListener();
+    setupEventListenersForItemsDiv();
+    addSubtaskEventListener();
+    disableFormEnterKeySubmission();
+}

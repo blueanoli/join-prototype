@@ -14,7 +14,7 @@ let taskData = {
     ]
   };
 
-  function renderTaskOverlayHTML(taskData) {
+function renderTaskOverlayHTML(taskData) {
     const overlayContainer = document.getElementById('edit-task-overlay');
   
     const htmlContent = /*html*/`
@@ -75,8 +75,70 @@ let taskData = {
   
     overlayContainer.innerHTML = htmlContent;
   }
-  
-  function renderMiniTaskHTML(taskData, sectionId) {
+ 
+function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml) {
+  return /*html*/`
+  <div class="edit-task-container">
+      <div class="edit-task-header">
+          <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
+      </div>
+      <div class="edit-task-title-container">
+          <span class="task-container-mini-headlines">Title:</span>
+          <input type="text" value="${taskData.title}" class="edit-input" id="edit-title">
+      </div>
+      <div class="edit-task-description-container">
+          <span class="task-container-mini-headlines">Description:</span>
+          <textarea class="edit-textarea" id="edit-description">${taskData.description}</textarea>
+      </div>
+      <div class="edit-task-due-date-container">
+          <span class="task-container-mini-headlines">Due date:</span>
+          <input type="text" value="${taskData.dueDate}" class="edit-input" id="edit-due-date">
+      </div>
+      <div class="edit-task-priority-container">
+          <span class="task-container-mini-headlines">Priority:</span>
+          <div class="priority-container">
+              <div onclick="chooseUrgentPrio()" id="priority-urgent-board">Urgent <img id="img-urgent-board"
+                      src="assets/img/addtask_urgent.svg"></div>
+              <div onclick="chooseMediumPrio()" id="priority-medium-board">Medium <img id="img-medium-board"
+                      src="assets/img/addtask_medium.svg"></div>
+              <div onclick="chooseLowPrio()" id="priority-low-board">Low <img id="img-low-board"
+                      src="assets/img/addtask_low.svg"></div>
+          </div>
+      </div>
+      <div class="edit-task-contacts-container">
+          <span class="task-container-mini-headlines">Assigned to:</span>
+          <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
+          <div id="assigned-to-board" class="custom-select">
+              <div class="select-selected">Select contacts to assign</div>
+              <input oninput="filterContacts()" id="contact-search-input-board" type="text"
+                  class="contact-search-input select-hide" placeholder="Type to search...">
+              <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
+              <div class="select-items select-hide"></div>
+          </div>
+          ${assignedContactsHtml}
+      </div>
+      <div id="assign-contacts-board"></div>
+      </div>
+      <div class="edit-task-subtasks-container">
+          <span class="task-container-mini-headlines">Subtasks:</span>
+      <div class="add-subtask">
+          <input type="text" id="subtasks-board" placeholder="Add new subtask">
+          <div id="icon-container">
+              <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
+          </div>
+      </div>
+      <div id="subtask-container-board">
+          ${subtasksHtml}
+      </div>
+      </div>
+      <div class="add-task-buttons-board">
+          <button class="add-task-btn-style" onclick="addTask(); return false" id="add-task-btn">Ok<img
+                  src="assets/img/addtask_check_white.svg"></button>
+      </div>
+  </div>`;
+}
+
+function renderMiniTaskHTML(taskData, sectionId) {
     return /*html*/`
       <div onclick="renderTaskOverlayHTML(taskData)" id="minitask-${sectionId}" class="mini-task-container">
             <div class="mini-task-header">
@@ -104,4 +166,4 @@ let taskData = {
                 </div>
             </div>
         </div>`;
-  }
+}

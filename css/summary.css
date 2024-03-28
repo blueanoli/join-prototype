@@ -168,3 +168,9 @@ h3 {
 .todo-box:hover .summary-item {
     background-color: white; 
 }
+
+@media (max-width: 1000px) {
+    .right-container {
+      display: none;
+    }
+  }

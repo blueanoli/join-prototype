@@ -1,0 +1,49 @@
+<script src="menu.js"></script>
+
+<header class="desktop-header">
+    <div class="menu-logo-mobile">
+        <img src="/assets/img/logo_dark.svg">
+    </div>
+    
+    <div class="help-and-user-icon" id="user-menu-icons">
+        <p onclick="openUserMenu()" class="user-icon"></p>
+        <div id="user-menu" class="user-menu d-none">
+            <a class="user-menu-item" href="help.html">
+                <span>Help</span>
+            </a>
+            <a class="user-menu-item" href="legal.html">
+                <span>Legal Notice</span>
+            </a>
+            <a class="user-menu-item" href="privacy.html">
+                <span>Privacy Policy</span>
+            </a>
+            <a onclick="logout()" class="user-menu-item" href="#">
+                <span>Log Out</span>
+            </a>
+        </div>
+    </div>
+</header>
+
+<div class="desktop-menu" id="menu">
+    <div class="menu-items" id="menu-items">
+        <a class="menu-link" href="summary.html">
+            <img src="/assets/img/summary_grey.svg">
+            <div>Summary</div>
+        </a>
+
+        <a class="menu-link" href="add_task.html">
+            <img src="/assets/img/addtask_grey.svg">
+            <div>Add Task</div>
+        </a>
+
+        <a class="menu-link" href="board.html">
+            <img src="/assets/img/board_grey.svg">
+            <div>Board</div>
+        </a>
+
+        <a class="menu-link" href="contacts.html">
+            <img src="/assets/img/contacts_grey.svg" alt="">
+            <div>Contacts</div>
+        </a>
+    </div>
+</div>

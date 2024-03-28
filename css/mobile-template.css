@@ -1,0 +1,115 @@
+.desktop-header {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.2);
+    align-items: center;
+    height: 80px;
+}
+
+.user-icon {
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--dark-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: var(--user-green);
+    cursor: pointer;
+}
+
+.user-icon:hover {
+    background-color: #E2E6EC;
+}
+
+.help-and-user-icon {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    position: fixed;
+    right: 20px;
+}
+
+h4 {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.desktop-menu {
+    width: 100%;
+    background-color: var(--dark-blue);
+    z-index: 999;
+    position: fixed;
+    bottom: 0;
+}
+
+.text-container {
+    margin: 20px 10px 20px 10px;
+}
+
+.menu-items {
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+.menu-link img {
+    margin-top: 10px;
+}
+
+.menu-logo-mobile img {
+    height: 50px;
+    padding-left: 20px;
+}
+
+.menu-link {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    box-sizing: border-box;
+    width: 80px;
+    height: 80px;
+    font-size: 14px;
+    border-radius: 20px;
+    align-items: center;
+    color: var(--background-grey);
+    font-weight: 300;
+}
+
+.menu-link:hover {
+    background-color: #344256;
+}
+
+.user-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dark-blue);
+    padding: 10px;
+    font-weight: 400;
+    border-radius: 20px 0px 20px 20px;
+    top: 80px;
+    right: 10px;
+    position: fixed;
+    width: 150px;
+    height: 180px;
+    z-index: 999;
+}
+
+.user-menu-item:hover {
+    background-color: #344256;
+}
+
+.user-menu-item {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px 16px 8px 16px;
+    margin-top: 8px;
+    border-radius: 8px;
+}

@@ -63,6 +63,22 @@
     padding: 15px 24px;
 }
 
+.contacts-acronym-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 21px;
+  background-color: orange;
+}
+
+.contacts-acronym-container span {
+  font-weight: 400;
+  font-size: 12px;
+  color: white;
+}
+
 .contacts-contact-details {
     display: flex;
     flex-direction: column;

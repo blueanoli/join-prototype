@@ -311,6 +311,59 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    padding-bottom: 48px;
+}
+/* EDIT TASK EDIT MODE */
+.edit-mode-task-container{
+    max-height: 840px;
+    overflow-y: scroll;
+}
+.edit-mode-task-header{
+    justify-content: flex-end;
+}
+.edit-mode-task-title-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.edit-mode-task-description-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.edit-mode-task-due-date-container{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.edit-mode-task-priority-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+.edit-mode-priority-container{
+    margin: 0;
+}
+.edit-mode-task-contacts-container{
+   display: flex; 
+   flex-direction: column;
+   align-items: flex-start;
+   gap: 8px;
+}
+.edit-mode-wrapper{
+    width: 100%;
+    padding-bottom: 8px;
+    box-sizing: border-box;
+}
+.edit-mode--custom-select{
+    margin-bottom: 0;
+}
+.edit-mode-task-subtasks-container{
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;  
+   gap: 8px; 
 }
 /* MINITASK STYLE */
 .mini-task-container{

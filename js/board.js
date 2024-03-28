@@ -69,19 +69,25 @@ function closeTaskOverlay() {
 
 function openEditTask() {
     let editOverlay = document.getElementById('edit-task-overlay');
-    let assignedContactsHtml = taskData.assignedTo.map(contact => /*html*/`
-    <div class="contact-icon-container">
-        <p class="test-contact" style="background-color: ${contact.color}">${contact.initials}</p>
-    </div>
-`).join('');
+    let assignedContactsHtml = '';
+    let subtasksHtml = '';
 
-    let subtasksHtml = taskData.subtasks.map(subtask => /*html*/`
+    for (let i = 0; i < taskData.assignedTo.length; i++) {
+        let contact = taskData.assignedTo[i];
+        assignedContactsHtml += `
+        <div class="contact-icon-container">
+            <p class="test-contact" style="background-color: ${contact.color}">${contact.initials}</p>
+        </div>`;
+    }
+
+    for (let j = 0; j < taskData.subtasks.length; j++) {
+        let subtask = taskData.subtasks[j];
+        subtasksHtml += `
         <div class="subtasks-check-container">
             <span ${subtask.completed ? 'checked' : ''}>
             <span>${subtask.title}</span>
-        </div>
-`).join('');
-    
+        </div>`;
+    }
 
     let htmlContent = renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml);
     editOverlay.innerHTML = htmlContent;

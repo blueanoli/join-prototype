@@ -39,8 +39,10 @@ function checkColumnEmpty(sectionId, emptyText) {
     }
 }
 
-
-
+function handleTaskClick(index) {
+    const task = tasksData[index];
+    renderTaskOverlayHTML(task);
+}
 
 function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     if (isOverlayOpen) return; 
@@ -115,18 +117,19 @@ function openEditTask() {
         </div>`;
     }
 
-    let htmlContent = renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml);
+    let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml);
     editOverlay.innerHTML = htmlContent;
 }
 
 function displayAllTasks() {
-    tasksData.forEach(task => {
-        const columnId = `board-${task.progress}-container`; 
-        const column = document.getElementById(columnId); 
+    for (let i = 0; i < tasksData.length; i++) {
+        const task = tasksData[i];
+        const columnId = `board-${task.progress}-container`;
+        const column = document.getElementById(columnId);
 
         if (column) {
-            const taskElement = renderMiniTaskHTML(task); 
+            const taskElement = renderMiniTaskHTML(task, i); 
             column.innerHTML += taskElement; 
         }
-    });
+    }
 }

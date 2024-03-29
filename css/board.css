@@ -283,7 +283,8 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 10px 16px 4px 16px;
+    padding: 10px 16px;
+    box-sizing: border-box;
 }
 .subtasks-check-container:hover{
     cursor: pointer;

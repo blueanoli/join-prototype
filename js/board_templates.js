@@ -34,36 +34,36 @@ let tasksData = [
 ];
 
 
-function renderTaskOverlayHTML(taskData) {
+function renderTaskOverlayHTML(task) {
     const overlayContainer = document.getElementById('edit-task-overlay');
   
     const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
         <div class="edit-task-header">
-          <img src="${taskData.category}" alt="Task Category">
+          <img src="${task.category}" alt="Task Category">
           <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
         </div>
         <div class="edit-task-title-container">
-          <h1>${taskData.title}</h1>
+          <h1>${task.title}</h1>
         </div>
         <div class="edit-task-description-container">
-          <span>${taskData.description}</span>
+          <span>${task.description}</span>
         </div>
         <div class="edit-task-due-date-container">
           <span class="task-container-mini-headlines">Due date:</span>
-          <span>${taskData.dueDate}</span>
+          <span>${task.dueDate}</span>
         </div>
         <div class="edit-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
           <div class="priority-icon-container">
-            <span>${taskData.priority}</span>
-            <img src="assets/img/addtask_${taskData.priority.toLowerCase()}.svg" alt="${taskData.priority}">
+            <span>${task.priority}</span>
+            <img src="assets/img/addtask_${task.priority.toLowerCase()}.svg" alt="${task.priority}">
           </div>
         </div>
         <div class="edit-task-contacts-container">
           <span class="task-container-mini-headlines">Assigned to:</span>
-          <div class="test-contact-container-">
-            ${taskData.assignedTo.map(person => `
+          <div class="test-contact-container-board">
+            ${task.assignedTo.map(person => `
               <div class="contact-icon-container">
                 <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
                 ${person.name}
@@ -73,7 +73,7 @@ function renderTaskOverlayHTML(taskData) {
         </div>
         <div class="edit-task-subtasks-container">
           <span class="task-container-mini-headlines">Subtasks:</span>
-          ${taskData.subtasks.map(subtask => `
+          ${task.subtasks.map(subtask => `
             <div class="subtasks-check-container">
               <img src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
               <span>${subtask.title}</span>
@@ -96,7 +96,7 @@ function renderTaskOverlayHTML(taskData) {
     overlayContainer.innerHTML = htmlContent;
   }
  
-function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml) {
+function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml) {
   return /*html*/`
   <div class="edit-task-container edit-mode-task-container">
       <div class="edit-task-header edit-mode-task-header">
@@ -104,15 +104,15 @@ function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml)
       </div>
       <div class="edit-task-title-container edit-mode-task-title-container">
           <span class="task-container-mini-headlines">Title:</span>
-          <input type="text" value="${taskData.title}" class="edit-input" id="edit-title">
+          <input type="text" value="${task.title}" class="edit-input" id="edit-title">
       </div>
       <div class="edit-task-description-container edit-mode-task-description-container">
           <span class="task-container-mini-headlines">Description:</span>
-          <textarea class="edit-textarea" id="edit-description">${taskData.description}</textarea>
+          <textarea class="edit-textarea" id="edit-description">${task.description}</textarea>
       </div>
       <div class="edit-task-due-date-container edit-mode-task-due-date-container">
           <span class="task-container-mini-headlines">Due date:</span>
-          <input type="text" value="${taskData.dueDate}" class="edit-input" id="edit-due-date">
+          <input type="text" value="${task.dueDate}" class="edit-input" id="edit-due-date">
       </div>
       <div class="edit-task-priority-container edit-mode-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
@@ -159,13 +159,13 @@ function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml)
   </div>`;
 }
 
-function renderMiniTaskHTML(task) {
+function renderMiniTaskHTML(task, index) {
   let completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
   return /*html*/`
-      <div onclick="renderTaskOverlayHTML(task)" class="mini-task-container" draggable="true">
+      <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true">
           <div class="mini-task-header">
               <img src="${task.category}" alt="Task Category">
           </div>

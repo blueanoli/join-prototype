@@ -83,14 +83,17 @@ function checkIfIsLoggedIn() {
   if (!publicPages.includes(currentPage) && !isLoggedIn) {
     sessionStorage.setItem('loginRequired', 'true');
     window.location.href = 'index.html';
-    return false;
   }
-  return true;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+  if (sessionStorage.getItem('loginRequired') === 'true') {
+    sessionStorage.removeItem('loginRequired');
+    document.getElementById('checkLogin').classList.remove('d-none');
+  }
+
   if (checkIfIsLoggedIn()) {
-    await includeHTML(); 
+    await includeHTML();
     let isPublic = isPublicPage();
     if (isPublic) {
       disableContent();

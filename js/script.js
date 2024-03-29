@@ -1,5 +1,6 @@
 const STORAGE_TOKEN = "SUAP8YLQYG530FE8HDED8CKFONZBVXBSJ39FDPIR";
 const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
+const publicPages = ['index.html', 'external_privacy.html', 'external_legal.html', 'sign_up.html'];
 const colors = [
   "--user-orange",
   "--user-mid-orange",
@@ -43,12 +44,25 @@ async function initPageFunctions() {
 
 async function externalInit() {
   await includeHTML();
-  document.getElementById('menu-items').style.display = 'none';
-  document.getElementById('user-menu-icons').style.display = 'none';
-  document.getElementById('privacy-section').classList.add('external-privacy');
-  document.getElementById('privacy-link').setAttribute('href', 'external_privacy.html');
-  document.getElementById('legal-link').setAttribute('href', 'external_legal.html');
+  disableContent();
   initPageFunctions();
+}
+
+function disableContent() {
+  const actions = [
+    { id: 'menu-items', action: element => element.style.display = 'none' },
+    { id: 'user-menu-icons', action: element => element.style.display = 'none' },
+    { id: 'privacy-section', action: element => element.classList.add('external-privacy') },
+    { id: 'privacy-link', action: element => element.setAttribute('href', 'external_privacy.html') },
+    { id: 'legal-link', action: element => element.setAttribute('href', 'external_legal.html') }
+  ];
+
+  actions.forEach(({ id, action }) => {
+    const element = document.getElementById(id);
+    if (element) {
+      action(element);
+    }
+  });
 }
 
 async function helpInit() {
@@ -64,19 +78,26 @@ async function init() {
 
 function checkIfIsLoggedIn() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-  const publicPages = ['index.html', 'external_privacy.html', 'external_legal.html', 'sign_up.html', '/'];
   const currentPage = window.location.pathname.split('/').pop();
 
   if (!publicPages.includes(currentPage) && !isLoggedIn) {
-    alert('Log in required.');
-    window.location.href = 'index.html'; 
+    sessionStorage.setItem('loginRequired', 'true');
+    window.location.href = 'index.html';
+    return false;
   }
+  return true;
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  checkIfIsLoggedIn();
-  await checkWindowSize();
-  initPageFunctions();
+  if (checkIfIsLoggedIn()) {
+    await includeHTML(); 
+    let isPublic = isPublicPage();
+    if (isPublic) {
+      disableContent();
+    }
+    initPageFunctions();
+    await checkWindowSize();
+  }
 });
 
 async function includeHTML() {
@@ -171,28 +192,55 @@ function updateUserIcon() {
   }
 }
 
-async function checkWindowSize() {
+function isPublicPage() {
+  let currentPage = window.location.pathname.split('/').pop();
+  return publicPages.includes(currentPage);
+}
+
+async function switchTemplate(currentTemplate, isPublic) {
   let includeDiv = document.querySelector('[w3-include-html]');
   let cssLink = document.querySelector('link[href*="template.css"]');
-  let currentTemplate = includeDiv.getAttribute('w3-include-html');
 
   if (window.innerWidth < 1000) {
-    if (currentTemplate !== 'assets/templates/mobile-template.html') {
-      includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
-      cssLink.setAttribute('href', 'css/mobile-template.css');
-      await includeHTML();
-    }
+    await switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic);
   } else {
-    if (currentTemplate !== 'assets/templates/desktop-template.html' || !currentTemplate) {
-      includeDiv.setAttribute('w3-include-html', 'assets/templates/desktop-template.html');
-      cssLink.setAttribute('href', 'css/desktop-template.css');
-      await includeHTML();
+    await switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic);
+  }
+}
+
+async function switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
+  if (currentTemplate !== 'assets/templates/mobile-template.html') {
+    includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
+    cssLink.setAttribute('href', 'css/mobile-template.css');
+    await includeHTML();
+    if (isPublic) {
+      disableContent();
     }
   }
+}
+
+async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
+  if (currentTemplate !== 'assets/templates/desktop-template.html' || !currentTemplate) {
+    includeDiv.setAttribute('w3-include-html', 'assets/templates/desktop-template.html');
+    cssLink.setAttribute('href', 'css/desktop-template.css');
+    await includeHTML();
+    if (isPublic) {
+      disableContent();
+    }
+  }
+}
+
+async function checkWindowSize() {
+  let includeDiv = document.querySelector('[w3-include-html]');
+  if (includeDiv) {
+    let currentTemplate = includeDiv.getAttribute('w3-include-html');
+    let isPublic = isPublicPage();
+    await switchTemplate(currentTemplate, isPublic);
+  }
+  setActive();
 }
 
 window.addEventListener('resize', checkWindowSize);
 document.addEventListener('DOMContentLoaded', () => {
   checkWindowSize();
-  initPageFunctions();
 });

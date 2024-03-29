@@ -29,6 +29,16 @@ let contacts = [
     email: "klein@gmail.de",
     color: "",
   },
+  {
+    name: "Levin Klein",
+    email: "klein@gmail.de",
+    color: "",
+  },
+  {
+    name: "Felix Klein",
+    email: "klein@gmail.de",
+    color: "",
+  },
 ];
 let contactsByLetter = [];
 let profileColors = [

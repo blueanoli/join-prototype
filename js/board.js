@@ -201,35 +201,3 @@ function filterTasks() {
 
     populateEmptyColumns(sections);
 }
-
-
-// TEST FUNCTION TO STORE DATA IN LOCAL STORAGE --------------------------------------------------------------------------------------------------
-
-function initializeTaskData() {
-    const storedTasks = localStorage.getItem('tasksData');
-    if (!storedTasks) {
-        console.log("Keine gespeicherten Tasks gefunden, initialisiere mit Beispiel-Tasks.");
-        saveTasksToLocalStorage(); 
-    }
-}
-
-function saveTasksToLocalStorage() {
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
-}
-
-function loadTasksFromLocalStorage() {
-    let storedTasks = localStorage.getItem('tasksData');
-    if (storedTasks) {
-        tasksData = JSON.parse(storedTasks);
-    }
-    displayAllTasks();
-}
-
-function updateTaskProgress(taskId, newColumnId) {
-    let task = tasksData[taskId];
-    if (task) {
-        const newProgress = newColumnId.replace('board-', '').replace('-container', '');
-        task.progress = newProgress;
-        saveTasksToLocalStorage();
-    }
-}

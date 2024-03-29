@@ -39,7 +39,6 @@ async function getItem(key) {
 async function initPageFunctions() {
   updateUserIcon();
   setActive();
-  checkIfIsLoggedIn();
 }
 
 async function externalInit() {

@@ -146,42 +146,62 @@ function displayAllTasks() {
 
 // FILTER FUNCTION TASK TITLES --------------------------------------------------------------------------------------------------
 
-function filterTasks() {
-    const searchText = document.getElementById('search-tasks').value.toLowerCase();
-    const filteredTasks = tasksData.filter(task => 
+function getFilteredTasks(searchText, tasksData) {
+    return tasksData.filter(task => 
         task.title.split(' ').some(word => word.toLowerCase().startsWith(searchText))
-    ); 
+    );
+}
 
-    for (let section of sections) {
-        let column = document.getElementById(section.id);
+function clearColumns(sections) {
+    for (let i = 0; i < sections.length; i++) {
+        let column = document.getElementById(sections[i].id);
         column.classList.add('empty');
-        column.innerHTML = ''; 
+        column.innerHTML = '';
     }
+}
 
-    if (filteredTasks.length > 0) {
-        for (let task of filteredTasks) {
-            let sectionId = `board-${task.progress}-container`;
-            let column = document.getElementById(sectionId);
+function populateColumnsWithTasks(filteredTasks, tasksData) {
+    for (let i = 0; i < filteredTasks.length; i++) {
+        let task = filteredTasks[i];
+        let sectionId = `board-${task.progress}-container`;
+        let column = document.getElementById(sectionId);
+
+        if (column) {
             column.classList.remove('empty');
-            if (column) {
-                let taskElement = renderMiniTaskHTML(task, tasksData.indexOf(task));
-                column.innerHTML += taskElement;
-            }
+            let taskIndex = tasksData.indexOf(task);
+            let taskElement = renderMiniTaskHTML(task, taskIndex);
+            column.innerHTML += taskElement;
         }
     }
+}
 
-    sections.forEach(section => {
-        let column = document.getElementById(section.id);
+function populateEmptyColumns(sections) {
+    for (let i = 0; i < sections.length; i++) {
+        let column = document.getElementById(sections[i].id);
         if (!column.innerHTML.trim()) {
             column.innerHTML = `
                 <div class='empty-column dotted-container'>
-                    <div class="dotted-container"> <!-- Stellen Sie sicher, dass diese Klasse in Ihrem CSS die gepunktete Linie definiert -->
-                        <span>${section.text}</span>
+                    <div class="dotted-container">
+                        <span>${sections[i].text}</span>
                     </div>
                 </div>`;
         }
-    });
+    }
 }
+
+function filterTasks() {
+    const searchText = document.getElementById('search-tasks').value.toLowerCase();
+    const filteredTasks = getFilteredTasks(searchText, tasksData);
+
+    clearColumns(sections);
+
+    if (filteredTasks.length > 0) {
+        populateColumnsWithTasks(filteredTasks, tasksData);
+    }
+
+    populateEmptyColumns(sections);
+}
+
 
 // TEST FUNCTION TO STORE DATA IN LOCAL STORAGE --------------------------------------------------------------------------------------------------
 

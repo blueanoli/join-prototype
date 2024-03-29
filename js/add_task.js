@@ -11,6 +11,7 @@ let fields = [
 let isFieldEmpty;
 const priorities = ["low", "medium", "urgent"];
 const imgBaseURL = "assets/img/addtask_";
+let selectedPriority = "medium";
 
 // INIT LOGIC -------------------------------------------------------------------------------------------------------------------------------
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
@@ -95,6 +96,8 @@ function chooseLowPrio() {
 }
 
 function setPriority(priorityLevel) {
+    selectedPriority = priorityLevel; // Aktualisiere die globale Variable mit der ausgewählten Priorität
+
     for (let i = 0; i < priorities.length; i++) {
         let prio = priorities[i];
         let elem = document.getElementById(`priority-${prio}`);
@@ -128,7 +131,36 @@ function addTask() {
     if (isErrorVisible || !isDateValid) {
         return;
     }
+
+    let title = document.getElementById('title').value;
+    let dueDate = document.getElementById('due-date').value;
+    let category = document.getElementById('choose-category').getAttribute('data-value');
+    let priority = selectedPriority;
+    let assignedTo = [selectedContacts];
+    let description = document.getElementById('description').value; 
+    let subtasks = [];
+    let progress = 'todo';
+
+    let newTask = { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
+    tasksData.push(newTask);
+    saveTasksToLocalStorage();
+
     addTaskAnimation();
+}
+
+function pushTaskToStorage() {
+    let newTask = {
+        title: document.getElementById('title').value,
+        dueDate: document.getElementById('due-date').value,
+        category: document.getElementById('choose-category').getAttribute('data-value'),
+        priority: document.getElementById('priority').getAttribute('data-value'),
+        assignedTo: selectedContacts,
+        description: document.getElementById('description').value,
+        subtasks: [],
+        progress: 'todo'
+    }
+
+    tasksData.push(newTask);
 }
 
 function addTaskAnimation(){

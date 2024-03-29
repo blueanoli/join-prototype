@@ -5,7 +5,7 @@
     <div class="add-task-left">
         <div class="left-input-container">
             <label for="title">Title<span class="red-asterisk">*</span></label>
-            <input required onfocus="resetFieldStyle(this)" type="text" id="title" placeholder="Enter a title" title="Please enter a title">
+            <input required onfocus="resetFieldStyle(this)" type="text" id="title" maxlength="50" placeholder="Enter a title" title="Please enter a title">
             <span class="error-message" id="title-error">This field is required</span>
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description" title="Please enter a description"></textarea>
@@ -30,7 +30,7 @@
         <div class="right-input-container">
             <div class="date-input-container">
                 <label for="due-date">Due date<span class="red-asterisk">*</span></label>
-                <input required onfocus="resetFieldStyle(this), this.type='date'" onblur="this.type='text'" type="text" id="due-date" class="date-input"
+                <input required onfocus="resetFieldStyle(this), this.type='date'" type="text" id="due-date" class="date-input"
                     placeholder="dd/mm/yyyy" title="Please choose a date in the future">
                 <img class="date-icon" id="date-picker-icon" src="assets/img/addtask_date.svg" alt="">
                 <span class="error-message" id="due-date-error">This field is required</span>

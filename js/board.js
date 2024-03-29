@@ -4,6 +4,7 @@ let sections = [
     { id: 'board-feedback-container', text: 'No tasks await feedback' },
     { id: 'board-done-container', text: 'No tasks done' }
 ];
+let isOverlayOpen = false;
 
 async function renderBoard() {
     await init();
@@ -34,9 +35,11 @@ function checkColumnEmpty(sectionId, emptyText) {
 }
 
 function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
-    const container = document.getElementById('add-task-container-board');
-    const overlay = document.getElementById('page-overlay');
-    const body = document.body;
+    if (isOverlayOpen) return; 
+
+    let container = document.getElementById('add-task-container-board');
+    let overlay = document.getElementById('page-overlay');
+    let body = document.body;
 
     overlay.classList.add('active');
     body.classList.add('no-scroll');
@@ -45,21 +48,36 @@ function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionD
     container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
 
     includeHTML().then(() => {
-        container.style.display = 'block';
+        activateContainer();
     });
 
+    isOverlayOpen = true; 
     renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
+function activateContainer() {
+    let container = document.getElementById('add-task-container-board');
+    container.style.display = 'block';
+
+    let closeButton = document.getElementById('close-task-btn');
+    if (closeButton) {
+        closeButton.addEventListener('click', closeAddTask, { once: true });
+    }
+}
+
 function closeAddTask() {
-    const container = document.getElementById('add-task-container-board');
-    const overlay = document.getElementById('page-overlay');
-    const body = document.body;
+    if (!isOverlayOpen) return;
+
+    let container = document.getElementById('add-task-container-board');
+    let overlay = document.getElementById('page-overlay');
+    let body = document.body;
 
     container.classList.add('closing');
     overlay.classList.remove('active');
-    overlay.style.display = 'none';
     body.style.overflow = '';
+    container.removeAttribute('w3-include-html');
+
+    isOverlayOpen = false; 
 }
 
 function closeTaskOverlay() {

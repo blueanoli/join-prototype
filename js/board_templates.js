@@ -30,7 +30,22 @@ let tasksData = [
           { title: "Setup Base Styles", completed: true }
       ],
       progress: 'todo'
-  }
+  },
+  {
+      title: "Another test task",
+      description: "Design and implement everything.",
+      assignedTo: [
+          { name: "Albert Wesker", color: "var(--user-orange)", initials: "AW" },
+          { name: "Barry Burton", color: "var(--user-light-blue)", initials: "BB" }
+      ],
+      dueDate: "22/05/2023",
+      priority: "Low",
+      category: "assets/img/user_story.svg",
+      subtasks: [
+          { title: "Do something", completed: false },
+          { title: "Do even more", completed: false }
+      ],
+      progress: 'todo'}
 ];
 
 
@@ -165,7 +180,7 @@ function renderMiniTaskHTML(task, index) {
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
 
   return /*html*/`
-      <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true">
+      <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
           <div class="mini-task-header">
               <img src="${task.category}" alt="Task Category">
           </div>

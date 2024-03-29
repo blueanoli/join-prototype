@@ -10,6 +10,8 @@ let isOverlayOpen = false;
 
 async function renderBoard() {
     await init();
+    initializeTaskData();
+    loadTasksFromLocalStorage();
     displayAllTasks();
     checkAllSections();
 }
@@ -122,14 +124,53 @@ function openEditTask() {
 }
 
 function displayAllTasks() {
-    for (let i = 0; i < tasksData.length; i++) {
-        const task = tasksData[i];
-        const columnId = `board-${task.progress}-container`;
-        const column = document.getElementById(columnId);
+
+    for (let j = 0; j < sections.length; j++) {
+        let section = sections[j]; 
+        let column = document.getElementById(section.id); 
 
         if (column) {
-            const taskElement = renderMiniTaskHTML(task, i); 
-            column.innerHTML += taskElement; 
+            column.innerHTML = ''; 
+
+            for (let i = 0; i < tasksData.length; i++) {
+                let task = tasksData[i]; 
+
+                if (task.progress === section.id.replace('board-', '').replace('-container', '')) {
+                    let taskElement = renderMiniTaskHTML(task, i); 
+                    column.innerHTML += taskElement; 
+                }
+            }
         }
+    }
+}
+
+// TEST FUNCTION TO STORE DATA IN LOCAL STORAGE --------------------------------------------------------------------------------------------------
+
+function initializeTaskData() {
+    const storedTasks = localStorage.getItem('tasksData');
+    if (!storedTasks) {
+        console.log("Keine gespeicherten Tasks gefunden, initialisiere mit Beispiel-Tasks.");
+        saveTasksToLocalStorage(); 
+    }
+}
+
+function saveTasksToLocalStorage() {
+    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+}
+
+function loadTasksFromLocalStorage() {
+    let storedTasks = localStorage.getItem('tasksData');
+    if (storedTasks) {
+        tasksData = JSON.parse(storedTasks);
+    }
+    displayAllTasks();
+}
+
+function updateTaskProgress(taskId, newColumnId) {
+    let task = tasksData[taskId];
+    if (task) {
+        const newProgress = newColumnId.replace('board-', '').replace('-container', '');
+        task.progress = newProgress;
+        saveTasksToLocalStorage();
     }
 }

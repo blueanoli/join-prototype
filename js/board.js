@@ -4,11 +4,18 @@ let sections = [
     { id: 'board-feedback-container', text: 'No tasks await feedback' },
     { id: 'board-done-container', text: 'No tasks done' }
 ];
+const TASK_STATUSES = ['todo', 'in-progress', 'feedback', 'done'];
+
 let isOverlayOpen = false;
 
 async function renderBoard() {
     await init();
+    displayAllTasks();
     checkAllSections();
+}
+
+function isValidStatus(status) {
+    return TASK_STATUSES.includes(status);
 }
 
 function checkAllSections() {
@@ -21,18 +28,19 @@ function checkColumnEmpty(sectionId, emptyText) {
     let section = document.getElementById(sectionId);
 
     if (!section.hasChildNodes()) {
-        section.innerHTML = /*html*/`
-        <div class='empty-column'>
-            <span>${emptyText}</span>
-        </div>`;
-    }else{
-        section.innerHTML = renderMiniTaskHTML(taskData, sectionId);
-        renderSubtaskProgress(taskData, sectionId);
-        section.style.border = 'none';
-        section.style.backgroundColor = 'transparent';
-        section.style.boxShadow = 'none';
+        section.classList.add('empty');
+        section.innerHTML = `<div class='empty-column'><span>${emptyText}</span></div>`;
+    } else {
+        const emptyColumnDiv = section.querySelector('.empty-column');
+        if (emptyColumnDiv) {
+            emptyColumnDiv.remove();
+        }
+        section.classList.remove('empty');
     }
 }
+
+
+
 
 function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     if (isOverlayOpen) return; 
@@ -111,19 +119,14 @@ function openEditTask() {
     editOverlay.innerHTML = htmlContent;
 }
 
-function renderSubtaskProgress(taskData) {
-    let completedSubtasks = taskData.subtasks.filter(subtask => subtask.completed).length;
-    let totalSubtasks = taskData.subtasks.length;
-    let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+function displayAllTasks() {
+    tasksData.forEach(task => {
+        const columnId = `board-${task.progress}-container`; 
+        const column = document.getElementById(columnId); 
 
-    let progressHTML = /*html*/`
-    <div class="progress-bar-container">
-        <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
-    </div>
-    <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>
-`;
-    let miniTaskSubtaskContainer = document.querySelector('.mini-task-subtask-container');
-    if (miniTaskSubtaskContainer) {
-        miniTaskSubtaskContainer.innerHTML = progressHTML;
-    }
+        if (column) {
+            const taskElement = renderMiniTaskHTML(task); 
+            column.innerHTML += taskElement; 
+        }
+    });
 }

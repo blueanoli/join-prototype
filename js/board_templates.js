@@ -1,18 +1,38 @@
-let taskData = {
-    title: "Kochwelt Page & Recipe Recommender",
-    description: "Build start page with recipe recommendation.",
-    assignedTo: [
-      { name: "Chris Redfield", color: "var(--user-blue)", initials: "CR" },
-      { name: "Jill Valentine", color: "var(--user-red)", initials: "JV" }
-    ],
-    dueDate: "10/05/2023",
-    priority: "Medium",
-    category: "assets/img/user_story.svg",
-    subtasks: [
-      { title: "Implement Recipe Recommendation", completed: true },
-      { title: "Start Page Layout", completed: false }
-    ]
-  };
+let tasksData = [
+  {
+      title: "Kochwelt Page & Recipe Recommender",
+      description: "Build start page with recipe recommendation.",
+      assignedTo: [
+          { name: "Chris Redfield", color: "var(--user-blue)", initials: "CR" },
+          { name: "Jill Valentine", color: "var(--user-red)", initials: "JV" }
+      ],
+      dueDate: "10/05/2023",
+      priority: "Medium",
+      category: "assets/img/user_story.svg",
+      subtasks: [
+          { title: "Implement Recipe Recommendation", completed: true },
+          { title: "Start Page Layout", completed: false }
+      ],
+      progress: 'done'
+  },
+  {
+      title: "CSS Architecture Planning",
+      description: "Define CSS naming conventions and structure.",
+      assignedTo: [
+          { name: "Leon Kennedy", color: "var(--user-green)", initials: "LK" },
+          { name: "Ada Wong", color: "var(--user-pink)", initials: "AW" }
+      ],
+      dueDate: "15/06/2023",
+      priority: "Urgent",
+      category: "assets/img/technical_task.svg",
+      subtasks: [
+          { title: "Establish CSS Methodology", completed: true },
+          { title: "Setup Base Styles", completed: true }
+      ],
+      progress: 'todo'
+  }
+];
+
 
 function renderTaskOverlayHTML(taskData) {
     const overlayContainer = document.getElementById('edit-task-overlay');
@@ -42,7 +62,7 @@ function renderTaskOverlayHTML(taskData) {
         </div>
         <div class="edit-task-contacts-container">
           <span class="task-container-mini-headlines">Assigned to:</span>
-          <div class="test-contact-container-board">
+          <div class="test-contact-container-">
             ${taskData.assignedTo.map(person => `
               <div class="contact-icon-container">
                 <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
@@ -97,11 +117,11 @@ function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml)
       <div class="edit-task-priority-container edit-mode-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
           <div class="priority-container edit-mode-priority-container">
-              <div onclick="chooseUrgentPrio()" id="priority-urgent-board">Urgent <img id="img-urgent-board"
+              <div onclick="chooseUrgentPrio()" id="priority-urgent">Urgent <img id="img-urgent"
                       src="assets/img/addtask_urgent.svg"></div>
-              <div onclick="chooseMediumPrio()" id="priority-medium-board">Medium <img id="img-medium-board"
+              <div onclick="chooseMediumPrio()" id="priority-medium">Medium <img id="img-medium"
                       src="assets/img/addtask_medium.svg"></div>
-              <div onclick="chooseLowPrio()" id="priority-low-board">Low <img id="img-low-board"
+              <div onclick="chooseLowPrio()" id="priority-low">Low <img id="img-low"
                       src="assets/img/addtask_low.svg"></div>
           </div>
       </div>
@@ -139,32 +159,41 @@ function renderEditTaskOverlayHTML(taskData, assignedContactsHtml, subtasksHtml)
   </div>`;
 }
 
-function renderMiniTaskHTML(taskData, sectionId) {
-    return /*html*/`
-      <div onclick="renderTaskOverlayHTML(taskData)" id="minitask-${sectionId}" class="mini-task-container">
-            <div class="mini-task-header">
-            <img src="${taskData.category}" alt="Task Category">
-            </div>
-            <div class="mini-task-title-container">
-                <span>${taskData.title}</span>
-            </div>
-            <div class="mini-task-description-container">
-                <span>${taskData.description}</span>
-            </div>
-            <div class="mini-task-subtask-container"></div>
-            <div class="mini-task-footer-container">
-                <div class="mini-task-contacts-container">
-                    <div class="test-contact-container-board mini-contact-icons-container">
-                        ${taskData.assignedTo.map(person => `
-                        <div class="contact-icon-container mini-contact-icons">
-                            <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
-                        </div>
-                        `).join('')}
-                    </div>
-                </div>
-                <div class="mini-task-prio-container">
-                    <img src="assets/img/addtask_${taskData.priority.toLowerCase()}.svg" alt="${taskData.priority}">
-                </div>
-            </div>
-        </div>`;
+function renderMiniTaskHTML(task) {
+  let completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+  let totalSubtasks = task.subtasks.length;
+  let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+
+  return /*html*/`
+      <div onclick="renderTaskOverlayHTML(task)" class="mini-task-container" draggable="true">
+          <div class="mini-task-header">
+              <img src="${task.category}" alt="Task Category">
+          </div>
+          <div class="mini-task-title-container">
+              <span>${task.title}</span>
+          </div>
+          <div class="mini-task-description-container">
+              <span>${task.description}</span>
+          </div>
+          <div class="mini-task-subtask-container">
+              <div class="progress-bar-container">
+                  <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+              </div>
+              <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>
+          </div>
+          <div class="mini-task-footer-container">
+              <div class="mini-task-contacts-container">
+                  <div class="test-contact-container-board mini-contact-icons-container">
+                      ${task.assignedTo.map(person => `
+                          <div class="contact-icon-container mini-contact-icons">
+                              <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
+                          </div>
+                      `).join('')}
+                  </div>
+              </div>
+              <div class="mini-task-prio-container">
+                  <img src="assets/img/addtask_${task.priority.toLowerCase()}.svg" alt="${task.priority}">
+              </div>
+          </div>
+      </div>`;
 }

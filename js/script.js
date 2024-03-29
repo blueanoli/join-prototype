@@ -36,6 +36,12 @@ async function getItem(key) {
     });
 }
 
+async function initPageFunctions() {
+  updateUserIcon();
+  setActive();
+  checkIfIsLoggedIn();
+}
+
 async function externalInit() {
   await includeHTML();
   document.getElementById('menu-items').style.display = 'none';
@@ -43,41 +49,42 @@ async function externalInit() {
   document.getElementById('privacy-section').classList.add('external-privacy');
   document.getElementById('privacy-link').setAttribute('href', 'external_privacy.html');
   document.getElementById('legal-link').setAttribute('href', 'external_legal.html');
-  setActive();
+  initPageFunctions();
 }
 
 async function helpInit() {
   await includeHTML();
-  updateUserIcon();
   document.getElementById('help-icon').style.display = 'none';
+  initPageFunctions();
 }
 
 async function init() {
-  await checkIfIsLoggedIn();
   await includeHTML();
-  setActive();
-  updateUserIcon();
+  initPageFunctions();
 }
 
 function checkIfIsLoggedIn() {
-  if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-    sessionStorage.setItem('promptLogin', 'true');
-    window.location.href = 'index.html';
+  const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  const publicPages = ['index.html', 'external_privacy.html', 'external_legal.html', 'sign_up.html', '/'];
+  const currentPage = window.location.pathname.split('/').pop();
+
+  if (!publicPages.includes(currentPage) && !isLoggedIn) {
+    alert('Log in required.');
+    window.location.href = 'index.html'; 
   }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  if (sessionStorage.getItem('promptLogin') === 'true') {
-    alert('Bitte loggen Sie sich ein.');
-    sessionStorage.removeItem('promptLogin');
-  }
+document.addEventListener('DOMContentLoaded', async () => {
+  checkIfIsLoggedIn();
+  await checkWindowSize();
+  initPageFunctions();
 });
 
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
     const element = includeElements[i];
-    file = element.getAttribute("w3-include-html");
+    const file = element.getAttribute("w3-include-html");
     let resp = await fetch(file);
     if (resp.ok) {
       element.innerHTML = await resp.text();
@@ -85,6 +92,7 @@ async function includeHTML() {
       element.innerHTML = "Page not found";
     }
   }
+  initPageFunctions();
 }
 
 function setActive() {
@@ -148,17 +156,44 @@ function showBoardFromSummary() {
 
 function updateUserIcon() {
   let userIcon = document.querySelector('.user-icon');
-  let username = sessionStorage.getItem('username');
+  if (userIcon) {
+    let username = sessionStorage.getItem('username');
 
-  if (username && username !== 'Guest') {
-    let names = username.split(' ');
-    if (names.length > 1) {
-      userIcon.textContent = names[0].charAt(0).toUpperCase() + names[1].charAt(0).toUpperCase();
+    if (username && username !== 'Guest') {
+      let names = username.split(' ');
+      if (names.length > 1) {
+        userIcon.textContent = names[0].charAt(0).toUpperCase() + names[1].charAt(0).toUpperCase();
+      } else {
+        userIcon.textContent = names[0].charAt(0).toUpperCase();
+      }
     } else {
-      userIcon.textContent = names[0].charAt(0).toUpperCase();
+      userIcon.textContent = 'G';
+    }
+  }
+}
+
+async function checkWindowSize() {
+  let includeDiv = document.querySelector('[w3-include-html]');
+  let cssLink = document.querySelector('link[href*="template.css"]');
+  let currentTemplate = includeDiv.getAttribute('w3-include-html');
+
+  if (window.innerWidth < 1000) {
+    if (currentTemplate !== 'assets/templates/mobile-template.html') {
+      includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
+      cssLink.setAttribute('href', 'css/mobile-template.css');
+      await includeHTML();
     }
   } else {
-    userIcon.textContent = 'G';
+    if (currentTemplate !== 'assets/templates/desktop-template.html' || !currentTemplate) {
+      includeDiv.setAttribute('w3-include-html', 'assets/templates/desktop-template.html');
+      cssLink.setAttribute('href', 'css/desktop-template.css');
+      await includeHTML();
+    }
   }
-
 }
+
+window.addEventListener('resize', checkWindowSize);
+document.addEventListener('DOMContentLoaded', () => {
+  checkWindowSize();
+  initPageFunctions();
+});

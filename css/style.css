@@ -423,11 +423,11 @@ h1 {
 }
 
 .arrow-container button {
-  background-color: transparent; 
-  border: none; 
-  cursor: pointer; 
-  padding: 0; 
-  outline: none; 
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
   width: 34px;
   height: 34px;
   display: flex;
@@ -439,9 +439,9 @@ h1 {
 }
 
 .arrow-container button:hover {
-  transform: scale(1.1); 
+  transform: scale(1.1);
   border-radius: 43px;
-  background-color: rgba(0, 0, 0, 0.05); 
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 @keyframes register {
@@ -457,11 +457,11 @@ h1 {
   }
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 6px;
 }
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 10px var(--dark-blue);
   border-radius: 8px;
 }

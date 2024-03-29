@@ -2,9 +2,48 @@
   position: fixed;
   top: 96px;
   left: 232px;
-  height: 100vh;
+  max-height: calc(100vh - 96px);
   background-color: white;
   box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 8%);
+  overflow-y: auto;
+}
+
+.contacts-contact-container::-webkit-scrollbar {
+  width: 24px;
+}
+.contacts-contact-container::-webkit-scrollbar-track {
+  border-radius: 0px;
+  background-color: #ffffff;
+}
+
+.contacts-contact-container::-webkit-scrollbar-thumb {
+  border-radius: 12px;
+  background-color: #a8a8a8;
+  border: 8px solid #ffffff;
+}
+
+.contacts-contact-container::-webkit-scrollbar-button {
+  display: block;
+  background-color: #ffffff;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+}
+
+.contacts-contact-container::-webkit-scrollbar-button:vertical:start:decrement {
+  background-image: url("../assets/img/scroll_button_up.svg");
+}
+
+.contacts-contact-container::-webkit-scrollbar-button:vertical:start:increment {
+  display: none;
+}
+
+.contacts-contact-container::-webkit-scrollbar-button:vertical:end:increment {
+  background-image: url("../assets/img/scroll_button_down.svg");
+}
+
+.contacts-contact-container::-webkit-scrollbar-button:vertical:end:decrement {
+  display: none;
 }
 
 .contact-main-container {
@@ -40,27 +79,27 @@
 }
 
 .contacts-letter-container {
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: column;
-    padding: 17px 36px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  padding: 17px 36px;
 }
 
 .contacts-letter-container span {
-    font-weight: 400;
-    font-size: 20px;
+  font-weight: 400;
+  font-size: 20px;
 }
 
 .contacts-letter-border {
-    width: 100%;
-    border-bottom: 1px solid #D1D1D1;
+  width: 100%;
+  border-bottom: 1px solid #d1d1d1;
 }
 
 .contacts-contact-data {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-    padding: 15px 24px;
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 15px 24px;
 }
 
 .contacts-acronym-container {
@@ -80,6 +119,6 @@
 }
 
 .contacts-contact-details {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

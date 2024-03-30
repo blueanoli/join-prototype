@@ -95,3 +95,11 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
             initials: getInitials(name) 
         }));
 }
+
+function prepareSubtasks() {
+    let subtaskElements = document.getElementById('subtask-container').querySelectorAll('li');
+    return Array.from(subtaskElements).map(element => ({
+        title: element.textContent,
+        completed: false 
+    }));
+}

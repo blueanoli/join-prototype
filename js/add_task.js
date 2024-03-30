@@ -138,7 +138,7 @@ function addTask() {
     let priority = selectedPriority;
     let assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     let description = document.getElementById('description').value; 
-    let subtasks = [];
+    let subtasks = prepareSubtasks();
     let progress = 'todo';
 
     let newTask = { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
@@ -146,21 +146,6 @@ function addTask() {
     saveTasksToLocalStorage();
 
     addTaskAnimation();
-}
-
-function pushTaskToStorage() {
-    let newTask = {
-        title: document.getElementById('title').value,
-        dueDate: document.getElementById('due-date').value,
-        category: document.getElementById('choose-category').getAttribute('data-value'),
-        priority: document.getElementById('priority').getAttribute('data-value'),
-        assignedTo: transformSelectedContactsToAssignedTo(selectedContacts), 
-        description: document.getElementById('description').value,
-        subtasks: [],
-        progress: 'todo'
-    }
-
-    tasksData.push(newTask);
 }
 
 function addTaskAnimation(){

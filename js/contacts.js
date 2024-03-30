@@ -39,6 +39,11 @@ let contacts = [
     email: "klein@gmail.de",
     color: "",
   },
+  {
+    name: "Ida Mueller",
+    email: "mueller@gmail.de",
+    color: "",
+  },
 ];
 let contactsByLetter = [];
 let profileColors = [
@@ -88,13 +93,14 @@ function generateLetterContainer() {
 /* Generates a object key with the generated letter and saves the contact in the appropriate object */
 function showContacts() {
   let letters = Object.keys(contactsByLetter);
+  let sortedLetters = letters.sort();
 
   let main = document.getElementById("contacts-main");
   main.innerHTML = "";
 
-  for (let i = 0; i < letters.length; i++) {
-    let letter = letters[i];
-
+  for (let i = 0; i < sortedLetters.length; i++) {
+    let letter = sortedLetters[i];
+  
     letterContainerHTML(main, letter);
     let contacts = contactsByLetter[letter];
 

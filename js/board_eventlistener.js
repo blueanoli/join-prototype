@@ -1,23 +1,33 @@
 function initializeDragAndDrop() {
     document.querySelectorAll('.mini-task-container').forEach(item => {
         item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragend', handleDragEnd);
     });
 
-    document.querySelectorAll('.dotted-container').forEach(container => {
-        container.addEventListener('dragover', handleDragOver);
-        container.addEventListener('drop', handleDrop);
+    document.querySelectorAll('.progress-column').forEach(column => {
+        const dropZone = column.querySelector('.dotted-container-drag-drop');
+        column.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            dropZone.style.display = 'block'; 
+        });
+
+        column.addEventListener('dragleave', () => {
+            dropZone.style.display = 'none';
+        });
+
+        column.addEventListener('drop', handleDrop); 
     });
 }
 
 function handleDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
-    setTimeout(() => event.target.classList.add('dragging'), 0); // Fügt die 'dragging'-Klasse hinzu, sobald der Drag-Vorgang startet
+    setTimeout(() => event.target.classList.add('dragging'), 0); 
 }
 
 document.querySelectorAll('.mini-task-container').forEach(item => {
     item.addEventListener('dragstart', handleDragStart);
     item.addEventListener('dragend', function(e) {
-        e.target.classList.remove('dragging'); // Entfernt die 'dragging'-Klasse, wenn der Drag-Vorgang endet
+        e.target.classList.remove('dragging'); 
     });
 });
 
@@ -45,7 +55,11 @@ function handleDrop(event) {
     checkAllSections(); 
 }
 
-
+function handleDragEnd() {
+    document.querySelectorAll('.dotted-container-drag-drop').forEach(dropZone => {
+        dropZone.style.display = 'none';
+    });
+}
 
 function updateTaskStatus(taskIndex, newColumnId) {
     if (taskIndex < 0 || taskIndex >= tasksData.length) {

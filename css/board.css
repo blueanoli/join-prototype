@@ -475,5 +475,5 @@
     display: none;
 }
 .mini-task-container.dragging{
-    opacity: 0;
+    display: none;
 }

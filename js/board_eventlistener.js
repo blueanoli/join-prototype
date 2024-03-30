@@ -11,7 +11,15 @@ function initializeDragAndDrop() {
 
 function handleDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
+    setTimeout(() => event.target.classList.add('dragging'), 0); // Fügt die 'dragging'-Klasse hinzu, sobald der Drag-Vorgang startet
 }
+
+document.querySelectorAll('.mini-task-container').forEach(item => {
+    item.addEventListener('dragstart', handleDragStart);
+    item.addEventListener('dragend', function(e) {
+        e.target.classList.remove('dragging'); // Entfernt die 'dragging'-Klasse, wenn der Drag-Vorgang endet
+    });
+});
 
 function handleDragOver(event) {
     event.preventDefault();

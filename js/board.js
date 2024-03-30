@@ -136,11 +136,9 @@ function checkAllSections() {
     sections.forEach(section => {
         const column = document.getElementById(section.id);
         if (column.children.length === 0 || (column.children.length === 1 && column.firstElementChild.classList.contains('empty-column'))) {
-            // Wenn die Spalte leer ist oder nur den Platzhalter enthält, füge den Platzhalter hinzu
             column.innerHTML = `<div class='empty-column'><span>${section.text}</span></div>`;
             column.classList.add('empty');
         } else {
-            // Wenn die Spalte Tasks enthält, entferne den Platzhalter und die 'empty' Klasse
             const placeholder = column.querySelector('.empty-column');
             if (placeholder) placeholder.remove();
             column.classList.remove('empty');

@@ -14,7 +14,7 @@ function handleDragStart(event) {
 }
 
 function handleDragOver(event) {
-    event.preventDefault(); // Ermöglicht das Ablegen
+    event.preventDefault();
 }
 
 function handleDrop(event) {
@@ -45,13 +45,9 @@ function updateTaskStatus(taskIndex, newColumnId) {
         return;
     }
 
-    // Aktualisiere den 'progress' des spezifischen Tasks
     tasksData[taskIndex].progress = newColumnId.replace('board-', '').replace('-container', '');
-
-    // Speichere die aktualisierten Daten im Local Storage
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
 
-    // Stelle sicher, dass die UI aktualisiert wird
     displayAllTasks();
     checkAllSections();
 }

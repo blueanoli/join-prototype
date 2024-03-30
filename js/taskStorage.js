@@ -70,7 +70,10 @@ function loadTasksFromLocalStorage() {
     if (storedTasks) {
         tasksData = JSON.parse(storedTasks);
     }
-    displayAllTasks();
+
+    if (typeof displayAllTasks === "function") {
+        displayAllTasks();
+    }
 }
 
 function updateTaskProgress(taskId, newColumnId) {

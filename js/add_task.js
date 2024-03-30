@@ -16,6 +16,7 @@ let selectedPriority = "medium";
 // INIT LOGIC -------------------------------------------------------------------------------------------------------------------------------
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
     await init();
+    loadTasksFromLocalStorage();
     chooseMediumPrio(); 
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }

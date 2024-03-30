@@ -95,26 +95,26 @@ function showContacts() {
   let letters = Object.keys(contactsByLetter);
   let sortedLetters = letters.sort();
 
-  let main = document.getElementById("contacts-main");
-  main.innerHTML = "";
+  let contactsDiv = document.getElementById("contacts-contact");
+  contactsDiv.innerHTML = "";
 
   for (let i = 0; i < sortedLetters.length; i++) {
     let letter = sortedLetters[i];
   
-    letterContainerHTML(main, letter);
+    letterContainerHTML(contactsDiv, letter);
     let contacts = contactsByLetter[letter];
 
     for (let j = 0; j < contacts.length; j++) {
       let contact = contacts[j];
       setBackgroundColor(contact);
-      contactContainerHTML(main, contact);
+      contactContainerHTML(contactsDiv, contact);
     }
   }
 }
 
 /* Displays the letter div */
-function letterContainerHTML(main, letter) {
-  return (main.innerHTML += `
+function letterContainerHTML(contactsDiv, letter) {
+  return (contactsDiv.innerHTML += `
   <div class="contacts-letter-container">
     <span>${letter}</span>
   </div>
@@ -147,20 +147,20 @@ function getDifferentBackgroundColor() {
 }
 
 /* Displays the individual contact */
-function contactContainerHTML(main, contact) {
+function contactContainerHTML(contactsDiv, contact) {
   let contactsName = contact["name"];
   let contactsEmail = contact["email"];
   let contactsColor = setBackgroundColor(contact);
   let acronym = getAcronyms(contactsName);
 
-  return (main.innerHTML += `
+  return (contactsDiv.innerHTML += `
   <div class="contacts-contact-data">
     <div class="contacts-acronym-container" style="background-color: ${contactsColor};">
       <span>${acronym}</span>
     </div>
     <div class="contacts-contact-details">
-      <span>${contactsName}</span>
-      <span>${contactsEmail}</span>
+      <span class="contacts-contact-details-name">${contactsName}</span>
+      <span class="contacts-contact-details-email">${contactsEmail}</span>
     </div>
   </div>`);
 }

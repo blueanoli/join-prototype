@@ -97,7 +97,7 @@ function chooseLowPrio() {
 }
 
 function setPriority(priorityLevel) {
-    selectedPriority = priorityLevel; // Aktualisiere die globale Variable mit der ausgewählten Priorität
+    selectedPriority = priorityLevel; 
 
     for (let i = 0; i < priorities.length; i++) {
         let prio = priorities[i];

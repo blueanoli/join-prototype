@@ -16,85 +16,18 @@ async function renderBoard() {
     checkAllSections();
 }
 
-function isValidStatus(status) {
-    return TASK_STATUSES.includes(status);
-}
-
-function checkAllSections() {
-    for (let i = 0; i < sections.length; i++) {
-        checkColumnEmpty(sections[i].id, sections[i].text);
-    }
-}
-
-function checkColumnEmpty(sectionId, emptyText) {
-    let section = document.getElementById(sectionId);
-
-    if (!section.hasChildNodes()) {
-        section.classList.add('empty');
-        section.innerHTML = `<div class='empty-column'><span>${emptyText}</span></div>`;
-    } else {
-        const emptyColumnDiv = section.querySelector('.empty-column');
-        if (emptyColumnDiv) {
-            emptyColumnDiv.remove();
-        }
-        section.classList.remove('empty');
-    }
-}
-
+// TASK OVERLAY --------------------------------------------------------------------------------------------------------
 function handleTaskClick(index) {
     const task = tasksData[index];
     renderTaskOverlayHTML(task);
-}
-
-function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
-    if (isOverlayOpen) return; 
-
-    let container = document.getElementById('add-task-container-board');
-    let overlay = document.getElementById('page-overlay');
-    let body = document.body;
-
-    overlay.classList.add('active');
-    body.classList.add('no-scroll');
-    container.classList.remove('closing');
-    container.classList.add('active');
-    container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
-
-    includeHTML().then(() => {
-        activateContainer();
-    });
-
-    isOverlayOpen = true; 
-    renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
-}
-
-function activateContainer() {
-    let container = document.getElementById('add-task-container-board');
-    container.style.display = 'block';
-
-    let closeButton = document.getElementById('close-task-btn');
-    if (closeButton) {
-        closeButton.addEventListener('click', closeAddTask, { once: true });
-    }
-}
-
-function closeAddTask() {
-    if (!isOverlayOpen) return;
-
-    let container = document.getElementById('add-task-container-board');
-    let overlay = document.getElementById('page-overlay');
-    let body = document.body;
-
-    container.classList.add('closing');
-    overlay.classList.remove('active');
-    body.style.overflow = '';
-    container.removeAttribute('w3-include-html');
-
-    isOverlayOpen = false; 
+    const overlayContainer = document.getElementById('edit-task-overlay');
+    overlayContainer.style.display = 'block'; 
 }
 
 function closeTaskOverlay() {
-    let container = document.getElementById('edit-task-overlay');
-    container.style.display = 'none';
+    const overlayContainer = document.getElementById('edit-task-overlay');
+    overlayContainer.innerHTML = ''; 
+    overlayContainer.style.display = 'none'; 
 }
 
 function openEditTask() {
@@ -123,6 +56,56 @@ function openEditTask() {
     editOverlay.innerHTML = htmlContent;
 }
 
+// ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------
+function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
+    if (isOverlayOpen) return; 
+    populateEmptyColumns(sections)
+
+    let container = document.getElementById('add-task-container-board');
+    let overlay = document.getElementById('page-overlay');
+    let body = document.body;
+
+    overlay.classList.add('active');
+    body.style.overflow = 'hidden';
+    container.classList.remove('closing');
+    container.classList.add('active');
+    container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
+
+    includeHTML().then(() => {
+        activateContainer();
+    });
+
+    isOverlayOpen = true; 
+    renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
+}
+
+function activateContainer() {
+    let container = document.getElementById('add-task-container-board');
+    container.style.display = 'block';
+
+    let closeButton = document.getElementById('close-task-btn');
+    if (closeButton) {
+        closeButton.addEventListener('click', closeAddTask, { once: true });
+    }
+}
+
+function closeAddTask() {
+    if (!isOverlayOpen) return;
+    populateEmptyColumns(sections)
+
+    let container = document.getElementById('add-task-container-board');
+    let overlay = document.getElementById('page-overlay');
+    let body = document.body;
+
+    container.classList.add('closing');
+    overlay.classList.remove('active');
+    body.style.overflow = '';
+    container.removeAttribute('w3-include-html');
+
+    isOverlayOpen = false; 
+}
+
+// COLUMN LOGIC ---------------------------------------------------------------------------------------------------
 function displayAllTasks() {
 
     for (let j = 0; j < sections.length; j++) {
@@ -141,6 +124,42 @@ function displayAllTasks() {
                 }
             }
         }
+    }
+    initializeDragAndDrop();
+}
+
+function isValidStatus(status) {
+    return TASK_STATUSES.includes(status);
+}
+
+function checkAllSections() {
+    sections.forEach(section => {
+        const column = document.getElementById(section.id);
+        if (column.children.length === 0 || (column.children.length === 1 && column.firstElementChild.classList.contains('empty-column'))) {
+            // Wenn die Spalte leer ist oder nur den Platzhalter enthält, füge den Platzhalter hinzu
+            column.innerHTML = `<div class='empty-column'><span>${section.text}</span></div>`;
+            column.classList.add('empty');
+        } else {
+            // Wenn die Spalte Tasks enthält, entferne den Platzhalter und die 'empty' Klasse
+            const placeholder = column.querySelector('.empty-column');
+            if (placeholder) placeholder.remove();
+            column.classList.remove('empty');
+        }
+    });
+}
+
+function checkColumnEmpty(sectionId, emptyText) {
+    let section = document.getElementById(sectionId);
+
+    if (!section.hasChildNodes()) {
+        section.classList.add('empty');
+        section.innerHTML = `<div class='empty-column'><span>${emptyText}</span></div>`;
+    } else {
+        const emptyColumnDiv = section.querySelector('.empty-column');
+        if (emptyColumnDiv) {
+            emptyColumnDiv.remove();
+        }
+        section.classList.remove('empty');
     }
 }
 

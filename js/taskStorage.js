@@ -8,7 +8,7 @@ let tasksData = [
         ],
         dueDate: "10/05/2023",
         priority: "Medium",
-        category: "assets/img/user_story.svg",
+        category: "User Story",
         subtasks: [
             { title: "Implement Recipe Recommendation", completed: true },
             { title: "Start Page Layout", completed: false }
@@ -24,7 +24,7 @@ let tasksData = [
         ],
         dueDate: "15/06/2023",
         priority: "Urgent",
-        category: "assets/img/technical_task.svg",
+        category: "Technical Task",
         subtasks: [
             { title: "Establish CSS Methodology", completed: true },
             { title: "Setup Base Styles", completed: true }
@@ -40,13 +40,18 @@ let tasksData = [
         ],
         dueDate: "22/05/2023",
         priority: "Low",
-        category: "assets/img/user_story.svg",
+        category: "Technical Task",
         subtasks: [
             { title: "Do something", completed: false },
             { title: "Do even more", completed: false }
         ],
         progress: 'todo'}
   ];
+
+  const categoryToSvgMap = {
+    "Technical Task": "assets/img/technical_task.svg",
+    "User Story": "assets/img/user_story.svg"
+};
 // TEST FUNCTION TO STORE DATA IN LOCAL STORAGE --------------------------------------------------------------------------------------------------
 
 function initializeTaskData() {
@@ -75,4 +80,18 @@ function updateTaskProgress(taskId, newColumnId) {
         task.progress = newProgress;
         saveTasksToLocalStorage();
     }
+}
+
+function getCategorySvgPath(categoryText) {
+    return categoryToSvgMap[categoryText];
+}
+
+function transformSelectedContactsToAssignedTo(selectedContacts) {
+    return Object.entries(selectedContacts)
+        .filter(([name, isSelected]) => isSelected) 
+        .map(([name]) => ({
+            name, 
+            color: getColorForInitials(getInitials(name)), 
+            initials: getInitials(name) 
+        }));
 }

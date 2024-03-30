@@ -1,10 +1,11 @@
 function renderTaskOverlayHTML(task) {
     const overlayContainer = document.getElementById('edit-task-overlay');
+    const categorySvgPath = getCategorySvgPath(task.category);
   
     const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
         <div class="edit-task-header">
-          <img src="${task.category}" alt="Task Category">
+          <img src="${categorySvgPath}" alt="${task.category}">
           <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
         </div>
         <div class="edit-task-title-container">
@@ -127,11 +128,12 @@ function renderMiniTaskHTML(task, index) {
   let completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
+  const categorySvgPath = getCategorySvgPath(task.category);
 
   return /*html*/`
       <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
           <div class="mini-task-header">
-              <img src="${task.category}" alt="Task Category">
+              <img src="${categorySvgPath}" alt="${task.category}">
           </div>
           <div class="mini-task-title-container">
               <span>${task.title}</span>

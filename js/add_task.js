@@ -136,7 +136,7 @@ function addTask() {
     let dueDate = document.getElementById('due-date').value;
     let category = document.getElementById('choose-category').getAttribute('data-value');
     let priority = selectedPriority;
-    let assignedTo = [selectedContacts];
+    let assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     let description = document.getElementById('description').value; 
     let subtasks = [];
     let progress = 'todo';
@@ -154,7 +154,7 @@ function pushTaskToStorage() {
         dueDate: document.getElementById('due-date').value,
         category: document.getElementById('choose-category').getAttribute('data-value'),
         priority: document.getElementById('priority').getAttribute('data-value'),
-        assignedTo: selectedContacts,
+        assignedTo: transformSelectedContactsToAssignedTo(selectedContacts), 
         description: document.getElementById('description').value,
         subtasks: [],
         progress: 'todo'

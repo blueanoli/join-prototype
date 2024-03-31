@@ -169,7 +169,7 @@ textarea{
 #clear-btn:hover img {
     filter: invert(55%) sepia(100%) saturate(3000%) hue-rotate(175deg) brightness(90%) contrast(90%);
 }
-.field-required-info {
+.info-container {
     font-size: 14px;
     position: absolute;
     left: 330px;
@@ -355,6 +355,7 @@ textarea{
 }
 .select-items div, .select-selected {
     cursor: pointer;
+    white-space: nowrap;
 }
 .select-items {
     position: absolute;

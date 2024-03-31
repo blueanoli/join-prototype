@@ -21,7 +21,8 @@
 .add-task{
     flex-direction: column;
     align-items: center;
-    margin-left: 270px;
+    margin: 0 36px;
+    gap: 16px;
 }
 .add-task-left, .add-task-right {
     width: 100%;
@@ -34,20 +35,69 @@
 }
 .add-task-headline{
     text-align: center;
-    margin-left: 270px;
+    margin: 0 36px;
+    
+}
+.add-task-headline h1{
+    margin-bottom: 36px;
+    margin-top: 24px;
 }
 .add-task-buttons{
     padding-bottom: 32px;
 }
-.field-required-info{
+.info-container{
     bottom: -345px;
     left: 270px;
+}
+#close-task-btn{
+    display: none;
 }
 }
 /* MAX-WIDTH: 760PX */
 @media (max-width: 760px) {
-    .field-required-info{
+    .info-container{
       bottom: -400px;  
       padding-bottom: 10px;
     }
+}
+/* MAX-WIDTH: 450PX */
+@media (max-width: 450px) {
+.add-task-headline h1{
+    font-size: 47px;
+}
+.add-task, label, input, span, p, ::placeholder, .select-selected, .select-items, #priority-urgent, #priority-medium, #priority-low{
+    font-size: 16px;
+}
+#clear-btn{
+    display: none;
+}
+.priority-container{
+    gap: 4px;
+}
+#priority-urgent, #priority-medium, #priority-low{
+    height: 40px;
+    width: 100%;
+    padding: 0 4px;
+    box-sizing: border-box;
+}
+.edit-subtask-container{
+    width: 50%;
+}
+.add-task{
+    margin-left: 16px;
+    margin-right: 16px;
+}
+.add-task-headline{
+    margin-left: 16px;
+}
+#add-task-btn{
+    width: 183px;
+    gap: 16px;
+}
+.add-task-buttons{
+    right: 0;
+}
+.left-input-container, .right-input-container{
+    width: 100%;
+}
 }

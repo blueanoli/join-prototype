@@ -1,4 +1,4 @@
-function renderTaskOverlayHTML(task) {
+function renderTaskOverlayHTML(task, index) {
     const overlayContainer = document.getElementById('edit-task-overlay');
     const categorySvgPath = getCategorySvgPath(task.category);
   
@@ -21,7 +21,7 @@ function renderTaskOverlayHTML(task) {
         <div class="edit-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
           <div class="priority-icon-container">
-            <span>${task.priority}</span>
+            <span>${task.priority.charAt(0).toUpperCase()}${task.priority.slice(1)}</span>
             <img src="assets/img/addtask_${task.priority.toLowerCase()}.svg" alt="${task.priority}">
           </div>
         </div>
@@ -51,7 +51,7 @@ function renderTaskOverlayHTML(task) {
             <span>Delete</span>
           </div>
           <span class="subtask-line"></span>
-          <div onclick="openEditTask()" class="edit-task-footer-icons">
+          <div onclick="openEditTask(${index})" class="edit-task-footer-icons">
             <img src="assets/img/pencil_grey.svg" alt="Edit">
             <span>Edit</span>
           </div>
@@ -61,7 +61,7 @@ function renderTaskOverlayHTML(task) {
     overlayContainer.innerHTML = htmlContent;
   }
  
-function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml) {
+function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index) {
   return /*html*/`
   <div class="edit-task-container edit-mode-task-container">
       <div class="edit-task-header edit-mode-task-header">

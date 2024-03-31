@@ -19,7 +19,7 @@ async function renderBoard() {
 // TASK OVERLAY --------------------------------------------------------------------------------------------------------
 function handleTaskClick(index) {
     const task = tasksData[index];
-    renderTaskOverlayHTML(task);
+    renderTaskOverlayHTML(task, index);
     const overlayContainer = document.getElementById('edit-task-overlay');
     overlayContainer.style.display = 'block'; 
 }
@@ -30,21 +30,22 @@ function closeTaskOverlay() {
     overlayContainer.style.display = 'none'; 
 }
 
-function openEditTask() {
+function openEditTask(index) {
     let editOverlay = document.getElementById('edit-task-overlay');
     let assignedContactsHtml = '';
     let subtasksHtml = '';
+    let task = tasksData[index];
 
-    for (let i = 0; i < taskData.assignedTo.length; i++) {
-        let contact = taskData.assignedTo[i];
+    for (let i = 0; i < task.assignedTo.length; i++) {
+        let contact = task.assignedTo[i];
         assignedContactsHtml += `
         <div class="contact-icon-container">
             <p class="test-contact" style="background-color: ${contact.color}">${contact.initials}</p>
         </div>`;
     }
 
-    for (let j = 0; j < taskData.subtasks.length; j++) {
-        let subtask = taskData.subtasks[j];
+    for (let j = 0; j < task.subtasks.length; j++) {
+        let subtask = task.subtasks[j];
         subtasksHtml += `
         <div class="subtasks-check-container">
             <span ${subtask.completed ? 'checked' : ''}>
@@ -52,7 +53,7 @@ function openEditTask() {
         </div>`;
     }
 
-    let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml);
+    let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
 }
 

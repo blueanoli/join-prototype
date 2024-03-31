@@ -77,7 +77,9 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       <div class="edit-task-due-date-container edit-mode-task-due-date-container">
           <span class="task-container-mini-headlines">Due date:</span>
-          <input type="text" value="${task.dueDate}" class="edit-input" id="edit-due-date">
+          <input required onfocus="resetFieldStyle(this), this.type='date'" type="text" value="${task.dueDate}" id="due-date" class="date-input edit-mode-date-input"
+                    placeholder="dd/mm/yyyy" title="Please choose a date in the future">
+                <img class="date-icon edit-mode-date-icon" id="date-picker-icon" src="assets/img/addtask_date.svg" alt="">
       </div>
       <div class="edit-task-priority-container edit-mode-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>

@@ -134,7 +134,6 @@ function addTask() {
     }
 
     let container = document.getElementById('add-task-container-board');
-    // Verwende 'todo' als Standardwert, wenn das Element oder das Attribut nicht existieren
     let progress = container ? container.getAttribute('data-progress-status') || 'todo' : 'todo';
 
     let title = document.getElementById('title').value;

@@ -70,7 +70,7 @@ function saveEditedTask(index){
     let task = tasksData[index];
     let editedTitle = document.getElementById('edit-title').value;
     let editedDescription = document.getElementById('edit-description').value;
-    let editedDueDate = document.getElementById('edit-due-date').value;
+    let editedDueDate = document.getElementById('due-date').value;
 
     task.title = editedTitle;
     task.description = editedDescription;

@@ -245,12 +245,15 @@ function populateEmptyColumns(sections) {
 function filterTasks() {
     const searchText = document.getElementById('search-tasks').value.toLowerCase();
     const filteredTasks = getFilteredTasks(searchText, tasksData);
+    const feedbackElement = document.getElementById('search-feedback');
 
     clearColumns(sections);
 
     if (filteredTasks.length > 0) {
         populateColumnsWithTasks(filteredTasks, tasksData);
+        feedbackElement.style.display = 'none';
+    }else{
+        feedbackElement.style.display = 'block';
     }
-
-    populateEmptyColumns(sections);
+    populateEmptyColumns(sections);    
 }

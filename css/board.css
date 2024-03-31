@@ -52,6 +52,11 @@
     border-radius: 50%;
     border-left: 1px solid #e7e7e7;    
 }
+#search-feedback{
+    position: absolute;
+    top: 48px;
+    left: 8px;
+}
 .board-input-icons {
     display: flex;
     align-items: center;

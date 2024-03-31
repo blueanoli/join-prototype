@@ -168,3 +168,184 @@
   font-weight: 400;
   color: var(--dark-blue);
 }
+
+.contacts-add-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.contacts-add {
+  display: flex;
+  height: 592px;
+  border-radius: 42px;
+}
+
+.contacts-add-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 66px 48px;
+  gap: 12px;
+  background-color: var(--dark-blue);
+  border-radius: 42px 0 0 42px;
+}
+
+.contacts-add-overlay img {
+  height: 56px;
+  width: 66px;
+}
+
+.contacts-add-overlay h2 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-size: 61px;
+  font-weight: 700;
+  color: white;
+}
+
+.contacts-add-overlay span {
+  font-size: 27px;
+  font-weight: 400;
+  color: white;
+}
+
+.contacts-add-overlay-border {
+  width: 90px;
+  border-bottom: 3px solid var(--light-blue);
+  border-radius: 8px;
+}
+
+.contacts-add-main-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 66px 48px;
+  border-radius: 0 42px 42px 0;
+  background-color: white;
+}
+
+.contacts-add-cancel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 48px;
+  right: 48px;
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.contacts-add-cancel:hover {
+  cursor: pointer;
+  background-color: #EEEEEE;
+}
+
+.contacts-add-main-profil {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  background-color: #d1d1d1;
+  border-radius: 80px;
+  border: 3px solid white;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  margin: 0 72px 0 calc(83px - 48px);
+}
+
+.contacts-add-main-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.contacts-add-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+  width: 378px;
+  padding: 12px 21px 12px 21px;
+}
+
+.contacts-add-input {
+  outline: none;
+  border: none;
+  font-size: 20px;
+  flex: 1;
+}
+
+.contacts-add-input::placeholder {
+  color: #d1d1d1;
+}
+
+.contacts-add-input-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.contacts-add-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  margin-top: 32px;
+}
+
+.contacts-add-cancel-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background-color: white;
+  border: 1px solid var(--dark-blue);
+  border-radius: 10px;
+  padding: 16px;
+  color: var(--dark-blue);
+  font-size: 20px;
+  font-weight: 400;
+  transition: border 100ms ease-in-out, color 100ms ease-in-out;
+}
+
+.contacts-add-cancel-button:hover {
+  cursor: pointer;
+  color: var(--light-blue);
+  border: 1px solid var(--light-blue);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 25%);
+}
+
+.contacts-add-create-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--dark-blue);
+  border: 1px solid var(--dark-blue);
+  border-radius: 10px;
+  padding: 16px;
+  color: white;
+  font-size: 20px;
+  font-weight: 400;
+  transition: border 100ms ease-in-out, background-color 100ms ease-in-out;
+}
+
+.contacts-add-create-button:hover {
+  cursor: pointer;
+  background-color: var(--light-blue);
+  border: 1px solid var(--light-blue);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 25%);
+}

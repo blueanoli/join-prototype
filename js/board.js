@@ -19,6 +19,11 @@ async function renderBoard() {
 // TASK OVERLAY --------------------------------------------------------------------------------------------------------
 function handleTaskClick(index) {
     const task = tasksData[index];
+    let overlay = document.getElementById('page-overlay');
+    let body = document.body;
+
+    overlay.classList.add('active');
+    body.style.overflow = 'hidden';
     renderTaskOverlayHTML(task, index);
     const overlayContainer = document.getElementById('edit-task-overlay');
     overlayContainer.style.display = 'block'; 
@@ -26,6 +31,10 @@ function handleTaskClick(index) {
 
 function closeTaskOverlay() {
     const overlayContainer = document.getElementById('edit-task-overlay');
+    let overlay = document.getElementById('page-overlay');
+    let body = document.body;
+    overlay.classList.remove('active');
+    body.style.overflow = 'auto';
     overlayContainer.innerHTML = ''; 
     overlayContainer.style.display = 'none'; 
 }

@@ -121,7 +121,7 @@ function addTask() {
     let isDateValid = checkDueDate();
 
     checkRequiredField();
-    
+
     for (let i = 0; i < errorElements.length; i++) {
         if (errorElements[i].style.display === 'block') {
             isErrorVisible = true;
@@ -133,14 +133,17 @@ function addTask() {
         return;
     }
 
+    let container = document.getElementById('add-task-container-board');
+    // Verwende 'todo' als Standardwert, wenn das Element oder das Attribut nicht existieren
+    let progress = container ? container.getAttribute('data-progress-status') || 'todo' : 'todo';
+
     let title = document.getElementById('title').value;
     let dueDate = document.getElementById('due-date').value;
     let category = document.getElementById('choose-category').getAttribute('data-value');
     let priority = selectedPriority;
     let assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
-    let description = document.getElementById('description').value; 
+    let description = document.getElementById('description').value;
     let subtasks = prepareSubtasks();
-    let progress = 'todo';
 
     let newTask = { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
     tasksData.push(newTask);
@@ -148,6 +151,8 @@ function addTask() {
 
     addTaskAnimation();
 }
+
+
 
 function addTaskAnimation(){
     let notification = document.getElementById('notification-container');

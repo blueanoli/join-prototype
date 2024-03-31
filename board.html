@@ -31,7 +31,7 @@
                         <img id="search-task-icon" src="assets/img/search.svg" alt="">
                     </div>
                 </div>
-                <button id="add-task-btn-board" onclick="openAddTask()">Add task <img
+                <button id="add-task-btn-board" onclick="openAddTask('todo')">Add task <img
                         src="assets/img/plus_white.svg"></button>
             </div>
         </div>
@@ -40,7 +40,7 @@
                 <div class="progress-column">
                     <div class="progress-title">
                         <span>To do</span>
-                        <img onclick="openAddTask()" src="assets/img/plus_button.svg" alt="">
+                        <img onclick="openAddTask('todo')" src="assets/img/plus_button.svg" alt="">
                     </div>
                     <div class="dotted-container" id="board-todo-container"></div>
                     <div class="dotted-container-drag-drop" dropzone="todo"></div>
@@ -48,7 +48,7 @@
                 <div class="progress-column">
                     <div class="progress-title">
                         <span>In progress</span>
-                        <img onclick="openAddTask()" src="assets/img/plus_button.svg" alt="">
+                        <img onclick="openAddTask('in-progress')" src="assets/img/plus_button.svg" alt="">
                     </div>
                     <div class="dotted-container" id="board-in-progress-container"></div>
                     <div class="dotted-container-drag-drop" dropzone="in-progress"></div>
@@ -56,7 +56,7 @@
                 <div class="progress-column">
                     <div class="progress-title">
                         <span>Await feedback</span>
-                        <img onclick="openAddTask()" src="assets/img/plus_button.svg" alt="">
+                        <img onclick="openAddTask('feedback')" src="assets/img/plus_button.svg" alt="">
                     </div>
                     <div class="dotted-container" id="board-feedback-container"></div>
                     <div class="dotted-container-drag-drop" dropzone="feedback"></div>

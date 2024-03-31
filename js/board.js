@@ -57,9 +57,9 @@ function openEditTask() {
 }
 
 // ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------
-function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
-    if (isOverlayOpen) return; 
-    populateEmptyColumns(sections)
+function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
+    if (isOverlayOpen) return;
+    populateEmptyColumns(sections);
 
     let container = document.getElementById('add-task-container-board');
     let overlay = document.getElementById('page-overlay');
@@ -72,14 +72,14 @@ function openAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionD
     container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
 
     includeHTML().then(() => {
-        activateContainer();
+        activateContainer(progressStatus);
+        renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
     });
 
-    isOverlayOpen = true; 
-    renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
+    isOverlayOpen = true;
 }
 
-function activateContainer() {
+function activateContainer(progressStatus) {
     let container = document.getElementById('add-task-container-board');
     container.style.display = 'block';
 
@@ -87,6 +87,7 @@ function activateContainer() {
     if (closeButton) {
         closeButton.addEventListener('click', closeAddTask, { once: true });
     }
+    container.setAttribute('data-progress-status', progressStatus);
 }
 
 function closeAddTask() {

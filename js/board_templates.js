@@ -46,7 +46,7 @@ function renderTaskOverlayHTML(task, index) {
           `).join('')}
         </div>
         <div class="edit-task-footer">
-          <div class="edit-task-footer-icons">
+          <div onclick="deleteTask(${index})" class="edit-task-footer-icons">
             <img src="assets/img/delete.svg" alt="Delete">
             <span>Delete</span>
           </div>

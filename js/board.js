@@ -81,6 +81,13 @@ function saveEditedTask(index){
     displayAllTasks();
 }
 
+function deleteTask(index) {
+    tasksData.splice(index, 1);
+    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+    closeTaskOverlay();
+    displayAllTasks();
+}
+
 // ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------
 function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     if (isOverlayOpen) return;

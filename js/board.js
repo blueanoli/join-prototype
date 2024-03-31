@@ -165,9 +165,12 @@ function checkColumnEmpty(sectionId, emptyText) {
 // FILTER FUNCTION TASK TITLES --------------------------------------------------------------------------------------------------
 
 function getFilteredTasks(searchText, tasksData) {
-    return tasksData.filter(task => 
-        task.title.split(' ').some(word => word.toLowerCase().startsWith(searchText))
-    );
+    return tasksData.filter(task => {
+        if (typeof task.title === 'string') {
+            return task.title.split(' ').some(word => word.toLowerCase().startsWith(searchText));
+        }
+        return false;
+    });
 }
 
 function clearColumns(sections) {

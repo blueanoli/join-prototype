@@ -6,18 +6,26 @@ function initializeDragAndDrop() {
 
     document.querySelectorAll('.progress-column').forEach(column => {
         const dropZone = column.querySelector('.dotted-container-drag-drop');
+        
         column.addEventListener('dragover', (event) => {
             event.preventDefault();
-            dropZone.style.display = 'block'; 
+            // Zeige den Drop-Zone-Indikator nur an, wenn er noch nicht sichtbar ist
+            if (dropZone.style.display !== 'block') {
+                dropZone.style.display = 'block';
+            }
         });
 
-        column.addEventListener('dragleave', () => {
-            dropZone.style.display = 'none';
+        column.addEventListener('dragleave', (event) => {
+            // Verstecke den Drop-Zone-Indikator, wenn der Cursor die Spalte verlässt, aber nicht wenn er innerhalb der Spalte bewegt wird
+            if (!column.contains(event.relatedTarget)) {
+                dropZone.style.display = 'none';
+            }
         });
 
-        column.addEventListener('drop', handleDrop); 
+        column.addEventListener('drop', handleDrop);
     });
 }
+
 
 function handleDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
@@ -39,21 +47,30 @@ function handleDrop(event) {
     event.preventDefault();
     const taskIndex = event.dataTransfer.getData('text/plain');
     const taskElement = document.querySelector(`.mini-task-container[data-task-id="${taskIndex}"]`);
-    let targetContainer = event.target;
+    
+    let targetContainer;
 
-    while (!targetContainer.classList.contains('dotted-container')) {
-        targetContainer = targetContainer.parentElement;
+    // Überprüfe, ob das Drop-Event direkt auf dem dotted-container-drag-drop ausgelöst wurde
+    if (event.target.classList.contains('dotted-container-drag-drop')) {
+        targetContainer = event.target.previousElementSibling; // Der tatsächliche Container für die Tasks
+        targetContainer.appendChild(taskElement); // Füge den Task am Ende ein
+    } else {
+        // Finde den nächstgelegenen Eltern-Container, der eine 'dotted-container' ist
+        targetContainer = event.target.closest('.dotted-container');
+        targetContainer.appendChild(taskElement); // Füge den Task an der Stelle ein, an der das Event ausgelöst wurde
     }
 
-    targetContainer.appendChild(taskElement);
-
-    if (targetContainer.querySelector('.dotted-container .empty-column')) {
-        targetContainer.querySelector('.dotted-container .empty-column').style.display = 'none';
+    // Entferne den Platzhaltertext, falls vorhanden
+    const placeholder = targetContainer.querySelector('.empty-column');
+    if (placeholder) {
+        placeholder.style.display = 'none';
     }
 
+    // Aktualisiere den Status des Tasks basierend auf der neuen Spalte
     updateTaskStatus(parseInt(taskIndex, 10), targetContainer.id);
-    checkAllSections(); 
+    checkAllSections();
 }
+
 
 function handleDragEnd() {
     document.querySelectorAll('.dotted-container-drag-drop').forEach(dropZone => {

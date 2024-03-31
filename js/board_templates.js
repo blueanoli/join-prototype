@@ -118,7 +118,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       </div>
       <div class="add-task-buttons-board">
-          <button class="add-task-btn-style" onclick="addTask(); return false" id="add-task-btn">Ok<img
+          <button class="add-task-btn-style" onclick="saveEditedTask(${index}); return false" id="add-task-btn">Ok<img
                   src="assets/img/addtask_check_white.svg"></button>
       </div>
   </div>`;

@@ -66,6 +66,21 @@ function openEditTask(index) {
     editOverlay.innerHTML = htmlContent;
 }
 
+function saveEditedTask(index){
+    let task = tasksData[index];
+    let editedTitle = document.getElementById('edit-title').value;
+    let editedDescription = document.getElementById('edit-description').value;
+    let editedDueDate = document.getElementById('edit-due-date').value;
+
+    task.title = editedTitle;
+    task.description = editedDescription;
+    task.dueDate = editedDueDate;
+
+    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+    closeTaskOverlay();
+    displayAllTasks();
+}
+
 // ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------
 function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     if (isOverlayOpen) return;

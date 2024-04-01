@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/desktop-template.css">
     <link rel="stylesheet" href="css/summary.css">
-    <script src="js/script.js" defer></script>
     <script src="js/summary.js" defer></script>
+    <script src="js/script.js" defer></script>    
     <link rel="shortcut icon" href="assets/img/logo_dark.svg" type="image/x-icon">
 </head>
 
-<body onload="init()">
+<body onload="renderSummary()">
     <div w3-include-html="assets/templates/desktop-template.html"></div>
 
     <div class="text-container">
@@ -33,7 +33,7 @@
                             <img src="/assets/img/pencil_white.svg">
                         </div>
                         <div class="summary-text">
-                            <h1 class="number">1</h1>
+                            <h1 class="number" id="todo-count"></h1>
                             <span class="summary-text">To-Do</span>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <img src="/assets/img/summary_done_white.svg">
                         </div>
                         <div class="summary-text">
-                            <h1 class="number">1</h1>
+                            <h1 class="number" id="done-count"></h1>
                             <span class="summary-text">Done</span>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                 <div onclick="showBoardFromSummary()" class="row-2 todo-box">
                     <img src="/assets/img/summary_urgent.svg" alt="">
                     <div class="summary-text">
-                        <h1 class="number">1</h1>
+                        <h1 class="number" id="urgent-count"></h1>
                         <span class="summary-text">Urgent</span>
                     </div>
                     <div class="vertical-line-urgent"></div>
@@ -67,15 +67,15 @@
 
                 <div class="row-3">
                     <div onclick="showBoardFromSummary()" class="summary-text todo-box row-3-box">
-                        <h1 class="number">5</h1>
+                        <h1 class="number" id="all-tasks-count"></h1>
                         <span class="summary-text">Tasks in Board</span>
                     </div>
                     <div onclick="showBoardFromSummary()" class="summary-text todo-box row-3-box">
-                        <h1 class="number">2</h1>
+                        <h1 class="number" id="progress-count"></h1>
                         <span class="summary-text">Tasks in Progress</span>
                     </div>
                     <div onclick="showBoardFromSummary()" class="summary-text todo-box row-3-box">
-                        <h1 class="number">2</h1>
+                        <h1 class="number" id="feedback-count"></h1>
                         <span class="summary-text">Awaiting Feedback</span>
                     </div>
                 </div>

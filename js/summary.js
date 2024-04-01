@@ -1,3 +1,8 @@
+async function renderSummary() {
+    await init();
+    updateSummaryData();
+}
+
 function dashboardGreeting() {
     let now = new Date();
     let hour = now.getHours();
@@ -15,10 +20,9 @@ function dashboardGreeting() {
     document.getElementById('greeting').innerHTML = greeting + " " + "<span class='greetingUserName'>" + userName + "</span>";
 }
 
-dashboardGreeting();
-
 document.addEventListener('DOMContentLoaded', function() {
     initializeTodoBoxes();
+    dashboardGreeting();
 });
 
 function initializeTodoBoxes() {
@@ -71,4 +75,30 @@ function updateTextColors(element, color) {
 }
 
 
-
+function updateSummaryData() {
+    const tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
+    const summaryCounts = { 'todo': 0, 'in-progress': 0, 'feedback': 0, 'done': 0, 'urgent': 0 };
+  
+    for (const task of tasksData) {
+      if (task.progress) {
+        summaryCounts[task.progress] = (summaryCounts[task.progress] || 0) + 1;
+      }
+      if (task.priority === 'urgent') {
+        summaryCounts['urgent']++;
+      }
+    }
+  
+    const updateTextContent = (id, text) => {
+      const element = document.getElementById(id);
+      if (element) {
+        element.textContent = text;
+      }
+    };
+  
+    updateTextContent('todo-count', summaryCounts['todo']);
+    updateTextContent('done-count', summaryCounts['done']);
+    updateTextContent('urgent-count', summaryCounts['urgent']);
+    updateTextContent('progress-count', summaryCounts['in-progress']);
+    updateTextContent('feedback-count', summaryCounts['feedback']);
+    updateTextContent('all-tasks-count', tasksData.length -1);
+  }

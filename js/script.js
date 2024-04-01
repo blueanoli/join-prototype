@@ -39,7 +39,7 @@ async function getItem(key) {
 
 async function initPageFunctions() {
   updateUserIcon();
-  setActive();
+  setActive(); 
 }
 
 async function externalInit() {

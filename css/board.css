@@ -293,9 +293,11 @@
     box-sizing: border-box;
 }
 .subtasks-check-container:hover{
-    cursor: pointer;
     background-color: #e7e7e7;
     border-radius: 10px;
+}
+.subtask-check{
+    cursor: pointer;
 }
 .edit-task-footer{
     display: flex;

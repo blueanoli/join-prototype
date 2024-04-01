@@ -1,4 +1,21 @@
 // DRAG AND DROP LOGIC ---------------------------------------------------------------------------------------------------------
+function initializeHoverEffect() {
+    document.querySelectorAll('.mini-task-container').forEach(minitask => {
+        let hoverTimer;
+
+        minitask.addEventListener('mouseenter', () => {
+            hoverTimer = setTimeout(() => {
+                minitask.style.cursor = 'grab';
+            }, 500); 
+        });
+
+        minitask.addEventListener('mouseleave', () => {
+            clearTimeout(hoverTimer);
+            minitask.style.cursor = 'pointer';
+        });
+    });
+}
+
 function initializeDragAndDrop() {
     document.querySelectorAll('.mini-task-container').forEach(item => {
         item.addEventListener('dragstart', handleDragStart);

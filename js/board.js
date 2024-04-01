@@ -14,6 +14,7 @@ async function renderBoard() {
     loadTasksFromLocalStorage();
     displayAllTasks();
     checkAllSections();
+    initializeHoverEffect();
 }
 
 // TASK OVERLAY --------------------------------------------------------------------------------------------------------

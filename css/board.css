@@ -406,7 +406,9 @@
     margin-top: 16px;
 }
 .mini-task-container:hover{
-    cursor: grab;
+    transition: transform 0.2s ease-in-out;
+    transform: rotate(5deg);
+    cursor: pointer;
 }
 .mini-task-header{
     box-sizing: border-box;

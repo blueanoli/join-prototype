@@ -74,7 +74,6 @@ function updateTextColors(element, color) {
     });
 }
 
-
 function updateSummaryData() {
     const tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
     const summaryCounts = { 'todo': 0, 'in-progress': 0, 'feedback': 0, 'done': 0, 'urgent': 0 };
@@ -101,4 +100,32 @@ function updateSummaryData() {
     updateTextContent('progress-count', summaryCounts['in-progress']);
     updateTextContent('feedback-count', summaryCounts['feedback']);
     updateTextContent('all-tasks-count', tasksData.length -1);
+
+    updateNextDeadline();
   }
+
+  function formatDate(date) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+  function updateNextDeadline() {
+    let tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
+    tasksData = tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());
+
+    tasksData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    const nextDeadline = tasksData.length > 0 ? tasksData[0].dueDate : null;
+    const deadlineElement = document.getElementById('deadline-date');
+    const deadlineTextElement = document.getElementById('deadline-text');
+
+    if (deadlineElement && deadlineTextElement) {
+        if (nextDeadline) {
+            deadlineElement.textContent = formatDate(new Date(nextDeadline));
+        } else {
+            deadlineTextElement.classList.add('d-none');
+            deadlineElement.classList.add('d-none');
+            document.getElementById('vertical-line').classList.add('d-none');
+        }
+    }
+}

@@ -100,7 +100,7 @@ function showContacts() {
 
   for (let i = 0; i < sortedLetters.length; i++) {
     let letter = sortedLetters[i];
-  
+
     letterContainerHTML(contactsDiv, letter);
     let contacts = contactsByLetter[letter];
 
@@ -171,4 +171,32 @@ function getAcronyms(contactsName) {
   let acronym = firstLetters.join("").toUpperCase();
 
   return acronym;
+}
+
+function addSpaceToPhoneNumber() {
+  let phone = document.getElementById("phone").value;
+  if (
+    phone.length == 3 ||
+    phone.length == 8 ||
+    phone.length == 11 ||
+    phone.length == 15
+  ) {
+    document.getElementById("phone").value = phone + " ";
+  }
+}
+
+function showAddContactContainer() {
+  let contactsAddContainer = document.querySelector(".contacts-add-container");
+
+  if (contactsAddContainer) {
+    contactsAddContainer.classList.add("fade-in");
+  }
+}
+
+function hideAddContactContainer() {
+  let contactsAddContainer = document.querySelector(".contacts-add-container");
+
+  if (contactsAddContainer) {
+    contactsAddContainer.classList.remove("fade-in");
+  }
 }

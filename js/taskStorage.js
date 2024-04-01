@@ -53,8 +53,9 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
 
 function prepareSubtasks() {
     let subtaskElements = document.getElementById('subtask-container').querySelectorAll('li');
-    return Array.from(subtaskElements).map(element => ({
+    return Array.from(subtaskElements).map((element, index) => ({
+        id: Date.now() + index, 
         title: element.textContent,
-        completed: false 
+        completed: false
     }));
 }

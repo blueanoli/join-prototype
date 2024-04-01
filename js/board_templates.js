@@ -38,12 +38,12 @@ function renderTaskOverlayHTML(task, index) {
         </div>
         <div class="edit-task-subtasks-container">
           <span class="task-container-mini-headlines">Subtasks:</span>
-          ${task.subtasks.map(subtask => `
-            <div class="subtasks-check-container">
-              <img src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
-              <span>${subtask.title}</span>
-            </div>
-          `).join('')}
+          ${task.subtasks.map((subtask, j) => `
+    <div class="subtasks-check-container">
+        <img onclick="changeSubtaskStatus(${index}, ${j})" class="subtask-check" id="subtask-check" src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
+        <span>${subtask.title}</span>
+    </div>
+`).join('')}
         </div>
         <div class="edit-task-footer">
           <div onclick="deleteTask(${index})" class="edit-task-footer-icons">

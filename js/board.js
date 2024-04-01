@@ -37,6 +37,9 @@ function closeTaskOverlay() {
     body.style.overflow = 'auto';
     overlayContainer.innerHTML = ''; 
     overlayContainer.style.display = 'none'; 
+
+    displayAllTasks();
+    checkAllSections();
 }
 
 function openEditTask(index) {
@@ -57,13 +60,37 @@ function openEditTask(index) {
         let subtask = task.subtasks[j];
         subtasksHtml += `
         <div class="subtasks-check-container">
-            <span ${subtask.completed ? 'checked' : ''}>
+            <img onclick="changeSubtaskStatus(${index}, ${j})" class="subtask-check" src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
             <span>${subtask.title}</span>
         </div>`;
     }
 
     let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
+}
+
+function changeSubtaskStatus(index, j){
+    if (index < 0 || index >= tasksData.length) {
+        return;
+    }
+
+    let task = tasksData[index];
+
+    if (j < 0 || j >= task.subtasks.length) {
+        return;
+    }
+
+    let subtask = task.subtasks[j];
+
+    subtask.completed = !subtask.completed;
+
+    let imgElement = document.querySelector(`.subtasks-check-container img[onclick='changeSubtaskStatus(${index}, ${j})']`);
+    if (imgElement) {
+        imgElement.src = `assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg`;
+        imgElement.alt = `${subtask.completed ? 'Completed' : 'Not completed'}`;
+    }
+
+    localStorage.setItem('tasksData', JSON.stringify(tasksData));
 }
 
 function saveEditedTask(index){

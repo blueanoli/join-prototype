@@ -14,7 +14,7 @@ async function renderBoard() {
     loadTasksFromLocalStorage();
     displayAllTasks();
     checkAllSections();
-    initializeHoverEffect();
+    initializeDragAndDrop();
 }
 
 // TASK OVERLAY --------------------------------------------------------------------------------------------------------
@@ -142,6 +142,11 @@ function hideToastMessage(element) {
 
 // ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------
 function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
+    if (window.innerWidth < 1000) {
+        window.location.href = 'add_task.html'; 
+        return; 
+    }
+
     if (isOverlayOpen) return;
     populateEmptyColumns(sections);
 
@@ -162,6 +167,7 @@ function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, 
 
     isOverlayOpen = true;
 }
+
 
 function activateContainer(progressStatus) {
     let container = document.getElementById('add-task-container-board');

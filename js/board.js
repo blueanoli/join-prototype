@@ -69,30 +69,40 @@ function openEditTask(index) {
     editOverlay.innerHTML = htmlContent;
 }
 
-function changeSubtaskStatus(index, j){
-    if (index < 0 || index >= tasksData.length) {
-        return;
-    }
+// CHANGE SUBTASK STATUS
+function isValidIndex(index, array) {
+    return index >= 0 && index < array.length;
+}
 
-    let task = tasksData[index];
-
-    if (j < 0 || j >= task.subtasks.length) {
-        return;
-    }
-
-    let subtask = task.subtasks[j];
-
+function toggleSubtaskCompletion(subtask) {
     subtask.completed = !subtask.completed;
+}
 
+function updateImageElement(index, j, subtask) {
     let imgElement = document.querySelector(`.subtasks-check-container img[onclick='changeSubtaskStatus(${index}, ${j})']`);
     if (imgElement) {
         imgElement.src = `assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg`;
         imgElement.alt = `${subtask.completed ? 'Completed' : 'Not completed'}`;
     }
+}
 
+function changeSubtaskStatus(index, j){
+    let task = tasksData[index];
+    let subtask = task.subtasks[j];
+    if (!isValidIndex(index, tasksData)) {
+        return;
+    }
+
+    if (!isValidIndex(j, task.subtasks)) {
+        return;
+    }
+
+    toggleSubtaskCompletion(subtask);
+    updateImageElement(index, j, subtask);
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
 }
 
+// SAVE AND DELETE TASKS ------------------------------------------------------------------------------------------------
 function saveEditedTask(index){
     let task = tasksData[index];
     let editedTitle = document.getElementById('edit-title').value;
@@ -114,6 +124,8 @@ function deleteTask(index) {
     closeTaskOverlay();
     displayAllTasks();
 }
+
+// TOAST MESSAGES -----------------------------------------------------------------------------------------------------
 
 function showToastMessage(element) {
     let parentElement = element.closest('.mini-task-subtask-container');

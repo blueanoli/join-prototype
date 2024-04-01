@@ -116,42 +116,45 @@ function setPriority(priorityLevel) {
 
 // ADD TASK LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function addTask() {
-    let isErrorVisible = false;
-    let errorElements = document.querySelectorAll('.error-message');
-    let isDateValid = checkDueDate();
-
     checkRequiredField();
-
-    for (let i = 0; i < errorElements.length; i++) {
-        if (errorElements[i].style.display === 'block') {
-            isErrorVisible = true;
-            break;
-        }
-    }
-
-    if (isErrorVisible || !isDateValid) {
+    checkDueDate();
+    if (hasErrors() || !isDateValid()) {
         return;
     }
 
+    let newTask = createNewTask();
+    tasksData.push(newTask);
+    saveTasksToLocalStorage();
+    addTaskAnimation();
+}
+
+function hasErrors() {
+    let errorElements = document.querySelectorAll('.error-message');
+    for (let i = 0; i < errorElements.length; i++) {
+        if (errorElements[i].style.display === 'block') {
+            return true;
+        }
+    }
+    return false;
+}
+
+function isDateValid() {
+    return checkDueDate();
+}
+
+function createNewTask() {
     let container = document.getElementById('add-task-container-board');
     let progress = container ? container.getAttribute('data-progress-status') || 'todo' : 'todo';
-
     let title = document.getElementById('title').value;
     let dueDate = document.getElementById('due-date').value;
     let category = document.getElementById('choose-category').getAttribute('data-value');
-    let priority = selectedPriority;
+    let priority = selectedPriority; 
     let assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     let description = document.getElementById('description').value;
     let subtasks = prepareSubtasks();
 
-    let newTask = { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
-    tasksData.push(newTask);
-    saveTasksToLocalStorage();
-
-    addTaskAnimation();
+    return { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
 }
-
-
 
 function addTaskAnimation(){
     let notification = document.getElementById('notification-container');

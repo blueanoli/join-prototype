@@ -1,3 +1,4 @@
+// DRAG AND DROP LOGIC ---------------------------------------------------------------------------------------------------------
 function initializeDragAndDrop() {
     document.querySelectorAll('.mini-task-container').forEach(item => {
         item.addEventListener('dragstart', handleDragStart);
@@ -23,7 +24,6 @@ function initializeDragAndDrop() {
         column.addEventListener('drop', handleDrop);
     });
 }
-
 
 function handleDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
@@ -64,7 +64,6 @@ function handleDrop(event) {
     updateTaskStatus(parseInt(taskIndex, 10), targetContainer.id);
     checkAllSections();
 }
-
 
 function handleDragEnd(event) {
     event.target.classList.remove('dragging');

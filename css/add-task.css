@@ -498,3 +498,10 @@ textarea{
 .input-error {
     border: 1px solid var(--urgent);
 }
+.required-span{
+    margin-left: 32px;
+    position: absolute;
+    bottom: -15%;
+    font-size: 14px;
+    display: none;
+}

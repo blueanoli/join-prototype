@@ -173,6 +173,67 @@ function getAcronyms(contactsName) {
   return acronym;
 }
 
+/* The "Add Container" slides in while the background fades darker */
+function showAddContactContainer() {
+  let contactsAddContainer = document.querySelector(".contacts-add-container");
+  let contactsAdd = document.querySelector(".contacts-add");
+  clearAddContainerInputfields();
+
+  if (contactsAddContainer) {
+    contactsAddContainer.classList.add("fade-in");
+    contactsAdd.classList.remove("slide-out");
+  }
+}
+
+/* Clears the "Add Container" input-fields and sets the phone input-field 
+back to its primarily value */
+function clearAddContainerInputfields() {
+  let nameInput = document.getElementById("name");
+  let emailInput = document.getElementById("email");
+  let phoneInput = document.getElementById("phone");
+  
+  nameInput.value = "";
+  emailInput.value = "";
+  phoneInput.value = "+49";
+}
+
+/* The "Add Container" slides out while the background fades bright again */
+function hideAddContactContainer() {
+  let contactsAddContainer = document.querySelector(".contacts-add-container");
+  let contactsAdd = document.querySelector(".contacts-add");
+
+  if (contactsAddContainer) {
+    contactsAddContainer.classList.remove("fade-in");
+    contactsAddContainer.classList.add("fade-out");
+    setTimeout(function () {
+      contactsAddContainer.classList.remove("fade-out");
+    }, 750);
+    contactsAdd.classList.add("slide-out");
+  }
+}
+
+/* Changes the "Add Contact" cancel-icon within the button from the dark- to the blue version 
+on hovering over the button */
+function changeAddContactCancelBlue() {
+  let cancel = document.getElementById("contacts-add-cancel-img");
+
+  if (cancel.src.includes("cancel_dark.svg")) {
+    cancel.src = "assets/img/cancel_blue.svg"
+  }
+}
+
+/* Changes the "Add Contact" cancel-icon within the button from the blue- to the dark version 
+on hovering out of the button */
+function changeAddContactCancelDark() {
+  let cancel = document.getElementById("contacts-add-cancel-img");
+
+  if (cancel.src.includes("cancel_blue.svg")) {
+    cancel.src = "assets/img/cancel_dark.svg"
+  }
+}
+
+/* Adds automatically a space between the phone number at specified lengths 
+when the user is typing in the phone input-field */
 function addSpaceToPhoneNumber() {
   let phone = document.getElementById("phone").value;
   if (
@@ -185,18 +246,16 @@ function addSpaceToPhoneNumber() {
   }
 }
 
-function showAddContactContainer() {
-  let contactsAddContainer = document.querySelector(".contacts-add-container");
+/* Displays an example of the required format of the phone input-field */
+function showPhoneFormat() {
+  let phone = document.getElementById("phone-format");
 
-  if (contactsAddContainer) {
-    contactsAddContainer.classList.add("fade-in");
-  }
+  phone.classList.add("shown");
 }
 
-function hideAddContactContainer() {
-  let contactsAddContainer = document.querySelector(".contacts-add-container");
+/* Hides the example of the required format of the phone input-field */
+function removePhoneFormat() {
+  let phone = document.getElementById("phone-format");
 
-  if (contactsAddContainer) {
-    contactsAddContainer.classList.remove("fade-in");
-  }
+  phone.classList.remove("shown");
 }

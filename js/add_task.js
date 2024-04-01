@@ -12,6 +12,8 @@ let isFieldEmpty;
 const priorities = ["low", "medium", "urgent"];
 const imgBaseURL = "assets/img/addtask_";
 let selectedPriority = "medium";
+let isEditMode = false;
+let editedTaskPriority;
 
 // INIT LOGIC -------------------------------------------------------------------------------------------------------------------------------
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
@@ -85,19 +87,25 @@ function resetFieldStyle(element) {
 
 // PRIORITY LOGIC -------------------------------------------------------------------------------------------------------------------------------
 function chooseUrgentPrio() {
-    setPriority("urgent");
+    setPriority("urgent", isEditMode);
 }
 
 function chooseMediumPrio() {
-    setPriority("medium");
+    setPriority("medium", isEditMode);
 }
 
 function chooseLowPrio() {
-    setPriority("low");
+    setPriority("low", isEditMode);
 }
 
-function setPriority(priorityLevel) {
+function setPriority(priorityLevel, isEditModeFlag) {
     selectedPriority = priorityLevel; 
+
+    if (isEditModeFlag) {
+        editedTaskPriority = priorityLevel;
+    }else {
+        selectedPriority = priorityLevel;
+    }
 
     for (let i = 0; i < priorities.length; i++) {
         let prio = priorities[i];

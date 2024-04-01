@@ -31,6 +31,7 @@ function handleTaskClick(index) {
 }
 
 function closeTaskOverlay() {
+    isEditMode = false;
     const overlayContainer = document.getElementById('edit-task-overlay');
     let overlay = document.getElementById('page-overlay');
     let body = document.body;
@@ -44,6 +45,7 @@ function closeTaskOverlay() {
 }
 
 function openEditTask(index) {
+    isEditMode = true;
     let editOverlay = document.getElementById('edit-task-overlay');
     let assignedContactsHtml = '';
     let subtasksHtml = '';
@@ -68,6 +70,26 @@ function openEditTask(index) {
 
     let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
+    initializePrioritySelectionInEditMode(task.priority);
+}
+
+function initializePrioritySelectionInEditMode(taskPriority) {
+    let allPriorityDivs = document.querySelectorAll('.edit-mode-priority-container div');
+
+    for (let i = 0; i < allPriorityDivs.length; i++) {
+        let div = allPriorityDivs[i];
+        let img = div.querySelector('img'); 
+        let priority = div.id.split('-')[1]; 
+
+        div.classList.remove('urgent-priority-active', 'medium-priority-active', 'low-priority-active');
+        img.src = `assets/img/addtask_${priority}.svg`; 
+    }
+
+    let selectedDiv = document.getElementById(`priority-${taskPriority.toLowerCase()}`);
+    let selectedImg = selectedDiv.querySelector('img');
+
+    selectedDiv.classList.add(`${taskPriority.toLowerCase()}-priority-active`);
+    selectedImg.src = `assets/img/addtask_${taskPriority.toLowerCase()}_white.svg`;
 }
 
 // CHANGE SUBTASK STATUS
@@ -113,6 +135,7 @@ function saveEditedTask(index){
     task.title = editedTitle;
     task.description = editedDescription;
     task.dueDate = editedDueDate;
+    task.priority = editedTaskPriority;
 
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
     closeTaskOverlay();
@@ -167,7 +190,6 @@ function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, 
 
     isOverlayOpen = true;
 }
-
 
 function activateContainer(progressStatus) {
     let container = document.getElementById('add-task-container-board');

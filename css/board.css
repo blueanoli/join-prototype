@@ -1,3 +1,25 @@
+/* SCROLLBAR STYLE */
+.edit-task-container::-webkit-scrollbar {
+    width: 24px;
+    border-radius: 30px;
+}
+.edit-task-container::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+.edit-task-container::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+    background-color: #a8a8a8;
+    border: 8px solid #ffffff;
+}
+.edit-task-container::-webkit-scrollbar-button {
+    display: block;
+    background-color: #ffffff;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+}
+
 .board-container{
     display: flex;
     flex-direction: column;
@@ -369,6 +391,7 @@
 }
 .edit-mode-priority-container{
     margin: 0;
+    width: 100%;
 }
 .edit-mode-task-contacts-container{
    display: flex; 

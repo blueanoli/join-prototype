@@ -9,6 +9,12 @@ function initializeHoverEffect() {
             }, 500); 
         });
 
+        minitask.addEventListener('mousedown', () => {
+            minitask.style.cursor = 'grabbing';});
+
+        minitask.addEventListener('mouseup', () => {
+            minitask.style.cursor = 'grab';});
+
         minitask.addEventListener('mouseleave', () => {
             clearTimeout(hoverTimer);
             minitask.style.cursor = 'pointer';
@@ -40,6 +46,8 @@ function initializeDragAndDrop() {
 
         column.addEventListener('drop', handleDrop);
     });
+
+    initializeHoverEffect();
 }
 
 function handleDragStart(event) {

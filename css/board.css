@@ -194,6 +194,7 @@
 .edit-task-container {
     background-color: white;
     height: fit-content;
+    max-height: 850px;
     max-width: 525px;
     width: 80%;
     position: fixed;
@@ -510,10 +511,8 @@
     margin-top: 16px;
     display: none;
 }
-.mini-task-container.dragging{
-    opacity: 0.5;
-}
-.mini-task-container.tilt {
+.dragging {
     transform: rotate(5deg); 
-    transition: transform 0.3s ease; 
+    transition: transform 0.3s ease;
+    opacity: 0.5;
 }

@@ -1,6 +1,11 @@
 function renderTaskOverlayHTML(task, index) {
   const overlayContainer = document.getElementById('edit-task-overlay');
   const categorySvgPath = getCategorySvgPath(task.category);
+  let dueDate = new Date(task.dueDate); 
+  let formattedDueDate = dueDate.getDate().toString().padStart(2, '0') + '/' + 
+                         (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' + 
+                         dueDate.getFullYear();
+  
 
   const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
@@ -16,7 +21,7 @@ function renderTaskOverlayHTML(task, index) {
         </div>
         <div class="edit-task-due-date-container">
           <span class="task-container-mini-headlines">Due date:</span>
-          <span>${task.dueDate}</span>
+          <span>${formattedDueDate}</span>
         </div>
         <div class="edit-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>

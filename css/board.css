@@ -72,6 +72,8 @@
     width: 75%;
     margin-left: 280px;
     display: flex;
+    min-height: 90vh;
+    max-height: max-content;
 }
 .progress-header {
     height: 48px;

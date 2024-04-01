@@ -142,6 +142,8 @@ function renderMiniTaskHTML(task, index) {
             <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
       </div>
       <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
+  
+  let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
 
   return /*html*/`
       <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
@@ -152,7 +154,7 @@ function renderMiniTaskHTML(task, index) {
               <span>${task.title}</span>
           </div>
           <div class="mini-task-description-container">
-              <span>${task.description}</span>
+              <span>${truncatedDescription}</span>
           </div>
           <div class="mini-task-subtask-container">
           ${subtasksContainerHtml}

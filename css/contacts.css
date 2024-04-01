@@ -170,6 +170,10 @@
 }
 
 .contacts-add-container {
+  display: none;
+}
+
+.contacts-add-container.fade-in {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -180,12 +184,44 @@
   height: 100vh;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
+  animation: contactsContainer 0.5s ease 0s 1 normal forwards;
+}
+
+
+@keyframes contactsContainer {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
 }
 
 .contacts-add {
+  position: relative;
   display: flex;
   height: 592px;
   border-radius: 42px;
+  animation: contacts 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contacts {
+	0% {
+		transform: translateX(250px);
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}
+
+.contacts-add-join-logo {
+  position: absolute;
+  top: 154px;
+  left: 47px;
+  height: 56px;
+  width: 66px;
 }
 
 .contacts-add-overlay {
@@ -197,11 +233,6 @@
   gap: 12px;
   background-color: var(--dark-blue);
   border-radius: 42px 0 0 42px;
-}
-
-.contacts-add-overlay img {
-  height: 56px;
-  width: 66px;
 }
 
 .contacts-add-overlay h2 {
@@ -234,6 +265,10 @@
   background-color: white;
 }
 
+.contacts-add-main-container form {
+  margin-block-end: 0;
+}
+
 .contacts-add-cancel {
   display: flex;
   justify-content: center;
@@ -249,6 +284,12 @@
 .contacts-add-cancel:hover {
   cursor: pointer;
   background-color: #EEEEEE;
+}
+
+.contacts-add-main-profil-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .contacts-add-main-profil {
@@ -271,6 +312,7 @@
 }
 
 .contacts-add-input-container {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -278,6 +320,10 @@
   border-radius: 10px;
   width: 378px;
   padding: 12px 21px 12px 21px;
+}
+
+.contacts-add-input-container:focus-within {
+  border: 1px solid var(--user-light-blue);
 }
 
 .contacts-add-input {
@@ -299,9 +345,16 @@
   height: 24px;
 }
 
+.contacts-add-input-tel-format {
+  position: absolute;
+  bottom: 212px;
+  font-size: 14px;
+}
+
 .contacts-add-buttons-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-right: 70px;
   gap: 35px;
   margin-top: 32px;
 }

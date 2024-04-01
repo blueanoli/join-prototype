@@ -19,7 +19,7 @@
     <div w3-include-html="assets/templates/desktop-template.html"></div>
     <div class="contacts-contact-container">
       <div class="contact-main-container">
-        <div class="contact-add-container">
+        <div class="contact-add-container" onclick="showAddContactContainer()">
           <span class="contact-add-text">Add new contact</span>
           <img class="contact-add-icon" src="assets/img/add_contact.svg" />
         </div>
@@ -35,56 +35,67 @@
     </div>
     <div class="contacts-add-container">
       <div class="contacts-add">
+        <img
+          class="contacts-add-join-logo"
+          src="assets/img/logo_white.svg"
+          alt="join logo"
+        />
         <div class="contacts-add-overlay">
-          <img src="assets/img/logo_white.svg" alt="join logo" />
           <h2>Add contact</h2>
           <span>Tasks are better with a team!</span>
           <span class="contacts-add-overlay-border"></span>
         </div>
         <div class="contacts-add-main-container">
-          <div class="contacts-add-cancel">
+          <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
             <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
           </div>
-          <div class="contacts-add-main-profil">
-            <img src="assets/img/person_white.svg" alt="" />
-          </div>
           <form>
-            <div class="contacts-add-main-input-area">
-              <div class="contacts-add-input-container">
-                <input
-                  required
-                  id="name"
-                  class="contacts-add-input"
-                  type="text"
-                  placeholder="Name"
-                />
-                <div class="contacts-add-input-icons">
-                  <img src="assets/img/person.svg" alt="person icon" />
-                </div>
+            <div class="contacts-add-main-profil-input-container">
+              <div class="contacts-add-main-profil">
+                <img src="assets/img/person_white.svg" alt="person icon" />
               </div>
-              <div class="contacts-add-input-container">
-                <input
-                  required
-                  id="email"
-                  class="contacts-add-input"
-                  type="email"
-                  placeholder="Email"
-                />
-                <div class="contacts-add-input-icons">
-                  <img src="assets/img/mail.svg" alt="email icon" />
+              <div class="contacts-add-main-input-area">
+                <div class="contacts-add-input-container">
+                  <input
+                    required
+                    id="name"
+                    class="contacts-add-input"
+                    type="text"
+                    placeholder="Name"
+                  />
+                  <div class="contacts-add-input-icons">
+                    <img src="assets/img/person.svg" alt="person icon" />
+                  </div>
                 </div>
-              </div>
-              <div class="contacts-add-input-container">
-                <input
-                  required
-                  id="phone"
-                  class="contacts-add-input"
-                  type="number"
-                  placeholder="Phone"
-                />
-                <div class="contacts-add-input-icons">
-                  <img src="assets/img/phone.svg" alt="phone icon" />
+                <div class="contacts-add-input-container">
+                  <input
+                    required
+                    id="email"
+                    class="contacts-add-input"
+                    type="email"
+                    placeholder="Email"
+                  />
+                  <div class="contacts-add-input-icons">
+                    <img src="assets/img/mail.svg" alt="email icon" />
+                  </div>
                 </div>
+                <div class="contacts-add-input-container">
+                  <input
+                    required
+                    id="phone"
+                    class="contacts-add-input"
+                    type="tel"
+                    maxlength="20"
+                    placeholder="Phone"
+                    onkeypress="addSpaceToPhoneNumber()"
+                  />
+                  <div class="contacts-add-input-icons">
+                    <img src="assets/img/phone.svg" alt="phone icon" />
+                  </div>
+                </div>
+                <span class="contacts-add-input-tel-format"
+                  >Format: +49 2222 22 222 2</span
+                >
               </div>
             </div>
             <div class="contacts-add-buttons-container">

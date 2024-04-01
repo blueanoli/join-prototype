@@ -88,6 +88,18 @@ function deleteTask(index) {
     displayAllTasks();
 }
 
+function showToastMessage(element) {
+    let parentElement = element.closest('.mini-task-subtask-container');
+    let toastMessage = parentElement.querySelector('.toast-message');
+    toastMessage.style.display = 'block';
+}
+
+function hideToastMessage(element) {
+    let parentElement = element.closest('.mini-task-subtask-container');
+    let toastMessage = parentElement.querySelector('.toast-message');
+    toastMessage.style.display = 'none';
+}
+
 // ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------
 function openAddTask(progressStatus, category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     if (isOverlayOpen) return;

@@ -1,8 +1,8 @@
 function renderTaskOverlayHTML(task, index) {
-    const overlayContainer = document.getElementById('edit-task-overlay');
-    const categorySvgPath = getCategorySvgPath(task.category);
-  
-    const htmlContent = /*html*/`
+  const overlayContainer = document.getElementById('edit-task-overlay');
+  const categorySvgPath = getCategorySvgPath(task.category);
+
+  const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
         <div class="edit-task-header">
           <img src="${categorySvgPath}" alt="${task.category}">
@@ -57,10 +57,10 @@ function renderTaskOverlayHTML(task, index) {
           </div>
         </div>
       </div>`;
-  
-    overlayContainer.innerHTML = htmlContent;
-  }
- 
+
+  overlayContainer.innerHTML = htmlContent;
+}
+
 function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index) {
   return /*html*/`
   <div class="edit-task-container edit-mode-task-container">
@@ -144,8 +144,10 @@ function renderMiniTaskHTML(task, index) {
               <span>${task.description}</span>
           </div>
           <div class="mini-task-subtask-container">
-              <div class="progress-bar-container">
+              <div class="progress-bar-container"onmouseenter="showToastMessage(this)" 
+        onmouseleave="hideToastMessage(this)">
                   <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+                  <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
               </div>
               <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>
           </div>

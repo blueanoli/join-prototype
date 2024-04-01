@@ -28,8 +28,8 @@ function initializeDragAndDrop() {
 function handleDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
     setTimeout(() => {
-        event.target.classList.add('dragging');
-        event.target.classList.add('tilt');
+        event.target.style.transform = 'rotate(5deg)';
+        event.target.style.cursor = 'grabbing';
     }, 0);
 }
 
@@ -70,8 +70,7 @@ function handleDrop(event) {
 
 
 function handleDragEnd() {
-    event.target.classList.remove('dragging');
-    event.target.classList.remove('tilt');
+    event.target.style.transform = 'rotate(0deg)';
     document.querySelectorAll('.dotted-container-drag-drop').forEach(dropZone => {
         dropZone.style.display = 'none';
     });

@@ -86,22 +86,36 @@
                     class="contacts-add-input"
                     type="tel"
                     maxlength="20"
+                    value="+49"
+                    pattern="[1-9\s\+]{7,20}$"
                     placeholder="Phone"
                     onkeypress="addSpaceToPhoneNumber()"
+                    onfocus="showPhoneFormat()"
+                    onblur="removePhoneFormat()"
                   />
                   <div class="contacts-add-input-icons">
                     <img src="assets/img/phone.svg" alt="phone icon" />
                   </div>
                 </div>
-                <span class="contacts-add-input-tel-format"
-                  >Format: +49 2222 22 222 2</span
+                <span id="phone-format" class="contacts-add-input-phone-format"
+                  >Format e.g.: +49 2222 22 222 2</span
                 >
               </div>
             </div>
             <div class="contacts-add-buttons-container">
-              <button class="contacts-add-cancel-button">
+              <button
+                id="contacts-add-cancel-button"
+                class="contacts-add-cancel-button"
+                onclick="hideAddContactContainer();"
+                onmouseover="changeAddContactCancelBlue()"
+                onmouseout="changeAddContactCancelDark()"
+              >
                 Cancel
-                <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
+                <img
+                  id="contacts-add-cancel-img"
+                  src="assets/img/cancel_dark.svg"
+                  alt="cancel icon"
+                />
               </button>
               <button class="contacts-add-create-button">
                 Create contact

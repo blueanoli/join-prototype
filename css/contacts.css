@@ -180,22 +180,47 @@
   position: absolute;
   top: 0;
   left: 0;
+  overflow-x: hidden;
   width: 100vw;
   height: 100vh;
   z-index: 1000;
   background-color: rgba(0, 0, 0, 0.5);
-  animation: contactsContainer 0.5s ease 0s 1 normal forwards;
+  animation: contactsContainerFadeIn 0.5s ease 0s 1 normal forwards;
 }
 
+@keyframes contactsContainerFadeIn {
+  0% {
+    opacity: 0;
+  }
 
-@keyframes contactsContainer {
-	0% {
-		opacity: 0;
-	}
+  100% {
+    opacity: 1;
+  }
+}
 
-	100% {
-		opacity: 1;
-	}
+.contacts-add-container.fade-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: contactsContainerFadeOut 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contactsContainerFadeOut {
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 .contacts-add {
@@ -203,17 +228,35 @@
   display: flex;
   height: 592px;
   border-radius: 42px;
-  animation: contacts 0.5s ease 0s 1 normal forwards;
+  animation: contactsSlideIn 0.5s ease 0s 1 normal forwards;
 }
 
-@keyframes contacts {
-	0% {
-		transform: translateX(250px);
-	}
+@keyframes contactsSlideIn {
+  0% {
+    transform: translateX(150%);
+  }
 
-	100% {
-		transform: translateX(0);
-	}
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.contacts-add.slide-out {
+  position: relative;
+  display: flex;
+  height: 592px;
+  border-radius: 42px;
+  animation: contactsSlideOut 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contactsSlideOut {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(150%);
+  }
 }
 
 .contacts-add-join-logo {
@@ -283,7 +326,7 @@
 
 .contacts-add-cancel:hover {
   cursor: pointer;
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
 }
 
 .contacts-add-main-profil-input-container {
@@ -345,7 +388,12 @@
   height: 24px;
 }
 
-.contacts-add-input-tel-format {
+.contacts-add-input-phone-format {
+  display: none;
+}
+
+.contacts-add-input-phone-format.shown {
+  display: block;
   position: absolute;
   bottom: 212px;
   font-size: 14px;
@@ -379,6 +427,11 @@
   color: var(--light-blue);
   border: 1px solid var(--light-blue);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 25%);
+}
+
+.contacts-add-cancel-button img {
+  width: 24px;
+  height: 24px;
 }
 
 .contacts-add-create-button {

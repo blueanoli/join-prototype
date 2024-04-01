@@ -131,6 +131,12 @@ function renderMiniTaskHTML(task, index) {
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   const categorySvgPath = getCategorySvgPath(task.category);
+  const subtasksContainerHtml = totalSubtasks > 0 ? 
+    `<div class="progress-bar-container" onmouseenter="showToastMessage(this)" onmouseleave="hideToastMessage(this)">
+            <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+            <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
+      </div>
+      <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
 
   return /*html*/`
       <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
@@ -144,12 +150,7 @@ function renderMiniTaskHTML(task, index) {
               <span>${task.description}</span>
           </div>
           <div class="mini-task-subtask-container">
-              <div class="progress-bar-container"onmouseenter="showToastMessage(this)" 
-        onmouseleave="hideToastMessage(this)">
-                  <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
-                  <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
-              </div>
-              <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>
+          ${subtasksContainerHtml}
           </div>
           <div class="mini-task-footer-container">
               <div class="mini-task-contacts-container">

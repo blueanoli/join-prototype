@@ -1,4 +1,4 @@
-let tasksData = [{}];
+let tasksData = [];
 
 const categoryToSvgMap = {
     "Technical Task": "assets/img/technical_task.svg",

@@ -99,7 +99,7 @@ function updateSummaryData() {
     updateTextContent('urgent-count', summaryCounts['urgent']);
     updateTextContent('progress-count', summaryCounts['in-progress']);
     updateTextContent('feedback-count', summaryCounts['feedback']);
-    updateTextContent('all-tasks-count', tasksData.length -1);
+    updateTextContent('all-tasks-count', tasksData.length);
 
     updateNextDeadline();
   }

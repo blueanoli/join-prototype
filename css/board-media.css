@@ -1,10 +1,11 @@
 /* MAX WIDTH 1000px */
 @media (max-width: 1000px) {
-    .progress-header{
+    .progress-header {
         flex-direction: column;
     }
-    .dotted-container{
-        display: flex;
+    .progress-title{
+        justify-content: flex-start;
+        align-items: center;
         gap: 16px;
     }
     .board-header{
@@ -19,14 +20,34 @@
         overflow: hidden;
         min-height: 100vh;
     }
-    .dotted-container-drag-drop{
-        display: flex;
-    }
     .board-container{
         min-height: fit-content;
     }
-    .progress-column{
-        min-height: fit-content;
-        height: 250px;
+    .progress-column {
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        justify-content: flex-start; 
+        align-items: flex-start;
+        width: 100%;
+    }
+    .dotted-container, .dotted-container-drag-drop {
+        flex: 1; 
+        display: flex;
+        
+        height: auto; 
+    }
+    .dotted-container{
+        gap: 16px;
+    }
+    .dotted-container-drag-drop {
+        display: flex; 
+        width: 15%;
+        margin-left: 16px;
+    }
+    .progress-column > div:last-child {
+        margin-right: 0;
+    }
+    .mini-task-container{
+        width: fit-content;
     }
 }

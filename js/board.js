@@ -15,6 +15,7 @@ async function renderBoard() {
     displayAllTasks();
     checkAllSections();
     initializeDragAndDrop();
+    changeButtonColor();
 }
 
 // TASK OVERLAY --------------------------------------------------------------------------------------------------------

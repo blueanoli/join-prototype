@@ -109,3 +109,17 @@ function updateTaskStatus(taskIndex, newColumnId) {
     displayAllTasks();
     checkAllSections();
 }
+
+function changeButtonColor() {
+    let btnMobile = document.getElementById('add-task-btn-board-mobile');
+
+    if (btnMobile) {
+        btnMobile.addEventListener('mouseover', function() {
+            btnMobile.src = 'assets/img/board_add_mobile_hover.svg'; 
+        });
+
+        btnMobile.addEventListener('mouseout', function() {
+            btnMobile.src = 'assets/img/board_add_mobile.svg';
+        });
+    }
+}

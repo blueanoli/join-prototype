@@ -24,7 +24,11 @@
     <div w3-include-html="assets/templates/desktop-template.html"></div>
     <section class="board-container">
         <div class="board-header">
-            <h1>Board</h1>
+            <div class="header-wrapper">
+                <h1>Board</h1>
+                <img class="btn-mobile" id="add-task-btn-board-mobile" src="assets/img/board_add_mobile.svg"
+                    onclick="openAddTask('todo')">
+            </div>
             <div class="board-search-container">
                 <div class="board-input-wrapper">
                     <div id="search-feedback" style="display: none; color: red;">No tasks found</div>
@@ -33,8 +37,8 @@
                         <img id="search-task-icon" src="assets/img/search.svg" alt="">
                     </div>
                 </div>
-                <button id="add-task-btn-board" onclick="openAddTask('todo')">Add task <img
-                        src="assets/img/plus_white.svg"></button>
+                <button class="btn-desktop" id="add-task-btn-board" onclick="openAddTask('todo')">Add task
+                    <img src="assets/img/plus_white.svg"></button>
             </div>
         </div>
         <div class="progress-container">
@@ -67,14 +71,14 @@
                     <div class="progress-title">
                         <span>Done</span>
                     </div>
-                    <div class="dotted-container" id="board-done-container"></div> 
+                    <div class="dotted-container" id="board-done-container"></div>
                     <div class="dotted-container-drag-drop" dropzone="done"></div>
                 </div>
             </div>
         </div>
     </section>
     <div id="add-task-container-board">
-        
+
     </div>
     <div id="page-overlay"></div>
     <div id="edit-task-overlay"></div>

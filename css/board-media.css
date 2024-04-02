@@ -3,10 +3,8 @@
     .progress-header {
         flex-direction: column;
     }
-    .progress-title{
-        justify-content: flex-start;
+    .progress-title {
         align-items: center;
-        gap: 16px;
     }
     .board-header{
         margin-left: 24px;
@@ -17,11 +15,11 @@
         margin-left: 24px;
         margin-right: 24px;
         width: 95%;
-        overflow: hidden;
         min-height: 100vh;
     }
     .board-container{
-        min-height: fit-content;
+        min-height: auto;
+        padding-bottom: 30%;
     }
     .progress-column {
         flex-direction: row; 
@@ -33,21 +31,23 @@
     .dotted-container, .dotted-container-drag-drop {
         flex: 1; 
         display: flex;
-        
         height: auto; 
     }
     .dotted-container{
         gap: 16px;
     }
     .dotted-container-drag-drop {
-        display: flex; 
         width: 15%;
         margin-left: 16px;
+        display: none;
     }
     .progress-column > div:last-child {
         margin-right: 0;
     }
     .mini-task-container{
         width: fit-content;
+    }
+    .progress-column, .dotted-container {
+        min-height: auto;
     }
 }

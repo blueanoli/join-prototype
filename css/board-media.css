@@ -1,0 +1,32 @@
+/* MAX WIDTH 1000px */
+@media (max-width: 1000px) {
+    .progress-header{
+        flex-direction: column;
+    }
+    .dotted-container{
+        display: flex;
+        gap: 16px;
+    }
+    .board-header{
+        margin-left: 24px;
+        margin-right: 24px;
+        width: 95%;
+    }
+    .progress-container{
+        margin-left: 24px;
+        margin-right: 24px;
+        width: 95%;
+        overflow: hidden;
+        min-height: 100vh;
+    }
+    .dotted-container-drag-drop{
+        display: flex;
+    }
+    .board-container{
+        min-height: fit-content;
+    }
+    .progress-column{
+        min-height: fit-content;
+        height: 250px;
+    }
+}

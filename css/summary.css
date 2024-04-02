@@ -9,10 +9,11 @@
 .vertical-line {
     display: inline-block;
     height: 59px;
-    width: 2px;
+    width: 4px;
     background-color: var(--light-blue);
     margin: 0 20px;
     vertical-align: middle;
+    border-radius: 8px;
 }
 
 h1 {
@@ -169,6 +170,13 @@ h3 {
     background-color: white; 
 }
 
+.line {
+    width: 120px;
+    border-bottom: 4px solid var(--light-blue);
+    border-radius: 8px;
+    display: none;
+  }
+
 @media (max-width: 1000px) {
     .right-container {
       display: none;
@@ -189,11 +197,4 @@ h3 {
         gap: 8px;
     }
 
-  }
-  
-  .line {
-    width: 120px;
-    border-bottom: 4px solid var(--light-blue);
-    border-radius: 8px;
-    display: none;
   }

@@ -1,18 +1,18 @@
 /* SCROLLBAR STYLE */
-.edit-task-container::-webkit-scrollbar {
+.scroll-container::-webkit-scrollbar {
     width: 24px;
     border-radius: 30px;
 }
-.edit-task-container::-webkit-scrollbar-track {
+.scroll-container::-webkit-scrollbar-track {
     border-radius: 8px;
     background-color: #ffffff;
 }
-.edit-task-container::-webkit-scrollbar-thumb {
+.scroll-container::-webkit-scrollbar-thumb {
     border-radius: 30px;
     background-color: #a8a8a8;
     border: 8px solid #ffffff;
 }
-.edit-task-container::-webkit-scrollbar-button {
+.scroll-container::-webkit-scrollbar-button {
     display: block;
     background-color: #ffffff;
     background-repeat: no-repeat;
@@ -230,7 +230,11 @@
     padding: 0 40px;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
-    overflow-y: auto;
+}
+.scroll-container{
+    overflow-y: scroll;
+    max-height: 840px;
+    height: 100%;
 }
 .edit-task-header{
     display: flex;
@@ -349,7 +353,6 @@
 /* EDIT TASK EDIT MODE */
 .edit-mode-task-container{
     max-height: 840px;
-    overflow-y: scroll;
 }
 .edit-mode-task-header{
     justify-content: flex-end;

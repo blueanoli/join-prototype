@@ -2,6 +2,7 @@ function renderTaskOverlayHTML(task, index) {
   const overlayContainer = document.getElementById('edit-task-overlay');
   const categorySvgPath = getCategorySvgPath(task.category);
   let dueDate = new Date(task.dueDate); 
+  let priority = task.priority || 'medium';
   let formattedDueDate = dueDate.getDate().toString().padStart(2, '0') + '/' + 
                          (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' + 
                          dueDate.getFullYear();
@@ -26,8 +27,8 @@ function renderTaskOverlayHTML(task, index) {
         <div class="edit-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
           <div class="priority-icon-container">
-            <span>${task.priority.charAt(0).toUpperCase()}${task.priority.slice(1)}</span>
-            <img src="assets/img/addtask_${task.priority.toLowerCase()}.svg" alt="${task.priority}">
+            <span>${priority.charAt(0).toUpperCase()}${priority.slice(1)}</span>
+            <img src="assets/img/addtask_${priority.toLowerCase()}.svg" alt="${priority}">
           </div>
         </div>
         <div class="edit-task-contacts-container">
@@ -69,6 +70,7 @@ function renderTaskOverlayHTML(task, index) {
 function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index) {
   return /*html*/`
   <div class="edit-task-container edit-mode-task-container">
+  <div class="scroll-container">
       <div class="edit-task-header edit-mode-task-header">
           <img class="close-edit-task" onclick="closeTaskOverlay()" src="assets/img/cancel_dark.svg" alt="Close">
       </div>
@@ -99,7 +101,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       <div class="edit-task-contacts-container edit-mode-task-contacts-container">
           <span class="task-container-mini-headlines">Assigned to:</span>
-          <div class="custom-select-wrapper edit-mode-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
+          <div class="custom-select-wrapper edit-mode-wrapper" onclick="toggleDropdown('assigned-to'); renderContactsForEdit(${index})">
           <div id="assigned-to" class="custom-select edit-mode--custom-select">
               <div class="select-selected">Select contacts to assign</div>
               <input oninput="filterContacts()" id="contact-search-input" type="text"
@@ -128,6 +130,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
           <button class="add-task-btn-style" onclick="saveEditedTask(${index}); return false" id="add-task-btn">Ok<img
                   src="assets/img/addtask_check_white.svg"></button>
       </div>
+      </div>
   </div>`;
 }
 
@@ -144,6 +147,7 @@ function renderMiniTaskHTML(task, index) {
       <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
   
   let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
+  let priority = task.priority || 'medium';
 
   return /*html*/`
       <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
@@ -170,7 +174,7 @@ function renderMiniTaskHTML(task, index) {
                   </div>
               </div>
               <div class="mini-task-prio-container">
-                  <img src="assets/img/addtask_${task.priority.toLowerCase()}.svg" alt="${task.priority}">
+                  <img src="assets/img/addtask_${priority.toLowerCase()}.svg" alt="${task.priority}">
               </div>
           </div>
       </div>`;

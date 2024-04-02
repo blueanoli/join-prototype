@@ -50,7 +50,7 @@ body {
 
 
 ::-webkit-scrollbar-thumb {
-  background-color: lightgrey;
+  background-color: rgb(184, 184, 184);
   border-radius: 6px; 
 }
 

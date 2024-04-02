@@ -173,4 +173,27 @@ h3 {
     .right-container {
       display: none;
     }
+    .summary-head {
+        align-items: flex-start;
+        flex-direction: column;        
+    }
+    .vertical-line {
+        display: none;
+    }
+    .line {
+        display: block !important;
+        margin-top: 10px;
+    }
+
+    .summary-head {
+        gap: 8px;
+    }
+
+  }
+  
+  .line {
+    width: 120px;
+    border-bottom: 4px solid var(--light-blue);
+    border-radius: 8px;
+    display: none;
   }

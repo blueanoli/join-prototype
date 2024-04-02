@@ -21,16 +21,12 @@
     cursor: pointer;
 }
 
-.user-icon:hover {
-    background-color: #E2E6EC;
+.help-and-user-icon {
+    padding-right: 10px;
 }
 
-.help-and-user-icon {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    position: fixed;
-    right: 20px;
+.user-icon:hover {
+    background-color: #E2E6EC;
 }
 
 h4 {

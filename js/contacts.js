@@ -2,46 +2,61 @@ let contacts = [
   {
     name: "Tatjana Wolf",
     email: "wolf@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Peter Lustig",
     email: "lustig@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Philipp Plein",
     email: "plein@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Dan Schneider",
     email: "schneider@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Xavier Klein",
     email: "klein@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Jens Klein",
     email: "klein@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Levin Klein",
     email: "klein@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Felix Klein",
     email: "klein@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
   {
     name: "Ida Mueller",
     email: "mueller@gmail.de",
+    phone: "+49 1234 45 678 9",
+    color: "",
+  },
+  {
+    name: "Gerald Mueller",
+    email: "mueller@gmail.de",
+    phone: "+49 1234 45 678 9",
     color: "",
   },
 ];
@@ -82,11 +97,16 @@ function generateLetterContainer() {
     let contact = contacts[i];
     let firstLetter = contact["name"].charAt(0).toUpperCase();
 
-    if (!contactsByLetter[firstLetter]) {
-      contactsByLetter[firstLetter] = [];
-    }
-    contactsByLetter[firstLetter].push(contact);
+    checkLetterContainer(contact, firstLetter);
   }
+}
+
+/* Checks if the Letter is already avaiable and adds it in the appropriate array if not */
+function checkLetterContainer(contact, firstLetter) {
+  if (!contactsByLetter[firstLetter]) {
+    contactsByLetter[firstLetter] = [];
+  }
+  contactsByLetter[firstLetter].push(contact);
   showContacts();
 }
 
@@ -191,7 +211,7 @@ function clearAddContainerInputfields() {
   let nameInput = document.getElementById("name");
   let emailInput = document.getElementById("email");
   let phoneInput = document.getElementById("phone");
-  
+
   nameInput.value = "";
   emailInput.value = "";
   phoneInput.value = "+49";
@@ -218,7 +238,7 @@ function changeAddContactCancelBlue() {
   let cancel = document.getElementById("contacts-add-cancel-img");
 
   if (cancel.src.includes("cancel_dark.svg")) {
-    cancel.src = "assets/img/cancel_blue.svg"
+    cancel.src = "assets/img/cancel_blue.svg";
   }
 }
 
@@ -228,7 +248,7 @@ function changeAddContactCancelDark() {
   let cancel = document.getElementById("contacts-add-cancel-img");
 
   if (cancel.src.includes("cancel_blue.svg")) {
-    cancel.src = "assets/img/cancel_dark.svg"
+    cancel.src = "assets/img/cancel_dark.svg";
   }
 }
 
@@ -258,4 +278,23 @@ function removePhoneFormat() {
   let phone = document.getElementById("phone-format");
 
   phone.classList.remove("shown");
+}
+
+/* Adds a new Contact if the submit is valid */
+function addContact() {
+  let newName = document.getElementById("name");
+  let newEmail = document.getElementById("email");
+  let newPhone = document.getElementById("phone");
+
+  let contact = {
+    name: newName.value,
+    email: newEmail.value,
+    phone: newPhone.value,
+  };
+
+  contacts.push(contact);
+  let firstLetter = contact.name.charAt(0).toUpperCase();
+
+  checkLetterContainer(contact, firstLetter);
+  hideAddContactContainer();
 }

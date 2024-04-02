@@ -1,3 +1,4 @@
+let autoScrollInterval;
 // DRAG AND DROP LOGIC ---------------------------------------------------------------------------------------------------------
 function initializeHoverEffect() {
     document.querySelectorAll('.mini-task-container').forEach(minitask => {
@@ -53,6 +54,7 @@ function initializeDragAndDrop() {
 function handleDragStart(event) {
     event.dataTransfer.setData('text/plain', event.target.dataset.taskId);
     event.target.classList.add('dragging');
+    document.addEventListener('mousemove', handleMouseMove);
 }
 
 document.querySelectorAll('.mini-task-container').forEach(item => {
@@ -95,6 +97,11 @@ function handleDragEnd(event) {
     document.querySelectorAll('.dotted-container-drag-drop').forEach(dropZone => {
         dropZone.style.display = 'none';
     });
+
+      if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+    }
+    document.removeEventListener('mousemove', handleMouseMove);
 }
 
 function updateTaskStatus(taskIndex, newColumnId) {
@@ -108,6 +115,27 @@ function updateTaskStatus(taskIndex, newColumnId) {
 
     displayAllTasks();
     checkAllSections();
+}
+
+function handleMouseMove(event) {
+    let scrollSpeed = 1; 
+    let scrollMargin = 200;
+
+    if (autoScrollInterval) {
+        clearInterval(autoScrollInterval);
+    }
+
+    if (event.clientY < scrollMargin + 500) {
+        autoScrollInterval = setInterval(() => {
+            window.scrollTo({ top: window.scrollY - scrollSpeed, behavior: 'smooth' });
+        }, 500);
+    }
+
+    else if (window.innerHeight - event.clientY < scrollMargin + 500) {
+        autoScrollInterval = setInterval(() => {
+            window.scrollTo({ top: window.scrollY + scrollSpeed, behavior: 'smooth' });
+        }, 500);
+    }
 }
 
 function changeButtonColor() {

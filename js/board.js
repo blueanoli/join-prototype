@@ -147,6 +147,7 @@ function saveEditedTask(index){
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
     closeTaskOverlay();
     displayAllTasks();
+    checkAllSections();
 }
 
 function deleteTask(index) {

@@ -1,3 +1,4 @@
+/** Handles Click Event on a contact, toggling selection state and updating UI */
 function handleContactClick(event, contact, optionDiv) {
     event.stopImmediatePropagation();
     let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
@@ -18,6 +19,7 @@ function handleContactClick(event, contact, optionDiv) {
     }
 }
 
+/** Handles click event on category and updates selected category */
 function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
     event.stopPropagation();
 
@@ -30,6 +32,7 @@ function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
     changeDropdownImg('choose-category', 'close');
 }
 
+/** Sets EventListener to prevent form from being submitted on pressing Enter */
 function setupFormEventListeners() {
     document.getElementById('add-task').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -42,6 +45,7 @@ function setupFormEventListeners() {
     });
 }
 
+/** Sets EventListener to close dropdowns when clicked outside */
 function setupDropdownCloseListener() {
     document.addEventListener('click', function(event) {
         let dropdownContacts = document.getElementById('assigned-to');
@@ -60,18 +64,7 @@ function setupDropdownCloseListener() {
     });
 }
 
-function disableFormEnterKeySubmission() {
-    let form = document.getElementById('add-task');
-    if (form) {
-        form.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                return false;
-            }
-        });
-    }
-}
-
+/** Sets Input Listener to Subtask to update icon-container on input */
 function addSubtaskEventListener(){
     document.getElementById('subtasks').addEventListener('input', function() {
         let inputField = document.getElementById('subtasks');
@@ -85,44 +78,46 @@ function addSubtaskEventListener(){
             `;
         }
     });
-    }
+}
+
+/** Sets Input Listener to Subtask to allow add and save on pressing Enter */
+function setupInputEventListener() {
+    document.getElementById('subtasks').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === 13) {
+            event.preventDefault(); 
     
-    function setupInputEventListener() {
-        document.getElementById('subtasks').addEventListener('keydown', function(event) {
-            if (event.key === 'Enter' || event.key === 13) {
-                event.preventDefault(); 
+            let isEditing = document.querySelector('.editing');
     
-                let isEditing = document.querySelector('.editing');
-    
-                if (isEditing) {
-                    let subtaskId = isEditing.id; 
-                    saveEditedSubtask(subtaskId);
-                } else {
-                    addSubtask();
-                }
+            if (isEditing) {
+                let subtaskId = isEditing.id; 
+                saveEditedSubtask(subtaskId);
+            } else {
+                addSubtask();
             }
-        });
-    }
+        }
+    });
+}
 
-    function setupEventListenersForItemsDiv() {
-        let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
+/** Adds click event listener which triggers handleContactClick */
+function setupEventListenersForItemsDiv() {
+    let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
         
-        itemsDiv.addEventListener('click', function(event) {
-            let optionDiv = event.target.closest('.option-item');
-            if (!optionDiv) return; 
+    itemsDiv.addEventListener('click', function(event) {
+        let optionDiv = event.target.closest('.option-item');
+        if (!optionDiv) return; 
     
-            let index = optionDiv.id.split('-')[1]; 
-            let contact = testContacts[index]; 
+        let index = optionDiv.id.split('-')[1]; 
+        let contact = testContacts[index]; 
     
-            handleContactClick(event, contact, optionDiv);
-        });
-    }    
+        handleContactClick(event, contact, optionDiv);
+    });
+}    
 
+/** Adds all event listeners to the page */
 function addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     setupFormEventListeners();
     setupDropdownCloseListener();
     setupInputEventListener();
     setupEventListenersForItemsDiv();
     addSubtaskEventListener();
-    disableFormEnterKeySubmission();
 }

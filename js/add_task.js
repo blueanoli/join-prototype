@@ -15,15 +15,15 @@ let selectedPriority = "medium";
 let isEditMode = false;
 let editedTaskPriority;
 
-// INIT LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Initializes AddTask */
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
     await init();
-    loadTasksFromLocalStorage();
     chooseMediumPrio(); 
+    loadTasksFromLocalStorage();
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
-// DATE LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Validates due-date input field to ensure that selected date is not in the past */
 function checkDueDate() {
     let dueDateInput = document.getElementById('due-date');
     let dueDate = dueDateInput.value;
@@ -43,17 +43,19 @@ function checkDueDate() {
     }
 }
 
-// ERROR MESSAGE LOGIC -----------------------------------------------------------------------------------------------------------------------------
+/** Shows error message if specific input field is empty */
 function showErrorMessage(inputElement, errorMessage) {
     inputElement.classList.add('input-error');
     errorMessage.style.display = 'block';
 }
 
+/** Hides error message if specific input field is not empty */
 function hideErrorMessage(inputElement, errorMessage) {
     inputElement.classList.remove('input-error');
     errorMessage.style.display = 'none';
 }
 
+/** Checks if each field in given list is empty and shows or hides error message accordingly */
 function checkRequiredField() {
     for (let i = 0; i < fields.length; i++) {
         let field = fields[i];
@@ -74,39 +76,47 @@ function checkRequiredField() {
     }
 }
 
+/** Resets style of input field and hides error message */
 function resetFieldStyle(element) {
-    element.classList.remove('input-error');
-
     let errorId = element.id + '-error';
     let errorElement = document.getElementById(errorId);
 
     if (errorElement) {
-        errorElement.style.display = 'none';
+        hideErrorMessage(element, errorElement);
+    } else {
+        element.classList.remove('input-error');
     }
 }
 
-// PRIORITY LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Sets priority to urgent */
 function chooseUrgentPrio() {
     setPriority("urgent", isEditMode);
 }
 
+/** Sets priority to medium */
 function chooseMediumPrio() {
     setPriority("medium", isEditMode);
 }
 
+/** Sets priority to low */
 function chooseLowPrio() {
     setPriority("low", isEditMode);
 }
 
-function setPriority(priorityLevel, isEditModeFlag) {
-    selectedPriority = priorityLevel; 
+/** Sets selected priority to given priority level */
+function setSelectedPriority(priorityLevel) {
+    selectedPriority = priorityLevel;
+}
 
+/** Sets edited task priority to given priority level */
+function setEditedTaskPriority(priorityLevel, isEditModeFlag) {
     if (isEditModeFlag) {
         editedTaskPriority = priorityLevel;
-    }else {
-        selectedPriority = priorityLevel;
     }
+}
 
+/** Updates UI to show selected priority */
+function updatePriorityUI(priorityLevel) {
     for (let i = 0; i < priorities.length; i++) {
         let prio = priorities[i];
         let elem = document.getElementById(`priority-${prio}`);
@@ -122,11 +132,17 @@ function setPriority(priorityLevel, isEditModeFlag) {
     }
 }
 
-// ADD TASK LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Sets priority to given priority level */
+function setPriority(priorityLevel, isEditModeFlag) {
+    setSelectedPriority(priorityLevel);
+    setEditedTaskPriority(priorityLevel, isEditModeFlag);
+    updatePriorityUI(priorityLevel);
+}
+
+/** Validates required fields, if there are no errors it creates a new task and plays animation */
 function addTask() {
     checkRequiredField();
-    checkDueDate();
-    if (hasErrors() || !isDateValid()) {
+    if (hasErrors() || !checkDueDate()) {
         return;
     }
 
@@ -136,6 +152,7 @@ function addTask() {
     addTaskAnimation();
 }
 
+/** Checks if there are any error messages displayed */ 
 function hasErrors() {
     let errorElements = document.querySelectorAll('.error-message');
     for (let i = 0; i < errorElements.length; i++) {
@@ -146,10 +163,7 @@ function hasErrors() {
     return false;
 }
 
-function isDateValid() {
-    return checkDueDate();
-}
-
+/** Creates a new task object with properties title, dueDate, category, priority, assignedTo, description, subtasks, progress and returns it */
 function createNewTask() {
     let container = document.getElementById('add-task-container-board');
     let progress = container ? container.getAttribute('data-progress-status') || 'todo' : 'todo';
@@ -164,6 +178,7 @@ function createNewTask() {
     return { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
 }
 
+/** Triggers animation to notify user that task has been added, then clears form and redirects user to board */
 function addTaskAnimation(){
     let notification = document.getElementById('notification-container');
 
@@ -178,7 +193,7 @@ function addTaskAnimation(){
     }, 1000);
 }
 
-// CONTACT LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Generates ContactOption for a dropdown menu */
 function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
@@ -192,6 +207,7 @@ function createContactOption(contact, itemsDiv, index) {
     itemsDiv.innerHTML += optionHTML;
 }
 
+/** Creates and appends new contact option for each contact in Array to the dropdown menu */
 function renderContacts() {
     let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
     itemsDiv.innerHTML = '';
@@ -202,6 +218,7 @@ function renderContacts() {
     }
 }
 
+/** Adds contact to assign-contacts element if it's not already present */
 function addAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
 
@@ -213,6 +230,7 @@ function addAssignedContact(contact) {
     }
 }
 
+/** Removes specified contact from assign-contacts element and unselects it */
 function removeAssignedContact(contact) {
     let assignedTo = document.getElementById('assign-contacts');
     let contacts = assignedTo.querySelectorAll('.assigned-contact');
@@ -229,6 +247,7 @@ function removeAssignedContact(contact) {
     updateCheckboxForContact(contact, false);
 }
 
+/** Updates checkbox image for specified contact to reflect whether or not its selected */
 function updateCheckboxForContact(contact, isChecked) {
     let dropdown = document.getElementById('assigned-to');
     let itemsDiv = dropdown.querySelector('.select-items');
@@ -242,11 +261,13 @@ function updateCheckboxForContact(contact, isChecked) {
     });
 }
 
+/** Gets search term from contact-search-input field and filters contacts */
 function filterContacts(){
     let search = document.getElementById('contact-search-input').value.toLowerCase();
     filterContactsBySearch(search);
 }
 
+/** Filters contacts displaying only those whose first or last name start with the search term */
 function filterContactsBySearch(search) {
     search = search.toLowerCase();
 
@@ -263,6 +284,7 @@ function filterContactsBySearch(search) {
     }
 }
 
+/** Clears assign-contacts element, resets selection status to false and re-renders contacts */
 function clearAssignedContacts() {
     let assignedTo = document.getElementById('assign-contacts');
     assignedTo.innerHTML = '';
@@ -276,7 +298,7 @@ function clearAssignedContacts() {
     renderContacts();
 }
 
-// CATEGORY LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Creates new category option element, sets text to provided category and adds eventlistener */
 function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
     let optionDiv = document.createElement('div');
     optionDiv.textContent = category;
@@ -286,6 +308,7 @@ function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
     itemsDiv.appendChild(optionDiv);
 }
 
+/** Hides error message for category section */
 function hideCategoryError() {
     let errorElement = document.getElementById('category-error');
     if (errorElement) {
@@ -293,6 +316,7 @@ function hideCategoryError() {
     }
 }
 
+/** Appends new category option from Array to dropdown */
 function renderCategories() {
     let dropdown = document.getElementById('choose-category');
     let itemsDiv = dropdown.querySelector('.select-items');
@@ -300,11 +324,13 @@ function renderCategories() {
 
     itemsDiv.innerHTML = '';
 
-    testCategories.forEach(category => {
+    for (let i = 0; i < testCategories.length; i++) {
+        let category = testCategories[i];
         createCategoryOption(category, itemsDiv, selectedDiv, dropdown);
-    });
+    }
 }
 
+/** Resets dropdown menu by removing value and setting placeholder text */
 function resetCategorySelection() {
     let dropdown = document.getElementById('choose-category');
     dropdown.removeAttribute('data-value'); 
@@ -313,7 +339,7 @@ function resetCategorySelection() {
     resetFieldStyle(dropdown); 
 }
 
-// CLEAR FORM LOGIC -------------------------------------------------------------------------------------------------------------------------------
+/** Resets every field of the form and sets prio to medium */
 function clearForm() {
     document.getElementById('add-task').reset();
     chooseMediumPrio(); 
@@ -322,7 +348,7 @@ function clearForm() {
     clearSubtasks();
 }
 
-// HILFSFUNKTIONEN -------------------------------------------------------------------------------------------------------------------------------
+/** Toggles visibility of dropdown either forcing it to close if forceClose is true or staying open */
 function toggleDropdown(elementId, forceClose = false) {
     let dropdown = document.getElementById(elementId);
     let itemsDiv = dropdown.querySelector('.select-items');
@@ -337,10 +363,19 @@ function toggleDropdown(elementId, forceClose = false) {
     let state = action === 'add' ? 'close' : 'open';
     changeDropdownImg(elementId, state);
 }
+
+/**
+ * Toggles a class on an HTML element based on the provided action.
+ *
+ * @param {HTMLElement} element - The HTML element to toggle the class on.
+ * @param {string} action - The action to perform. Should be either 'add' or 'remove'.
+ * @param {string} className - The class to add or remove.
+ */
 function toggleElement(element, action, className) {
     element.classList[action](className);
 }
 
+/** Toggles visibility of contact search input */
 function toggleAssignedTo(dropdown, action) {
     let searchInput = document.getElementById('contact-search-input');
     let selectSelected = dropdown.querySelector('.select-selected');
@@ -350,6 +385,7 @@ function toggleAssignedTo(dropdown, action) {
     if (action === 'remove') searchInput.focus();
 }
 
+/** Toggles dropdown img between up and down */
 function changeDropdownImg(elementId, state) {
     let imgId = elementId === 'choose-category' ? 'img-dropdown-cat' : 'img-dropdown';
     let img = document.getElementById(imgId);

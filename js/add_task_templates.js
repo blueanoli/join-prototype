@@ -1,3 +1,4 @@
+/** Returns HTML for notification with variable text and img */
 function renderNotificationHTML(text, imgSrc) {
     return /*html*/ `
     <div class="notification">
@@ -7,6 +8,7 @@ function renderNotificationHTML(text, imgSrc) {
     `;
 }
 
+/** Returns HTML for subtask */
 function renderSubtaskHTML(subtask, subtaskId) {
     return /*html*/ `
     <div id="${subtaskId}" class="subtask">
@@ -21,6 +23,7 @@ function renderSubtaskHTML(subtask, subtaskId) {
     </div>`;
 }
 
+/** Returns HTML for subtask in editing mode */
 function renderSubtaskListHTML(subtaskText, subtaskId) {
     return /*html*/`
         <div class="edit-subtask-container">
@@ -33,6 +36,7 @@ function renderSubtaskListHTML(subtaskText, subtaskId) {
         </div>`;
 }
 
+/** Returns HTML for subtask icon */
 function renderSubtaskIconHTML() {
     return /*html*/`
     <img onclick="cancelSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
@@ -40,6 +44,7 @@ function renderSubtaskIconHTML() {
     <img onclick="addSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
 }
 
+/** Returns HTML that provides contact with name, color, initals and checkboximg */
 function renderContactHTML(contact, color, initials, checkboxImage) {
     return /*html*/ `
         <div class="test-contact-container">
@@ -50,6 +55,7 @@ function renderContactHTML(contact, color, initials, checkboxImage) {
     `;
 }
 
+/** Returns HTML for assigned contact */
 function renderAssignedContactHTML(initials, color) {
     return /*html*/`
     <div class="assigned-contact">
@@ -57,6 +63,7 @@ function renderAssignedContactHTML(initials, color) {
     </div>`;
 }
 
+/** Returns HTML that provides contact option with contact details, selected class, backgroundcolor and index */
 function renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index){
     return /*html*/`
         <div class='option-item${selectedClass}' id='contact-${index}'${backgroundColorStyle}>

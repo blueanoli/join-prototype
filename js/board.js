@@ -4,10 +4,10 @@ let sections = [
     { id: 'board-feedback-container', text: 'No tasks await feedback' },
     { id: 'board-done-container', text: 'No tasks done' }
 ];
-const TASK_STATUSES = ['todo', 'in-progress', 'feedback', 'done'];
 
 let isOverlayOpen = false;
 
+/** Initializes Board */
 async function renderBoard() {
     await init();
     initializeTaskData();
@@ -17,15 +17,17 @@ async function renderBoard() {
     addBoardEventListeners();
 }
 
-// CHANGE SUBTASK STATUS
+/** Checks if given index is within bounds of specified array */
 function isValidIndex(index, array) {
     return index >= 0 && index < array.length;
 }
 
+/** Toggles completion status of specific subtask */
 function toggleSubtaskCompletion(subtask) {
     subtask.completed = !subtask.completed;
 }
 
+/** Updates image elements based on completion status of subtask */
 function updateImageElement(index, j, subtask) {
     let imgElement = document.querySelector(`.subtasks-check-container img[onclick='changeSubtaskStatus(${index}, ${j})']`);
     if (imgElement) {
@@ -34,6 +36,7 @@ function updateImageElement(index, j, subtask) {
     }
 }
 
+/** Changes completion status of specified subtask  */
 function changeSubtaskStatus(index, j){
     let task = tasksData[index];
     let subtask = task.subtasks[j];
@@ -50,21 +53,21 @@ function changeSubtaskStatus(index, j){
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
 }
 
-// TOAST MESSAGES -----------------------------------------------------------------------------------------------------
-
+/** Shows info when mouse enters subtask container */
 function showToastMessage(element) {
     let parentElement = element.closest('.mini-task-subtask-container');
     let toastMessage = parentElement.querySelector('.toast-message');
     toastMessage.style.display = 'block';
 }
 
+/** Hides info when mouse leaves subtask container */
 function hideToastMessage(element) {
     let parentElement = element.closest('.mini-task-subtask-container');
     let toastMessage = parentElement.querySelector('.toast-message');
     toastMessage.style.display = 'none';
 }
 
-// COLUMN LOGIC ---------------------------------------------------------------------------------------------------
+/** Iterates over each section and fills with tasks that match sections progress status */
 function displayAllTasks() {
 
     for (let j = 0; j < sections.length; j++) {
@@ -87,12 +90,10 @@ function displayAllTasks() {
     initializeDragAndDrop();
 }
 
-function isValidStatus(status) {
-    return TASK_STATUSES.includes(status);
-}
-
+/** Checks all sections in array and adds placeholder message or removes placeholder and empty class */
 function checkAllSections() {
-    sections.forEach(section => {
+    for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
         const column = document.getElementById(section.id);
         if (column.children.length === 0 || (column.children.length === 1 && column.firstElementChild.classList.contains('empty-column'))) {
             column.innerHTML = `<div class='empty-column'><span>${section.text}</span></div>`;
@@ -102,9 +103,10 @@ function checkAllSections() {
             if (placeholder) placeholder.remove();
             column.classList.remove('empty');
         }
-    });
+    }
 }
 
+/** Checks if specified section is empty and adds placeholder */
 function checkColumnEmpty(sectionId, emptyText) {
     let section = document.getElementById(sectionId);
 
@@ -120,8 +122,7 @@ function checkColumnEmpty(sectionId, emptyText) {
     }
 }
 
-// FILTER FUNCTION TASK TITLES --------------------------------------------------------------------------------------------------
-
+/** Filters tasksData array to return at least one word within task title */
 function getFilteredTasks(searchText, tasksData) {
     return tasksData.filter(task => {
         if (typeof task.title === 'string') {
@@ -131,6 +132,7 @@ function getFilteredTasks(searchText, tasksData) {
     });
 }
 
+/** Clears all columns in board */
 function clearColumns(sections) {
     for (let i = 0; i < sections.length; i++) {
         let column = document.getElementById(sections[i].id);
@@ -139,6 +141,7 @@ function clearColumns(sections) {
     }
 }
 
+/** Populates columns with tasks that match search text */
 function populateColumnsWithTasks(filteredTasks, tasksData) {
     for (let i = 0; i < filteredTasks.length; i++) {
         let task = filteredTasks[i];
@@ -146,28 +149,15 @@ function populateColumnsWithTasks(filteredTasks, tasksData) {
         let column = document.getElementById(sectionId);
 
         if (column) {
-            column.classList.remove('empty');
             let taskIndex = tasksData.indexOf(task);
             let taskElement = renderMiniTaskHTML(task, taskIndex);
             column.innerHTML += taskElement;
+            checkColumnEmpty(sectionId, task.progress);
         }
     }
 }
 
-function populateEmptyColumns(sections) {
-    for (let i = 0; i < sections.length; i++) {
-        let column = document.getElementById(sections[i].id);
-        if (!column.innerHTML.trim()) {
-            column.innerHTML = `
-                <div class='empty-column dotted-container'>
-                    <div class="dotted-container">
-                        <span>${sections[i].text}</span>
-                    </div>
-                </div>`;
-        }
-    }
-}
-
+/** Handles search input and filters tasks based on search text */
 function filterTasks() {
     const searchText = document.getElementById('search-tasks').value.toLowerCase();
     const filteredTasks = getFilteredTasks(searchText, tasksData);
@@ -181,5 +171,5 @@ function filterTasks() {
     }else{
         feedbackElement.style.display = 'block';
     }
-    populateEmptyColumns(sections);    
+    checkAllSections();    
 }

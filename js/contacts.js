@@ -229,6 +229,7 @@ function hideAddContactContainer() {
       contactsAddContainer.classList.remove("fade-out");
     }, 750);
     contactsAdd.classList.add("slide-out");
+    resetAddContactsChanges();
   }
 }
 
@@ -268,14 +269,14 @@ function addSpaceToPhoneNumber() {
 
 /* Displays an example of the required format of the phone input-field */
 function showPhoneFormat() {
-  let phone = document.getElementById("phone-format");
+  let phone = document.getElementById("input-phone-format");
 
   phone.classList.add("shown");
 }
 
 /* Hides the example of the required format of the phone input-field */
 function removePhoneFormat() {
-  let phone = document.getElementById("phone-format");
+  let phone = document.getElementById("input-phone-format");
 
   phone.classList.remove("shown");
 }
@@ -315,39 +316,41 @@ function resetAddContactsChanges() {
   let nameContainer = document.getElementById("name-container");
   let emailContainer = document.getElementById("email-container");
   let phoneContainer = document.getElementById("phone-container");
+  let textBox = document.getElementById("input-message");
 
   nameContainer.classList.remove("wrong-container");
   emailContainer.classList.remove("wrong-container");
   phoneContainer.classList.remove("wrong-container");
+  textBox.classList.remove("shown");
 }
 
 /* Shows that the name is already taken */
 function isExistingContactName(newName) {
   let nameContainer = document.getElementById("name-container");
-  let textBox = document.getElementById("phone-format");
+  let textBox = document.getElementById("input-message");
 
   nameContainer.classList.add("wrong-container");
-  textBox.style.display = "block";
+  textBox.classList.add("shown");
   textBox.innerHTML = `<b>${newName}</b> is already in the Contact-list.`;
 }
 
 /* Shows that the email is already taken */
 function isExistingContactEmail(newEmail) {
   let emailContainer = document.getElementById("email-container");
-  let textBox = document.getElementById("phone-format");
+  let textBox = document.getElementById("input-message");
 
   emailContainer.classList.add("wrong-container");
-  textBox.style.display = "block";
+  textBox.classList.add("shown");
   textBox.innerHTML = `The Email: <b>${newEmail}</b> is already existing.`;
 }
 
 /* Shows that the phone number is already taken */
 function isExistingContactPhone(newPhone) {
   let phoneContainer = document.getElementById("phone-container");
-  let textBox = document.getElementById("phone-format");
+  let textBox = document.getElementById("input-message");
 
   phoneContainer.classList.add("wrong-container");
-  textBox.style.display = "block";
+  textBox.classList.add("shown");
   textBox.innerHTML = `The number: <b>${newPhone}</b> is already in use.`;
 }
 

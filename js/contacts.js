@@ -280,20 +280,81 @@ function removePhoneFormat() {
   phone.classList.remove("shown");
 }
 
-/* Adds a new Contact if the submit is valid */
+/* Check's if the contact values are already exisiting */
 function addContact() {
-  let newName = document.getElementById("name");
-  let newEmail = document.getElementById("email");
-  let newPhone = document.getElementById("phone");
+  let newName = document.getElementById("name").value;
+  let newEmail = document.getElementById("email").value;
+  let newPhone = document.getElementById("phone").value;
 
   let contact = {
-    name: newName.value,
-    email: newEmail.value,
-    phone: newPhone.value,
+    name: newName,
+    email: newEmail,
+    phone: newPhone,
   };
 
+  let existingContactName = contacts.find((c) => c.name === newName);
+  let existingContactEmail = contacts.find((c) => c.email === newEmail);
+  let existingContactPhone = contacts.find((c) => c.phone === newPhone);
+
+  if (existingContactName) {
+    resetAddContactsChanges();
+    isExistingContactName(newName);
+  } else if (existingContactEmail) {
+    resetAddContactsChanges();
+    isExistingContactEmail(newEmail);
+  } else if (existingContactPhone) {
+    resetAddContactsChanges();
+    isExistingContactPhone(newPhone);
+  } else {
+    addNewContact(contact);
+  }
+}
+
+/* Resets Changes of an invalid contact-add submit */
+function resetAddContactsChanges() {
+  let nameContainer = document.getElementById("name-container");
+  let emailContainer = document.getElementById("email-container");
+  let phoneContainer = document.getElementById("phone-container");
+
+  nameContainer.classList.remove("wrong-container");
+  emailContainer.classList.remove("wrong-container");
+  phoneContainer.classList.remove("wrong-container");
+}
+
+/* Shows that the name is already taken */
+function isExistingContactName(newName) {
+  let nameContainer = document.getElementById("name-container");
+  let textBox = document.getElementById("phone-format");
+
+  nameContainer.classList.add("wrong-container");
+  textBox.style.display = "block";
+  textBox.innerHTML = `<b>${newName}</b> is already in the Contact-list.`;
+}
+
+/* Shows that the email is already taken */
+function isExistingContactEmail(newEmail) {
+  let emailContainer = document.getElementById("email-container");
+  let textBox = document.getElementById("phone-format");
+
+  emailContainer.classList.add("wrong-container");
+  textBox.style.display = "block";
+  textBox.innerHTML = `The Email: <b>${newEmail}</b> is already existing.`;
+}
+
+/* Shows that the phone number is already taken */
+function isExistingContactPhone(newPhone) {
+  let phoneContainer = document.getElementById("phone-container");
+  let textBox = document.getElementById("phone-format");
+
+  phoneContainer.classList.add("wrong-container");
+  textBox.style.display = "block";
+  textBox.innerHTML = `The number: <b>${newPhone}</b> is already in use.`;
+}
+
+/* Adds a new contact to the list if everything is valid */
+function addNewContact(contact) {
   contacts.push(contact);
-  let firstLetter = contact.name.charAt(0).toUpperCase();
+  let firstLetter = contact["name"].charAt(0).toUpperCase();
 
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();

@@ -388,15 +388,15 @@
   height: 24px;
 }
 
-.contacts-add-input-phone-format {
+.contacts-add-input-message {
   display: none;
+  position: absolute;
+  bottom: 160px;
+  font-size: 16px;
 }
 
-.contacts-add-input-phone-format.shown {
+.contacts-add-input-message.shown {
   display: block;
-  position: absolute;
-  bottom: 212px;
-  font-size: 14px;
 }
 
 .contacts-add-buttons-container {
@@ -454,4 +454,8 @@
   background-color: var(--light-blue);
   border: 1px solid var(--light-blue);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 25%);
+}
+
+.wrong-container {
+  border: 1px solid #ff001f;
 }

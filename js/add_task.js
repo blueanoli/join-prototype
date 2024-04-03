@@ -168,7 +168,7 @@ function addTaskAnimation(){
     let notification = document.getElementById('notification-container');
 
     notification.classList.add("animate");
-    notification.innerHTML = renderNotificationHTML();
+    notification.innerHTML = renderNotificationHTML("Task added to board", "assets/img/board_grey.svg");
 
     setTimeout(function() {
         notification.classList.remove("animate");

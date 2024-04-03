@@ -292,6 +292,8 @@
 .edit-task-contacts-container{
     box-sizing: border-box;
     padding: 24px 0;
+    height: 200px;
+    overflow: auto;
 }
 .test-contact-container-board{
     display: flex;
@@ -312,6 +314,9 @@
 .edit-task-subtasks-container{
     box-sizing: border-box;
     padding-bottom: 24px;
+    max-height: 200px;
+    overflow: auto;
+    padding-top: 16px;
 }
 .subtasks-check-container{
     display: flex;
@@ -349,6 +354,27 @@
     align-items: center;
     justify-content: flex-end;
     padding-bottom: 48px;
+}
+/* TASK OVERLAY ANIMATION */
+#notification-container-edit {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 9999;
+}
+#notification-container-edit.animate {
+    animation: slideInOverlay 0.2s ease-in-out forwards;
+}
+@keyframes slideInOverlay {
+    from {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 /* EDIT TASK EDIT MODE */
 .edit-mode-task-container{

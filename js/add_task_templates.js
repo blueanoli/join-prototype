@@ -1,8 +1,8 @@
-function renderNotificationHTML() {
+function renderNotificationHTML(text, imgSrc) {
     return /*html*/ `
     <div class="notification">
-        <p>Task added to board</p>
-        <img src="assets/img/board_grey.svg" alt="Board">
+        <p>${text}</p>
+        <img src="${imgSrc}" alt="Notification Icon">
     </div>
     `;
 }

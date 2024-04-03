@@ -1,12 +1,12 @@
 function renderTaskOverlayHTML(task, index) {
   const overlayContainer = document.getElementById('edit-task-overlay');
   const categorySvgPath = getCategorySvgPath(task.category);
-  let dueDate = new Date(task.dueDate); 
+  let dueDate = new Date(task.dueDate);
   let priority = task.priority || 'medium';
-  let formattedDueDate = dueDate.getDate().toString().padStart(2, '0') + '/' + 
-                         (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' + 
-                         dueDate.getFullYear();
-  
+  let formattedDueDate = dueDate.getDate().toString().padStart(2, '0') + '/' +
+    (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
+    dueDate.getFullYear();
+
 
   const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
@@ -62,6 +62,9 @@ function renderTaskOverlayHTML(task, index) {
             <span>Edit</span>
           </div>
         </div>
+      </div>
+      <div id="notification-wrapper-edit">
+        <div id="notification-container-edit"></div>
       </div>`;
 
   overlayContainer.innerHTML = htmlContent;
@@ -131,6 +134,9 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
                   src="assets/img/addtask_check_white.svg"></button>
       </div>
       </div>
+  </div>
+  <div id="notification-wrapper-edit">
+    <div id="notification-container-edit"></div>
   </div>`;
 }
 
@@ -139,13 +145,13 @@ function renderMiniTaskHTML(task, index) {
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   const categorySvgPath = getCategorySvgPath(task.category);
-  const subtasksContainerHtml = totalSubtasks > 0 ? 
+  const subtasksContainerHtml = totalSubtasks > 0 ?
     `<div class="progress-bar-container" onmouseenter="showToastMessage(this)" onmouseleave="hideToastMessage(this)">
             <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
             <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
       </div>
       <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
-  
+
   let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
   let priority = task.priority || 'medium';
 

@@ -154,13 +154,30 @@ function saveEditedTask(index){
     task.assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
 
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
-    closeTaskOverlay();
+    addBoardAnimation("Task was updated", "assets/img/addtask_check_white.svg");
+    setTimeout(closeTaskOverlay, 1500);
 }
 
 function deleteTask(index) {
     tasksData.splice(index, 1);
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
-    closeTaskOverlay();
+
+    addBoardAnimation("Task was deleted", "assets/img/delete_blue.svg");
+    setTimeout(closeTaskOverlay, 1500);
+}
+
+function addBoardAnimation(text, imgSrc) {
+    let notification = document.getElementById('notification-container-edit');
+
+    if (notification) {
+        notification.innerHTML = renderNotificationHTML(text, imgSrc);
+        notification.classList.add("animate");
+
+        setTimeout(() => {
+            notification.classList.remove("animate");
+            notification.innerHTML = '';
+        }, 2000);
+    }
 }
 
 // ADD TASK OVERLAY ----------------------------------------------------------------------------------------------------

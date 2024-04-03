@@ -57,7 +57,7 @@ function renderTaskOverlayHTML(task, index) {
             <span>Delete</span>
           </div>
           <span class="subtask-line"></span>
-          <div onclick="openEditTask(${index})" class="edit-task-footer-icons">
+          <div onclick="openEditTask(${index})" class="edit-task-footer-icons edit-icon-task">
             <img src="assets/img/pencil_grey.svg" alt="Edit">
             <span>Edit</span>
           </div>
@@ -72,6 +72,7 @@ function renderTaskOverlayHTML(task, index) {
 
 function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index) {
   return /*html*/`
+  <form>
   <div class="edit-task-container edit-mode-task-container">
   <div class="scroll-container">
       <div class="edit-task-header edit-mode-task-header">
@@ -120,7 +121,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       <div class="edit-task-subtasks-container edit-mode-task-subtasks-container">
           <span class="task-container-mini-headlines">Subtasks:</span>
       <div class="add-subtask">
-          <input type="text" id="subtasks" placeholder="Add new subtask">
+          <input type="text" id="edit-subtasks" placeholder="Add new subtask">
           <div id="icon-container">
               <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">
           </div>
@@ -135,6 +136,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       </div>
   </div>
+  </form>
   <div id="notification-wrapper-edit">
     <div id="notification-container-edit"></div>
   </div>`;
@@ -155,6 +157,16 @@ function renderMiniTaskHTML(task, index) {
   let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
   let priority = task.priority || 'medium';
 
+  let contactIconsHtml = task.assignedTo.slice(0, 4).map(person => `
+                          <div class="contact-icon-container mini-contact-icons">
+                              <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
+                          </div>
+                      `).join('');
+
+  let additionalContacts = task.assignedTo.length > 4 ? `<div class="contact-icon-container mini-contact-icons additional-contacts" style="background-color: var(--dark-blue)">
+    +${task.assignedTo.length - 4}
+  </div>` : '';
+
   return /*html*/`
       <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
           <div class="mini-task-header">
@@ -172,11 +184,8 @@ function renderMiniTaskHTML(task, index) {
           <div class="mini-task-footer-container">
               <div class="mini-task-contacts-container">
                   <div class="test-contact-container-board mini-contact-icons-container">
-                      ${task.assignedTo.map(person => `
-                          <div class="contact-icon-container mini-contact-icons">
-                              <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
-                          </div>
-                      `).join('')}
+                      ${contactIconsHtml}
+                      ${additionalContacts}
                   </div>
               </div>
               <div class="mini-task-prio-container">

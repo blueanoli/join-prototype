@@ -292,7 +292,7 @@
 .edit-task-contacts-container{
     box-sizing: border-box;
     padding: 24px 0;
-    height: 200px;
+    max-height: 200px;
     overflow: auto;
 }
 .test-contact-container-board{
@@ -302,6 +302,19 @@
     flex-direction: column;
     gap: 10px;
     padding-top: 8px;
+}
+.additional-contacts{
+    color: white;
+    border-radius: 45px;
+    border: 1px solid white;
+    height: 24px;
+    width: 24px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
 }
 .contact-icon-container{
     display: flex;
@@ -441,9 +454,11 @@
    display: flex;
    flex-direction: column;  
    gap: 8px; 
+   position: relative;
 }
 .edit-mode-plus-icon{
-    right: 16px;
+    right: -16px;
+    position: absolute;
 }
 /* MINITASK STYLE */
 .mini-task-container{

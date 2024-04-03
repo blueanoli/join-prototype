@@ -30,7 +30,7 @@ function initializeDragAndDrop() {
     });
 
     document.querySelectorAll('.progress-column').forEach(column => {
-        const dropZone = column.querySelector('.dotted-container-drag-drop');
+        let dropZone = column.querySelector('.dotted-container-drag-drop');
         
         column.addEventListener('dragover', (event) => {
             event.preventDefault();
@@ -70,8 +70,8 @@ function handleDragOver(event) {
 
 function handleDrop(event) {
     event.preventDefault();
-    const taskIndex = event.dataTransfer.getData('text/plain');
-    const taskElement = document.querySelector(`.mini-task-container[data-task-id="${taskIndex}"]`);
+    let taskIndex = event.dataTransfer.getData('text/plain');
+    let taskElement = document.querySelector(`.mini-task-container[data-task-id="${taskIndex}"]`);
     
     let targetContainer;
 
@@ -83,7 +83,7 @@ function handleDrop(event) {
         targetContainer.appendChild(taskElement); 
     }
 
-    const placeholder = targetContainer.querySelector('.empty-column');
+    let placeholder = targetContainer.querySelector('.empty-column');
     if (placeholder) {
         placeholder.style.display = 'none';
     }
@@ -150,4 +150,77 @@ function changeButtonColor() {
             btnMobile.src = 'assets/img/board_add_mobile.svg';
         });
     }
+}
+
+//EDIT TASK EVENTLISTENER ---------------------------------------------------------------------------------------------------------
+function setupEditFormEventListeners() {
+    let editForm = document.querySelector('.edit-task-container'); 
+    if (editForm) {
+        editForm.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                return false;
+            }
+        });
+    }
+}
+
+function disableEditFormEnterKeySubmission() {
+    let form = document.getElementById('edit-task-container');
+    if (form) {
+        form.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                return false;
+            }
+        });
+    }
+}
+
+function addEditSubtaskEventListener(){
+    let subtaskInput = document.getElementById('edit-subtasks'); 
+    let iconContainer = document.getElementById('icon-container'); 
+
+    subtaskInput.addEventListener('input', function() {
+        if (subtaskInput.value.trim() !== '') {
+            iconContainer.innerHTML = renderSubtaskIconHTML(); 
+        } else {
+            iconContainer.innerHTML = `<img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`; 
+        }
+    });
+}
+
+function setupEditInputEventListener() {
+    let subtaskInput = document.getElementById('edit-subtasks'); 
+    subtaskInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault(); 
+
+            let isEditing = document.querySelector('.editing');
+            if (isEditing) {
+                let subtaskId = isEditing.id; 
+                saveEditedEditSubtask(subtaskId); 
+            } else {
+                addEditSubtask(); 
+            }
+        }
+    });
+}
+
+function addBoardEventListeners() {
+    document.body.addEventListener('click', function(event) {
+        if (event.target.matches('.edit-icon-task')) { 
+            let taskId = event.target.getAttribute('data-task-id');
+            openEditTask(taskId);
+        }
+    });
+    initializeDragAndDrop();
+    changeButtonColor();
+}
+
+function setupSubtaskEventListeners() {
+    setupEditFormEventListeners();
+    disableEditFormEnterKeySubmission();
+    addEditSubtaskEventListener();
+    setupEditInputEventListener();
 }

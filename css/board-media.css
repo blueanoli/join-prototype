@@ -82,8 +82,17 @@
     #add-task-btn-board-mobile {
         margin-right: 18px;
         cursor: pointer;
+        width: 40px;
     }
     .board-container{
         padding-bottom: calc(80px + 70%);
+    }
+    .dotted-container{
+        width: 90%;
+    }
+    .progress-container{
+        margin-left: 16px;
+        margin-right: 16px;
+        width: 90%;
     }
 }

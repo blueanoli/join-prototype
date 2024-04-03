@@ -14,8 +14,7 @@ async function renderBoard() {
     loadTasksFromLocalStorage();
     displayAllTasks();
     checkAllSections();
-    initializeDragAndDrop();
-    changeButtonColor();
+    addBoardEventListeners();
 }
 
 // CHANGE SUBTASK STATUS

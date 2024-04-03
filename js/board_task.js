@@ -51,6 +51,7 @@ function openEditTask(index) {
 
     let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
+    setupSubtaskEventListeners();
     initializePrioritySelectionInEditMode(task.priority);
 }
 
@@ -246,4 +247,68 @@ function closeAddTask() {
     container.removeAttribute('w3-include-html');
 
     isOverlayOpen = false; 
+}
+
+// SUBTASK LOGIC-----------------------------------------------------------------------------------------
+function addEditSubtask() {
+    let subtaskInput = document.getElementById('edit-subtasks'); // Geänderte ID für den Input im Bearbeitungsmodus
+    let subtask = subtaskInput.value;
+    let subtaskContainer = document.getElementById('edit-subtask-container'); // Geänderte ID für den Container im Bearbeitungsmodus
+    let subtaskId = 'edit-subtask-' + subtaskCounter++; // Geänderte ID-Struktur für Subtasks im Bearbeitungsmodus
+
+    subtaskContainer.innerHTML += renderEditSubtaskHTML(subtask, subtaskId);
+
+    subtaskInput.value = ''; // Input-Feld leeren
+    document.getElementById('edit-icon-container').innerHTML = `
+    <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+}
+
+function removeEditSubtask(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    if (subtaskElement) {
+        subtaskElement.remove();
+        subtaskCounter--;
+    }
+    document.getElementById('edit-subtask-container').style.overflowY = 'auto'; // Geänderte ID für den Container im Bearbeitungsmodus
+}
+
+function editEditSubtask(subtaskId) {
+    let subtaskDiv = document.getElementById(subtaskId);
+    subtaskDiv.classList.add('editing');
+    let subtaskText = subtaskDiv.innerText;
+
+    document.getElementById('edit-subtask-container').style.overflowY = 'hidden'; // Geänderte ID für den Container im Bearbeitungsmodus
+    subtaskDiv.innerHTML = renderEditSubtaskListHTML(subtaskText, subtaskId);
+    document.getElementById(`edit-${subtaskId}`).focus();
+}
+
+function saveEditedEditSubtask(subtaskId) {
+    let subtaskDiv = document.getElementById(subtaskId);
+    let inputField = document.getElementById(`edit-${subtaskId}`);
+    let newValue = inputField.value;
+    
+    subtaskDiv.innerHTML = `
+        <ul>
+            <li>${newValue}</li>
+        </ul>
+        <div class="subtask-icons">
+            <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
+            <div class="subtask-line"></div>
+            <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
+        </div>
+    `;
+    subtaskDiv.classList.remove('editing');
+    document.getElementById('edit-subtask-container').style.overflowY = 'auto'; // Geänderte ID für den Container im Bearbeitungsmodus
+}
+
+function clearEditSubtasks() {
+    let subtaskContainer = document.getElementById('edit-subtask-container'); // Geänderte ID für den Container im Bearbeitungsmodus
+    subtaskContainer.innerHTML = '';
+    subtaskCounter = 0; 
+}
+
+function cancelEditSubtask() {
+    document.getElementById('edit-subtasks').value = ''; // Geänderte ID für den Input im Bearbeitungsmodus
+    document.getElementById('edit-icon-container').innerHTML = `
+        <img onclick="addEditSubtask()" class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
 }

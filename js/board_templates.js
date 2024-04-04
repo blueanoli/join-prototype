@@ -2,7 +2,7 @@ function renderTaskOverlayHTML(task, index) {
   const overlayContainer = document.getElementById('edit-task-overlay');
   const categorySvgPath = getCategorySvgPath(task.category);
   let dueDate = new Date(task.dueDate);
-  let priority = task.priority || 'medium';
+  let priority = task.priority;
   let formattedDueDate = dueDate.getDate().toString().padStart(2, '0') + '/' +
     (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
     dueDate.getFullYear();
@@ -155,7 +155,7 @@ function renderMiniTaskHTML(task, index) {
       <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
 
   let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
-  let priority = task.priority || 'medium';
+  let priority = task.priority;
 
   let contactIconsHtml = task.assignedTo.slice(0, 3).map(person => `
                           <div class="contact-icon-container mini-contact-icons">

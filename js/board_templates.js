@@ -168,9 +168,11 @@ function renderMiniTaskHTML(task, index) {
   </div>` : '';
 
   return /*html*/`
-      <div onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
-          <div class="mini-task-header">
+      <div id="mini-task-container${index}" onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
+      <div id="mini-task-content${index}"> 
+      <div class="mini-task-header">
               <img src="${categorySvgPath}" alt="${task.category}">
+              <img onclick="openMinitaskMenu(event, ${index})" id="minitask-menu" class="minitask-menu" src="assets/img/contact_options_dark.svg" alt="Close">
           </div>
           <div class="mini-task-title-container">
               <span>${task.title}</span>
@@ -192,5 +194,39 @@ function renderMiniTaskHTML(task, index) {
                   <img src="assets/img/addtask_${priority.toLowerCase()}.svg" alt="${task.priority}">
               </div>
           </div>
-      </div>`;
+      </div>
+      <div id="mini-task-menu${index}" style="display: none;">
+                ${renderMinitaskMenuHTML(index)}
+            </div>
+  </div>
+  `;
+}
+
+function renderMinitaskMenuHTML(index) {
+  return /*html*/`
+  <div class="minitask-menu-content"> 
+  <div class="minitask-menu-header">
+    <span>Move Task</span>
+    <img onclick="closeMinitaskMenu(event, ${index})" src="assets/img/cancel_dark.svg" alt="">
+  </div>
+  <div class="minitask-menu-container">
+    <div class="minitask-menu-item">
+      <img src="assets/img/checkboxempty.svg" alt="">
+      <span>To Do</span>
+    </div>
+    <div class="minitask-menu-item">
+      <img src="assets/img/checkboxempty.svg" alt="">
+      <span>In Progress</span>
+    </div>
+    <div class="minitask-menu-item">
+      <img src="assets/img/checkboxempty.svg" alt="">
+      <span>Await Feedback</span>
+    </div>
+    <div class="minitask-menu-item">
+      <img src="assets/img/checkboxempty.svg" alt="">
+      <span>Done</span>
+    </div>
+  </div>
+  </div>
+  `;
 }

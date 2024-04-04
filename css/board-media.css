@@ -95,4 +95,10 @@
         margin-right: 16px;
         width: 90%;
     }
+    .minitask-menu{
+        display: flex
+    }
+    .mini-task-container:hover{
+        transform: rotate(0deg);
+    }
 }

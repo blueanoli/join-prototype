@@ -87,7 +87,7 @@ function displayAllTasks() {
             }
         }
     }
-    initializeDragAndDrop();
+    handleResize();
 }
 
 /** Checks all sections in array and adds placeholder message or removes placeholder and empty class */

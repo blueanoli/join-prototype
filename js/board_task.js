@@ -201,7 +201,8 @@ function shouldRedirectToMobileView() {
 }
 
 function prepareBoardForNewTask() {
-    populateEmptyColumns(sections);
+    populateColumnsWithTasks(sections);
+    checkAllSections();
     isOverlayOpen = true;
 }
 
@@ -235,7 +236,8 @@ function activateContainer(progressStatus) {
 
 function closeAddTask() {
     if (!isOverlayOpen) return;
-    populateEmptyColumns(sections)
+    populateColumnsWithTasks(sections)
+    checkAllSections();
 
     let container = document.getElementById('add-task-container-board');
     let overlay = document.getElementById('page-overlay');
@@ -251,14 +253,14 @@ function closeAddTask() {
 
 // SUBTASK LOGIC-----------------------------------------------------------------------------------------
 function addEditSubtask() {
-    let subtaskInput = document.getElementById('edit-subtasks'); // Geänderte ID für den Input im Bearbeitungsmodus
+    let subtaskInput = document.getElementById('edit-subtasks'); 
     let subtask = subtaskInput.value;
-    let subtaskContainer = document.getElementById('edit-subtask-container'); // Geänderte ID für den Container im Bearbeitungsmodus
-    let subtaskId = 'edit-subtask-' + subtaskCounter++; // Geänderte ID-Struktur für Subtasks im Bearbeitungsmodus
+    let subtaskContainer = document.getElementById('edit-subtask-container');
+    let subtaskId = 'edit-subtask-' + subtaskCounter++; 
 
     subtaskContainer.innerHTML += renderEditSubtaskHTML(subtask, subtaskId);
 
-    subtaskInput.value = ''; // Input-Feld leeren
+    subtaskInput.value = ''; 
     document.getElementById('edit-icon-container').innerHTML = `
     <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
 }
@@ -269,7 +271,7 @@ function removeEditSubtask(subtaskId) {
         subtaskElement.remove();
         subtaskCounter--;
     }
-    document.getElementById('edit-subtask-container').style.overflowY = 'auto'; // Geänderte ID für den Container im Bearbeitungsmodus
+    document.getElementById('edit-subtask-container').style.overflowY = 'auto';
 }
 
 function editEditSubtask(subtaskId) {
@@ -277,7 +279,7 @@ function editEditSubtask(subtaskId) {
     subtaskDiv.classList.add('editing');
     let subtaskText = subtaskDiv.innerText;
 
-    document.getElementById('edit-subtask-container').style.overflowY = 'hidden'; // Geänderte ID für den Container im Bearbeitungsmodus
+    document.getElementById('edit-subtask-container').style.overflowY = 'hidden'; 
     subtaskDiv.innerHTML = renderEditSubtaskListHTML(subtaskText, subtaskId);
     document.getElementById(`edit-${subtaskId}`).focus();
 }
@@ -298,17 +300,33 @@ function saveEditedEditSubtask(subtaskId) {
         </div>
     `;
     subtaskDiv.classList.remove('editing');
-    document.getElementById('edit-subtask-container').style.overflowY = 'auto'; // Geänderte ID für den Container im Bearbeitungsmodus
+    document.getElementById('edit-subtask-container').style.overflowY = 'auto'; 
 }
 
 function clearEditSubtasks() {
-    let subtaskContainer = document.getElementById('edit-subtask-container'); // Geänderte ID für den Container im Bearbeitungsmodus
+    let subtaskContainer = document.getElementById('edit-subtask-container'); 
     subtaskContainer.innerHTML = '';
     subtaskCounter = 0; 
 }
 
 function cancelEditSubtask() {
-    document.getElementById('edit-subtasks').value = ''; // Geänderte ID für den Input im Bearbeitungsmodus
+    document.getElementById('edit-subtasks').value = ''; 
     document.getElementById('edit-icon-container').innerHTML = `
         <img onclick="addEditSubtask()" class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+}
+
+function openMinitaskMenu(event, index) {
+    event.stopPropagation();
+    let minitaskContent = document.getElementById(`mini-task-content${index}`);
+    minitaskContent.style.display = 'none';
+    let minitaskMenu = document.getElementById(`mini-task-menu${index}`);
+    minitaskMenu.style.display = 'block';
+}
+
+function closeMinitaskMenu(event, index) {
+    event.stopPropagation();
+    let minitaskMenu = document.getElementById(`mini-task-menu${index}`);
+    minitaskMenu.style.display = 'none';
+    let minitaskContent = document.getElementById(`mini-task-content${index}`);
+    minitaskContent.style.display = 'block';
 }

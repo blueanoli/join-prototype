@@ -122,7 +122,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
           <span class="task-container-mini-headlines">Subtasks:</span>
       <div class="add-subtask">
           <input type="text" id="edit-subtasks" placeholder="Add new subtask">
-          <div id="icon-container">
+          <div id="edit-icon-container">
               <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">
           </div>
       </div>
@@ -229,4 +229,11 @@ function renderMinitaskMenuHTML(index) {
   </div>
   </div>
   `;
+}
+
+function renderEditSubtaskIconHTML() {
+  return /*html*/`
+  <img onclick="cancelEditSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
+  <div class="subtask-line"></div>
+  <img onclick="addEditSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
 }

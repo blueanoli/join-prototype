@@ -32,6 +32,11 @@ function openEditTask(index) {
     let subtasksHtml = '';
     let task = tasksData[index];
 
+    if (!task || !task.assignedTo) {
+        console.error("Task oder assignedTo nicht gefunden", task);
+        return; // Verhindere das weitere Ausführen der Funktion, wenn ein Fehler auftritt
+    }
+
     for (let i = 0; i < task.assignedTo.length; i++) {
         let contact = task.assignedTo[i];
         assignedContactsHtml += `
@@ -254,67 +259,86 @@ function closeAddTask() {
 // SUBTASK LOGIC-----------------------------------------------------------------------------------------
 function addEditSubtask() {
     let subtaskInput = document.getElementById('edit-subtasks'); 
-    let subtask = subtaskInput.value;
-    let subtaskContainer = document.getElementById('edit-subtask-container');
-    let subtaskId = 'edit-subtask-' + subtaskCounter++; 
+    let subtaskValue = subtaskInput.value.trim();
+    let subtaskContainer = document.getElementById('subtask-container');
+    if(subtaskValue) {
+        let subtaskId = 'edit-subtask-' + subtaskCounter++;
+        subtaskContainer.innerHTML += renderEditSubtaskHTML(subtaskValue, subtaskId);
 
-    subtaskContainer.innerHTML += renderEditSubtaskHTML(subtask, subtaskId);
-
-    subtaskInput.value = ''; 
-    document.getElementById('edit-icon-container').innerHTML = `
-    <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+        subtaskInput.value = ''; 
+        document.getElementById('edit-icon-container').innerHTML = `
+        <img onclick="addEditSubtask()" class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+    }
 }
+
 
 function removeEditSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
-    if (subtaskElement) {
-        subtaskElement.remove();
-        subtaskCounter--;
-    }
-    document.getElementById('edit-subtask-container').style.overflowY = 'auto';
+    subtaskElement.remove();
 }
 
 function editEditSubtask(subtaskId) {
-    let subtaskDiv = document.getElementById(subtaskId);
-    subtaskDiv.classList.add('editing');
-    let subtaskText = subtaskDiv.innerText;
-
-    document.getElementById('edit-subtask-container').style.overflowY = 'hidden'; 
-    subtaskDiv.innerHTML = renderEditSubtaskListHTML(subtaskText, subtaskId);
-    document.getElementById(`edit-${subtaskId}`).focus();
+    let subtaskElement = document.getElementById(subtaskId);
+    let subtaskValue = subtaskElement.querySelector('li').textContent;
+    subtaskElement.innerHTML = renderEditSubtaskInputHTML(subtaskValue, subtaskId);
 }
 
 function saveEditedEditSubtask(subtaskId) {
-    let subtaskDiv = document.getElementById(subtaskId);
-    let inputField = document.getElementById(`edit-${subtaskId}`);
-    let newValue = inputField.value;
-    
-    subtaskDiv.innerHTML = `
+    let inputField = document.querySelector(`#${subtaskId} input`);
+    let newValue = inputField.value.trim();
+    if(newValue) {
+        let subtaskElement = document.getElementById(subtaskId);
+        subtaskElement.innerHTML = renderSavedEditSubtaskHTML(newValue, subtaskId);
+    }
+}
+
+function clearEditSubtasks() {
+    document.getElementById('subtask-container').innerHTML = '';
+}
+
+function cancelEditSubtask(subtaskId) {
+    let subtaskElement = document.getElementById(subtaskId);
+    let originalValue = subtaskElement.dataset.originalValue;
+    subtaskElement.innerHTML = renderSavedEditSubtaskHTML(originalValue, subtaskId);
+}
+
+function renderEditSubtaskInputHTML(value, subtaskId) {
+    return `
+        <input type="text" value="${value}" onblur="saveEditedEditSubtask('${subtaskId}')">
+        <span class="icon-container">
+            <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
+            <span>|</span>
+            <img onclick="saveEditedEditSubtask('${subtaskId}')" src="assets/img/addtask_check.svg" alt="">
+        </span>
+    `;
+}
+
+function renderSavedEditSubtaskHTML(value, subtaskId) {
+    return `
+        <li>${value}</li>
+        <div class="subtask-icons">
+            <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
+            <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
+        </div>
+    `;
+}
+
+function renderEditSubtaskHTML(subtask, subtaskId) {
+    return /*html*/ `
+    <div id="${subtaskId}" class="subtask">
         <ul>
-            <li>${newValue}</li>
+            <li>${subtask}</li>
         </ul>
         <div class="subtask-icons">
             <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
             <div class="subtask-line"></div>
             <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
         </div>
-    `;
-    subtaskDiv.classList.remove('editing');
-    document.getElementById('edit-subtask-container').style.overflowY = 'auto'; 
+    </div>`;
 }
 
-function clearEditSubtasks() {
-    let subtaskContainer = document.getElementById('edit-subtask-container'); 
-    subtaskContainer.innerHTML = '';
-    subtaskCounter = 0; 
-}
 
-function cancelEditSubtask() {
-    document.getElementById('edit-subtasks').value = ''; 
-    document.getElementById('edit-icon-container').innerHTML = `
-        <img onclick="addEditSubtask()" class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
-}
-
+// MINITASK MENU LOGIC-----------------------------------------------------------------------------------------
 function openMinitaskMenu(event, index) {
     event.stopPropagation();
     let minitaskContent = document.getElementById(`mini-task-content${index}`);

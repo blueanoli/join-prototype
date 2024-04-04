@@ -204,11 +204,11 @@ function disableEditFormEnterKeySubmission() {
 
 function addEditSubtaskEventListener() {
     let subtaskInput = document.getElementById('edit-subtasks');
-    let iconContainer = document.getElementById('icon-container');
+    let iconContainer = document.getElementById('edit-icon-container');
 
     subtaskInput.addEventListener('input', function () {
         if (subtaskInput.value.trim() !== '') {
-            iconContainer.innerHTML = renderSubtaskIconHTML();
+            iconContainer.innerHTML = renderEditSubtaskIconHTML();
         } else {
             iconContainer.innerHTML = `<img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
         }

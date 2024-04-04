@@ -19,6 +19,16 @@
     width: 1%;
 }
 }
+/* MAX WIDTH 1290px */
+@media (max-width: 1290px) {
+    .board-header{
+        margin-left: 240px;
+    }
+    .progress-container{
+        margin-left: 240px;
+        width: 78%;
+    }
+}
 /* MAX WIDTH 1000px */
 @media (max-width: 1000px) {
     .progress-header {

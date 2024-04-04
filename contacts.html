@@ -97,17 +97,22 @@
                     <img src="assets/img/phone.svg" alt="phone icon" />
                   </div>
                 </div>
-                <span id="input-phone-format" class="contacts-add-input-phone-format"
+                <span
+                  id="input-phone-format"
+                  class="contacts-add-input-phone-format"
                   >Format e.g.: +49 2222 22 222 2</span
                 >
-                <span id="input-message" class="contacts-add-input-message"></span>
+                <span
+                  id="input-message"
+                  class="contacts-add-input-message"
+                ></span>
               </div>
             </div>
             <div class="contacts-add-buttons-container">
               <button
                 id="contacts-add-cancel-button"
                 class="contacts-add-cancel-button"
-                onclick="hideAddContactContainer();"
+                onclick="hideAddContactContainer(); preventFormSubmit()"
                 onmouseover="changeAddContactCancelBlue()"
                 onmouseout="changeAddContactCancelDark()"
               >

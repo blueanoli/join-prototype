@@ -198,6 +198,7 @@ function showAddContactContainer() {
   let contactsAddContainer = document.querySelector(".contacts-add-container");
   let contactsAdd = document.querySelector(".contacts-add");
   clearAddContainerInputfields();
+  resetAddContactsChanges();
 
   if (contactsAddContainer) {
     contactsAddContainer.classList.add("fade-in");
@@ -223,13 +224,13 @@ function hideAddContactContainer() {
   let contactsAdd = document.querySelector(".contacts-add");
 
   if (contactsAddContainer) {
+    resetAddContactsChanges();
     contactsAddContainer.classList.remove("fade-in");
     contactsAddContainer.classList.add("fade-out");
     setTimeout(function () {
       contactsAddContainer.classList.remove("fade-out");
     }, 750);
     contactsAdd.classList.add("slide-out");
-    resetAddContactsChanges();
   }
 }
 
@@ -361,4 +362,13 @@ function addNewContact(contact) {
 
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
+}
+
+/* Prevents the form-submit if the "cancel"-button is clicked */
+function preventFormSubmit() {
+  let cancelButton = document.getElementById("contacts-add-cancel-button");
+
+  cancelButton.addEventListener("click", function (event) {
+    event.preventDefault();
+  });
 }

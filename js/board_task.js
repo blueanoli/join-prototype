@@ -1,26 +1,32 @@
 // TASK OVERLAY --------------------------------------------------------------------------------------------------------
 function handleTaskClick(index) {
-    const task = tasksData[index];
+    let task = tasksData[index];
+    let overlayContainer = document.getElementById('edit-task-overlay');
+    
+    renderTaskOverlayHTML(task, index);
+    activateOverlay(overlayContainer);
+    overlayContainer.style.display = 'block'; 
+}
+
+function deactivateOverlay(container) {
     let overlay = document.getElementById('page-overlay');
     let body = document.body;
 
-    overlay.classList.add('active');
-    body.style.overflow = 'hidden';
-    renderTaskOverlayHTML(task, index);
-    const overlayContainer = document.getElementById('edit-task-overlay');
-    overlayContainer.style.display = 'block'; 
+    overlay.classList.remove('active');
+    body.style.overflow = 'auto';
+    container.style.display = 'none'; 
+}
+
+function clearOverlayContent(container) {
+    container.innerHTML = '';
 }
 
 function closeTaskOverlay() {
     isEditMode = false;
     let overlayContainer = document.getElementById('edit-task-overlay');
-    let overlay = document.getElementById('page-overlay');
-    let body = document.body;
-    overlay.classList.remove('active');
-    body.style.overflow = 'auto';
-    overlayContainer.innerHTML = ''; 
-    overlayContainer.style.display = 'none'; 
 
+    deactivateOverlay(overlayContainer);
+    clearOverlayContent(overlayContainer);
     displayAllTasks();
     checkAllSections();
 }
@@ -191,7 +197,8 @@ function openAddTask(progressStatus) {
     prepareBoardForNewTask();
 
     let container = document.getElementById('add-task-container-board');
-    activateOverlay(container, progressStatus);
+    activateOverlay(container);
+    loadTaskForm(container, progressStatus);
 }
 
 function shouldRedirectToMobileView() {
@@ -208,7 +215,7 @@ function prepareBoardForNewTask() {
     isOverlayOpen = true;
 }
 
-function activateOverlay(container, progressStatus) {
+function activateOverlay(container) {
     let overlay = document.getElementById('page-overlay');
     let body = document.body;
 
@@ -216,6 +223,9 @@ function activateOverlay(container, progressStatus) {
     body.style.overflow = 'hidden';
     container.classList.remove('closing');
     container.classList.add('active');
+}
+
+function loadTaskForm(container, progressStatus) {
     container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
 
     includeHTML().then(() => {

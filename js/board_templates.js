@@ -157,14 +157,14 @@ function renderMiniTaskHTML(task, index) {
   let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
   let priority = task.priority || 'medium';
 
-  let contactIconsHtml = task.assignedTo.slice(0, 4).map(person => `
+  let contactIconsHtml = task.assignedTo.slice(0, 3).map(person => `
                           <div class="contact-icon-container mini-contact-icons">
                               <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
                           </div>
                       `).join('');
 
-  let additionalContacts = task.assignedTo.length > 4 ? `<div class="contact-icon-container mini-contact-icons additional-contacts" style="background-color: var(--dark-blue)">
-    +${task.assignedTo.length - 4}
+  let additionalContacts = task.assignedTo.length > 3 ? `<div class="contact-icon-container mini-contact-icons additional-contacts" style="background-color: var(--dark-blue)">
+    +${task.assignedTo.length - 3}
   </div>` : '';
 
   return /*html*/`

@@ -1,3 +1,15 @@
+/* MAX WIDTH 1360px */
+@media (max-width: 1360px) {
+    .progress-header{
+        gap: 16px;
+    }
+}
+/* MAX WIDTH 1290px */
+@media (max-width: 1290px) {
+    .progress-header{
+        gap: 12px;
+    }
+}
 /* MIN WIDTH 1000px */
 @media (min-width: 725px) {
     #add-task-btn-board-mobile {

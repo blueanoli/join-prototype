@@ -51,11 +51,17 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
         }));
 }
 
-function prepareSubtasks() {
+function prepareSubtasks(index) {
     let subtaskElements = document.getElementById('subtask-container').querySelectorAll('li');
-    return Array.from(subtaskElements).map((element, index) => ({
-        id: Date.now() + index, 
-        title: element.textContent,
-        completed: false
-    }));
+    return Array.from(subtaskElements).map((element, subtaskIndex) => {
+        let id = Date.now() + subtaskIndex;
+        let title = element.textContent;
+        let completed;
+        if (tasksData[index] && tasksData[index].subtasks[subtaskIndex]) {
+            completed = tasksData[index].subtasks[subtaskIndex].completed;
+        } else {
+            completed = element.dataset.completed === 'true';
+        }
+        return { id, title, completed };
+    });
 }

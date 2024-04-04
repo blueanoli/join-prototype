@@ -33,32 +33,28 @@ function openEditTask(index) {
     let task = tasksData[index];
 
     if (!task || !task.assignedTo) {
-        console.error("Task oder assignedTo nicht gefunden", task);
-        return; // Verhindere das weitere Ausführen der Funktion, wenn ein Fehler auftritt
+        return; 
     }
 
-    for (let i = 0; i < task.assignedTo.length; i++) {
-        let contact = task.assignedTo[i];
-        assignedContactsHtml += `
+    assignedContactsHtml = task.assignedTo.map(contact => `
         <div class="contact-icon-container">
             <p class="test-contact" style="background-color: ${contact.color}">${contact.initials}</p>
-        </div>`;
-    }
+        </div>
+    `).join('');
 
-    for (let j = 0; j < task.subtasks.length; j++) {
-        let subtask = task.subtasks[j];
-        subtasksHtml += `
-        <div class="subtasks-check-container">
-            <img onclick="changeSubtaskStatus(${index}, ${j})" class="subtask-check" src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
-            <span>${subtask.title}</span>
-        </div>`;
-    }
+    subtasksHtml = task.subtasks.map((subtask, subtaskIndex) => {
+        let subtaskId = `subtask-${index}-${subtaskIndex}`;
+        return renderEditSubtaskHTML(subtask.title, subtaskId);
+    }).join('');
+
 
     let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
+
     setupSubtaskEventListeners();
     initializePrioritySelectionInEditMode(task.priority);
 }
+
 
 function initializePrioritySelectionInEditMode(taskPriority) {
     let allPriorityDivs = document.querySelectorAll('.edit-mode-priority-container div');
@@ -158,6 +154,7 @@ function saveEditedTask(index){
     task.dueDate = document.getElementById('due-date').value;
     task.priority = editedTaskPriority || "medium";
     task.assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
+    task.subtasks = prepareSubtasks(index);
 
     localStorage.setItem('tasksData', JSON.stringify(tasksData));
     addBoardAnimation("Task was updated", "assets/img/addtask_check_white.svg");
@@ -262,19 +259,22 @@ function addEditSubtask() {
     let subtaskValue = subtaskInput.value.trim();
     let subtaskContainer = document.getElementById('subtask-container');
     if(subtaskValue) {
-        let subtaskId = 'edit-subtask-' + subtaskCounter++;
+        let taskIndex = tasksData.length - 1; // oder der Index der Aufgabe, die Sie gerade bearbeiten
+        let subtaskIndex = tasksData[taskIndex].subtasks.length;
+        let subtaskId = `edit-subtask-${taskIndex}-${subtaskIndex}`;
         subtaskContainer.innerHTML += renderEditSubtaskHTML(subtaskValue, subtaskId);
 
         subtaskInput.value = ''; 
         document.getElementById('edit-icon-container').innerHTML = `
         <img onclick="addEditSubtask()" class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
     }
+ 
 }
 
-
 function removeEditSubtask(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
-    subtaskElement.remove();
+    let subtask = document.getElementById(subtaskId);
+    subtask.remove();
+    localStorage.setItem('tasksData', JSON.stringify(tasksData));
 }
 
 function editEditSubtask(subtaskId) {
@@ -323,20 +323,18 @@ function renderSavedEditSubtaskHTML(value, subtaskId) {
     `;
 }
 
-function renderEditSubtaskHTML(subtask, subtaskId) {
+function renderEditSubtaskHTML(subtaskTitle, subtaskId, completed) {
     return /*html*/ `
-    <div id="${subtaskId}" class="subtask">
-        <ul>
-            <li>${subtask}</li>
-        </ul>
-        <div class="subtask-icons">
-            <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
-            <div class="subtask-line"></div>
-            <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
-        </div>
-    </div>`;
+        <div id="${subtaskId}" class="subtask">
+            <ul>
+                <li data-completed="${completed}">${subtaskTitle}</li>
+            </ul>
+            <div class="subtask-icons">
+                <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="Edit">
+                <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="Delete">
+            </div>
+        </div>`;
 }
-
 
 // MINITASK MENU LOGIC-----------------------------------------------------------------------------------------
 function openMinitaskMenu(event, index) {

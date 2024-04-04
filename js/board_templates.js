@@ -210,20 +210,20 @@ function renderMinitaskMenuHTML(index) {
     <img onclick="closeMinitaskMenu(event, ${index})" src="assets/img/cancel_dark.svg" alt="">
   </div>
   <div class="minitask-menu-container">
-    <div class="minitask-menu-item">
-      <img src="assets/img/checkboxempty.svg" alt="">
+    <div class="minitask-menu-item" onclick="updateTaskProgressMobile(event, ${index}, 'todo')">
+      <img src="assets/img/${tasksData[index].progress === 'todo' ? 'checkboxchecked.svg' : 'checkboxempty.svg'}" alt="">
       <span>To Do</span>
     </div>
-    <div class="minitask-menu-item">
-      <img src="assets/img/checkboxempty.svg" alt="">
+    <div class="minitask-menu-item" onclick="updateTaskProgressMobile(event, ${index}, 'in-progress')">
+      <img src="assets/img/${tasksData[index].progress === 'in-progress' ? 'checkboxchecked.svg' : 'checkboxempty.svg'}" alt="">
       <span>In Progress</span>
     </div>
-    <div class="minitask-menu-item">
-      <img src="assets/img/checkboxempty.svg" alt="">
+    <div class="minitask-menu-item" onclick="updateTaskProgressMobile(event, ${index}, 'feedback')">
+      <img src="assets/img/${tasksData[index].progress === 'feedback' ? 'checkboxchecked.svg' : 'checkboxempty.svg'}" alt="">
       <span>Await Feedback</span>
     </div>
-    <div class="minitask-menu-item">
-      <img src="assets/img/checkboxempty.svg" alt="">
+    <div class="minitask-menu-item" onclick="updateTaskProgressMobile(event, ${index}, 'done')">
+      <img src="assets/img/${tasksData[index].progress === 'done' ? 'checkboxchecked.svg' : 'checkboxempty.svg'}" alt="">
       <span>Done</span>
     </div>
   </div>

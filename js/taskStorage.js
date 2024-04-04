@@ -37,6 +37,14 @@ function updateTaskProgress(taskId, newColumnId) {
     }
 }
 
+function updateTaskProgressMobile(event, index, newProgress){
+    event.stopPropagation();
+    tasksData[index].progress = newProgress;
+    saveTasksToLocalStorage();
+    displayAllTasks();
+    checkAllSections();
+}
+
 function getCategorySvgPath(categoryText) {
     return categoryToSvgMap[categoryText];
 }

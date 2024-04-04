@@ -110,7 +110,7 @@ function checkLetterContainer(contact, firstLetter) {
   showContacts();
 }
 
-/* Generates a object key with the generated letter and saves the contact in the appropriate object */
+/* Generates a object key with the generated letter and saves the contact in the appropriate ordered object */
 function showContacts() {
   let letters = Object.keys(contactsByLetter);
   let sortedLetters = letters.sort();
@@ -123,13 +123,32 @@ function showContacts() {
 
     letterContainerHTML(contactsDiv, letter);
     let contacts = contactsByLetter[letter];
+    contacts = sortBySecondName(contacts);
 
     for (let j = 0; j < contacts.length; j++) {
       let contact = contacts[j];
       setBackgroundColor(contact);
-      contactContainerHTML(contactsDiv, contact);
+      contactContainerHTML(contactsDiv, contact, letter, j);
     }
   }
+}
+
+/* Sorts the contact alphabetical by the second name if it's available */
+function sortBySecondName(contactList) {
+  contactList.sort((a, b) => {
+    let lastNameA = "";
+    let lastNameB = "";
+
+    if (a.name.split(" ").length > 1) {
+      lastNameA = a.name.split(" ")[1];
+    }
+    if (b.name.split(" ").length > 1) {
+      lastNameB = b.name.split(" ")[1];
+    }
+    return lastNameA.localeCompare(lastNameB);
+  });
+
+  return contactList;
 }
 
 /* Displays the letter div */
@@ -167,14 +186,14 @@ function getDifferentBackgroundColor() {
 }
 
 /* Displays the individual contact */
-function contactContainerHTML(contactsDiv, contact) {
+function contactContainerHTML(contactsDiv, contact, letter, j) {
   let contactsName = contact["name"];
   let contactsEmail = contact["email"];
   let contactsColor = setBackgroundColor(contact);
   let acronym = getAcronyms(contactsName);
 
   return (contactsDiv.innerHTML += `
-  <div class="contacts-contact-data">
+  <div id="${letter}${j}" class="contacts-contact-data">
     <div class="contacts-acronym-container" style="background-color: ${contactsColor};">
       <span>${acronym}</span>
     </div>

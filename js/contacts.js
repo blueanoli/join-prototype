@@ -189,11 +189,23 @@ function getDifferentBackgroundColor() {
 function contactContainerHTML(contactsDiv, contact, letter, j) {
   let contactsName = contact["name"];
   let contactsEmail = contact["email"];
+  let contactsPhone = contact["phone"];
   let contactsColor = setBackgroundColor(contact);
   let acronym = getAcronyms(contactsName);
+  let contactsID = letter + j;
 
   return (contactsDiv.innerHTML += `
-  <div id="${letter}${j}" class="contacts-contact-data">
+  <div 
+    id="${contactsID}" 
+    class="contacts-contact-data" 
+    onclick="showContactDetails(
+      '${contactsName}', 
+      '${contactsEmail}',
+      '${contactsPhone}', 
+      '${acronym}', 
+      '${contactsColor}',
+      '${contactsID}')"
+  >
     <div class="contacts-acronym-container" style="background-color: ${contactsColor};">
       <span>${acronym}</span>
     </div>
@@ -379,6 +391,7 @@ function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
 
+  showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
 }
@@ -390,4 +403,90 @@ function preventFormSubmit() {
   cancelButton.addEventListener("click", function (event) {
     event.preventDefault();
   });
+}
+
+/* Slides the register-msg in if the registration was successful and slides 
+it out after a specified delay */
+function showContactRegisterMsg() {
+  let registerMsg = document.getElementById("contacts-register-msg");
+
+  registerMsg.classList.add("contacts-add-register-msg-shown");
+  setTimeout(function () {
+    registerMsg.classList.remove("contacts-add-register-msg-hidden");
+    registerMsg.classList.add("contacts-add-register-msg-reverse");
+  }, 750);
+  setTimeout(function () {
+    registerMsg.classList.remove("contacts-add-register-msg-shown");
+    registerMsg.classList.remove("contacts-add-register-msg-reverse");
+    registerMsg.classList.add("contacts-add-register-msg-hidden");
+  }, 1500);
+}
+
+/* Displays a container with details about the clicked contact */
+function showContactDetails(
+  contactsName,
+  contactsEmail,
+  contactsPhone,
+  acronym,
+  contactsColor,
+  contactsID
+) {
+  let detailsContainer = document.getElementById("contacts-details");
+  detailsContainer.innerHTML = "";
+
+  changeContactDetailsBackground(contactsID);
+  detailsContainer.innerHTML = getContactDetailsHTML(
+    contactsName,
+    contactsEmail,
+    contactsPhone,
+    acronym,
+    contactsColor
+  );
+}
+
+/* Changes the background of the clicked contact in the contact-list */
+function changeContactDetailsBackground(contactsID) {
+  let background = document.getElementById(`${contactsID}`);
+
+  background.classList.toggle("clicked");
+}
+
+/* Displays the container with the contact details */
+function getContactDetailsHTML(
+  contactsName,
+  contactsEmail,
+  contactsPhone,
+  acronym,
+  contactsColor
+) {
+  return `
+  <div class="contacts-details-header">
+    <div class="contacts-details-acronym-container" style="background-color: ${contactsColor};">
+      <span>${acronym}</span>
+    </div>
+    <div>
+      <h2>${contactsName}</h2>
+      <div class="contacts-details-edit-container">
+        <div class="contacts-details-edit-icons">
+          <img src="assets/img/pencil_grey.svg">
+          <span>Edit</span>
+        </div>
+        <div class="contacts-details-edit-icons">
+          <img src="assets/img/delete.svg">
+          <span>Delete</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="contacts-details-contact-info">Contact Information</span>
+  <div class="contacts-details-email-phone-container">
+    <div class="contacts-details-email-phone">
+      <h3>Email</h3>
+      <span class="contacts-contact-details-email">${contactsEmail}</span>
+    </div>
+    <div class="contacts-details-email-phone">
+      <h3>Phone</h3>
+      <span>${contactsPhone}</span>
+    </div>
+  </div>`;
 }

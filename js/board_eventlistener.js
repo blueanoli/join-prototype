@@ -130,13 +130,13 @@ function handleDragEnd(event) {
     document.removeEventListener('mousemove', handleMouseMove);
 }
 
-function updateTaskStatus(taskIndex, newColumnId) {
+async function updateTaskStatus(taskIndex, newColumnId) {
     if (taskIndex < 0 || taskIndex >= tasksData.length) {
         return;
     }
 
     tasksData[taskIndex].progress = newColumnId.replace('board-', '').replace('-container', '');
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+    saveTasksToServer();
 
     displayAllTasks();
     checkAllSections();

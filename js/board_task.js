@@ -158,7 +158,7 @@ function updateAssignedContactsView() {
 }
 
 /** Updates task at specified index */
-function saveEditedTask(index){
+async function saveEditedTask(index){
     let task = tasksData[index]; 
     task.title = document.getElementById('edit-title').value;
     task.description = document.getElementById('edit-description').value;
@@ -167,16 +167,15 @@ function saveEditedTask(index){
     task.assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     task.subtasks = prepareSubtasks(index);
 
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+    await saveTasksToServer();
     addBoardAnimation("Task was updated", "assets/img/addtask_check_white.svg");
     setTimeout(closeTaskOverlay, 1500);
 }
 
 /** Deletes task from storage */
-function deleteTask(index) {
+async function deleteTask(index) {
     tasksData.splice(index, 1);
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
-
+    await saveTasksToServer();
     addBoardAnimation("Task was deleted", "assets/img/delete_blue.svg");
     setTimeout(closeTaskOverlay, 1500);
 }
@@ -326,7 +325,7 @@ function addEditSubtask() {
     let subtaskValue = subtaskInput.value.trim();
     let subtaskContainer = document.getElementById('subtask-container');
     if(subtaskValue) {
-        let taskIndex = tasksData.length - 1; // oder der Index der Aufgabe, die Sie gerade bearbeiten
+        let taskIndex = tasksData.length - 1; 
         let subtaskIndex = tasksData[taskIndex].subtasks.length;
         let subtaskId = `edit-subtask-${taskIndex}-${subtaskIndex}`;
         subtaskContainer.innerHTML += renderEditSubtaskHTML(subtaskValue, subtaskId);
@@ -343,10 +342,10 @@ function addEditSubtask() {
  *
  * @param {string} subtaskId - ID of subtask to remove.
  */
-function removeEditSubtask(subtaskId) {
+async function removeEditSubtask(subtaskId) {
     let subtask = document.getElementById(subtaskId);
     subtask.remove();
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+    await saveTasksToServer();
 }
 
 /**

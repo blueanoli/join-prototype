@@ -10,9 +10,8 @@ let isOverlayOpen = false;
 /** Initializes Board */
 async function renderBoard() {
     await init();
-    initializeTaskData();
-    loadTasksFromLocalStorage();
-    displayAllTasks();
+    await initializeTaskData();
+    await loadTasksFromServer();
     checkAllSections();
     addBoardEventListeners();
 }
@@ -37,7 +36,7 @@ function updateImageElement(index, j, subtask) {
 }
 
 /** Changes completion status of specified subtask  */
-function changeSubtaskStatus(index, j){
+async function changeSubtaskStatus(index, j){
     let task = tasksData[index];
     let subtask = task.subtasks[j];
     if (!isValidIndex(index, tasksData)) {
@@ -50,7 +49,8 @@ function changeSubtaskStatus(index, j){
 
     toggleSubtaskCompletion(subtask);
     updateImageElement(index, j, subtask);
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+
+    await saveTasksToServer();
 }
 
 /** Shows info when mouse enters subtask container */

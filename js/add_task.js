@@ -1,4 +1,3 @@
-// GLOBAL VARIABLE -------------------------------------------------------------------------------------------------------------------------------
 let subtaskCounter = 0;
 let testContacts = ['Albert Wesker', 'Chris Redfield', 'Jill Valentine', 'Brad Vickers', 'Claire Redfield', 'Barry Burton', 'Brian Irons'];
 let testCategories = ['Technical Task', 'User Story'];
@@ -18,8 +17,8 @@ let editedTaskPriority;
 /** Initializes AddTask */
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
     await init();
+    await loadTasksFromServer();
     chooseMediumPrio(); 
-    loadTasksFromLocalStorage();
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
@@ -140,7 +139,7 @@ function setPriority(priorityLevel, isEditModeFlag) {
 }
 
 /** Validates required fields, if there are no errors it creates a new task and plays animation */
-function addTask() {
+async function addTask() {
     checkRequiredField();
     if (hasErrors() || !checkDueDate()) {
         return;
@@ -148,7 +147,7 @@ function addTask() {
 
     let newTask = createNewTask();
     tasksData.push(newTask);
-    saveTasksToLocalStorage();
+    saveTasksToServer();
     addTaskAnimation();
 }
 

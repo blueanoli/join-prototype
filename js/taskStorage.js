@@ -4,45 +4,47 @@ const categoryToSvgMap = {
     "Technical Task": "assets/img/technical_task.svg",
     "User Story": "assets/img/user_story.svg"
 };
-// TEST FUNCTION TO STORE DATA IN LOCAL STORAGE --------------------------------------------------------------------------------------------------
 
-function initializeTaskData() {
-    const storedTasks = localStorage.getItem('tasksData');
+async function initializeTaskData() {
+    const storedTasks = await getItem('tasksData');
     if (!storedTasks) {
-        saveTasksToLocalStorage(); 
+        await saveTasksToServer(); 
+    } else {
+        tasksData = JSON.parse(storedTasks); 
+        displayAllTasks(); 
     }
 }
 
-function saveTasksToLocalStorage() {
-    localStorage.setItem('tasksData', JSON.stringify(tasksData));
+async function saveTasksToServer() {
+    await setItem('tasksData', JSON.stringify(tasksData)); 
 }
 
-function loadTasksFromLocalStorage() {
-    let storedTasks = localStorage.getItem('tasksData');
+async function loadTasksFromServer() {
+    const storedTasks = await getItem('tasksData');
     if (storedTasks) {
-        tasksData = JSON.parse(storedTasks);
+        tasksData = JSON.parse(storedTasks); 
     }
 
     if (typeof displayAllTasks === "function") {
-        displayAllTasks();
+        displayAllTasks(); 
     }
 }
 
-function updateTaskProgress(taskId, newColumnId) {
+async function updateTaskProgress(taskId, newColumnId) {
     let task = tasksData[taskId];
     if (task) {
         const newProgress = newColumnId.replace('board-', '').replace('-container', '');
         task.progress = newProgress;
-        saveTasksToLocalStorage();
+        await saveTasksToServer(); 
     }
 }
 
-function updateTaskProgressMobile(event, index, newProgress){
+async function updateTaskProgressMobile(event, index, newProgress) {
     event.stopPropagation();
     tasksData[index].progress = newProgress;
-    saveTasksToLocalStorage();
-    displayAllTasks();
-    checkAllSections();
+    await saveTasksToServer(); 
+    displayAllTasks(); 
+    checkAllSections(); 
 }
 
 function getCategorySvgPath(categoryText) {
@@ -59,18 +61,12 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
         }));
 }
 
-function prepareSubtasks(index) {
+function prepareSubtasks(taskIndex) {
     let subtaskElements = document.getElementById('subtask-container').querySelectorAll('li');
-    let subtaskIdCounter = localStorage.getItem('subtaskIdCounter') || 0;
     return Array.from(subtaskElements).map((element, subtaskIndex) => {
-        let id = subtaskIdCounter++;
+        let id = `subtask-${taskIndex}-${subtaskIndex}`;
         let title = element.textContent;
-        let completed;
-        if (tasksData[index] && tasksData[index].subtasks[subtaskIndex]) {
-            completed = tasksData[index].subtasks[subtaskIndex].completed;
-        } else {
-            completed = element.dataset.completed === 'true';
-        }
+        let completed = tasksData[taskIndex]?.subtasks[subtaskIndex]?.completed ?? (element.dataset.completed === 'true');
         return { id, title, completed };
     });
 }

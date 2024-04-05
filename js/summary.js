@@ -1,8 +1,10 @@
+/* Initializes and updates summary data. */
 async function renderSummary() {
     await init();
     updateSummaryData();
 }
 
+/* Show current daytime and greeting username or guest. */ 
 function dashboardGreeting() {
     let now = new Date();
     let hour = now.getHours();
@@ -25,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     dashboardGreeting();
 });
 
+/* Attaches mouse enter and leave event listeners to todo-box elements to trigger visual changes.*/
 function initializeTodoBoxes() {
     let todoBoxes = document.querySelectorAll('.todo-box');
     todoBoxes.forEach(function(box) {
@@ -33,18 +36,21 @@ function initializeTodoBoxes() {
     });
 }
 
+/* Updates image and text colors when the mouse enters a todo box. */
 function enterTodoBox() {
     const img = this.querySelector('.summary-item img');
     updateImageOnEnter(img);
     updateTextColors(this, 'white');
 }
 
+/* Resets image and text colors to their original state when the mouse leaves a todo box. */
 function leaveTodoBox() {
     const img = this.querySelector('.summary-item img');
     resetImageOnLeave(img);
     updateTextColors(this, '');
 }
 
+/* Changes the image source and styling on mouse enter */
 function updateImageOnEnter(img) {
     if (!img) return;
     if (img.src.includes('pencil_white.svg')) {
@@ -56,6 +62,7 @@ function updateImageOnEnter(img) {
     }
 }
 
+/* Reverts the image source and styling on mouse leave, restoring the original appearance. */
 function resetImageOnLeave(img) {
     if (!img) return;
     if (img.src.includes('pencil_grey.svg')) {
@@ -67,6 +74,7 @@ function resetImageOnLeave(img) {
     }
 }
 
+/*  Modifies the text color of elements within a given element. */
 function updateTextColors(element, color) {
     const texts = element.querySelectorAll('.summary-text, .number, span');
     texts.forEach(function(text) {
@@ -74,6 +82,7 @@ function updateTextColors(element, color) {
     });
 }
 
+/* Task counts based on their progress and priority. */
 function updateSummaryData() {
     const tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
     const summaryCounts = { 'todo': 0, 'in-progress': 0, 'feedback': 0, 'done': 0, 'urgent': 0 };
@@ -104,11 +113,13 @@ function updateSummaryData() {
     updateNextDeadline();
   }
 
+  /* Converts a date to a more readable format, standardizing date displays. */
   function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
 
+/* Displays the nearest upcoming task deadline, highlighting important dates. */
   function updateNextDeadline() {
     let tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
     tasksData = tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());

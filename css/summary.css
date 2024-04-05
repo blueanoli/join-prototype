@@ -177,13 +177,17 @@ h3 {
     display: none;
   }
 
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
     .right-container {
       display: none;
     }
     .summary-head {
         align-items: flex-start;
         flex-direction: column;        
+    }
+
+    .summary-container {
+        justify-content: center;
     }
     .vertical-line {
         display: none;
@@ -197,4 +201,7 @@ h3 {
         gap: 8px;
     }
 
+    .left-container {
+        width: 90%;
+    }
   }

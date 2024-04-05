@@ -197,7 +197,7 @@
 .edit-task-container {
     background-color: white;
     height: fit-content;
-    max-height: 850px;
+    max-height: 880px;
     max-width: 525px;
     width: 80%;
     position: fixed;
@@ -439,6 +439,11 @@
    flex-direction: column;
    align-items: flex-start;
    gap: 8px;
+   max-height: none;
+   overflow: visible;
+}
+.edit-mode-assign-contacts{
+    height: 50px;
 }
 .edit-mode-wrapper{
     width: 100%;
@@ -454,6 +459,13 @@
    flex-direction: column;  
    gap: 8px; 
    position: relative;
+   max-height: none;
+}
+.edit-subtask-input{
+    margin-bottom: 0;
+}
+.edit-mode-subtask-container{
+    min-height: 80px;
 }
 /* MINITASK STYLE */
 .mini-task-container{

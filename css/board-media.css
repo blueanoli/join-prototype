@@ -82,6 +82,7 @@
         margin-right: 0;
     }
     .mini-task-container{
+        max-width: 200px;
         width: fit-content;
     }
     .progress-column, .dotted-container {
@@ -122,5 +123,11 @@
     }
     .mini-task-container:hover{
         transform: rotate(0deg);
+    }
+}
+/* MAX WIDTH 400px */
+@media (max-width: 400px) {
+    .dotted-container{
+        min-width: 200px;
     }
 }

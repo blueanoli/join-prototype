@@ -145,7 +145,8 @@ async function addTask() {
         return;
     }
 
-    let newTask = createNewTask();
+    let taskIndex = tasksData.length;
+    let newTask = createNewTask(taskIndex);
     tasksData.push(newTask);
     saveTasksToServer();
     addTaskAnimation();
@@ -163,7 +164,7 @@ function hasErrors() {
 }
 
 /** Creates a new task object with properties title, dueDate, category, priority, assignedTo, description, subtasks, progress and returns it */
-function createNewTask() {
+function createNewTask(taskIndex) {
     let container = document.getElementById('add-task-container-board');
     let progress = container ? container.getAttribute('data-progress-status') || 'todo' : 'todo';
     let title = document.getElementById('title').value;
@@ -172,7 +173,7 @@ function createNewTask() {
     let priority = selectedPriority; 
     let assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     let description = document.getElementById('description').value;
-    let subtasks = prepareSubtasks();
+    let subtasks = prepareSubtasks(taskIndex);
 
     return { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
 }

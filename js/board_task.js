@@ -52,8 +52,8 @@ function generateAssignedContactsHtml(task) {
 /** Generates HTML for each subtask */
 function generateSubtasksHtml(task, index) {
     return task.subtasks.map((subtask, subtaskIndex) => {
-        let subtaskId = `subtask-${index}-${subtaskIndex}`;
-        return renderEditSubtaskHTML(subtask.title, subtaskId);
+        let subtaskId = `edit-subtask-${index}-${subtaskIndex}`;
+        return renderEditSubtaskHTML(subtask.title, subtaskId, subtask.completed);
     }).join('');
 }
 
@@ -320,21 +320,22 @@ function closeAddTask() {
  * generates subtask ID, and appends rendered subtask HTML to subtask container.
  * Clears subtask input and updates 'edit-icon-container' HTML.
  */
-function addEditSubtask() {
+async function addEditSubtask() {
     let subtaskInput = document.getElementById('edit-subtasks'); 
     let subtaskValue = subtaskInput.value.trim();
-    let subtaskContainer = document.getElementById('subtask-container');
-    if(subtaskValue) {
-        let taskIndex = tasksData.length - 1; 
-        let subtaskIndex = tasksData[taskIndex].subtasks.length;
-        let subtaskId = `edit-subtask-${taskIndex}-${subtaskIndex}`;
-        subtaskContainer.innerHTML += renderEditSubtaskHTML(subtaskValue, subtaskId);
 
-        subtaskInput.value = ''; 
-        document.getElementById('edit-icon-container').innerHTML = `
-        <img onclick="addEditSubtask()" class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+    if (subtaskValue) {
+        // Angenommen, 'tasksData[index].subtasks' existiert und ist ein Array
+        let taskIndex = tasksData.length - 1;  // Beispiel, wie Sie den Index der aktuellen Aufgabe bestimmen könnten
+        tasksData[taskIndex].subtasks.push({ title: subtaskValue, completed: false });
+        await saveTasksToServer();  // Speichern der aktualisierten 'tasksData' auf dem Server
+
+        // Aktualisieren des Subtasks-Containers
+        let subtasksHtml = generateSubtasksHtml(tasksData[taskIndex], taskIndex);
+        document.getElementById('subtask-container').innerHTML = subtasksHtml;
+
+        subtaskInput.value = '';  // Zurücksetzen des Eingabefeldes nach dem Hinzufügen
     }
- 
 }
 
 /**

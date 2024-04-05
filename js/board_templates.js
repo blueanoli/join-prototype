@@ -6,6 +6,7 @@ function renderTaskOverlayHTML(task, index) {
   let formattedDueDate = dueDate.getDate().toString().padStart(2, '0') + '/' +
     (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
     dueDate.getFullYear();
+  let subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
 
 
   const htmlContent = /*html*/`
@@ -44,7 +45,7 @@ function renderTaskOverlayHTML(task, index) {
         </div>
         <div class="edit-task-subtasks-container">
           <span class="task-container-mini-headlines">Subtasks:</span>
-          ${task.subtasks.map((subtask, j) => `
+          ${subtasks.map((subtask, j) => `
     <div class="subtasks-check-container">
         <img onclick="changeSubtaskStatus(${index}, ${j})" class="subtask-check" id="subtask-check" src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
         <span>${subtask.title}</span>
@@ -111,22 +112,22 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
               <input oninput="filterContacts()" id="contact-search-input" type="text"
                   class="contact-search-input select-hide" placeholder="Type to search...">
               <img class="dropdown-arrow" id="img-dropdown" src="assets/img/addtask_dropdown.svg">
-              <div class="select-items select-hide"></div>
+              <div class="select-items select-hide edit-select"></div>
           </div> 
       </div>
-      <div id="assign-contacts">
+      <div class="edit-mode-assign-contacts" id="assign-contacts">
       ${assignedContactsHtml}
       </div>
       </div>
       <div class="edit-task-subtasks-container edit-mode-task-subtasks-container">
           <span class="task-container-mini-headlines">Subtasks:</span>
       <div class="add-subtask">
-          <input type="text" id="edit-subtasks" placeholder="Add new subtask">
+          <input class="edit-subtask-input" type="text" id="edit-subtasks" placeholder="Add new subtask">
           <div id="edit-icon-container">
               <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">
           </div>
       </div>
-      <div id="subtask-container">
+      <div class="edit-mode-subtask-container" id="subtask-container">
           ${subtasksHtml}
       </div>
       </div>
@@ -143,7 +144,8 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
 }
 
 function renderMiniTaskHTML(task, index) {
-  let completedSubtasks = task.subtasks.filter(subtask => subtask.completed).length;
+  let subtasks = Array.isArray(task.subtasks) ? task.subtasks : []; 
+  let completedSubtasks = subtasks.filter(subtask => subtask.completed).length; 
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   const categorySvgPath = getCategorySvgPath(task.category);

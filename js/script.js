@@ -19,6 +19,7 @@ const colors = [
   "--user-light-blue",
 ];
 
+/* Asynchronously stores data in remote storage using a POST request with a unique token for authentication. */
 async function setItem(key, value) {
   const payload = { key, value, token: STORAGE_TOKEN };
   return fetch(STORAGE_URL, {
@@ -27,6 +28,7 @@ async function setItem(key, value) {
   }).then((res) => res.json());
 }
 
+/* Retrieves data from remote storage using a token and key. */
 async function getItem(key) {
   const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
   return fetch(url)
@@ -37,17 +39,20 @@ async function getItem(key) {
     });
 }
 
+/* Initializes page-specific functions. */
 async function initPageFunctions() {
   updateUserIcon();
   setActive(); 
 }
 
+/* Initializes external pages */ 
 async function externalInit() {
   await includeHTML();
   disableContent();
   initPageFunctions();
 }
 
+/* Hides or modifies elements not applicable to external or unauthenticated users. */
 function disableContent() {
   const actions = [
     { id: 'menu-items', action: element => element.style.display = 'none' },
@@ -65,17 +70,20 @@ function disableContent() {
   });
 }
 
+/* Special initialization for help pages, remove help icon. */
 async function helpInit() {
   await includeHTML();
   document.getElementById('help-icon').style.display = 'none';
   initPageFunctions();
 }
 
+/* General initialization function for loading. */ 
 async function init() {
   await includeHTML();
   initPageFunctions();
 }
 
+/* Checks if the user is logged in and redirects to the login page if accessing a non-public page without authentication. */ 
 function checkIfIsLoggedIn() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   const currentPage = window.location.pathname.split('/').pop();
@@ -86,6 +94,7 @@ function checkIfIsLoggedIn() {
   }
 }
 
+/* Handles post-load activities like showing login prompts or initializing page content based on login status. */
 document.addEventListener('DOMContentLoaded', async () => {
   if (sessionStorage.getItem('loginRequired') === 'true') {
     sessionStorage.removeItem('loginRequired');
@@ -103,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+/* Dynamically includes templates. */
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -118,6 +128,7 @@ async function includeHTML() {
   initPageFunctions();
 }
 
+/* Marks the current navigation link as active based on the URL. */
 function setActive() {
   let currentPagePath = window.location.pathname;
   document
@@ -131,12 +142,14 @@ function setActive() {
     });
 }
 
+/* Displays the user menu and disables page scrolling to focus on the menu. */
 function openUserMenu() {
   document.getElementById("user-menu").classList.remove("d-none");
   document.body.style.overflow = "hidden";
   document.addEventListener("click", closeUserMenu, true);
 }
 
+/* Hides the user menu and re-enables scrolling when clicking outside the menu. */
 function closeUserMenu(event) {
   const userMenu = document.getElementById("user-menu");
   if (userMenu.contains(event.target)) {
@@ -147,7 +160,7 @@ function closeUserMenu(event) {
   document.removeEventListener("click", closeUserMenu, true);
 }
 
-//ASSIGN COLOR FOR USER AND GET INITALS
+/* Assign color for user and get initials */ 
 function getColorForInitials(initials) {
   let sum = 0;
   for (let i = 0; i < initials.length; i++) {
@@ -156,6 +169,7 @@ function getColorForInitials(initials) {
   return `var(${colors[sum % colors.length]})`;
 }
 
+/* Extracts initials from a full name. */
 function getInitials(name) {
   return name
     .split(" ")
@@ -164,19 +178,23 @@ function getInitials(name) {
     .toUpperCase();
 }
 
+/* Clears session storage and redirects to the login page, effectively logging out the user. */
 function logout() {
   sessionStorage.clear();
   window.location.href = 'index.html';
 }
 
+/* Navigates to the previous page in the browser history. */
 function goBack() {
   window.history.back();
 }
 
+/* Redirects to the board page. */ 
 function showBoardFromSummary() {
   window.location.href = 'board.html';
 }
 
+/* Updates the user icon display based on the stored username. */
 function updateUserIcon() {
   let userIcon = document.querySelector('.user-icon');
   if (userIcon) {
@@ -195,11 +213,13 @@ function updateUserIcon() {
   }
 }
 
+/* Determines if the current page is publicly accessible, affecting page behavior and content. */
 function isPublicPage() {
   let currentPage = window.location.pathname.split('/').pop();
   return publicPages.includes(currentPage);
 }
 
+/* Dynamically switches between mobile and desktop templates based on screen size and public access.*/
 async function switchTemplate(currentTemplate, isPublic) {
   let includeDiv = document.querySelector('[w3-include-html]');
   let cssLink = document.querySelector('link[href*="template.css"]');
@@ -211,6 +231,7 @@ async function switchTemplate(currentTemplate, isPublic) {
   }
 }
 
+/* Specific functions for switching to appropriate templates based on the current environment and device type. */
 async function switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
   if (currentTemplate !== 'assets/templates/mobile-template.html') {
     includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
@@ -233,6 +254,7 @@ async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isP
   }
 }
 
+/* Checks the browser window size and switches templates as needed. */
 async function checkWindowSize() {
   let includeDiv = document.querySelector('[w3-include-html]');
   if (includeDiv) {
@@ -243,6 +265,7 @@ async function checkWindowSize() {
   setActive();
 }
 
+/* Ensures the template and layout adapt to window size changes, maintaining usability and appearance. */
 window.addEventListener('resize', checkWindowSize);
 document.addEventListener('DOMContentLoaded', () => {
   checkWindowSize();

@@ -83,18 +83,26 @@ function updateTextColors(element, color) {
 }
 
 /* Task counts based on their progress and priority. */
-function updateSummaryData() {
-    const tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
-    const summaryCounts = { 'todo': 0, 'in-progress': 0, 'feedback': 0, 'done': 0, 'urgent': 0 };
+async function updateSummaryData() {
+    let storedTasksString = await getItem('tasksData'); 
+    let tasksData = JSON.parse(storedTasksString || '[]');
+
+    const summaryCounts = { 
+        'todo': 0, 
+        'in-progress': 0, 
+        'feedback': 0, 
+        'done': 0, 
+        'urgent': 0 
+    };
   
-    for (const task of tasksData) {
+    tasksData.forEach(task => {
       if (task.progress) {
         summaryCounts[task.progress] = (summaryCounts[task.progress] || 0) + 1;
       }
       if (task.priority === 'urgent') {
         summaryCounts['urgent']++;
       }
-    }
+    });
   
     const updateTextContent = (id, text) => {
       const element = document.getElementById(id);
@@ -110,7 +118,7 @@ function updateSummaryData() {
     updateTextContent('feedback-count', summaryCounts['feedback']);
     updateTextContent('all-tasks-count', tasksData.length);
 
-    updateNextDeadline();
+    updateNextDeadline(tasksData);
   }
 
   /* Converts a date to a more readable format, standardizing date displays. */
@@ -120,8 +128,7 @@ function updateSummaryData() {
 }
 
 /* Displays the nearest upcoming task deadline, highlighting important dates. */
-  function updateNextDeadline() {
-    let tasksData = JSON.parse(localStorage.getItem('tasksData')) || [];
+  async function updateNextDeadline(tasksData) {   
     tasksData = tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());
 
     tasksData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));

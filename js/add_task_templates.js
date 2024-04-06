@@ -56,12 +56,13 @@ function renderContactHTML(contact, color, initials, checkboxImage) {
 }
 
 /** Returns HTML for assigned contact */
-function renderAssignedContactHTML(initials, color) {
+function renderAssignedContactHTML(initials, color, contactName) {
     return /*html*/`
-    <div class="assigned-contact">
-        <div class="test-contact" style="background-color: ${color};">${initials}</div>
-    </div>`;
+        <div class="assigned-contact" data-contact-name="${contactName}">
+            <div class="test-contact" style="background-color: ${color};">${initials}</div>
+        </div>`;
 }
+
 
 /** Returns HTML that provides contact option with contact details, selected class, backgroundcolor and index */
 function renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index){

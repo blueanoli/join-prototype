@@ -51,16 +51,6 @@ function getCategorySvgPath(categoryText) {
     return categoryToSvgMap[categoryText];
 }
 
-function transformSelectedContactsToAssignedTo(selectedContacts) {
-    return Object.entries(selectedContacts)
-        .filter(([name, isSelected]) => isSelected) 
-        .map(([name]) => ({
-            name, 
-            color: getColorForInitials(getInitials(name)), 
-            initials: getInitials(name) 
-        }));
-}
-
 function prepareSubtasks(taskIndex) {
     let subtaskElements = document.getElementById('subtask-container').querySelectorAll('li');
     return Array.from(subtaskElements).map((element, subtaskIndex) => {

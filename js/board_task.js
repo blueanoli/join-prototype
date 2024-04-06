@@ -40,15 +40,6 @@ function closeTaskOverlay() {
     checkAllSections();
 }
 
-/** Generates HTML for each contact assigned to task */
-function generateAssignedContactsHtml(task) {
-    return task.assignedTo.map(contact => `
-        <div class="contact-icon-container">
-            <p class="test-contact" style="background-color: ${contact.color}">${contact.initials}</p>
-        </div>
-    `).join('');
-}
-
 /** Generates HTML for each subtask */
 function generateSubtasksHtml(task, index) {
     return task.subtasks.map((subtask, subtaskIndex) => {
@@ -59,6 +50,8 @@ function generateSubtasksHtml(task, index) {
 
 /** Sets task to edit mode */
 function openEditTask(index) {
+    console.log('openEditTask called with index:', index); // Log when the function is called
+
     isEditMode = true;
     let editOverlay = document.getElementById('edit-task-overlay');
     let task = tasksData[index];
@@ -72,8 +65,11 @@ function openEditTask(index) {
     let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
 
+    setupEventListenersForItemsDiv();
+    initializeSelectedContacts(task);
     setupSubtaskEventListeners();
     initializePrioritySelectionInEditMode(task.priority);
+    getAssignedToId();
 }
 
 /** Checks the chosen priority in edit Mode  */
@@ -81,81 +77,6 @@ function initializePrioritySelectionInEditMode(taskPriority) {
     setPriority(taskPriority, true);
 }
 
-/** Renders contacts for edit mode */
-function renderContactsForEdit(taskIndex) {
-    let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
-    let currentTask = tasksData[taskIndex]; 
-    let assignedContactNames = currentTask.assignedTo.map(contact => contact.name); 
-
-    itemsDiv.innerHTML = ''; 
-
-    testContacts.forEach(contact => {
-        let contactIsAssigned = assignedContactNames.includes(contact); 
-        let optionHTML = createContactOptionForEdit(contact, contactIsAssigned);
-        itemsDiv.innerHTML += optionHTML;
-    });
-
-   toggleContactSelection();
-}
-
-/** Transforms selected contacts to assignedTo object */
-function createContactOptionForEdit(contact, isAssigned) {
-    let initials = getInitials(contact);
-    let color = getColorForInitials(initials);
-    let checkboxImage = isAssigned ? "checkboxchecked_white.svg" : "checkboxempty.svg";
-    let selectedClass = isAssigned ? " selected" : "";
-
-    return /*html*/`
-        <div class='option-item${selectedClass}' onclick="toggleContactSelection('${contact}')">
-            <div class="test-contact-container">
-                <p class="test-contact" style="background-color: ${color};">${initials}</p>
-                ${contact} 
-            </div>
-            <img class="checkbox-icon" src="assets/img/${checkboxImage}">
-        </div>
-    `;
-}
-
-/** Toggles selection status of contact */
-function toggleContactSelection(contactName) {
-    let wasSelected = selectedContacts[contactName];
-    selectedContacts[contactName] = !wasSelected;
-
-    updateDropdownDisplay(contactName, selectedContacts[contactName]);
-    updateAssignedContactsView();
-}
-
-/** Updates the display of the dropdown */
-function updateDropdownDisplay(contactName, isSelected) {
-    const contactOptions = document.querySelectorAll('.option-item');
-    contactOptions.forEach(option => {
-        if (option.textContent.trim().includes(contactName)) { 
-            const checkboxIcon = option.querySelector('.checkbox-icon');
-            if (isSelected) {
-                option.classList.add('selected');
-                checkboxIcon.src = 'assets/img/checkboxchecked_white.svg'; 
-            } else {
-                option.classList.remove('selected');
-                checkboxIcon.src = 'assets/img/checkboxempty.svg';
-            }
-        }
-    });
-}
-
-/** Updated view of assigned contact by clearing current view */
-function updateAssignedContactsView() {
-    const assignedContactsContainer = document.getElementById('assign-contacts');
-    assignedContactsContainer.innerHTML = ''; 
-
-    for (const contactName in selectedContacts) {
-        if (selectedContacts[contactName]) {
-            let initials = getInitials(contactName);
-            let color = getColorForInitials(initials);
-            let newContactHtml = renderAssignedContactHTML(initials, color);
-            assignedContactsContainer.innerHTML += newContactHtml;
-        }
-    }
-}
 
 /** Updates task at specified index */
 async function saveEditedTask(index){
@@ -211,6 +132,7 @@ function openAddTask(progressStatus) {
 
     if (isOverlayOpen) return;
     prepareBoardForNewTask();
+    selectedContacts = {};
 
     let container = document.getElementById('add-task-container-board');
     activateOverlay(container);
@@ -311,6 +233,7 @@ function closeAddTask() {
     body.style.overflow = '';
     container.removeAttribute('w3-include-html');
 
+    selectedContacts = {};
     isOverlayOpen = false; 
 }
 

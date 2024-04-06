@@ -50,8 +50,6 @@ function generateSubtasksHtml(task, index) {
 
 /** Sets task to edit mode */
 function openEditTask(index) {
-    console.log('openEditTask called with index:', index); // Log when the function is called
-
     isEditMode = true;
     let editOverlay = document.getElementById('edit-task-overlay');
     let task = tasksData[index];
@@ -86,7 +84,7 @@ async function saveEditedTask(index){
     task.dueDate = document.getElementById('due-date').value;
     task.priority = editedTaskPriority || "medium";
     task.assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
-    task.subtasks = prepareSubtasks(index);
+    task.subtasks = prepareSubtasks(task.id);
 
     await saveTasksToServer();
     addBoardAnimation("Task was updated", "assets/img/addtask_check_white.svg");
@@ -247,16 +245,14 @@ async function addEditSubtask() {
     let subtaskValue = subtaskInput.value.trim();
 
     if (subtaskValue) {
-        // Angenommen, 'tasksData[index].subtasks' existiert und ist ein Array
-        let taskIndex = tasksData.length - 1;  // Beispiel, wie Sie den Index der aktuellen Aufgabe bestimmen könnten
+        let taskIndex = tasksData.length - 1;  
         tasksData[taskIndex].subtasks.push({ title: subtaskValue, completed: false });
-        await saveTasksToServer();  // Speichern der aktualisierten 'tasksData' auf dem Server
+        await saveTasksToServer();  
 
-        // Aktualisieren des Subtasks-Containers
         let subtasksHtml = generateSubtasksHtml(tasksData[taskIndex], taskIndex);
         document.getElementById('subtask-container').innerHTML = subtasksHtml;
 
-        subtaskInput.value = '';  // Zurücksetzen des Eingabefeldes nach dem Hinzufügen
+        subtaskInput.value = ''; 
     }
 }
 

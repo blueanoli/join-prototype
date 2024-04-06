@@ -143,8 +143,7 @@ async function addTask() {
         return;
     }
 
-    let taskIndex = tasksData.length;
-    let newTask = createNewTask(taskIndex);
+    let newTask = createNewTask();
     tasksData.push(newTask);
     saveTasksToServer();
     addTaskAnimation();
@@ -162,7 +161,8 @@ function hasErrors() {
 }
 
 /** Creates a new task object with properties title, dueDate, category, priority, assignedTo, description, subtasks, progress and returns it */
-function createNewTask(taskIndex) {
+function createNewTask() {
+    let taskId = generateUniqueTaskId();
     let container = document.getElementById('add-task-container-board');
     let progress = container ? container.getAttribute('data-progress-status') || 'todo' : 'todo';
     let title = document.getElementById('title').value;
@@ -171,9 +171,13 @@ function createNewTask(taskIndex) {
     let priority = selectedPriority; 
     let assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     let description = document.getElementById('description').value;
-    let subtasks = prepareSubtasks(taskIndex);
+    let subtasks = prepareSubtasks(taskId);
 
-    return { title, dueDate, category, priority, assignedTo, description, subtasks, progress };
+    return { id: taskId, title, dueDate, category, priority, assignedTo, description, subtasks, progress };
+}
+
+function generateUniqueTaskId() {
+    return Date.now().toString();
 }
 
 /** Triggers animation to notify user that task has been added, then clears form and redirects user to board */

@@ -51,12 +51,12 @@ function getCategorySvgPath(categoryText) {
     return categoryToSvgMap[categoryText];
 }
 
-function prepareSubtasks(taskIndex) {
+function prepareSubtasks(taskId) {
     let subtaskElements = document.getElementById('subtask-container').querySelectorAll('li');
     return Array.from(subtaskElements).map((element, subtaskIndex) => {
-        let id = `subtask-${taskIndex}-${subtaskIndex}`;
+        let id = `subtask-${taskId}-${subtaskIndex}`;
         let title = element.textContent;
-        let completed = tasksData[taskIndex]?.subtasks[subtaskIndex]?.completed ?? (element.dataset.completed === 'true');
+        let completed = element.dataset.completed === 'true';
         return { id, title, completed };
     });
 }

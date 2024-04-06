@@ -161,6 +161,7 @@ function addAssignedContact(contactName) {
     }
 }
 
+/** Removes contact from assign-contacts element if it's present */
 function removeAssignedContact(contactName) {
     let assignedToId = getAssignedToId();
     let assignedTo = document.getElementById(assignedToId);

@@ -115,7 +115,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
               <div class="select-items select-hide edit-select"></div>
           </div> 
       </div>
-      <div class="edit-mode-assign-contacts" id="assign-contacts">
+      <div class="edit-mode-assign-contacts" id="edit-assign-contacts">
       ${assignedContactsHtml}
       </div>
       </div>

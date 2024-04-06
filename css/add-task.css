@@ -433,6 +433,12 @@ textarea{
     flex-wrap: nowrap;
     width: 100%;
 }
+#edit-assign-contacts{
+    display: flex;
+    gap: 4px;
+    flex-wrap: nowrap;
+    width: 100%;
+}
 .contact-search-input {
     width: 100%; 
     padding: 4px; 

@@ -4,6 +4,9 @@ let selectedContacts = {};
 function getAssignedToId() {
     return isEditMode ? 'edit-assigned-to' : 'assigned-to';
 }
+function getAssignedContactsContainerId() {
+    return isEditMode ? 'edit-assign-contacts' : 'assign-contacts';
+}
 
 function initializeSelectedContacts(task) {
     selectedContacts = {};
@@ -49,7 +52,7 @@ function updateDropdownDisplay(contactName, isSelected) {
 
 /** Updated view of assigned contact by clearing current view */
 function updateAssignedContactsView() {
-    const assignedContactsContainer = document.getElementById('assign-contacts');
+    const assignedContactsContainer = document.getElementById(getAssignedContactsContainerId());
     assignedContactsContainer.innerHTML = ''; 
 
     for (const contactName in selectedContacts) {
@@ -61,6 +64,7 @@ function updateAssignedContactsView() {
         }
     }
 }
+
 
 function transformSelectedContactsToAssignedTo(selectedContacts) {
     return Object.entries(selectedContacts)

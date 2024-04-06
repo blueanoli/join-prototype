@@ -233,7 +233,6 @@ function closeAddTask() {
     body.style.overflow = '';
     container.removeAttribute('w3-include-html');
 
-    selectedContacts = {};
     isOverlayOpen = false; 
 }
 

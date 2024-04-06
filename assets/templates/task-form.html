@@ -10,7 +10,7 @@
             <label for="description">Description</label>
             <textarea id="description" placeholder="Enter a description" title="Please enter a description"></textarea>
             <p class="font-size20">Assigned to</p>
-            <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts()">
+            <div class="custom-select-wrapper" onclick="toggleDropdown('assigned-to'); renderContacts('assigned-to')">
                 <div id="assigned-to" class="custom-select">
                     <div class="select-selected">Select contacts to assign</div>
                     <input oninput="filterContacts()" id="contact-search-input" type="text"

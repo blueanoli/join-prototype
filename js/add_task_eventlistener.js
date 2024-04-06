@@ -1,18 +1,18 @@
 /** Handles Click Event on a contact, toggling selection state and updating UI */
-function handleContactClick(event, contact, optionDiv) {
+function handleContactClick(event, contact, optionDiv, elementId, index) {
     event.stopImmediatePropagation();
     let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
     let checkbox = isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
 
     if (!selectedContacts[contact]) {
         checkbox.src = "assets/img/checkboxchecked_white.svg";
-        addAssignedContact(contact);
+        addAssignedContact(contact, elementId, index)
         selectedContacts[contact] = true;
         optionDiv.style.backgroundColor = "var(--dark-blue)"; 
         optionDiv.classList.add("selected");
     } else {
         checkbox.src = "assets/img/checkboxempty.svg";
-        removeAssignedContact(contact);
+        removeAssignedContact(contact, elementId, index);
         selectedContacts[contact] = false;
         optionDiv.style.backgroundColor = ""; 
         optionDiv.classList.remove("selected");
@@ -99,25 +99,30 @@ function setupInputEventListener() {
 }
 
 /** Adds click event listener which triggers handleContactClick */
-function setupEventListenersForItemsDiv() {
-    let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
+function setupEventListenersForItemsDiv(elementId) {
+    let itemsDiv = document.getElementById(elementId);
+    
+    if (itemsDiv) {
+        itemsDiv = itemsDiv.querySelector('.select-items');
         
-    itemsDiv.addEventListener('click', function(event) {
-        let optionDiv = event.target.closest('.option-item');
-        if (!optionDiv) return; 
-    
-        let index = optionDiv.id.split('-')[1]; 
-        let contact = testContacts[index]; 
-    
-        handleContactClick(event, contact, optionDiv);
-    });
-}    
+        itemsDiv.addEventListener('click', function(event) {
+            let optionDiv = event.target.closest('.option-item');
+            if (!optionDiv) return; 
+        
+            let index = optionDiv.id.split('-')[1]; 
+            let contact = testContacts[index]; 
+        
+            handleContactClick(event, contact, optionDiv, elementId);
+        });
+    }
+}           
 
 /** Adds all event listeners to the page */
 function addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     setupFormEventListeners();
     setupDropdownCloseListener();
     setupInputEventListener();
-    setupEventListenersForItemsDiv();
+    setupEventListenersForItemsDiv('assigned-to');
+    setupEventListenersForItemsDiv('edit-assigned-to');
     addSubtaskEventListener();
 }

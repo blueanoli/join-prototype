@@ -194,7 +194,7 @@ function addTaskAnimation(){
 }
 
 /** Generates ContactOption for a dropdown menu */
-function createContactOption(contact, itemsDiv, index) {
+function createContactOption(contact, itemsDiv, index, elementId) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
     let isChecked = selectedContacts[contact] === true; 
@@ -202,37 +202,58 @@ function createContactOption(contact, itemsDiv, index) {
     let selectedClass = isChecked ? " selected" : "";
     let backgroundColorStyle = isChecked ? " style='background-color: var(--dark-blue);'" : "";
 
-    let optionHTML = renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index);
+    let optionHTML = renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index, elementId);
 
     itemsDiv.innerHTML += optionHTML;
 }
 
 /** Creates and appends new contact option for each contact in Array to the dropdown menu */
-function renderContacts() {
-    let itemsDiv = document.getElementById('assigned-to').querySelector('.select-items');
-    itemsDiv.innerHTML = '';
+function renderContacts(elementId, index) {
+    let parentElement = document.getElementById(elementId);
     
-    for (let i = 0; i < testContacts.length; i++) {
-        let contact = testContacts[i];
-        createContactOption(contact, itemsDiv, i);
+    if (parentElement) {
+        let itemsDiv = parentElement.querySelector('.select-items');
+
+        // Erstellen Sie das Element, wenn es nicht existiert
+        if (!itemsDiv) {
+            itemsDiv = document.createElement('div');
+            itemsDiv.className = 'select-items select-hide edit-select';
+            parentElement.appendChild(itemsDiv);
+        }
+
+        itemsDiv.innerHTML = '';
+        
+        for (let i = 0; i < testContacts.length; i++) {
+            let contact = testContacts[i];
+            createContactOption(contact, itemsDiv, i, index);
+        }
     }
 }
 
 /** Adds contact to assign-contacts element if it's not already present */
-function addAssignedContact(contact) {
+function addAssignedContact(contact, elementId) {
+    console.log('addAssignedContact aufgerufen mit', contact, elementId);
     let assignedTo = document.getElementById('assign-contacts');
 
-    if (!assignedTo.innerHTML.includes(contact)) {
+    let assignedContacts = assignedTo.getElementsByClassName('assigned-contact');
+    let isContactAssigned = Array.from(assignedContacts).some(el => el.textContent.includes(contact));
+
+    if (!isContactAssigned) {
         let initials = getInitials(contact); 
         let color = getColorForInitials(initials); 
 
-        assignedTo.innerHTML += renderAssignedContactHTML(initials, color);
+        let newHTML = renderAssignedContactHTML(initials, color);
+        console.log('Neuer HTML-String:', newHTML);
+
+        assignedTo.innerHTML += newHTML;
+    } else {
+        console.log('Kontakt bereits im HTML enthalten:', contact);
     }
 }
 
 /** Removes specified contact from assign-contacts element and unselects it */
-function removeAssignedContact(contact) {
-    let assignedTo = document.getElementById('assign-contacts');
+function removeAssignedContact(contact, elementId) {
+    let assignedTo = document.getElementById(elementId);
     let contacts = assignedTo.querySelectorAll('.assigned-contact');
     let contactInitials = getInitials(contact); 
 
@@ -244,12 +265,12 @@ function removeAssignedContact(contact) {
     });
 
     selectedContacts[contact] = false;
-    updateCheckboxForContact(contact, false);
+    updateCheckboxForContact(contact, false, elementId);
 }
 
 /** Updates checkbox image for specified contact to reflect whether or not its selected */
-function updateCheckboxForContact(contact, isChecked) {
-    let dropdown = document.getElementById('assigned-to');
+function updateCheckboxForContact(contact, isChecked, elementId) {
+    let dropdown = document.getElementById(elementId);
     let itemsDiv = dropdown.querySelector('.select-items');
     let options = itemsDiv.querySelectorAll('.option-item');
 
@@ -295,7 +316,7 @@ function clearAssignedContacts() {
         }
     }
 
-    renderContacts();
+    renderContacts('assign-contacts');
 }
 
 /** Creates new category option element, sets text to provided category and adds eventlistener */
@@ -349,15 +370,20 @@ function clearForm() {
 }
 
 /** Toggles visibility of dropdown either forcing it to close if forceClose is true or staying open */
-function toggleDropdown(elementId, forceClose = false) {
+function toggleDropdown(elementId, forceClose = false, index) {
     let dropdown = document.getElementById(elementId);
     let itemsDiv = dropdown.querySelector('.select-items');
     let isOpen = !itemsDiv.classList.contains('select-hide');
     let action = forceClose || isOpen ? 'add' : 'remove';
 
     toggleElement(itemsDiv, action, 'select-hide');
-    if (elementId === 'assigned-to') {
+    if (elementId === 'assigned-to' || elementId === 'edit-assigned-to') {
         toggleAssignedTo(dropdown, action);
+        
+        // Verzögern Sie den Aufruf von renderContacts, um sicherzustellen, dass das Element im DOM vorhanden ist
+        setTimeout(function() {
+            renderContacts(elementId);
+        }, 100);
     }
 
     let state = action === 'add' ? 'close' : 'open';
@@ -376,7 +402,7 @@ function toggleElement(element, action, className) {
 }
 
 /** Toggles visibility of contact search input */
-function toggleAssignedTo(dropdown, action) {
+function toggleAssignedTo(dropdown, action, elementId) {
     let searchInput = document.getElementById('contact-search-input');
     let selectSelected = dropdown.querySelector('.select-selected');
 

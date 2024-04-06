@@ -106,8 +106,8 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       <div class="edit-task-contacts-container edit-mode-task-contacts-container">
           <span class="task-container-mini-headlines">Assigned to:</span>
-          <div class="custom-select-wrapper edit-mode-wrapper" onclick="toggleDropdown('assigned-to'); renderContactsForEdit(${index})">
-          <div id="assigned-to" class="custom-select edit-mode--custom-select">
+          <div class="custom-select-wrapper edit-mode-wrapper" onclick="toggleDropdown('edit-assigned-to'); renderContacts(${index}, 'edit-assigned-to')">
+          <div id="edit-assigned-to" class="custom-select edit-mode--custom-select">
               <div class="select-selected">Select contacts to assign</div>
               <input oninput="filterContacts()" id="contact-search-input" type="text"
                   class="contact-search-input select-hide" placeholder="Type to search...">

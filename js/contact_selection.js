@@ -1,13 +1,29 @@
 let testContacts = ['Albert Wesker', 'Chris Redfield', 'Jill Valentine', 'Brad Vickers', 'Claire Redfield', 'Barry Burton', 'Brian Irons'];
 let selectedContacts = {};
 
+/**
+ * Returns ID of element that displays assigned contacts, based on current mode.
+ * If app is in edit mode, it returns ID for edit form else it returns ID for addtask form
+ * @returns {string} - ID of element that displays assigned contacts.
+ */
 function getAssignedToId() {
     return isEditMode ? 'edit-assigned-to' : 'assigned-to';
 }
+
+/**
+ * Returns ID of container that holds assigned contacts, based on current mode.
+ * If app is in edit mode, it returns ID for edit form container else it returns ID for addtask form container
+ * @returns {string} - ID of container that holds assigned contacts.
+ */
 function getAssignedContactsContainerId() {
     return isEditMode ? 'edit-assign-contacts' : 'assign-contacts';
 }
 
+/**
+ * Initializes selectedContacts object with contacts assigned to task.
+ * @param {Object} task - Task object with 'assignedTo' property, which is an array of contact objects.
+ * Each contact object has a 'name' property.
+ */
 function initializeSelectedContacts(task) {
     selectedContacts = {};
     task.assignedTo.forEach(contact => {
@@ -15,7 +31,12 @@ function initializeSelectedContacts(task) {
     });
 }
 
-/** Generates HTML for each contact assigned to task */
+/**
+ * Generates HTML for each contact assigned to task.
+ * @param {Object} task - Task object with 'assignedTo' property, which is an array of contact objects.
+ * Each contact object has a 'color' and 'initials' property.
+ * @returns {string} - HTML string for assigned contacts.
+ */
 function generateAssignedContactsHtml(task) {
     return task.assignedTo.map(contact => `
         <div class="contact-icon-container">
@@ -24,7 +45,11 @@ function generateAssignedContactsHtml(task) {
     `).join('');
 }
 
-/** Toggles selection status of contact */
+/**
+ * Toggles selection status of contact. If contact was previously selected, it will be deselected, and vice versa.
+ * After toggling, it updates dropdown display and view of assigned contacts.
+ * @param {string} contactName - Name of contact to toggle.
+ */
 function toggleContactSelection(contactName) {
     let wasSelected = selectedContacts[contactName];
     selectedContacts[contactName] = !wasSelected;
@@ -33,7 +58,13 @@ function toggleContactSelection(contactName) {
     updateAssignedContactsView();
 }
 
-/** Updates the display of the dropdown */
+/**
+ * Updates display of dropdown menu to show selection status of contact.
+ * If contact is selected, it adds 'selected' class to option and changes checkbox icon to checked.
+ * If contact is not selected, it removes 'selected' class and changes checkbox icon to unchecked.
+ * @param {string} contactName - Name of contact to update.
+ * @param {boolean} isSelected - Selection status of contact.
+ */
 function updateDropdownDisplay(contactName, isSelected) {
     const contactOptions = document.querySelectorAll('.option-item');
     contactOptions.forEach(option => {
@@ -50,7 +81,11 @@ function updateDropdownDisplay(contactName, isSelected) {
     });
 }
 
-/** Updated view of assigned contact by clearing current view */
+/**
+ * Updates view of assigned contacts. First clears assigned contacts container.
+ * Then, for each selected contact, it generates initials, gets color for initials,
+ * renders HTML for assigned contact, and adds it to assigned contacts container.
+ */
 function updateAssignedContactsView() {
     const assignedContactsContainer = document.getElementById(getAssignedContactsContainerId());
     assignedContactsContainer.innerHTML = ''; 
@@ -65,7 +100,12 @@ function updateAssignedContactsView() {
     }
 }
 
-
+/**
+ * Transforms selectedContacts object into an array of contact objects suitable for assignment to task.
+ * Each contact object includes contact's name, color and initials.
+ * @param {Object} selectedContacts - Object where each key is contact name and corresponding value is a boolean indicating whether the contact is selected.
+ * @returns {Object[]} - Array of contact objects, each with 'name', 'color', and 'initials' properties.
+ */
 function transformSelectedContactsToAssignedTo(selectedContacts) {
     return Object.entries(selectedContacts)
         .filter(([name, isSelected]) => isSelected) 
@@ -76,7 +116,14 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
         }));
 }
 
-/** Generates ContactOption for a dropdown menu */
+/**
+ * Creates HTML option for contact and appends it to itemsDiv.
+ * Option includes contact's initials, color, checkbox image, and selected class and background color if contact is selected.
+ * 
+ * @param {string} contact - Name of contact.
+ * @param {HTMLElement} itemsDiv - Div to which contact option will be appended.
+ * @param {number} index - Index of contact in list.
+ */
 function createContactOption(contact, itemsDiv, index) {
     let initials = getInitials(contact);
     let color = getColorForInitials(initials);
@@ -112,7 +159,6 @@ function addAssignedContact(contactName) {
         assignedTo.innerHTML += renderAssignedContactHTML(initials, color, contactName);
         selectedContacts[contactName] = true;
     }
-    console.log('After adding contact:', selectedContacts); 
 }
 
 function removeAssignedContact(contactName) {
@@ -123,7 +169,6 @@ function removeAssignedContact(contactName) {
         contactElement.remove();
     }
     selectedContacts[contactName] = false;
-    console.log('After removing contact:', selectedContacts);
 }
 
 /** Updates checkbox image for specified contact to reflect whether or not its selected */

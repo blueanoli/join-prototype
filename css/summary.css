@@ -94,7 +94,7 @@ h3 {
 
 .todo-box:hover {
     background-color: var(--dark-blue);
-    transform: scale(1.05); 
+    transform: scale(1.05);
 }
 
 .summary-text {
@@ -167,7 +167,7 @@ h3 {
 }
 
 .todo-box:hover .summary-item {
-    background-color: white; 
+    background-color: white;
 }
 
 .line {
@@ -175,23 +175,32 @@ h3 {
     border-bottom: 4px solid var(--light-blue);
     border-radius: 8px;
     display: none;
-  }
+}
+
+@media (max-width: 1400px) { 
+    .vertical-line-urgent {
+        margin: 0 20px;
+    }
+}
 
 @media (max-width: 1300px) {
     .right-container {
-      display: none;
+        display: none;
     }
+
     .summary-head {
         align-items: flex-start;
-        flex-direction: column;        
+        flex-direction: column;
     }
 
     .summary-container {
         justify-content: center;
     }
+
     .vertical-line {
         display: none;
     }
+
     .line {
         display: block !important;
         margin-top: 10px;
@@ -202,6 +211,105 @@ h3 {
     }
 
     .left-container {
-        width: 90%;
+        width: 100%;
     }
-  }
+
+    .todo-box {
+        gap: 10px;
+
+    }
+
+    .summary-container {
+        height: 100vh;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .number {
+        font-size: 47px;
+        line-height: 56px;
+    }
+
+    .summary-text {
+        font-size: 14px;
+    }
+
+    .summary-item,
+    .urgent-img {
+        min-width: 40px;
+        min-height: 40px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .item-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .box-row-1 {
+        min-width: 45% !important;
+        min-height: 45% !important;
+        max-width: 45% !important;
+        max-height: 45% !important;
+    }
+
+    h1 {
+        font-size: 50px !important;
+    }
+
+    .subline {
+        font-size: 24px;
+    }
+
+    .row-1 {
+        justify-content: space-evenly;
+        gap: 24px;
+
+    }
+
+    .vertical-line-urgent {
+        margin: 0 10px;
+    }
+
+    .deadline-date {
+        font-size: 16px;
+    }
+
+    .deadline-text {
+        font-size: 14px;
+    }
+    .left-container {
+        gap: 0px;
+    }
+
+    .row-3 {
+        height: 116px;
+        gap: 24px;
+        padding-top: 24px;
+    }
+
+}
+
+@media (max-width: 400px) {
+    .row-1 {
+        justify-content: space-evenly;
+        gap: 12px;
+    }
+
+    .number {
+        font-size: 38px !important;
+        line-height: 40px;
+    }
+
+    .summary-text {
+        font-size: 12px;
+    }
+
+    .row-3 {
+        gap: 12px;
+    }
+
+   
+}

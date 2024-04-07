@@ -2,76 +2,109 @@ let autoScrollInterval;
 // DRAG AND DROP LOGIC ---------------------------------------------------------------------------------------------------------
 function initializeHoverEffect() {
     document.querySelectorAll('.mini-task-container').forEach(minitask => {
-        let hoverTimer;
-
-        if (window.innerWidth > 1240) {
-            minitask.addEventListener('mouseenter', () => {
-                hoverTimer = setTimeout(() => {
-                    minitask.style.cursor = 'grab';
-                }, 500);
-            });
-
-            minitask.addEventListener('mousedown', () => {
-                minitask.style.cursor = 'grabbing';
-            });
-
-            minitask.addEventListener('mouseup', () => {
-                minitask.style.cursor = 'grab';
-            });
-
-            minitask.addEventListener('mouseleave', () => {
-                clearTimeout(hoverTimer);
-                minitask.style.cursor = 'pointer';
-            });
-        }else{
-            minitask.style.cursor = 'pointer';
-        }
+        initializeMinitaskHoverEvents(minitask);
     });
 }
+
+function initializeMinitaskHoverEvents(minitask) {
+    if (isLargeScreen()) {
+        setHoverEvents(minitask);
+    } else {
+        minitask.style.cursor = 'pointer';
+    }
+}
+
+function setHoverEvents(minitask) {
+    let hoverTimer;
+
+    minitask.addEventListener('mouseenter', () => handleMouseEnter(minitask, hoverTimer));
+    minitask.addEventListener('mousedown', () => handleMouseDown(minitask));
+    minitask.addEventListener('mouseup', () => handleMouseUp(minitask));
+    minitask.addEventListener('mouseleave', () => handleMouseLeave(minitask, hoverTimer));
+}
+
+function handleMouseEnter(minitask, hoverTimer) {
+    hoverTimer = setTimeout(() => {
+        minitask.style.cursor = 'grab';
+    }, 500);
+}
+
+function handleMouseDown(minitask) {
+    minitask.style.cursor = 'grabbing';
+}
+
+function handleMouseUp(minitask) {
+    minitask.style.cursor = 'grab';
+}
+
+function handleMouseLeave(minitask, hoverTimer) {
+    clearTimeout(hoverTimer);
+    minitask.style.cursor = 'pointer';
+}
+
 
 function initializeDragAndDrop() {
-    document.querySelectorAll('.mini-task-container').forEach(item => {
-        item.addEventListener('dragstart', function (event) {
-            if (window.innerWidth > 1240) {
-                handleDragStart(event);
-            }
-        });
-        item.addEventListener('dragend', function (event) {
-            if (window.innerWidth > 1240) {
-                handleDragEnd(event);
-            }
-        });
-    });
-
-    document.querySelectorAll('.progress-column').forEach(column => {
-        let dropZone = column.querySelector('.dotted-container-drag-drop');
-
-        column.addEventListener('dragover', (event) => {
-            if (window.innerWidth > 1240) {
-                event.preventDefault();
-                if (dropZone.style.display !== 'block') {
-                    dropZone.style.display = 'block';
-                }
-            }
-        });
-
-        column.addEventListener('dragleave', (event) => {
-            if (window.innerWidth > 1240) {
-                if (!column.contains(event.relatedTarget)) {
-                    dropZone.style.display = 'none';
-                }
-            }
-        });
-
-        column.addEventListener('drop', function (event) {
-            if (window.innerWidth > 1240) {
-                handleDrop(event);
-            }
-        });
-    });
-
+    initializeTasksDragEvents();
+    initializeColumnsDragEvents();
     initializeHoverEffect();
 }
+
+function initializeTasksDragEvents() {
+    document.querySelectorAll('.mini-task-container').forEach(item => {
+        item.addEventListener('dragstart', handleDragStartEvent);
+        item.addEventListener('dragend', handleDragEndEvent);
+    });
+}
+
+function initializeColumnsDragEvents() {
+    document.querySelectorAll('.progress-column').forEach(column => {
+        initializeColumnDragEvents(column);
+    });
+}
+
+function initializeColumnDragEvents(column) {
+    const dropZone = column.querySelector('.dotted-container-drag-drop');
+
+    column.addEventListener('dragover', event => handleDragOverEvent(event, dropZone));
+    column.addEventListener('dragleave', event => handleDragLeaveEvent(event, column, dropZone));
+    column.addEventListener('drop', handleDropEvent);
+}
+
+function handleDragStartEvent(event) {
+    if (isLargeScreen()) {
+        handleDragStart(event);
+    }
+}
+
+function handleDragEndEvent(event) {
+    if (isLargeScreen()) {
+        handleDragEnd(event);
+    }
+}
+
+function handleDragOverEvent(event, dropZone) {
+    if (isLargeScreen()) {
+        event.preventDefault();
+        dropZone.style.display = 'block';
+    }
+}
+
+function handleDragLeaveEvent(event, column, dropZone) {
+    if (isLargeScreen() && !column.contains(event.relatedTarget)) {
+        dropZone.style.display = 'none';
+    }
+}
+
+function handleDropEvent(event) {
+    if (isLargeScreen()) {
+        handleDrop(event);
+    }
+}
+
+function isLargeScreen() {
+    return window.innerWidth > 1240;
+}
+
 
 function handleResize() {
     initializeDragAndDrop();
@@ -112,12 +145,10 @@ function handleDrop(event) {
 
     if (taskElement) {
         targetContainer.appendChild(taskElement);
-
         let placeholder = targetContainer.querySelector('.empty-column');
         if (placeholder) {
             placeholder.style.display = 'none';
         }
-
         updateTaskStatus(parseInt(taskIndex, 10), targetContainer.id);
         checkAllSections();
     }

@@ -40,7 +40,8 @@ h4 {
     background-color: var(--dark-blue);
     z-index: 999;
     position: fixed;
-    bottom: 0;
+    bottom: 0; 
+    height: 80px;
 }
 
 .text-container {

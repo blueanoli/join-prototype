@@ -196,7 +196,8 @@ function contactContainerHTML(contactsDiv, contact, letter, j) {
 
   return (contactsDiv.innerHTML += `
   <div 
-    id="${contactsID}" 
+    id="${contactsID}"
+    tabindex="0" 
     class="contacts-contact-data contacts-contact-data-hover" 
     onclick="showContactDetails(
       '${contactsName}', 
@@ -235,10 +236,8 @@ function showAddContactContainer() {
   clearAddContainerInputfields();
   resetAddContactsChanges();
 
-  if (contactsAddContainer) {
-    contactsAddContainer.classList.add("fade-in");
-    contactsAdd.classList.remove("slide-out");
-  }
+  contactsAddContainer.classList.add("fade-in");
+  contactsAdd.classList.remove("slide-out");
 }
 
 /* Clears the "Add Container" input-fields and sets the phone input-field 
@@ -435,32 +434,40 @@ function showContactDetails(
   contactsColor,
   contactsID
 ) {
-  /* let id = document.getElementById(contactsID); */
   let detailsContainer = document.getElementById("contacts-details");
   detailsContainer.innerHTML = "";
 
-  /* id.addEventListener("blur", resetContactDetailsVisuality); */
   changeContactDetailsVisuality(contactsID);
   detailsContainer.innerHTML = getContactDetailsHTML(
     contactsName,
     contactsEmail,
     contactsPhone,
     acronym,
-    contactsColor
+    contactsColor,
+    contactsID
   );
 }
 
-/* Changes the visuality of the interacted contact in the contact-list */
+/* Changes the visuality of the interacted contact in the contact-list 
+dependent on focus or blur of the div - (only possible through adding tabindex=0 to the div)*/
 function changeContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
   let nameColor = document.getElementById(`name-${contactsID}`);
 
-  nameColor.classList.add("clicked");
-  background.classList.add("clicked");
-  background.classList.remove("contacts-contact-data-hover");
+  if (!background.classList.contains("clicked")) {
+    nameColor.classList.add("clicked");
+    background.classList.add("clicked");
+    background.classList.remove("contacts-contact-data-hover");
+
+    background.addEventListener("blur", function () {
+      resetContactDetailsVisuality(contactsID);
+    });
+  } else {
+    resetContactDetailsVisuality(contactsID);
+  }
 }
 
-/* 
+/* Resets the visual changes of the changeContactDetailsVisuality()-Function */
 function resetContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
   let nameColor = document.getElementById(`name-${contactsID}`);
@@ -468,8 +475,7 @@ function resetContactDetailsVisuality(contactsID) {
   nameColor.classList.remove("clicked");
   background.classList.remove("clicked");
   background.classList.add("contacts-contact-data-hover");
-} 
-*/
+}
 
 /* Displays the container with the contact details */
 function getContactDetailsHTML(
@@ -477,7 +483,8 @@ function getContactDetailsHTML(
   contactsEmail,
   contactsPhone,
   acronym,
-  contactsColor
+  contactsColor,
+  contactsID
 ) {
   return `
   <div class="contacts-details-header">
@@ -487,7 +494,7 @@ function getContactDetailsHTML(
     <div>
       <h2>${contactsName}</h2>
       <div class="contacts-details-edit-container">
-        <div class="contacts-details-edit-icons">
+        <div class="contacts-details-edit-icons" onclick="editContactDetails('${contactsName}')">
           <img src="assets/img/pencil_grey.svg">
           <span>Edit</span>
         </div>
@@ -509,4 +516,10 @@ function getContactDetailsHTML(
       <span>${contactsPhone}</span>
     </div>
   </div>`;
+}
+
+function editContactDetails(contactsName) {
+  let contact = contactsName;
+
+  console.log(contact);
 }

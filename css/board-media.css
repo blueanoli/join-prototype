@@ -94,12 +94,23 @@
     .board-header{
         flex-direction: column;
     }
+    .header-wrapper h1{
+        font-size: 48px;
+    }
     #add-task-btn-board{
         display: none;
     }
     .header-wrapper{
         display: flex;
         justify-content: space-between;
+        width: 90%;
+        margin-bottom: 40px;
+    }
+    .board-search-container{
+        width: 90%;
+        padding-bottom: 24px;
+    }
+    .board-input-wrapper{
         width: 100%;
     }
     #add-task-btn-board-mobile {
@@ -116,7 +127,14 @@
     .progress-container{
         margin-left: 16px;
         margin-right: 16px;
+        margin-top: 24px;
         width: 90%;
+    }
+    .progress-title img{
+        width: 30px;
+    }
+    .progress-title span{
+        font-size: 24px;
     }
     .minitask-menu{
         display: flex
@@ -124,10 +142,43 @@
     .mini-task-container:hover{
         transform: rotate(0deg);
     }
+    .edit-task-container span{
+        font-size: 16px;
+    }
+    .edit-task-title-container h1{
+        font-size: 36px;
+    }
+    .edit-task-contacts-container{
+        max-height: 150px;
+    }
+    .edit-task-subtasks-container{
+        max-height: 150px;
+    }
+}
+/* MAX WIDTH 500px */
+@media (max-width: 500px) {
+    .edit-mode-priority-container{
+        width: 70%;
+    }
+    .edit-mode-priority-container div{
+        height: 40px !important;
+        width: 50% !important;
+    }
 }
 /* MAX WIDTH 400px */
 @media (max-width: 400px) {
     .dotted-container{
         min-width: 200px;
+    }
+    .board-header{
+        margin-left: 16px;
+        margin-top: 48px;
+    }
+    .edit-task-container{
+        padding: 0 16px;
+        width: 95%;
+    }
+    .edit-mode-task-container{
+        max-width: 320px;
     }
 }

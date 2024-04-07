@@ -118,7 +118,7 @@ h3 {
   border-radius: 10px;
 }
 
-.contacts-contact-data:hover {
+.contacts-contact-data-hover:hover {
   cursor: pointer;
   background: linear-gradient(#f9f9f9, #f0f0f0);
 }
@@ -131,6 +131,11 @@ h3 {
   border-radius: 10px;
   background-color: var(--dark-blue);
 }
+
+.contacts-contact-data.clicked:hover {
+  cursor: pointer;
+}
+
 
 .contacts-acronym-container {
   display: flex;
@@ -504,7 +509,7 @@ h3 {
   display: none;
   position: absolute;
   left: 713px;
-  bottom: 0;
+  top: 700px;
   background-color: var(--dark-blue);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 15%);
   border-radius: 20px;
@@ -513,7 +518,7 @@ h3 {
   font-size: 20px;
   font-weight: 400;
   color: white;
-  animation: register 750ms ease 0s 1 normal forwards;
+  animation: register 800ms ease 0s 1 normal forwards;
 }
 
 @keyframes register {
@@ -530,7 +535,7 @@ h3 {
   display: none;
   position: absolute;
   left: 713px;
-  bottom: 0;
+  top: 700px;
   background-color: var(--dark-blue);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 15%);
   border-radius: 20px;
@@ -539,7 +544,7 @@ h3 {
   font-size: 20px;
   font-weight: 400;
   color: white;
-  animation: registerReverse 750ms ease 0s 1 reverse forwards;
+  animation: registerReverse 800ms ease 0s 1 reverse forwards;
 }
 
 @keyframes registerReverse {
@@ -611,7 +616,7 @@ h3 {
 .contacts-details-contact-info {
   font-size: 20px;
   font-weight: 400;
-  padding: 59px 0;
+  padding: 21px 0;
 }
 
 .contacts-details-email-phone-container {

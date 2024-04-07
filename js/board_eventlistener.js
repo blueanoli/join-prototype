@@ -42,7 +42,6 @@ function handleMouseLeave(minitask, hoverTimer) {
     minitask.style.cursor = 'pointer';
 }
 
-
 function initializeDragAndDrop() {
     initializeTasksDragEvents();
     initializeColumnsDragEvents();
@@ -104,7 +103,6 @@ function handleDropEvent(event) {
 function isLargeScreen() {
     return window.innerWidth > 1240;
 }
-
 
 function handleResize() {
     initializeDragAndDrop();

@@ -6,6 +6,7 @@ let sections = [
 ];
 
 let isOverlayOpen = false;
+let originalTask = null;
 
 /** Initializes Board */
 async function renderBoard() {

@@ -34,6 +34,11 @@ function closeTaskOverlay() {
     isEditMode = false;
     let overlayContainer = document.getElementById('edit-task-overlay');
 
+    if (originalTask) {
+        tasksData[originalTask.index] = originalTask.data;
+        originalTask = null;
+    }
+
     deactivateOverlay(overlayContainer);
     clearOverlayContent(overlayContainer);
     displayAllTasks();
@@ -80,12 +85,24 @@ function initializePrioritySelectionInEditMode(taskPriority) {
 async function saveEditedTask(index){
     let task = tasksData[index]; 
     task.title = document.getElementById('edit-title').value;
+    titleInput = document.getElementById('edit-title');
     task.description = document.getElementById('edit-description').value;
     task.dueDate = document.getElementById('due-date').value;
     task.priority = editedTaskPriority || "medium";
     task.assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     task.subtasks = prepareSubtasks(task.id);
 
+    if (!task.title.trim()) {
+        addBoardAnimation("Task title cannot be empty", "assets/img/cancel_white.svg");
+        titleInput.scrollIntoView({ behavior: 'smooth' });
+        return;
+    }
+
+    if (!checkDueDate(task.dueDate)) {
+        addBoardAnimation("Due date can't be in the past", "assets/img/cancel_white.svg");
+        return;
+    }
+    
     await saveTasksToServer();
     addBoardAnimation("Task was updated", "assets/img/addtask_check_white.svg");
     setTimeout(closeTaskOverlay, 1500);

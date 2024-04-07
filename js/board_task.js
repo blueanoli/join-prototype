@@ -41,9 +41,9 @@ function closeTaskOverlay() {
 }
 
 /** Generates HTML for each subtask */
-function generateSubtasksHtml(task, index) {
+function generateSubtasksHtml(task) {
     return task.subtasks.map((subtask, subtaskIndex) => {
-        let subtaskId = `edit-subtask-${index}-${subtaskIndex}`;
+        let subtaskId = `edit-subtask-${task.id}-${subtaskIndex}`;
         return renderEditSubtaskHTML(subtask.title, subtaskId, subtask.completed);
     }).join('');
 }

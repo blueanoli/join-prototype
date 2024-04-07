@@ -4,7 +4,7 @@ function initializeHoverEffect() {
     document.querySelectorAll('.mini-task-container').forEach(minitask => {
         let hoverTimer;
 
-        if (window.innerWidth > 725) {
+        if (window.innerWidth > 1240) {
             minitask.addEventListener('mouseenter', () => {
                 hoverTimer = setTimeout(() => {
                     minitask.style.cursor = 'grab';
@@ -32,12 +32,12 @@ function initializeHoverEffect() {
 function initializeDragAndDrop() {
     document.querySelectorAll('.mini-task-container').forEach(item => {
         item.addEventListener('dragstart', function (event) {
-            if (window.innerWidth > 725) {
+            if (window.innerWidth > 1240) {
                 handleDragStart(event);
             }
         });
         item.addEventListener('dragend', function (event) {
-            if (window.innerWidth > 725) {
+            if (window.innerWidth > 1240) {
                 handleDragEnd(event);
             }
         });
@@ -47,7 +47,7 @@ function initializeDragAndDrop() {
         let dropZone = column.querySelector('.dotted-container-drag-drop');
 
         column.addEventListener('dragover', (event) => {
-            if (window.innerWidth > 725) {
+            if (window.innerWidth > 1240) {
                 event.preventDefault();
                 if (dropZone.style.display !== 'block') {
                     dropZone.style.display = 'block';
@@ -56,7 +56,7 @@ function initializeDragAndDrop() {
         });
 
         column.addEventListener('dragleave', (event) => {
-            if (window.innerWidth > 725) {
+            if (window.innerWidth > 1240) {
                 if (!column.contains(event.relatedTarget)) {
                     dropZone.style.display = 'none';
                 }
@@ -64,7 +64,7 @@ function initializeDragAndDrop() {
         });
 
         column.addEventListener('drop', function (event) {
-            if (window.innerWidth > 725) {
+            if (window.innerWidth > 1240) {
                 handleDrop(event);
             }
         });
@@ -98,24 +98,29 @@ function handleDrop(event) {
     event.preventDefault();
     let taskIndex = event.dataTransfer.getData('text/plain');
     let taskElement = document.querySelector(`.mini-task-container[data-task-id="${taskIndex}"]`);
-
     let targetContainer;
 
     if (event.target.classList.contains('dotted-container-drag-drop')) {
         targetContainer = event.target.previousElementSibling;
-        targetContainer.appendChild(taskElement);
     } else {
         targetContainer = event.target.closest('.dotted-container');
+    }
+
+    if (!targetContainer) {
+        return; 
+    }
+
+    if (taskElement) {
         targetContainer.appendChild(taskElement);
-    }
 
-    let placeholder = targetContainer.querySelector('.empty-column');
-    if (placeholder) {
-        placeholder.style.display = 'none';
-    }
+        let placeholder = targetContainer.querySelector('.empty-column');
+        if (placeholder) {
+            placeholder.style.display = 'none';
+        }
 
-    updateTaskStatus(parseInt(taskIndex, 10), targetContainer.id);
-    checkAllSections();
+        updateTaskStatus(parseInt(taskIndex, 10), targetContainer.id);
+        checkAllSections();
+    }
 }
 
 function handleDragEnd(event) {

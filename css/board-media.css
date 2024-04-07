@@ -29,6 +29,55 @@
         width: 78%;
     }
 }
+/* MAX WIDTH 1240px */
+@media (max-width: 1240px) {
+    .progress-header {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .progress-title {
+        align-items: center;
+    }
+    .dotted-container, .dotted-container-drag-drop {
+        flex: 1; 
+        display: flex;
+        height: auto; 
+    }
+    .dotted-container{
+        gap: 16px;
+        overflow-x: auto;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+    .dotted-container-drag-drop {
+        width: 15%;
+        margin-left: 16px;
+        display: none;
+    }
+    .progress-column > div:last-child {
+        margin-right: 0;
+    }
+    .progress-column {
+        width: 90%;
+        padding-bottom: 20px;
+    }
+    #add-task-container-board{
+        width: 90%;
+    }
+    .add-task-headline{
+        margin-left: 16px;
+    }
+    .add-task{
+        margin-left: 16px;
+    }
+    .minitask-menu{
+        display: flex
+    }
+    .mini-task-container:hover{
+        transform: rotate(0deg);
+    }
+
+}
 /* MAX WIDTH 1000px */
 @media (max-width: 1000px) {
     .progress-header {
@@ -135,12 +184,6 @@
     .progress-title span{
         font-size: 24px;
     }
-    .minitask-menu{
-        display: flex
-    }
-    .mini-task-container:hover{
-        transform: rotate(0deg);
-    }
     .edit-task-container span{
         font-size: 16px;
     }
@@ -179,5 +222,8 @@
     }
     .edit-mode-task-container{
         max-width: 320px;
+    }
+    .board-container{
+        padding-bottom: calc(150px + 100%);
     }
 }

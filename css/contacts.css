@@ -635,3 +635,93 @@ h3 {
   font-size: 16px;
   font-weight: 700;
 }
+
+.contacts-edit-container {
+  display: none;
+}
+
+.contacts-edit-container.fade-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: contactsEditContainerFadeIn 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contactsEditContainerFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.contacts-edit-container.fade-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  animation: contactsEditContainerFadeOut 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contactsEditContainerFadeOut {
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.contacts-edit {
+  position: relative;
+  display: flex;
+  height: 592px;
+  border-radius: 42px;
+  animation: contactsEditSlideIn 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contactsEditSlideIn {
+  0% {
+    transform: translateX(150%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.contacts-edit.slide-out {
+  position: relative;
+  display: flex;
+  height: 592px;
+  border-radius: 42px;
+  animation: contactsEditSlideOut 0.5s ease 0s 1 normal forwards;
+}
+
+@keyframes contactsEditSlideOut {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(150%);
+  }
+}

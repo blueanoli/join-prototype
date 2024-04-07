@@ -494,7 +494,16 @@ function getContactDetailsHTML(
     <div>
       <h2>${contactsName}</h2>
       <div class="contacts-details-edit-container">
-        <div class="contacts-details-edit-icons" onclick="editContactDetails('${contactsName}')">
+        <div 
+          class="contacts-details-edit-icons" 
+          onclick="editContactDetails(
+            '${contactsName}', 
+            '${contactsEmail}', 
+            '${contactsPhone}',
+            '${acronym}',
+            '${contactsColor}'
+          )"
+        >
           <img src="assets/img/pencil_grey.svg">
           <span>Edit</span>
         </div>
@@ -518,8 +527,129 @@ function getContactDetailsHTML(
   </div>`;
 }
 
-function editContactDetails(contactsName) {
-  let contact = contactsName;
+function editContactDetails(
+  contactsName,
+  contactsEmail,
+  contactsPhone,
+  acronym,
+  contactsColor
+) {
+  let contactsEditContainer = document.querySelector(
+    ".contacts-edit-container"
+  );
+  let contactsEdit = document.querySelector(".contacts-edit");
 
-  console.log(contact);
+  let nameInput = document.getElementById("name");
+  let emailInput = document.getElementById("email");
+  let phoneInput = document.getElementById("phone");
+
+  nameInput.value = contactsName;
+  emailInput.value = contactsEmail;
+  phoneInput.value = contactsPhone;
+
+  contactsEditContainer.classList.add("fade-in");
+  contactsEdit.classList.remove("slide-out");
+}
+
+function editContactDetailsHTML() {
+  return `
+  <div class="contacts-add-container">
+    <div class="contacts-add">
+      <img
+        class="contacts-add-join-logo"
+        src="assets/img/logo_white.svg"
+        alt="join logo"
+      />
+      <div class="contacts-add-overlay">
+        <h2>Edit contact</h2>
+        <span class="contacts-add-overlay-border"></span>
+      </div>
+      <div class="contacts-add-main-container">
+        <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
+          <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
+        </div>
+        <form>
+          <div class="contacts-add-main-profil-input-container">
+            <div class="contacts-add-main-profil">
+              <img src="assets/img/person_white.svg" alt="person icon" />
+            </div>
+            <div class="contacts-add-main-input-area">
+              <div id="name-container" class="contacts-add-input-container">
+                <input
+                  required
+                  id="name"
+                  class="contacts-add-input"
+                  type="text"
+                  placeholder="Name"
+                />
+                <div class="contacts-add-input-icons">
+                  <img src="assets/img/person.svg" alt="person icon" />
+                </div>
+              </div>
+              <div id="email-container" class="contacts-add-input-container">
+                <input
+                  required
+                  id="email"
+                  class="contacts-add-input"
+                  type="email"
+                  placeholder="Email"
+                />
+                <div class="contacts-add-input-icons">
+                  <img src="assets/img/mail.svg" alt="email icon" />
+                </div>
+              </div>
+              <div id="phone-container" class="contacts-add-input-container">
+                <input
+                  required
+                  id="phone"
+                  class="contacts-add-input"
+                  type="tel"
+                  maxlength="20"
+                  value="+49"
+                  pattern="[1-9\s\+]{7,20}$"
+                  placeholder="Phone"
+                  onkeypress="addSpaceToPhoneNumber()"
+                  onfocus="showPhoneFormat()"
+                  onblur="removePhoneFormat()"
+                />
+                <div class="contacts-add-input-icons">
+                  <img src="assets/img/phone.svg" alt="phone icon" />
+                </div>
+              </div>
+              <span
+                id="input-phone-format"
+                class="contacts-add-input-phone-format"
+              >
+                Format e.g.: +49 2222 22 222 2
+              </span>
+              <span
+                id="input-message"
+                class="contacts-add-input-message"
+              ></span>
+            </div>
+          </div>
+          <div class="contacts-add-buttons-container">
+            <button
+              id="contacts-add-cancel-button"
+              class="contacts-add-cancel-button"
+              onclick="hideAddContactContainer(); preventFormSubmit()"
+              onmouseover="changeAddContactCancelBlue()"
+              onmouseout="changeAddContactCancelDark()"
+            >
+              Delete
+              <img
+                id="contacts-add-cancel-img"
+                src="assets/img/cancel_dark.svg"
+                alt="cancel icon"
+              />
+            </button>
+            <button class="contacts-add-create-button">
+              Save
+              <img src="assets/img/addtask_check_white.svg" alt="check icon" />
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>;`;
 }

@@ -1,24 +1,38 @@
 /** Handles Click Event on a contact, toggling selection state and updating UI */
 function handleContactClick(event, contact, optionDiv) {
-    console.log('Clicked contact:', contact); // Log the value of the clicked contact
-
     event.stopImmediatePropagation();
-    let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
-    let checkbox = isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
+    let checkbox = getCheckboxFromEvent(event, optionDiv);
+    
+    toggleContactSelection(contact);
 
-    toggleContactSelection(contact); // Replace contact.name with contact
-
-    if (!selectedContacts[contact]) { // Replace contact.name with contact
-        checkbox.src = "assets/img/checkboxempty.svg";
-        removeAssignedContact(contact); // Replace contact.name with contact
-        optionDiv.style.backgroundColor = ""; 
-        optionDiv.classList.remove("selected");
+    if (!isContactSelected(contact)) {
+        deselectContact(contact, checkbox, optionDiv);
     } else {
-        checkbox.src = "assets/img/checkboxchecked_white.svg";
-        addAssignedContact(contact); // Replace contact.name with contact
-        optionDiv.style.backgroundColor = "var(--dark-blue)"; 
-        optionDiv.classList.add("selected");
+        selectContact(contact, checkbox, optionDiv);
     }
+}
+
+function getCheckboxFromEvent(event, optionDiv) {
+    let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
+    return isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
+}
+
+function isContactSelected(contact) {
+    return selectedContacts[contact];
+}
+
+function deselectContact(contact, checkbox, optionDiv) {
+    checkbox.src = "assets/img/checkboxempty.svg";
+    removeAssignedContact(contact);
+    optionDiv.style.backgroundColor = ""; 
+    optionDiv.classList.remove("selected");
+}
+
+function selectContact(contact, checkbox, optionDiv) {
+    checkbox.src = "assets/img/checkboxchecked_white.svg";
+    addAssignedContact(contact);
+    optionDiv.style.backgroundColor = "var(--dark-blue)"; 
+    optionDiv.classList.add("selected");
 }
 
 /** Handles click event on category and updates selected category */

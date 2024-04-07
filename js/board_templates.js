@@ -96,12 +96,9 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       <div class="edit-task-priority-container edit-mode-task-priority-container">
           <span class="task-container-mini-headlines">Priority:</span>
           <div class="priority-container edit-mode-priority-container">
-              <div onclick="chooseUrgentPrio()" id="priority-urgent">Urgent <img id="img-urgent"
-                      src="assets/img/addtask_urgent.svg"></div>
-              <div onclick="chooseMediumPrio()" id="priority-medium">Medium <img id="img-medium"
-                      src="assets/img/addtask_medium.svg"></div>
-              <div onclick="chooseLowPrio()" id="priority-low">Low <img id="img-low"
-                      src="assets/img/addtask_low.svg"></div>
+              <div onclick="chooseUrgentPrio()" id="priority-urgent">Urgent <img id="img-urgent" src="assets/img/addtask_urgent.svg"></div>
+              <div onclick="chooseMediumPrio()" id="priority-medium">Medium <img id="img-medium" src="assets/img/addtask_medium.svg"></div>
+              <div onclick="chooseLowPrio()" id="priority-low">Low <img id="img-low" src="assets/img/addtask_low.svg"></div>
           </div>
       </div>
       <div class="edit-task-contacts-container edit-mode-task-contacts-container">

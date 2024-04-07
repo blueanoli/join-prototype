@@ -30,6 +30,9 @@
 .subtask .icon-container{
     right: -85%;
 }
+.date-icon{
+    right: 16px;
+}
 .divider{
     display: none;
 }

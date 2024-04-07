@@ -172,12 +172,12 @@ h3 {
 
 .line {
     width: 120px;
-    border-bottom: 4px solid var(--light-blue);
+    border-bottom: 3.5px solid var(--light-blue);
     border-radius: 8px;
     display: none;
 }
 
-@media (max-width: 1400px) { 
+@media (max-width: 1400px) {
     .vertical-line-urgent {
         margin: 0 20px;
     }
@@ -219,12 +219,19 @@ h3 {
 
     }
 
-    .summary-container {
-        height: 100vh;
+    .row-1 {
+        justify-content: space-between; 
+    }
+
+    .summary-head {
+        padding-bottom: 70px;
     }
 }
 
 @media (max-width: 600px) {
+    .box-row-2 {
+        padding: 15px 0px 15px 0px !important;
+    }
 
     .number {
         font-size: 47px;
@@ -249,9 +256,9 @@ h3 {
     }
 
     .box-row-1 {
-        min-width: 45% !important;
+        min-width: 40% !important;
         min-height: 45% !important;
-        max-width: 45% !important;
+        max-width: 50% !important;
         max-height: 45% !important;
     }
 
@@ -264,8 +271,11 @@ h3 {
     }
 
     .row-1 {
-        justify-content: space-evenly;
+        justify-content: space-between;
         gap: 24px;
+        width: auto;
+        height: auto;
+        padding-bottom: 20px;
 
     }
 
@@ -280,6 +290,7 @@ h3 {
     .deadline-text {
         font-size: 14px;
     }
+
     .left-container {
         gap: 0px;
     }
@@ -290,12 +301,17 @@ h3 {
         padding-top: 24px;
     }
 
+    .text-container {
+        margin: 30px 30px 30px 30px;
+        padding-bottom: 80px;
+    }
+
 }
 
-@media (max-width: 400px) {
+@media (max-width: 460px) {
     .row-1 {
-        justify-content: space-evenly;
-        gap: 12px;
+        justify-content: space-between;
+        gap: 10px;
     }
 
     .number {
@@ -311,5 +327,23 @@ h3 {
         gap: 12px;
     }
 
-   
+    .text-container {
+        margin: 16px 16px 16px 16px;
+    }
+
+    h1 {
+        font-size: 28px !important;
+    }
+
+    .subline {
+        font-size: 14px !important;
+    }
+
+    .summary-head {
+        padding-bottom: 0px !important;
+    }
+
+    .line {
+        border-bottom: 2.5px solid var(--light-blue);
+    }
 }

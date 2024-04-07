@@ -192,12 +192,12 @@ function contactContainerHTML(contactsDiv, contact, letter, j) {
   let contactsPhone = contact["phone"];
   let contactsColor = setBackgroundColor(contact);
   let acronym = getAcronyms(contactsName);
-  let contactsID = letter + j;
+  let contactsID = getContactID(letter, j);
 
   return (contactsDiv.innerHTML += `
   <div 
     id="${contactsID}" 
-    class="contacts-contact-data" 
+    class="contacts-contact-data contacts-contact-data-hover" 
     onclick="showContactDetails(
       '${contactsName}', 
       '${contactsEmail}',
@@ -210,7 +210,7 @@ function contactContainerHTML(contactsDiv, contact, letter, j) {
       <span>${acronym}</span>
     </div>
     <div class="contacts-contact-details">
-      <span class="contacts-contact-details-name">${contactsName}</span>
+      <span id="name-${contactsID}" class="contacts-contact-details-name">${contactsName}</span>
       <span class="contacts-contact-details-email">${contactsEmail}</span>
     </div>
   </div>`);
@@ -222,6 +222,10 @@ function getAcronyms(contactsName) {
   let acronym = firstLetters.join("").toUpperCase();
 
   return acronym;
+}
+
+function getContactID(letter, j) {
+  return letter + j;
 }
 
 /* The "Add Container" slides in while the background fades darker */
@@ -414,12 +418,12 @@ function showContactRegisterMsg() {
   setTimeout(function () {
     registerMsg.classList.remove("contacts-add-register-msg-hidden");
     registerMsg.classList.add("contacts-add-register-msg-reverse");
-  }, 750);
+  }, 800);
   setTimeout(function () {
     registerMsg.classList.remove("contacts-add-register-msg-shown");
     registerMsg.classList.remove("contacts-add-register-msg-reverse");
     registerMsg.classList.add("contacts-add-register-msg-hidden");
-  }, 1500);
+  }, 1600);
 }
 
 /* Displays a container with details about the clicked contact */
@@ -431,10 +435,12 @@ function showContactDetails(
   contactsColor,
   contactsID
 ) {
+  /* let id = document.getElementById(contactsID); */
   let detailsContainer = document.getElementById("contacts-details");
   detailsContainer.innerHTML = "";
 
-  changeContactDetailsBackground(contactsID);
+  /* id.addEventListener("blur", resetContactDetailsVisuality); */
+  changeContactDetailsVisuality(contactsID);
   detailsContainer.innerHTML = getContactDetailsHTML(
     contactsName,
     contactsEmail,
@@ -444,12 +450,26 @@ function showContactDetails(
   );
 }
 
-/* Changes the background of the clicked contact in the contact-list */
-function changeContactDetailsBackground(contactsID) {
+/* Changes the visuality of the interacted contact in the contact-list */
+function changeContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
+  let nameColor = document.getElementById(`name-${contactsID}`);
 
-  background.classList.toggle("clicked");
+  nameColor.classList.add("clicked");
+  background.classList.add("clicked");
+  background.classList.remove("contacts-contact-data-hover");
 }
+
+/* 
+function resetContactDetailsVisuality(contactsID) {
+  let background = document.getElementById(`${contactsID}`);
+  let nameColor = document.getElementById(`name-${contactsID}`);
+
+  nameColor.classList.remove("clicked");
+  background.classList.remove("clicked");
+  background.classList.add("contacts-contact-data-hover");
+} 
+*/
 
 /* Displays the container with the contact details */
 function getContactDetailsHTML(

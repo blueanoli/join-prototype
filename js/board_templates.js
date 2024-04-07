@@ -117,16 +117,16 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       </div>
       <div class="edit-task-subtasks-container edit-mode-task-subtasks-container">
-          <span class="task-container-mini-headlines">Subtasks:</span>
-      <div class="add-subtask">
+        <span class="task-container-mini-headlines">Subtasks:</span>
+        <div class="add-subtask edit-mode-add-subtask">
           <input class="edit-subtask-input" type="text" id="edit-subtasks" placeholder="Add new subtask">
-          <div id="edit-icon-container">
+            <div class="edit-add-subtask-icon-container" id="edit-icon-container">
               <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">
-          </div>
+            </div>
+        </div>
       </div>
       <div class="edit-mode-subtask-container" id="subtask-container">
           ${subtasksHtml}
-      </div>
       </div>
       <div class="add-task-buttons-board">
           <button class="add-task-btn-style" onclick="saveEditedTask(${index}); return false" id="add-task-btn">Ok<img
@@ -232,7 +232,7 @@ function renderMinitaskMenuHTML(index) {
 
 function renderEditSubtaskIconHTML() {
   return /*html*/`
-  <img onclick="cancelEditSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
-  <div class="subtask-line"></div>
-  <img onclick="addEditSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
+  <img onclick="cancelEditSubtask()" class="icon-cancel edit-mode-icon-cancel" src="assets/img/cancel_dark.svg" alt="">
+  <div class="subtask-line edit-mode-subtask-line"></div>
+  <img onclick="addEditSubtask()" class="icon-confirm edit-mode-icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
 }

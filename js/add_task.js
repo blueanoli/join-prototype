@@ -191,7 +191,13 @@ function addTaskAnimation(){
         notification.classList.remove("animate");
         notification.innerHTML = '';
         clearForm();
-        window.location.href = "board.html";
+
+        if (window.location.href.endsWith('board.html')) {
+            closeAddTask();
+            displayAllTasks();
+        } else {
+            window.location.href = "board.html";
+        }
     }, 1000);
 }
 

@@ -136,7 +136,6 @@ h3 {
   cursor: pointer;
 }
 
-
 .contacts-acronym-container {
   display: flex;
   justify-content: center;
@@ -636,92 +635,32 @@ h3 {
   font-weight: 700;
 }
 
-.contacts-edit-container {
-  display: none;
+.contacts-edit-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 172px;
+  gap: 35px;
+  margin-top: 32px;
 }
 
-.contacts-edit-container.fade-in {
+.contacts-edit-delete-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.5);
-  animation: contactsEditContainerFadeIn 0.5s ease 0s 1 normal forwards;
+  gap: 4px;
+  background-color: white;
+  border: 1px solid var(--dark-blue);
+  border-radius: 10px;
+  padding: 15px 24px;
+  color: var(--dark-blue);
+  font-size: 20px;
+  font-weight: 400;
+  transition: border 100ms ease-in-out, color 100ms ease-in-out;
 }
 
-@keyframes contactsEditContainerFadeIn {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-
-.contacts-edit-container.fade-out {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow-x: hidden;
-  width: 100vw;
-  height: 100vh;
-  z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.5);
-  animation: contactsEditContainerFadeOut 0.5s ease 0s 1 normal forwards;
-}
-
-@keyframes contactsEditContainerFadeOut {
-  50% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-.contacts-edit {
-  position: relative;
-  display: flex;
-  height: 592px;
-  border-radius: 42px;
-  animation: contactsEditSlideIn 0.5s ease 0s 1 normal forwards;
-}
-
-@keyframes contactsEditSlideIn {
-  0% {
-    transform: translateX(150%);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.contacts-edit.slide-out {
-  position: relative;
-  display: flex;
-  height: 592px;
-  border-radius: 42px;
-  animation: contactsEditSlideOut 0.5s ease 0s 1 normal forwards;
-}
-
-@keyframes contactsEditSlideOut {
-  0% {
-    transform: translateX(0);
-  }
-
-  100% {
-    transform: translateX(150%);
-  }
+.contacts-edit-delete-button:hover {
+  cursor: pointer;
+  color: var(--light-blue);
+  border: 1px solid var(--light-blue);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 25%);
 }

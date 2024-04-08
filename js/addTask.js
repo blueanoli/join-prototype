@@ -12,7 +12,18 @@ let selectedPriority = "medium";
 let isEditMode = false;
 let editedTaskPriority;
 
-/** Initializes AddTask */
+/**
+ * Initializes task addition process by loading tasks from server, 
+ * setting priority to medium, and adding all necessary event listeners.
+ *
+ * @param {Object} category - Category object.
+ * @param {HTMLElement} selectedDiv - Selected div element.
+ * @param {HTMLElement} dropdown - Dropdown element.
+ * @param {HTMLElement} itemsDiv - Items div element.
+ * @param {Object} contact - Contact object.
+ * @param {HTMLElement} optionDiv - Option div element.
+ * @async
+ */
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
     await init();
     await loadTasksFromServer();
@@ -20,17 +31,29 @@ async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact,
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);
 }
 
-/** Validates due-date input field to ensure that selected date is not in the past */
+/**
+ * Creates Date object from provided string and sets time to midnight.
+ *
+ * @param {string} dateString - Date string to convert into Date object.
+ * @returns {Date} Created Date object set to midnight.
+ */
+function createDateAtMidnight(dateString) {
+    let date = new Date(dateString);
+    date.setHours(0, 0, 0, 0);
+    return date;
+}
+
+/**
+ * Checks if selected due date is in the future.
+ *
+ * @returns {boolean} - Returns true if selected due date is in the future, else false.
+ */
 function checkDueDate() {
     let dueDateInput = document.getElementById('due-date');
-    let dueDate = dueDateInput.value;
-    let today = new Date();
-    let dueDateObj = new Date(dueDate);
+    let dueDate = createDateAtMidnight(dueDateInput.value);
+    let today = createDateAtMidnight(new Date());
 
-    today.setHours(0, 0, 0, 0);
-    dueDateObj.setHours(0, 0, 0, 0);
-
-    if (dueDateObj < today) {
+    if (dueDate < today) {
         dueDateInput.setCustomValidity("Please choose a date in the future");
         dueDateInput.reportValidity();
         return false; 
@@ -52,28 +75,43 @@ function hideErrorMessage(inputElement, errorMessage) {
     errorMessage.style.display = 'none';
 }
 
-/** Checks if each field in given list is empty and shows or hides error message accordingly */
-function checkRequiredField() {
-    for (let i = 0; i < fields.length; i++) {
-        let field = fields[i];
-        let inputElement = document.getElementById(field.id);
-        let errorMessage = document.getElementById(field.errorId);
+/**
+ * Checks if given field is empty and shows or hides error message accordingly.
+ *
+ * @param {Object} field - Field object containing id of input element and error message element, and flag indicating if field is div.
+ */
+function checkField(field) {
+    let inputElement = document.getElementById(field.id);
+    let errorMessage = document.getElementById(field.errorId);
+    let isFieldEmpty;
 
-        if (field.isDiv) {
-            isFieldEmpty = !inputElement.getAttribute('data-value');
-        } else {
-            isFieldEmpty = inputElement.value.trim() === '';
-        }
+    if (field.isDiv) {
+        isFieldEmpty = !inputElement.getAttribute('data-value');
+    } else {
+        isFieldEmpty = inputElement.value.trim() === '';
+    }
 
-        if (isFieldEmpty) {
-            showErrorMessage(inputElement, errorMessage);
-        } else {
-            hideErrorMessage(inputElement, errorMessage);
-        }
+    if (isFieldEmpty) {
+        showErrorMessage(inputElement, errorMessage);
+    } else {
+        hideErrorMessage(inputElement, errorMessage);
     }
 }
 
-/** Resets style of input field and hides error message */
+/**
+ * Iterates over all fields and checks each one for validity using checkField function.
+ */
+function checkRequiredField() {
+    for (let i = 0; i < fields.length; i++) {
+        checkField(fields[i]);
+    }
+}
+
+/**
+ * Resets style of given field by hiding its error message or removing 'input-error' class.
+ *
+ * @param {HTMLElement} element - Input element to reset.
+ */
 function resetFieldStyle(element) {
     let errorId = element.id + '-error';
     let errorElement = document.getElementById(errorId);
@@ -112,7 +150,11 @@ function setEditedTaskPriority(priorityLevel, isEditModeFlag) {
     }
 }
 
-/** Updates UI to show selected priority */
+/**
+ * Updates UI to reflect selected priority level.
+ *
+ * @param {string} priorityLevel - Selected priority level.
+ */
 function updatePriorityUI(priorityLevel) {
     for (let i = 0; i < priorities.length; i++) {
         let prio = priorities[i];
@@ -176,28 +218,40 @@ function createNewTask() {
     return { id: taskId, title, dueDate, category, priority, assignedTo, description, subtasks, progress };
 }
 
+/** Generates unique task id */
 function generateUniqueTaskId() {
     return Date.now().toString();
 }
 
 /** Triggers animation to notify user that task has been added, then clears form and redirects user to board */
+function animateNotification(notification) {
+    notification.classList.add("animate");
+    notification.innerHTML = renderNotificationHTML("Task added to board", "assets/img/board_grey.svg");
+}
+
+function resetNotification(notification) {
+    notification.classList.remove("animate");
+    notification.innerHTML = '';
+    clearForm();
+}
+
+function handleRedirect() {
+    if (window.location.href.endsWith('board.html')) {
+        closeAddTask();
+        displayAllTasks();
+    } else {
+        window.location.href = "board.html";
+    }
+}
+
 function addTaskAnimation(){
     let notification = document.getElementById('notification-container');
 
-    notification.classList.add("animate");
-    notification.innerHTML = renderNotificationHTML("Task added to board", "assets/img/board_grey.svg");
+    animateNotification(notification);
 
     setTimeout(function() {
-        notification.classList.remove("animate");
-        notification.innerHTML = '';
-        clearForm();
-
-        if (window.location.href.endsWith('board.html')) {
-            closeAddTask();
-            displayAllTasks();
-        } else {
-            window.location.href = "board.html";
-        }
+        resetNotification(notification);
+        handleRedirect();
     }, 1000);
 }
 

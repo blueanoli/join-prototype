@@ -155,14 +155,15 @@ function checkColumnEmpty(sectionId, emptyText) {
 }
 
 /**
-* Filters tasksData array to return at least one word within task title
+* Filters tasksData array to return at least one word within task title and or description
 * @param {Object} searchText - search text
 * @param {Array} tasksData - Array that holds task objects
 */
 function getFilteredTasks(searchText, tasksData) {
     return tasksData.filter(task => {
-        if (typeof task.title === 'string') {
-            return task.title.split(' ').some(word => word.toLowerCase().startsWith(searchText));
+        if (typeof task.title === 'string' && typeof task.description === 'string') {
+            return task.title.split(' ').some(word => word.toLowerCase().startsWith(searchText)) ||
+                   task.description.split(' ').some(word => word.toLowerCase().startsWith(searchText));
         }
         return false;
     });

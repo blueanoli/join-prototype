@@ -38,6 +38,7 @@ body {
   margin: 0 auto;
   background-color: var(--background-grey);
   max-width: 1940px;
+  position: relative;
 }
 
 .d-none {
@@ -468,8 +469,8 @@ h1 {
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 188px;
-  right: 40px;
+  top: 120px;
+  right: 20px;
 }
 
 .arrow-container button:hover {
@@ -491,8 +492,16 @@ h3 {
     padding: 32px 115px;
   }
 
+  .arrow-container button {
+    top: 100px !important
+  };
+
   .signup-policy {
     margin-top: 8px;
+  }
+
+  .desktop-menu {
+    display: none;
   }
 }
 
@@ -500,6 +509,10 @@ h3 {
   .login-main {
     width: auto;
     padding: 32px 10px;
+  }
+
+  .privacy-headline {
+    font-size: 50px;
   }
 
   .login-register-forwarding {
@@ -514,6 +527,12 @@ h3 {
   .singup-arrow-container {
     top: 48px;
   }
+}
+
+@media (max-width: 600px) { 
+.privacy-headline {
+  font-size: 40px;
+}
 }
 
 @media (max-width: 500px) {
@@ -570,5 +589,9 @@ h3 {
 
   .singup-arrow-container {
     left: 12px;
+  }
+
+  .privacy-headline {
+    font-size: 28px;
   }
 }

@@ -223,18 +223,28 @@ function generateUniqueTaskId() {
     return Date.now().toString();
 }
 
-/** Triggers animation to notify user that task has been added, then clears form and redirects user to board */
+/**
+ * Adds animation class to notification and updates its inner HTML.
+ *
+ * @param {HTMLElement} notification - Notification element to animate.
+ */
 function animateNotification(notification) {
     notification.classList.add("animate");
     notification.innerHTML = renderNotificationHTML("Task added to board", "assets/img/board_grey.svg");
 }
 
+/**
+ * Removes animation class from notification and updates its inner HTML.
+ *
+ * @param {HTMLElement} notification - Notification element to animate.
+ */
 function resetNotification(notification) {
     notification.classList.remove("animate");
     notification.innerHTML = '';
     clearForm();
 }
 
+/** Closes add task modal if in edit mode and redirects to board if not in edit mode */
 function handleRedirect() {
     if (window.location.href.endsWith('board.html')) {
         closeAddTask();
@@ -244,6 +254,9 @@ function handleRedirect() {
     }
 }
 
+/**
+ * Animates notification, resets it after delay, and handles page redirect.
+ */
 function addTaskAnimation(){
     let notification = document.getElementById('notification-container');
 
@@ -255,7 +268,14 @@ function addTaskAnimation(){
     }, 1000);
 }
 
-/** Creates new category option element, sets text to provided category and adds eventlistener */
+/**
+ * Creates new category option and appends it to itemsDiv.
+ *
+ * @param {string} category - Category name.
+ * @param {HTMLElement} itemsDiv - Div to which new option will be appended.
+ * @param {HTMLElement} selectedDiv - Div representing selected category.
+ * @param {HTMLElement} dropdown - Dropdown element.
+ */
 function createCategoryOption(category, itemsDiv, selectedDiv, dropdown) {
     let optionDiv = document.createElement('div');
     optionDiv.textContent = category;

@@ -1,4 +1,10 @@
-/** Handles Click Event on a contact, toggling selection state and updating UI */
+/**
+ * Handles click event on contact, toggling its selection state.
+ *
+ * @param {Event} event - Click event.
+ * @param {Object} contact - Contact object.
+ * @param {HTMLElement} optionDiv - Div element representing contact option.
+ */
 function handleContactClick(event, contact, optionDiv) {
     event.stopImmediatePropagation();
     let checkbox = getCheckboxFromEvent(event, optionDiv);
@@ -12,15 +18,33 @@ function handleContactClick(event, contact, optionDiv) {
     }
 }
 
+/**
+ * Returns checkbox element from a click event.
+ * @param {Event} event - Click event.
+ * @param {HTMLElement} optionDiv - Div element containing checkbox.
+ * @returns {HTMLElement} - Checkbox element.
+ */
 function getCheckboxFromEvent(event, optionDiv) {
     let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
     return isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
 }
 
+/**
+ * Checks if contact is selected.
+ * @param {Object} contact - Contact to check.
+ * @returns {boolean} - True if contact is selected, else false.
+ */
 function isContactSelected(contact) {
     return selectedContacts[contact];
 }
 
+/**
+ * Deselects contact, updates checkbox image, removes contact from assigned list, and updates style.
+ *
+ * @param {Object} contact - Contact to deselect.
+ * @param {HTMLElement} checkbox - Checkbox element of contact.
+ * @param {HTMLElement} optionDiv - Div element representing contact option.
+ */
 function deselectContact(contact, checkbox, optionDiv) {
     checkbox.src = "assets/img/checkboxempty.svg";
     removeAssignedContact(contact);
@@ -28,6 +52,13 @@ function deselectContact(contact, checkbox, optionDiv) {
     optionDiv.classList.remove("selected");
 }
 
+/**
+ * Selects contact, updates checkbox image, adds contact to assigned list, and updates style.
+ *
+ * @param {Object} contact - Contact to select.
+ * @param {HTMLElement} checkbox - Checkbox element of contact.
+ * @param {HTMLElement} optionDiv - Div element representing contact option.
+ */
 function selectContact(contact, checkbox, optionDiv) {
     checkbox.src = "assets/img/checkboxchecked_white.svg";
     addAssignedContact(contact);
@@ -35,7 +66,15 @@ function selectContact(contact, checkbox, optionDiv) {
     optionDiv.classList.add("selected");
 }
 
-/** Handles click event on category and updates selected category */
+/**
+ * Handles click event on category, updating selected category and hiding category dropdown.
+ *
+ * @param {Event} event - Click event.
+ * @param {string} category - Clicked category.
+ * @param {HTMLElement} selectedDiv - Div element representing selected category.
+ * @param {HTMLElement} dropdown - Dropdown element.
+ * @param {HTMLElement} itemsDiv - Div element containing category items.
+ */
 function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
     event.stopPropagation();
 
@@ -61,23 +100,33 @@ function setupFormEventListeners() {
     });
 }
 
-/** Sets EventListener to close dropdowns when clicked outside */
+/**
+ * Handles click event on dropdown, toggling its visibility and changing its image if necessary.
+ *
+ * @param {Event} event - Click event.
+ * @param {string} dropdownId - Id of dropdown element.
+ * @param {string} dropdownName - Name of dropdown.
+ */
+function handleDropdownClick(event, dropdownId, dropdownName) {
+    let dropdown = document.getElementById(dropdownId);
+    let isClickInsideDropdown = dropdown.contains(event.target);
+
+    if (!isClickInsideDropdown && !dropdown.querySelector('.select-items').classList.contains('select-hide')) {
+        toggleDropdown(dropdownId, true);
+        if (dropdownName === 'category') {
+            changeDropdownImg('choose-category', 'open');
+        }
+    }
+}
+
+/**
+ * Sets up a click event listener on the document to handle dropdown clicks.
+ */
 function setupDropdownCloseListener() {
     document.addEventListener('click', function(event) {
         let assignedToId = getAssignedToId();
-        let dropdownContacts = document.getElementById(assignedToId);
-        let isClickInsideDropdownContacts = dropdownContacts.contains(event.target);
-        let dropdownCategory = document.getElementById('choose-category');
-        let isClickInsideDropdownCategory = dropdownCategory.contains(event.target);
-
-        if (!isClickInsideDropdownContacts && !dropdownContacts.querySelector('.select-items').classList.contains('select-hide')) {
-            toggleDropdown(assignedToId, true); 
-        }
-
-        if (!isClickInsideDropdownCategory && !dropdownCategory.querySelector('.select-items').classList.contains('select-hide')) {
-            toggleDropdown('choose-category', true); 
-            changeDropdownImg('choose-category', 'open'); 
-        }
+        handleDropdownClick(event, assignedToId, 'contacts');
+        handleDropdownClick(event, 'choose-category', 'category');
     });
 }
 

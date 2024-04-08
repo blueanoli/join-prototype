@@ -254,6 +254,22 @@ async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isP
   }
 }
 
+/* Adjusts the visibility of the desktop menu based on screen size and page type. */
+function adjustMenuDisplay() {
+  let isPublic = isPublicPage();
+  let desktopMenu = document.querySelector('.desktop-menu');
+  
+  if (window.innerWidth < 1000 && isPublic) {
+    if (desktopMenu) {
+      desktopMenu.style.display = 'none';
+    }
+  } else {
+    if (desktopMenu) {
+      desktopMenu.style.display = '';
+    }
+  }
+}
+
 /* Checks the browser window size and switches templates as needed. */
 async function checkWindowSize() {
   let includeDiv = document.querySelector('[w3-include-html]');
@@ -261,6 +277,7 @@ async function checkWindowSize() {
     let currentTemplate = includeDiv.getAttribute('w3-include-html');
     let isPublic = isPublicPage();
     await switchTemplate(currentTemplate, isPublic);
+    adjustMenuDisplay();
   }
   setActive();
 }

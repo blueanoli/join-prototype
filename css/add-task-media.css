@@ -165,16 +165,18 @@
 }
 .add-task-buttons{
     right: 0;
+    padding-bottom: calc(80px + 2%);
 }
 .left-input-container, .right-input-container{
     width: 100%;
 }
 .info-container{
-    bottom: -200px;  
+    bottom: -450px;  
     padding-bottom: 10px;
+    display: none;
 }
 .required-span{
-    bottom: -9%;
+    bottom: calc(80px - 60%);
     margin-left: 8px;
     font-size: 12px;
 }

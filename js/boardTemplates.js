@@ -147,20 +147,19 @@ function renderMiniTaskHTML(task, index) {
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   const categorySvgPath = getCategorySvgPath(task.category);
   const subtasksContainerHtml = totalSubtasks > 0 ?
-    `<div class="progress-bar-container" onmouseenter="showToastMessage(this)" onmouseleave="hideToastMessage(this)">
-            <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
-            <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
-      </div>
-      <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
+    /*html*/`
+    <div class="progress-bar-container" onmouseenter="showToastMessage(this)" onmouseleave="hideToastMessage(this)">
+      <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+      <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
+    </div>
+    <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
 
   let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
   let priority = task.priority;
-
-  let contactIconsHtml = task.assignedTo.slice(0, 3).map(person => `
-                          <div class="contact-icon-container mini-contact-icons">
-                              <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
-                          </div>
-                      `).join('');
+  let contactIconsHtml = task.assignedTo.slice(0, 3).map(person => /*html*/ `
+    <div class="contact-icon-container mini-contact-icons">
+      <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
+    </div>`).join('');
 
   let additionalContacts = task.assignedTo.length > 3 ? `<div class="contact-icon-container mini-contact-icons additional-contacts" style="background-color: var(--dark-blue)">
     +${task.assignedTo.length - 3}
@@ -235,4 +234,66 @@ function renderEditSubtaskIconHTML() {
   <img onclick="cancelEditSubtask()" class="icon-cancel edit-mode-icon-cancel" src="assets/img/cancel_dark.svg" alt="">
   <div class="subtask-line edit-mode-subtask-line"></div>
   <img onclick="addEditSubtask()" class="icon-confirm edit-mode-icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
+}
+
+/**
+ * Returns HTML string for editable subtask input field.
+ * Input field's value is set to given value, and it has onblur event handler that calls 'saveEditedEditSubtask'.
+ * HTML also includes span with two images, one for removing the subtask and one for saving the edited subtask.
+ *
+ * @param {string} value - Value to set on input field.
+ * @param {string} subtaskId - ID of subtask.
+ * @returns {string} - HTML string for editable subtask input field.
+ */
+function renderEditSubtaskInputHTML(value, subtaskId) {
+  return /*html*/`
+      <input type="text" value="${value}" onblur="saveEditedEditSubtask('${subtaskId}')">
+      <span class="icon-container">
+          <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
+          <span>|</span>
+          <img onclick="saveEditedEditSubtask('${subtaskId}')" src="assets/img/addtask_check.svg" alt="">
+      </span>
+  `;
+}
+
+/**
+* Returns HTML string for saved subtask.
+* Subtask includes list item with the given value and div with two images,
+* one for editing subtask and one for removing subtask.
+*
+* @param {string} value - Value of subtask.
+* @param {string} subtaskId - ID of subtask.
+* @returns {string} - HTML string for saved subtask.
+*/
+function renderSavedEditSubtaskHTML(value, subtaskId) {
+  return /*html*/`
+      <li>${value}</li>
+      <div class="subtask-icons">
+          <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
+          <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
+      </div>
+  `;
+}
+
+/**
+* Returns HTML string for subtask in edit mode.
+* Subtask includes list item with given title and a completed data attribute,
+* and div with two images, one for editing subtask and one for removing subtask.
+*
+* @param {string} subtaskTitle - Title of subtask.
+* @param {string} subtaskId - ID of subtask.
+* @param {boolean} completed - Completion status of subtask.
+* @returns {string} - HTML string for subtask in edit mode.
+*/
+function renderEditSubtaskHTML(subtaskTitle, subtaskId, completed) {
+  return /*html*/ `
+      <div id="${subtaskId}" class="subtask">
+          <ul>
+              <li data-completed="${completed}">${subtaskTitle}</li>
+          </ul>
+          <div class="subtask-icons">
+              <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="Edit">
+              <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="Delete">
+          </div>
+      </div>`;
 }

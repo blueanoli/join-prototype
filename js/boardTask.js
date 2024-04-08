@@ -2,7 +2,6 @@
  * Handles click event on task.
  * Gets task from tasks data using given index, gets overlay container,
  * renders task overlay HTML, activates overlay, and shows overlay container.
- *
  * @param {number} index - Index of task in tasks data.
  */
 function handleTaskClick(index) {
@@ -80,26 +79,38 @@ function initializePrioritySelectionInEditMode(taskPriority) {
     setPriority(taskPriority, true);
 }
 
-
-/** Updates task at specified index */
-async function saveEditedTask(index){
+/** Updates task details at specified index */
+async function updateTaskDetails(index) {
     let task = tasksData[index]; 
     task.title = document.getElementById('edit-title').value;
-    titleInput = document.getElementById('edit-title');
     task.description = document.getElementById('edit-description').value;
     task.dueDate = document.getElementById('due-date').value;
     task.priority = editedTaskPriority || "medium";
     task.assignedTo = transformSelectedContactsToAssignedTo(selectedContacts);
     task.subtasks = prepareSubtasks(task.id);
+    return task;
+}
 
+/** Prepares subtasks for task with given ID */
+function validateTask(task) {
     if (!task.title.trim()) {
         addBoardAnimation("Task title cannot be empty", "assets/img/cancel_white.svg");
         titleInput.scrollIntoView({ behavior: 'smooth' });
-        return;
+        return false;
     }
 
     if (!checkDueDate(task.dueDate)) {
         addBoardAnimation("Due date can't be in the past", "assets/img/cancel_white.svg");
+        return false;
+    }
+
+    return true;
+}
+
+/** Saves changes to task and closes overlay */
+async function saveEditedTask(index){
+    let task = await updateTaskDetails(index);
+    if (!validateTask(task)) {
         return;
     }
     
@@ -139,7 +150,6 @@ function addBoardAnimation(text, imgSrc) {
  * Opens task addition form with given progress status.
  * If mobile view should be displayed or if overlay is already open, function returns early.
  * Else, it prepares board for new task, activates overlay, and loads task form.
- *
  * @param {string} progressStatus - progress status of new task.
  */
 function openAddTask(progressStatus) {
@@ -157,7 +167,6 @@ function openAddTask(progressStatus) {
 /**
  * Checks if window's inner width is below 1000 pixels.
  * If so, redirects to 'add_task.html'
- *
  * @returns {boolean} - True if window's inner width is below 1000 pixels, false otherwise.
  */
 function shouldRedirectToMobileView() {
@@ -181,7 +190,6 @@ function prepareBoardForNewTask() {
 /**
  * Activates overlay by adding 'active' class to overlay and container,
  * removing 'closing' class and setting body's overflow to 'hidden'.
- *
  * @param {HTMLElement} container - container element to activate.
  */
 function activateOverlay(container) {
@@ -197,7 +205,6 @@ function activateOverlay(container) {
 /**
  * Loads task form into given container and activates it with given progress status.
  * After HTML is included, it activates container and renders task form.
- *
  * @param {HTMLElement} container - container element to load task form into.
  * @param {string} progressStatus - progress status to activate container with.
  */
@@ -214,7 +221,6 @@ function loadTaskForm(container, progressStatus) {
  * Activates container by setting its display style to 'block',
  * adding a click event listener to the close button that calls 'closeAddTask' function once,
  * and setting container's 'data-progress-status' attribute to the given progress status.
- *
  * @param {string} progressStatus - progress status to set on container.
  */
 function activateContainer(progressStatus) {
@@ -231,8 +237,7 @@ function activateContainer(progressStatus) {
 /**
  * Closes task addition form if overlay is open.
  * Populates columns with tasks, checks all sections, adds 'closing' class to container,
- * removes 'active' class from overlay, resets body's overflow style,
- * removes 'w3-include-html' attribute from container, and sets overlay open to false.
+ * removes 'active' class from overlay, resets body's overflow style, removes 'w3-include-html' attribute from container, and sets overlay open to false.
  */
 function closeAddTask() {
     if (!isOverlayOpen) return;
@@ -252,8 +257,7 @@ function closeAddTask() {
 }
 
 /**
- * Adds subtask to task being edited.
- * Gets subtask input value and if not empty, calculates task and subtask indices,
+ * Adds subtask to task being edited. Gets subtask input value and if not empty, calculates task and subtask indices,
  * generates subtask ID, and appends rendered subtask HTML to subtask container.
  * Clears subtask input and updates 'edit-icon-container' HTML.
  */
@@ -275,7 +279,6 @@ async function addEditSubtask() {
 
 /**
  * Removes subtask with given ID from DOM and updates tasks data in storage.
- *
  * @param {string} subtaskId - ID of subtask to remove.
  */
 async function removeEditSubtask(subtaskId) {
@@ -328,68 +331,6 @@ function cancelEditSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
     let originalValue = subtaskElement.dataset.originalValue;
     subtaskElement.innerHTML = renderSavedEditSubtaskHTML(originalValue, subtaskId);
-}
-
-/**
- * Returns HTML string for editable subtask input field.
- * Input field's value is set to given value, and it has onblur event handler that calls 'saveEditedEditSubtask'.
- * HTML also includes span with two images, one for removing the subtask and one for saving the edited subtask.
- *
- * @param {string} value - Value to set on input field.
- * @param {string} subtaskId - ID of subtask.
- * @returns {string} - HTML string for editable subtask input field.
- */
-function renderEditSubtaskInputHTML(value, subtaskId) {
-    return `
-        <input type="text" value="${value}" onblur="saveEditedEditSubtask('${subtaskId}')">
-        <span class="icon-container">
-            <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
-            <span>|</span>
-            <img onclick="saveEditedEditSubtask('${subtaskId}')" src="assets/img/addtask_check.svg" alt="">
-        </span>
-    `;
-}
-
-/**
- * Returns HTML string for saved subtask.
- * Subtask includes list item with the given value and div with two images,
- * one for editing subtask and one for removing subtask.
- *
- * @param {string} value - Value of subtask.
- * @param {string} subtaskId - ID of subtask.
- * @returns {string} - HTML string for saved subtask.
- */
-function renderSavedEditSubtaskHTML(value, subtaskId) {
-    return `
-        <li>${value}</li>
-        <div class="subtask-icons">
-            <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="">
-            <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="">
-        </div>
-    `;
-}
-
-/**
- * Returns HTML string for subtask in edit mode.
- * Subtask includes list item with given title and a completed data attribute,
- * and div with two images, one for editing subtask and one for removing subtask.
- *
- * @param {string} subtaskTitle - Title of subtask.
- * @param {string} subtaskId - ID of subtask.
- * @param {boolean} completed - Completion status of subtask.
- * @returns {string} - HTML string for subtask in edit mode.
- */
-function renderEditSubtaskHTML(subtaskTitle, subtaskId, completed) {
-    return /*html*/ `
-        <div id="${subtaskId}" class="subtask">
-            <ul>
-                <li data-completed="${completed}">${subtaskTitle}</li>
-            </ul>
-            <div class="subtask-icons">
-                <img onclick="editEditSubtask('${subtaskId}')" src="assets/img/pencil_grey.svg" alt="Edit">
-                <img onclick="removeEditSubtask('${subtaskId}')" src="assets/img/delete.svg" alt="Delete">
-            </div>
-        </div>`;
 }
 
 /**

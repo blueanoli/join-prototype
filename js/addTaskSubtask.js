@@ -1,4 +1,7 @@
-/** Adds new subtask to the subtask-container, resets input field and updates icon container*/
+/** 
+* Adds new subtask to the subtask-container, resets input field and updates icon container
+* 
+*/
 function addSubtask() {
     let subtask = document.getElementById('subtasks').value;
     let subtaskcontainer = document.getElementById('subtask-container');
@@ -9,7 +12,10 @@ function addSubtask() {
     cancelSubtask();
 }
 
-/** Deletes subtask from subtask-container */
+/** 
+* Deletes subtask from subtask-container
+* @param {string} subtaskId - ID of subtask to delete
+*/
 function removeSubtask(subtaskId) {
     let subtaskElement = document.getElementById(subtaskId);
     if (subtaskElement) {
@@ -19,7 +25,10 @@ function removeSubtask(subtaskId) {
     document.getElementById('subtask-container').style.overflowY = 'auto';
 }
 
-/** Sets subtask to editing mode */
+/** 
+* Sets subtask to editing mode
+* @param {string} subtaskId - ID of subtask to edit
+*/
 function editSubtask(subtaskId) {
     let subtaskDiv = document.getElementById(subtaskId);
     subtaskDiv.classList.add('editing');
@@ -30,7 +39,10 @@ function editSubtask(subtaskId) {
     document.getElementById(`edit-${subtaskId}`).focus();
 }
 
-/** Saves edited value of subtask and updates HTML*/
+/**
+*  Saves edited value of subtask and updates HTML
+* @param {string} subtaskId - ID of subtask to save
+*/
 function saveEditedSubtask(subtaskId) {
     let subtaskDiv = document.getElementById(subtaskId);
     let inputField = document.getElementById(`edit-${subtaskId}`);
@@ -50,14 +62,18 @@ function saveEditedSubtask(subtaskId) {
     document.getElementById('subtask-container').style.overflowY = 'auto';
 }
 
-/** Clears all content of subtask-container */
+/** 
+* Clears all content of subtask-container
+*/
 function clearSubtasks() {
     let subtaskContainer = document.getElementById('subtask-container');
     subtaskContainer.innerHTML = '';
     subtaskCounter = 0; 
 }
 
-/** Resets subtask input field */
+/**
+*  Resets subtask input field
+*/
 function cancelSubtask() {
     document.getElementById('subtasks').value = ''; 
     document.getElementById('icon-container').innerHTML = `

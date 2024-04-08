@@ -1,4 +1,10 @@
-/** Returns HTML for notification with variable text and img */
+/**
+* Returns string of HTML for notification, given notification text and image source.
+*
+* @param {string} text - Text for notification.
+* @param {string} imgSrc - Source URL for notification image.
+* @returns {string} - HTML string for notification.
+*/
 function renderNotificationHTML(text, imgSrc) {
     return /*html*/ `
     <div class="notification">
@@ -8,7 +14,13 @@ function renderNotificationHTML(text, imgSrc) {
     `;
 }
 
-/** Returns HTML for subtask */
+/**
+* Returns string of HTML for subtask, given subtask text and id.
+*
+* @param {string} subtask - Text for subtask.
+* @param {string} subtaskId - Id for subtask.
+* @returns {string} - HTML string for subtask.
+*/
 function renderSubtaskHTML(subtask, subtaskId) {
     return /*html*/ `
     <div id="${subtaskId}" class="subtask">
@@ -23,7 +35,12 @@ function renderSubtaskHTML(subtask, subtaskId) {
     </div>`;
 }
 
-/** Returns HTML for subtask in editing mode */
+/**
+* Returns string of HTML for editable subtask list item, given subtask text and id.
+*
+* @param {string} subtaskText - Text for subtask.
+* @returns {string} - HTML string for editable subtask list item.
+*/
 function renderSubtaskListHTML(subtaskText, subtaskId) {
     return /*html*/`
         <div class="edit-subtask-container">
@@ -36,7 +53,9 @@ function renderSubtaskListHTML(subtaskText, subtaskId) {
         </div>`;
 }
 
-/** Returns HTML for subtask icon */
+/** 
+* Returns HTML for subtask icon
+*/
 function renderSubtaskIconHTML() {
     return /*html*/`
     <img onclick="cancelSubtask()" class="icon-cancel" src="assets/img/cancel_dark.svg" alt="">
@@ -44,7 +63,9 @@ function renderSubtaskIconHTML() {
     <img onclick="addSubtask()" class="icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
 }
 
-/** Returns HTML that provides contact with name, color, initals and checkboximg */
+/** 
+* Returns HTML that provides contact with name, color, initals and checkboximg
+*/
 function renderContactHTML(contact, color, initials, checkboxImage) {
     return /*html*/ `
         <div class="test-contact-container">
@@ -55,7 +76,9 @@ function renderContactHTML(contact, color, initials, checkboxImage) {
     `;
 }
 
-/** Returns HTML for assigned contact */
+/** 
+* Returns HTML for assigned contact
+*/
 function renderAssignedContactHTML(initials, color, contactName) {
     return /*html*/`
         <div class="assigned-contact" data-contact-name="${contactName}">
@@ -64,7 +87,9 @@ function renderAssignedContactHTML(initials, color, contactName) {
 }
 
 
-/** Returns HTML that provides contact option with contact details, selected class, backgroundcolor and index */
+/**
+* Returns HTML that provides contact option with contact details, selected class, backgroundcolor and index
+*/
 function renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index){
     return /*html*/`
         <div class='option-item${selectedClass}' id='contact-${index}'${backgroundColorStyle}>

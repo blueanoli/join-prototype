@@ -287,7 +287,7 @@ function renderSavedEditSubtaskHTML(value, subtaskId) {
 */
 function renderEditSubtaskHTML(subtaskTitle, subtaskId, completed) {
   return /*html*/ `
-      <div id="${subtaskId}" class="subtask">
+      <div id="${subtaskId}" class="subtask edit-mode-subtask">
           <ul>
               <li data-completed="${completed}">${subtaskTitle}</li>
           </ul>

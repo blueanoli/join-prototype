@@ -220,6 +220,5 @@ function clearAssignedContacts() {
             selectedContacts[key] = false; 
         }
     }
-
     renderContacts();
 }

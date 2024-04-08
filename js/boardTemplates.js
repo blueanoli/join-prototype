@@ -81,11 +81,11 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       </div>
       <div class="edit-task-title-container edit-mode-task-title-container">
           <span class="task-container-mini-headlines">Title:</span>
-          <input required maxlength="30" type="text" value="${task.title}" class="edit-input" id="edit-title">
+          <input required maxlength="30" type="text" value="${task.title}" class="edit-input" id="edit-title" placeholder="Enter a title">
       </div>
       <div class="edit-task-description-container edit-mode-task-description-container">
           <span class="task-container-mini-headlines">Description:</span>
-          <textarea class="edit-textarea" id="edit-description">${task.description}</textarea>
+          <textarea placeholder="Enter a description" class="edit-textarea" id="edit-description">${task.description}</textarea>
       </div>
       <div class="edit-task-due-date-container edit-mode-task-due-date-container">
           <span class="task-container-mini-headlines">Due date:</span>

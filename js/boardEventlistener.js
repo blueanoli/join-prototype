@@ -387,9 +387,7 @@ function addBoardEventListeners() {
     window.addEventListener('resize', handleResize);
 }
 
-/**
- * Sets up event listeners for subtasks.
- */
+/** Sets up event listeners for subtasks. */
 function setupSubtaskEventListeners() {
     setupEditFormEventListeners();
     disableEditFormEnterKeySubmission();

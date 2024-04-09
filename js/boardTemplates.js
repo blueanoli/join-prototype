@@ -1,3 +1,8 @@
+/**
+ * Renders HTML for task overlay.
+ * @param {Object} task - Task object to be rendered.
+ * @param {number} index - Index of task in task list.
+ */
 function renderTaskOverlayHTML(task, index) {
   const overlayContainer = document.getElementById('edit-task-overlay');
   const categorySvgPath = getCategorySvgPath(task.category);
@@ -7,7 +12,6 @@ function renderTaskOverlayHTML(task, index) {
     (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
     dueDate.getFullYear();
   let subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
-
 
   const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
@@ -71,6 +75,14 @@ function renderTaskOverlayHTML(task, index) {
   overlayContainer.innerHTML = htmlContent;
 }
 
+/**
+ * Generates HTML for task editing overlay.
+ * @param {Object} task - Task details.
+ * @param {string} assignedContactsHtml - HTML for assigned contacts.
+ * @param {string} subtasksHtml - HTML for subtasks.
+ * @param {number} index - Task index.
+ * @returns {string} - Generated HTML string.
+ */
 function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index) {
   return /*html*/`
   <form>
@@ -140,40 +152,88 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
   </div>`;
 }
 
+/**
+ * Generates HTML for a mini task.
+ * @param {Object} task - Task details.
+ * @param {number} index - Task index.
+ * @returns {string} - Generated HTML string.
+ */
 function renderMiniTaskHTML(task, index) {
   let subtasks = Array.isArray(task.subtasks) ? task.subtasks : []; 
   let completedSubtasks = subtasks.filter(subtask => subtask.completed).length; 
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   const categorySvgPath = getCategorySvgPath(task.category);
-  const subtasksContainerHtml = totalSubtasks > 0 ?
-    /*html*/`
+  const subtasksContainerHtml = totalSubtasks > 0 ? renderSubtasksContainerHtml(progressPercentage, completedSubtasks, totalSubtasks) : '';
+  let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
+  let priority = task.priority;
+  let contactIconsHtml = renderContactIconsHtml(task.assignedTo);
+  let additionalContacts = task.assignedTo.length > 3 ? renderAdditionalContacts(task.assignedTo.length) : '';
+
+  return renderTaskContainerHtml(index, categorySvgPath, task.title, truncatedDescription, subtasksContainerHtml, contactIconsHtml, additionalContacts, priority);
+}
+
+/**
+ * Generates HTML for a subtasks container.
+ * @param {number} progressPercentage - Progress percentage.
+ * @param {number} completedSubtasks - Number of completed subtasks.
+ * @param {number} totalSubtasks - Total number of subtasks.
+ * @returns {string} - Generated HTML string.
+ */
+function renderSubtasksContainerHtml(progressPercentage, completedSubtasks, totalSubtasks) {
+  return /*html*/`
     <div class="progress-bar-container" onmouseenter="showToastMessage(this)" onmouseleave="hideToastMessage(this)">
       <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
       <div class="toast-message">Completed: ${completedSubtasks}/${totalSubtasks}</div>
     </div>
-    <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>` : '';
+    <span class="subtask-counter">${completedSubtasks}/${totalSubtasks} Subtasks</span>`;
+}
 
-  let truncatedDescription = task.description.length > 20 ? task.description.slice(0, 20) + '...' : task.description;
-  let priority = task.priority;
-  let contactIconsHtml = task.assignedTo.slice(0, 3).map(person => /*html*/ `
+/**
+ * Generates HTML for contact icons.
+ * @param {Array} assignedTo - Array of people assigned to task.
+ * @returns {string} - Generated HTML string.
+ */
+function renderContactIconsHtml(assignedTo) {
+  return assignedTo.slice(0, 3).map(person => /*html*/ `
     <div class="contact-icon-container mini-contact-icons">
       <p class="test-contact" style="background-color: ${person.color}">${person.initials}</p>
     </div>`).join('');
+}
 
-  let additionalContacts = task.assignedTo.length > 3 ? `<div class="contact-icon-container mini-contact-icons additional-contacts" style="background-color: var(--dark-blue)">
-    +${task.assignedTo.length - 3}
-  </div>` : '';
+/**
+ * Generates HTML for additional contacts.
+ * @param {number} assignedToLength - Total number of assigned contacts.
+ * @returns {string} - Generated HTML string.
+ */
+function renderAdditionalContacts(assignedToLength) {
+  return `<div class="contact-icon-container mini-contact-icons additional-contacts" style="background-color: var(--dark-blue)">
+    +${assignedToLength - 3}
+  </div>`;
+}
 
+/**
+ * Generates HTML for task container.
+ * @param {number} index - Task index.
+ * @param {string} categorySvgPath - Path to category SVG.
+ * @param {string} title - Task title.
+ * @param {string} truncatedDescription - Truncated task description.
+ * @param {string} subtasksContainerHtml - HTML for the subtasks container.
+ * @param {string} contactIconsHtml - HTML for the contact icons.
+ * @param {string} additionalContacts - HTML for additional contacts.
+ * @param {string} priority - Task priority.
+ * @returns {string} - Generated HTML string.
+ */
+function renderTaskContainerHtml(index, categorySvgPath, title, truncatedDescription, subtasksContainerHtml, contactIconsHtml, additionalContacts, priority) {
   return /*html*/`
       <div id="mini-task-container${index}" onclick="handleTaskClick(${index})" class="mini-task-container" draggable="true" data-task-id="${index}">
       <div id="mini-task-content${index}"> 
       <div class="mini-task-header">
-              <img src="${categorySvgPath}" alt="${task.category}">
+              <img src="${categorySvgPath}" alt="${title}">
               <img onclick="openMinitaskMenu(event, ${index})" id="minitask-menu" class="minitask-menu" src="assets/img/contact_options_dark.svg" alt="Close">
           </div>
           <div class="mini-task-title-container">
-              <span>${task.title}</span>
+              <span>${title}</span>
           </div>
           <div class="mini-task-description-container">
               <span>${truncatedDescription}</span>
@@ -189,7 +249,7 @@ function renderMiniTaskHTML(task, index) {
                   </div>
               </div>
               <div class="mini-task-prio-container">
-                  <img src="assets/img/addtask_${priority.toLowerCase()}.svg" alt="${task.priority}">
+                  <img src="assets/img/addtask_${priority.toLowerCase()}.svg" alt="${priority}">
               </div>
           </div>
       </div>
@@ -200,6 +260,10 @@ function renderMiniTaskHTML(task, index) {
   `;
 }
 
+/**
+ * Generates HTML for mini task menu.
+ * @returns {string} - Generated HTML string.
+ */
 function renderMinitaskMenuHTML(index) {
   return /*html*/`
   <div class="minitask-menu-content"> 
@@ -229,6 +293,10 @@ function renderMinitaskMenuHTML(index) {
   `;
 }
 
+/**
+ * Generates HTML for edit subtask icons.
+ * @returns {string} - Generated HTML string.
+ */
 function renderEditSubtaskIconHTML() {
   return /*html*/`
   <img onclick="cancelEditSubtask()" class="icon-cancel edit-mode-icon-cancel" src="assets/img/cancel_dark.svg" alt="">

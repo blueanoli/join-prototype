@@ -121,14 +121,16 @@ function showContacts() {
   for (let i = 0; i < sortedLetters.length; i++) {
     let letter = sortedLetters[i];
 
-    letterContainerHTML(contactsDiv, letter);
-    let contacts = contactsByLetter[letter];
-    contacts = sortBySecondName(contacts);
+    if (contactsByLetter[letter].length > 0) {
+      letterContainerHTML(contactsDiv, letter);
+      let contacts = contactsByLetter[letter];
+      contacts = sortBySecondName(contacts);
 
-    for (let j = 0; j < contacts.length; j++) {
-      let contact = contacts[j];
-      setBackgroundColor(contact);
-      contactContainerHTML(contactsDiv, contact, letter, j);
+      for (let j = 0; j < contacts.length; j++) {
+        let contact = contacts[j];
+        setBackgroundColor(contact);
+        contactContainerHTML(contactsDiv, contact, letter, j);
+      }
     }
   }
 }
@@ -200,7 +202,6 @@ function contactContainerHTML(contactsDiv, contact, letter, j) {
     tabindex="0" 
     class="contacts-contact-data contacts-contact-data-hover" 
     onclick="showContactDetails(
-      '${contact}',
       '${contactsName}', 
       '${contactsEmail}',
       '${contactsPhone}', 
@@ -429,7 +430,6 @@ function showContactRegisterMsg() {
 
 /* Displays a container with details about the clicked contact */
 function showContactDetails(
-  contact,
   contactsName,
   contactsEmail,
   contactsPhone,
@@ -443,13 +443,11 @@ function showContactDetails(
   changeContactDetailsVisuality(contactsID);
 
   detailsContainer.innerHTML = getContactDetailsHTML(
-    contact,
     contactsName,
     contactsEmail,
     contactsPhone,
     acronym,
-    contactsColor,
-    contactsID
+    contactsColor
   );
 }
 
@@ -484,7 +482,6 @@ function resetContactDetailsVisuality(contactsID) {
 
 /* Displays the container with the contact details */
 function getContactDetailsHTML(
-  contact,
   contactsName,
   contactsEmail,
   contactsPhone,
@@ -501,8 +498,7 @@ function getContactDetailsHTML(
       <div class="contacts-details-edit-container">
         <div 
           class="contacts-details-edit-icons" 
-          onclick="editContactDetails(
-            '${contact}',
+          onclick="editContactDetailsOverlay(
             '${contactsName}', 
             '${contactsEmail}', 
             '${contactsPhone}',
@@ -513,7 +509,10 @@ function getContactDetailsHTML(
           <img src="assets/img/pencil_grey.svg">
           <span>Edit</span>
         </div>
-        <div class="contacts-details-edit-icons" onclick="deleteContact('${contact}')">
+        <div class="contacts-details-edit-icons" onclick="deleteContact(
+          '${contactsName}', 
+          '${contactsEmail}', 
+          '${contactsPhone}');">
           <img src="assets/img/delete.svg">
           <span>Delete</span>
         </div>
@@ -533,8 +532,7 @@ function getContactDetailsHTML(
   </div>`;
 }
 
-function editContactDetails(
-  contact,
+function editContactDetailsOverlay(
   contactsName,
   contactsEmail,
   contactsPhone,
@@ -544,8 +542,9 @@ function editContactDetails(
   let contactsAddContainer = document.querySelector(".contacts-add-container");
   let contactsAdd = document.querySelector(".contacts-add");
   contactsAddContainer.innerHTML = editContactOverlayHTML(
-    contact,
     contactsName,
+    contactsEmail,
+    contactsPhone,
     acronym,
     contactsColor
   );
@@ -567,7 +566,13 @@ function editContactDetails(
   }, 1000);
 }
 
-function editContactOverlayHTML(contact, contactsName, acronym, contactsColor) {
+function editContactOverlayHTML(
+  contactsName,
+  contactsEmail,
+  contactsPhone,
+  acronym,
+  contactsColor
+) {
   return `
   <div class="contacts-add">
     <img
@@ -583,7 +588,7 @@ function editContactOverlayHTML(contact, contactsName, acronym, contactsColor) {
       <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
         <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
       </div>
-      <form>
+      <form onsubmit="editContactDetails('${contactsName}', '${contactsEmail}', '${contactsPhone}'); return false;">
         <div class="contacts-add-main-profil-input-container">
           <div class="contacts-details-acronym-container contacts-add-main-profil" style="background-color: ${contactsColor};">
             <span>${acronym}</span>
@@ -641,9 +646,14 @@ function editContactOverlayHTML(contact, contactsName, acronym, contactsColor) {
         </div>
         <div class="contacts-edit-buttons-container">
           <button
-            id="contacts-add-cancel-button"
+            id="contacts-edit-delete-button"
             class="contacts-edit-delete-button"
-            onclick="deleteContact(${contact}); hideAddContactContainer(); preventFormSubmit()"
+            onclick="deleteContact(
+              '${contactsName}', 
+              '${contactsEmail}', 
+              '${contactsPhone}'); 
+              preventFormSubmitByEdit();
+              hideAddContactContainer()"
           >Delete</button>
           <button class="contacts-add-create-button">
             Save
@@ -655,8 +665,44 @@ function editContactOverlayHTML(contact, contactsName, acronym, contactsColor) {
   </div>;`;
 }
 
-function deleteContact(contact) {
-  console.log(contact);
+function deleteContact(contactsName, contactsEmail, contactsPhone) {
+  let index = contacts.findIndex(
+    (c) =>
+      c.name === contactsName &&
+      c.email === contactsEmail &&
+      c.phone === contactsPhone
+  );
+  if (index !== -1) {
+    contacts.splice(index, 1);
+
+    deleteContactLetterContainer(contactsName, contactsEmail, contactsPhone);
+  }
+  showContacts();
+  showEmptyContactDetails();
+}
+
+function deleteContactLetterContainer(
+  contactsName,
+  contactsEmail,
+  contactsPhone
+) {
+  let firstLetter = contactsName.charAt(0).toUpperCase();
+  let letterContacts = contactsByLetter[firstLetter];
+
+  let contactIndex = letterContacts.findIndex(
+    (c) =>
+      c.name === contactsName &&
+      c.email === contactsEmail &&
+      c.phone === contactsPhone
+  );
+  if (contactIndex !== -1) {
+    letterContacts.splice(contactIndex, 1);
+  }
+}
+
+function showEmptyContactDetails() {
+  let detailsContainer = document.getElementById("contacts-details");
+  detailsContainer.innerHTML = "";
 }
 
 function addContactOverlayHTML() {
@@ -755,4 +801,32 @@ function addContactOverlayHTML() {
       </form>
     </div>
   </div>`;
+}
+
+function preventFormSubmitByEdit() {
+  let deleteButton = document.getElementById("contacts-edit-delete-button");
+
+  deleteButton.addEventListener("click", function (event) {
+    event.preventDefault();
+  });
+}
+
+function editContactDetails(contactsName, contactsEmail, contactsPhone) {
+  let newEmail = document.getElementById("email").value;
+  let newPhone = document.getElementById("phone").value;
+
+  let index = contacts.findIndex(
+    (c) =>
+      c.name === contactsName &&
+      c.email === contactsEmail &&
+      c.phone === contactsPhone
+  );
+
+  if (index !== -1) {
+    contacts[index].email = newEmail;
+    contacts[index].phone = newPhone;
+
+    showContacts();
+    hideAddContactContainer();
+  }
 }

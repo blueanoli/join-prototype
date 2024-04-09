@@ -12,10 +12,13 @@ h3 {
   margin-block-end: 0;
 }
 
+.content-contact {
+  display: flex;
+}
+
 .contacts-contact-container {
-  position: fixed;
-  top: 96px;
-  left: 232px;
+  padding-left: 232px;
+  max-width: 456px;
   max-height: calc(100vh - 96px);
   background-color: white;
   box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 8%);
@@ -25,6 +28,7 @@ h3 {
 .contacts-contact-container::-webkit-scrollbar {
   width: 24px;
 }
+
 .contacts-contact-container::-webkit-scrollbar-track {
   border-radius: 0px;
   background-color: #ffffff;
@@ -172,10 +176,6 @@ h3 {
   font-size: 16px;
   font-weight: 400;
   color: #007cee;
-}
-
-.contacts-main-container {
-  margin-left: 658px;
 }
 
 .contacts-main-header {
@@ -663,4 +663,89 @@ h3 {
   color: var(--light-blue);
   border: 1px solid var(--light-blue);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 25%);
+}
+
+@media (max-width: 1000px) {
+  .contacts-contact-container {
+    padding-left: 0;
+    padding-bottom: 80px;
+
+  }
+
+  .contacts-main-header-border,
+  .contacts-text {
+    display: none;
+  }
+
+}
+
+@media (max-width: 1300px) {
+
+  .contacts-main-header-border,
+  .contacts-text {
+    display: none;
+  }
+
+  .contacts-details-acronym-container {
+    width: 80px;
+    height: 80px;
+  }
+
+  .contacts-details-header {
+    gap: 20px;
+  }
+
+  .contacts-acronym {
+    font-size: 30px !important;
+  }
+
+  h1 {
+    font-size: 48px !important;
+  }
+
+  .contacts-name {
+    font-size: 26px !important;
+  }
+
+}
+
+@media (max-width: 800px) {
+  .contacts-main-container {
+    display: none;
+    padding: 32px 24px;
+  }
+
+  .contacts-contact-container {
+    max-width: 100%;
+    
+  }
+
+  .content-contact {
+    display: block;
+  }
+
+  .contact-add-container {
+    display: none;
+  }
+
+  
+
+
+}
+
+@media (max-width: 500px) {
+  .contact-main-container {
+    padding: 32px 6px ;
+  }
+
+  .contacts-contact-data {
+    gap: 10px;
+    padding: 15px 10px;
+  }
+
+  .contacts-contact-details-name {
+    font-size: 16px;
+  }
+
+
 }

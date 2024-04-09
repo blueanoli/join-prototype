@@ -491,10 +491,10 @@ function getContactDetailsHTML(
   return `
   <div class="contacts-details-header">
     <div class="contacts-details-acronym-container" style="background-color: ${contactsColor};">
-      <span>${acronym}</span>
+      <span class="contacts-acronym">${acronym}</span>
     </div>
     <div>
-      <h2>${contactsName}</h2>
+      <h2 class="contacts-name">${contactsName}</h2>
       <div class="contacts-details-edit-container">
         <div 
           class="contacts-details-edit-icons" 

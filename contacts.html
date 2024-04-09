@@ -17,6 +17,7 @@
 <html>
   <body onload="init(); initContacts()">
     <div w3-include-html="assets/templates/desktop-template.html"></div>
+    <div class="content-contact">
     <div class="contacts-contact-container">
       <div class="contact-main-container">
         <div class="contact-add-container" onclick="showAddContactContainer()">
@@ -30,7 +31,7 @@
       <div class="contacts-main-header">
         <h1>Contacts</h1>
         <span class="contacts-main-header-border"></span>
-        <span>Better with a Team</span>
+        <span class="contacts-text">Better with a Team</span>
       </div>
       <div id="contacts-details" class="contacts-details-container"></div>
       <div id="contacts-register-msg" class="contacts-add-register-msg-hidden">
@@ -38,6 +39,7 @@
       </div>
     </div>
     <div class="contacts-add-container"></div>
+  </div>
   </body>
 </html>
 

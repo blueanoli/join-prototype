@@ -19,10 +19,10 @@ h3 {
 .contacts-contact-container {
   padding-left: 232px;
   max-width: 456px;
-  max-height: calc(100vh - 96px);
   background-color: white;
   box-shadow: 4px 0 6px 0 rgba(0, 0, 0, 8%);
   overflow-y: auto;
+  height: 100vh;
 }
 
 .contacts-contact-container::-webkit-scrollbar {
@@ -83,13 +83,34 @@ h3 {
   padding: 12px 0;
 }
 
+.contact-add-container-responsive {
+  width: 56px;
+  height: 56px;
+  border: 3px solid #2a3647;
+  border-radius: 50%;
+  background-color: #2a3647;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  align-items: center;
+}
+
+.contact-add-icon {
+  height: 30px;
+  width: 30px;
+}
+
 .contact-add-container span {
   color: white;
   font-weight: 700;
   font-size: 21px;
 }
 
-.contact-add-container:hover {
+.contact-add-container:hover,
+.contact-add-container-responsive:hover {
   cursor: pointer;
   background-color: var(--light-blue);
   border: 1px solid var(--light-blue);
@@ -715,9 +736,13 @@ h3 {
     padding: 32px 24px;
   }
 
+  .contact-add-container-responsive {
+    display: flex !important;
+  }
+
   .contacts-contact-container {
     max-width: 100%;
-    
+
   }
 
   .content-contact {
@@ -728,14 +753,14 @@ h3 {
     display: none;
   }
 
-  
+
 
 
 }
 
 @media (max-width: 500px) {
   .contact-main-container {
-    padding: 32px 6px ;
+    padding: 32px 6px;
   }
 
   .contacts-contact-data {

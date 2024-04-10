@@ -1,65 +1,4 @@
-let contacts = [
-  {
-    name: "Tatjana Wolf",
-    email: "wolf@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Peter Lustig",
-    email: "lustig@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Philipp Plein",
-    email: "plein@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Dan Schneider",
-    email: "schneider@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Xavier Klein",
-    email: "klein@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Jens Klein",
-    email: "klein@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Levin Klein",
-    email: "klein@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Felix Klein",
-    email: "klein@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Ida Mueller",
-    email: "mueller@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-  {
-    name: "Gerald Mueller",
-    email: "mueller@gmail.de",
-    phone: "+49 1234 45 678 9",
-    color: "",
-  },
-];
+let contacts = [];
 let contactsByLetter = [];
 let profileColors = [
   "#FF5733",
@@ -80,9 +19,32 @@ let profileColors = [
   "#B10DC9",
 ];
 
-function initContacts() {
+//FUNCTION SERVER UPLOAD --------------------------------------------------------------------------------------------------------
+async function uploadContacts() {
+  try {
+    console.log("Uploading contacts...", contacts);
+      await setItem("contacts", JSON.stringify(contacts));
+      console.log("Contacts uploaded successfully.");
+  } catch (error) {
+      console.error("Failed to upload contacts:", error);
+  }
+}
+
+async function fetchContacts() {
+  try {
+      const contactsJSON = await getItem("contacts");
+      contacts = JSON.parse(contactsJSON);
+      console.log("Contacts fetched successfully.");
+      generateLetterContainer(); 
+  } catch (error) {
+      console.error("Failed to fetch contacts:", error);
+  }
+}
+
+async function initContacts() {
   isNotLoggedIn();
-  generateLetterContainer();
+  console.log("Initializing contacts...", contacts);
+  await fetchContacts();
 }
 
 function isNotLoggedIn() {
@@ -165,18 +127,10 @@ function letterContainerHTML(contactsDiv, letter) {
 /* Saves the background color to local Storage and generates a key with 
 the contact's name and a random hex-color as value*/
 function setBackgroundColor(contact) {
-  let user = contact["name"];
-  let backgroundColor = contact["color"];
-
-  let storedColor = localStorage.getItem(user);
-
-  if (storedColor) {
-    backgroundColor = storedColor;
-  } else {
-    backgroundColor = getDifferentBackgroundColor();
-    localStorage.setItem(user, backgroundColor);
+  if (!contact.color) {
+    contact.color = getDifferentBackgroundColor();
   }
-  return backgroundColor;
+  return contact.color;
 }
 
 /* Sets a random hex-color for each contact */
@@ -319,7 +273,7 @@ function removePhoneFormat() {
   phone.classList.remove("shown");
 }
 
-/* Check's if the contact values are already exisiting */
+/* Check's if the contact values are already exisiting ------------------------------------------------------------------------------------------*/
 function addContact() {
   let newName = document.getElementById("name").value;
   let newEmail = document.getElementById("email").value;
@@ -347,6 +301,8 @@ function addContact() {
   } else {
     addNewContact(contact);
   }
+  uploadContacts();
+
 }
 
 /* Resets Changes of an invalid contact-add submit */
@@ -392,7 +348,7 @@ function isExistingContactPhone(newPhone) {
   textBox.innerHTML = `The number: <b>${newPhone}</b> is already in use.`;
 }
 
-/* Adds a new contact to the list if everything is valid */
+/* Adds a new contact to the list if everything is valid ------------------------------------------------------------------------------------*/
 function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
@@ -400,6 +356,8 @@ function addNewContact(contact) {
   showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
+  uploadContacts();
+  console.log("Added new contact:", contact);
 }
 
 /* Prevents the form-submit if the "cancel"-button is clicked */

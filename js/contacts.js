@@ -678,7 +678,8 @@ function addContactOverlayHTML() {
     </div>
     <div class="contacts-add-main-container">
       <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
-        <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
+        <img id="cancel-dark" src="assets/img/cancel_dark.svg" alt="cancel icon" />
+        <img id="cancel-white" src="assets/img/cancel_white.svg" alt="cancel icon" class="d-none" />
       </div>
       <form onsubmit="addContact(); return false;">
         <div class="contacts-add-main-profil-input-container">

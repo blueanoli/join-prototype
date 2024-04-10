@@ -708,6 +708,7 @@ h3 {
 
   .contacts-add-join-logo {
     display: none;
+    top: 130px !important;
   }
 
   .contacts-add-main-profil {
@@ -745,22 +746,26 @@ h3 {
   }
 }
 
+@media (min-width: 1000px) and (max-width: 1300px) {
+  .contacts-add-main-container {
+    padding: 0 48px 0 0;
+  }
+}
+
 @media (max-width: 1300px) {
 
   .contacts-add-overlay h2 {
     font-size: 38px !important;
   }
 
-}
-
-@media (max-width: 1300px) {
-
   .contacts-main-header-border,
   .contacts-text {
     display: none;
   }
 
-
+  .contacts-add-join-logo {
+    top: 110px !important;
+  }
 
   .contacts-details-acronym-container {
     width: 80px;

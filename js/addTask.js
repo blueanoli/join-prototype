@@ -26,6 +26,8 @@ let editedTaskPriority;
  */
 async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv){
     await init();
+    await fetchContacts();
+    updateTestContactsFromServer();
     await loadTasksFromServer();
     chooseMediumPrio(); 
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);

@@ -1,4 +1,4 @@
-let testContacts = ['Albert Wesker', 'Chris Redfield', 'Jill Valentine', 'Brad Vickers', 'Claire Redfield', 'Barry Burton', 'Brian Irons'];
+let testContacts = {};
 let selectedContacts = {};
 
 /**
@@ -18,6 +18,15 @@ function getAssignedToId() {
 function getAssignedContactsContainerId() {
     return isEditMode ? 'edit-assign-contacts' : 'assign-contacts';
 }
+
+function updateTestContactsFromServer() {
+    let updatedTestContacts = {};
+  
+    contacts.forEach(contact => {
+      updatedTestContacts[contact.name] = contact.color;
+    });
+    testContacts = updatedTestContacts;
+  } 
 
 /**
  * Initializes selectedContacts object with contacts assigned to task.

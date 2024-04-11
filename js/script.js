@@ -18,6 +18,52 @@ const colors = [
   "--user-blue",
   "--user-light-blue",
 ];
+let contacts = [];
+let contactsByLetter = [];
+let profileColors = [
+  "#FF5733",
+  "#FFC300",
+  "#C70039",
+  "#900C3F",
+  "#FF5733",
+  "#FFC300",
+  "#73C6B6",
+  "#3D9970",
+  "#85144b",
+  "#001f3f",
+  "#0074D9",
+  "#7FDBFF",
+  "#B10DC9",
+  "#F012BE",
+  "#85144b",
+  "#B10DC9",
+];
+
+//FUNCTION SERVER UPLOAD --------------------------------------------------------------------------------------------------------
+async function uploadContacts() {
+  try {
+    console.log("Uploading contacts...", contacts);
+      await setItem("contacts", JSON.stringify(contacts));
+      console.log("Contacts uploaded successfully.");
+  } catch (error) {
+      console.error("Failed to upload contacts:", error);
+  }
+}
+
+async function fetchContacts() {
+  try {
+    const contactsJSON = await getItem("contacts");
+    contacts = JSON.parse(contactsJSON);
+    console.log("Contacts fetched successfully.");
+
+    if (!window.location.pathname.endsWith('/board.html') && !window.location.pathname.endsWith('/add_task.html')) {
+      generateLetterContainer(); 
+    }
+    
+  } catch (error) {
+    console.error("Failed to fetch contacts:", error);
+  }
+}
 
 /* Asynchronously stores data in remote storage using a POST request with a unique token for authentication. */
 async function setItem(key, value) {

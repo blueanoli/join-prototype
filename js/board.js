@@ -14,7 +14,9 @@ let originalTask = null;
 async function renderBoard() {
     await init();
     await initializeTaskData();
+    await fetchContacts();
     await loadTasksFromServer();
+    updateTestContactsFromServer();
     checkAllSections();
     addBoardEventListeners();
 }

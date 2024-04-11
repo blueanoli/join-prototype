@@ -230,7 +230,7 @@ function removePhoneFormat() {
   phone.classList.remove("shown");
 }
 
-/* Check's if the contact values are already exisiting ------------------------------------------------------------------------------------------*/
+/* Check's if the contact values are already exisiting */
 function addContact() {
   let newName = document.getElementById("name").value;
   let newEmail = document.getElementById("email").value;
@@ -259,7 +259,6 @@ function addContact() {
     addNewContact(contact);
   }
   uploadContacts();
-
 }
 
 /* Resets Changes of an invalid contact-add submit */
@@ -305,7 +304,7 @@ function isExistingContactPhone(newPhone) {
   textBox.innerHTML = `The number: <b>${newPhone}</b> is already in use.`;
 }
 
-/* Adds a new contact to the list if everything is valid ------------------------------------------------------------------------------------*/
+/* Adds a new contact to the list if everything is valid */
 function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
@@ -503,7 +502,7 @@ function editContactOverlayHTML(
       <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
         <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
       </div>
-      <form onsubmit="editContactDetails('${contactsName}', '${contactsEmail}', '${contactsPhone}'); return false;">
+      <form onsubmit="checkEditedContactDetails('${contactsName}', '${contactsEmail}', '${contactsPhone}'); return false;">
         <div class="contacts-add-main-profil-input-container">
           <div class="contacts-details-acronym-container contacts-add-main-profil" style="background-color: ${contactsColor};">
             <span>${acronym}</span>
@@ -512,6 +511,7 @@ function editContactOverlayHTML(
             <div id="name-container" class="contacts-add-input-container">
               <input
                 required
+                readonly
                 id="name"
                 class="contacts-add-input"
                 type="text"
@@ -580,6 +580,7 @@ function editContactOverlayHTML(
   </div>;`;
 }
 
+/* Searches for the contact and deletes it from the contacts-array if the contact is found */
 function deleteContact(contactsName, contactsEmail, contactsPhone) {
   let index = contacts.findIndex(
     (c) =>
@@ -596,6 +597,8 @@ function deleteContact(contactsName, contactsEmail, contactsPhone) {
   showEmptyContactDetails();
 }
 
+/* Searches for the first letter of the to-deleted contact and deletes it if it's the only contact
+with this letter as it's first letter */
 function deleteContactLetterContainer(
   contactsName,
   contactsEmail,
@@ -613,8 +616,10 @@ function deleteContactLetterContainer(
   if (contactIndex !== -1) {
     letterContacts.splice(contactIndex, 1);
   }
+  uploadContacts();
 }
 
+/* Displays a blank contact-details container after deleting the contact */
 function showEmptyContactDetails() {
   let detailsContainer = document.getElementById("contacts-details");
   detailsContainer.innerHTML = "";
@@ -719,6 +724,7 @@ function addContactOverlayHTML() {
   </div>`;
 }
 
+/* Prevents the submitting of the form if the contact is edited */
 function preventFormSubmitByEdit() {
   let deleteButton = document.getElementById("contacts-edit-delete-button");
 
@@ -727,21 +733,54 @@ function preventFormSubmitByEdit() {
   });
 }
 
-function editContactDetails(contactsName, contactsEmail, contactsPhone) {
+/* Checks if the email or phone number is already in use at other contacts by
+excluding the current contact's data */
+function checkEditedContactDetails(contactsName, contactsEmail, contactsPhone) {
   let newEmail = document.getElementById("email").value;
   let newPhone = document.getElementById("phone").value;
 
-  let index = contacts.findIndex(
+  let index = findContactIndex(contactsName, contactsEmail, contactsPhone);
+  let existingContactEmail = findExistingEmailWithoutCurrent(index, newEmail);
+  let existingContactPhone = findExistingPhoneWithoutCurrent(index, newPhone);
+
+  if (existingContactEmail) {
+    resetAddContactsChanges();
+    isExistingContactEmail(newEmail);
+  } else if (existingContactPhone) {
+    resetAddContactsChanges();
+    isExistingContactPhone(newPhone);
+  } else {
+    editContactDetails(index, newEmail, newPhone);
+  }
+}
+
+/* Searches for the contact index */
+function findContactIndex(contactsName, contactsEmail, contactsPhone) {
+  return contacts.findIndex(
     (c) =>
       c.name === contactsName &&
       c.email === contactsEmail &&
       c.phone === contactsPhone
   );
+}
 
+/* Searches for the exisiting emails without the email of the current to-edited contact */
+function findExistingEmailWithoutCurrent(index, newEmail) {
+  return contacts.find((c, i) => i !== index && c.email === newEmail);
+}
+
+/* Searches for the exisiting phone numbers without the phone number of the current to-edited contact */
+function findExistingPhoneWithoutCurrent(index, newPhone) {
+  return contacts.find((c, i) => i !== index && c.phone === newPhone);
+}
+
+/* Changes the edit email or phone number */
+function editContactDetails(index, newEmail, newPhone) {
   if (index !== -1) {
     contacts[index].email = newEmail;
     contacts[index].phone = newPhone;
 
+    uploadContacts();
     showContacts();
     hideAddContactContainer();
   }

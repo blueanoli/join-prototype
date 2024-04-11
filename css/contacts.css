@@ -700,17 +700,43 @@ h3 {
     padding-bottom: 80px;
   }
 
+  .contacts-add-cancel-button {
+    display: none;
+  }
+
+  .contacts-add-main-input-area {
+    gap: 8px;
+    padding-top: 30px;
+  }
+
+  .contacts-add-buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    margin-right: 0;
+    gap: 0;
+  }
+
   .contacts-main-header-border,
   .contacts-text {
     display: none;
+  }
+
+
+
+  .contacts-add-container.fade-in {
+    align-items: inherit;
+    background-color: rgba(0, 0, 0, 0.6);
   }
 
   .contacts-add {
     position: relative;
     display: flex;
     border-radius: 42px;
+    width: 100%;
     flex-direction: column;
     animation: contactsSlideIn 0.5s ease 0s 1 normal forwards;
+    padding: 30 40px 0px 30px;
   }
 
   .contacts-add-join-logo {
@@ -752,6 +778,8 @@ h3 {
     display: block !important;
   }
 }
+
+
 
 @media (min-width: 1000px) and (max-width: 1300px) {
   .contacts-add-main-container {
@@ -819,6 +847,27 @@ h3 {
   .contact-add-container {
     display: none;
   }
+
+}
+
+@media (max-width: 600px) {
+  .contacts-add-input-container {
+    width: auto;
+  }
+
+  .contacts-add-main-input-area {
+    padding-top: 0;
+  }
+
+  .contacts-add-overlay span {
+    font-size: 16px;
+  }
+
+  .contacts-add-main-profil {
+    width: 100px;
+    height: 100px;
+  }
+
 }
 
 @media (max-width: 500px) {
@@ -826,8 +875,18 @@ h3 {
     padding: 32px 6px;
   }
 
+  .contacts-add-input {
+    font-size: 14px;
+    
+  }
+
   .contacts-contact-data {
     gap: 10px;
+
+  }
+
+  .contacts-add {
+    max-width: 90%;
 
   }
 
@@ -836,4 +895,7 @@ h3 {
   }
 
 
+  .contacts-add {
+    padding: 10px 0px 0px 0px!important;
+  }
 }

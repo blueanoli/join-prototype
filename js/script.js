@@ -206,15 +206,6 @@ function closeUserMenu(event) {
   document.removeEventListener("click", closeUserMenu, true);
 }
 
-/* Assign color for user and get initials */ 
-function getColorForInitials(initials) {
-  let sum = 0;
-  for (let i = 0; i < initials.length; i++) {
-    sum += initials.charCodeAt(i);
-  }
-  return `var(${colors[sum % colors.length]})`;
-}
-
 /* Extracts initials from a full name. */
 function getInitials(name) {
   return name

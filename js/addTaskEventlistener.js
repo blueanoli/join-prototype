@@ -5,17 +5,21 @@
  * @param {Object} contact - Contact object.
  * @param {HTMLElement} optionDiv - Div element representing contact option.
  */
-function handleContactClick(event, contact, optionDiv) {
+function handleContactClick(event, contactName, optionDiv) {
     event.stopImmediatePropagation();
     let checkbox = getCheckboxFromEvent(event, optionDiv);
-    
-    toggleContactSelection(contact);
 
-    if (!isContactSelected(contact)) {
-        deselectContact(contact, checkbox, optionDiv);
+    // Stelle sicher, dass checkbox und contactName definiert sind, bevor du fortfährst
+    if (!checkbox || typeof contactName === 'undefined') return;
+
+    toggleContactSelection(contactName);
+
+    if (!isContactSelected(contactName)) {
+        deselectContact(contactName, checkbox, optionDiv);
     } else {
-        selectContact(contact, checkbox, optionDiv);
+        selectContact(contactName, checkbox, optionDiv);
     }
+    updateAssignedContactsView();
 }
 
 /**
@@ -25,6 +29,7 @@ function handleContactClick(event, contact, optionDiv) {
  * @returns {HTMLElement} - Checkbox element.
  */
 function getCheckboxFromEvent(event, optionDiv) {
+    if (!optionDiv) return null; 
     let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
     return isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
 }
@@ -45,9 +50,8 @@ function isContactSelected(contact) {
  * @param {HTMLElement} checkbox - Checkbox element of contact.
  * @param {HTMLElement} optionDiv - Div element representing contact option.
  */
-function deselectContact(contact, checkbox, optionDiv) {
+function deselectContact(contactName, checkbox, optionDiv) {
     checkbox.src = "assets/img/checkboxempty.svg";
-    removeAssignedContact(contact);
     optionDiv.style.backgroundColor = ""; 
     optionDiv.classList.remove("selected");
 }
@@ -59,9 +63,9 @@ function deselectContact(contact, checkbox, optionDiv) {
  * @param {HTMLElement} checkbox - Checkbox element of contact.
  * @param {HTMLElement} optionDiv - Div element representing contact option.
  */
-function selectContact(contact, checkbox, optionDiv) {
+function selectContact(contactName, checkbox, optionDiv) {
     checkbox.src = "assets/img/checkboxchecked_white.svg";
-    addAssignedContact(contact);
+    addAssignedContact(contactName);
     optionDiv.style.backgroundColor = "var(--dark-blue)"; 
     optionDiv.classList.add("selected");
 }
@@ -165,6 +169,7 @@ function setupInputEventListener() {
 }
 
 /** Adds click event listener which triggers handleContactClick */
+/** Adds click event listener which triggers handleContactClick */
 function setupEventListenersForItemsDiv() {
     let assignedToId = getAssignedToId();
     let itemsDiv = document.getElementById(assignedToId).querySelector('.select-items');
@@ -173,12 +178,14 @@ function setupEventListenersForItemsDiv() {
         let optionDiv = event.target.closest('.option-item');
         if (!optionDiv) return; 
     
-        let index = optionDiv.id.split('-')[1]; 
-        let contact = testContacts[index]; 
+        // Hier extrahieren wir den Kontaktname basierend auf dem Index.
+        let index = parseInt(optionDiv.id.split('-')[1], 10);
+        let contactName = Object.keys(testContacts)[index];  // Verwende Object.keys(), um den Namen des Kontakts basierend auf dem Index zu erhalten.
     
-        handleContactClick(event, contact, optionDiv);
+        handleContactClick(event, contactName, optionDiv);
     });
-}  
+}
+ 
 
 /** Adds all event listeners to the page */
 function addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {

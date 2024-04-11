@@ -254,6 +254,7 @@ function closeAddTask() {
     container.removeAttribute('w3-include-html');
 
     isOverlayOpen = false; 
+    selectedContacts = {};
 }
 
 /**

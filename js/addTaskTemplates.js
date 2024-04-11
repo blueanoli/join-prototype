@@ -66,11 +66,11 @@ function renderSubtaskIconHTML() {
 /** 
 * Returns HTML that provides contact with name, color, initals and checkboximg
 */
-function renderContactHTML(contact, color, initials, checkboxImage) {
+function renderContactHTML(contactName, color, initials, checkboxImage) {
     return /*html*/ `
         <div class="test-contact-container">
             <p class="test-contact" style="background-color: ${color};">${initials}</p>
-            ${contact} 
+            ${contactName} 
         </div>
         <img class="checkbox-icon" src="assets/img/${checkboxImage}">
     `;
@@ -90,10 +90,10 @@ function renderAssignedContactHTML(initials, color, contactName) {
 /**
 * Returns HTML that provides contact option with contact details, selected class, backgroundcolor and index
 */
-function renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index){
+function renderContactOptionHTML(contactName, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index){
     return /*html*/`
-        <div class='option-item${selectedClass}' id='contact-${index}'${backgroundColorStyle}>
-            ${renderContactHTML(contact, color, initials, checkboxImage)}
+        <div class='option-item${selectedClass}' data-contact-name='${contactName}' id='contact-${index}'${backgroundColorStyle}>
+            ${renderContactHTML(contactName, color, initials, checkboxImage)}
         </div>
 `;
 }

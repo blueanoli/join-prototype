@@ -101,10 +101,13 @@ function updateAssignedContactsView() {
 
     for (const contactName in selectedContacts) {
         if (selectedContacts[contactName]) {
-            let initials = getInitials(contactName);
-            let color = getColorForInitials(initials);
-            let newContactHtml = renderAssignedContactHTML(initials, color);
-            assignedContactsContainer.innerHTML += newContactHtml;
+            let contact = contacts.find(c => c.name === contactName);
+            if (contact) { 
+                let initials = getInitials(contactName);
+                let color = contact.color; 
+                let newContactHtml = renderAssignedContactHTML(initials, color, contactName);
+                assignedContactsContainer.innerHTML += newContactHtml;
+            }
         }
     }
 }
@@ -117,12 +120,15 @@ function updateAssignedContactsView() {
  */
 function transformSelectedContactsToAssignedTo(selectedContacts) {
     return Object.entries(selectedContacts)
-        .filter(([name, isSelected]) => isSelected) 
-        .map(([name]) => ({
-            name, 
-            color: getColorForInitials(getInitials(name)), 
-            initials: getInitials(name) 
-        }));
+        .filter(([name, isSelected]) => isSelected)
+        .map(([name]) => {
+            let contact = contacts.find(contact => contact.name === name);
+            return {
+                name,
+                color: contact.color, 
+                initials: getInitials(name)
+            };
+        });
 }
 
 /**
@@ -133,40 +139,70 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
  * @param {HTMLElement} itemsDiv - Div to which contact option will be appended.
  * @param {number} index - Index of contact in list.
  */
-function createContactOption(contact, itemsDiv, index) {
-    let initials = getInitials(contact);
-    let color = getColorForInitials(initials);
-    let isChecked = selectedContacts[contact] === true; 
+function createContactOption(contactName, color, itemsDiv, index) {
+    let initials = getInitials(contactName);
+    let isChecked = selectedContacts[contactName] === true; 
     let checkboxImage = isChecked ? "checkboxchecked_white.svg" : "checkboxempty.svg";
     let selectedClass = isChecked ? " selected" : "";
     let backgroundColorStyle = isChecked ? " style='background-color: var(--dark-blue);'" : "";
-
-    let optionHTML = renderContactOptionHTML(contact, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index);
+    let optionHTML = renderContactOptionHTML(contactName, color, initials, checkboxImage, selectedClass, backgroundColorStyle, index);
 
     itemsDiv.innerHTML += optionHTML;
 }
+
 
 /** Creates and appends new contact option for each contact in Array to the dropdown menu */
 function renderContacts() {
     let itemsDivId = getAssignedToId();
     let itemsDiv = document.getElementById(itemsDivId).querySelector('.select-items');
     itemsDiv.innerHTML = '';
-    
-    for (let i = 0; i < testContacts.length; i++) {
-        let contact = testContacts[i];
-        createContactOption(contact, itemsDiv, i);
-    }
+
+    Object.keys(testContacts).forEach((contactName, index) => {
+        let color = testContacts[contactName]; 
+        createContactOption(contactName, color, itemsDiv, index);
+    });
 }
 
 /** Adds contact to assign-contacts element if it's not already present */
+function validateContactName(contactName) {
+    if (!contactName) {
+        console.error('addAssignedContact wurde mit undefined contactName aufgerufen');
+        return false;
+    }
+    return true;
+}
+
+function findContact(contactName) {
+    let contact = contacts.find(c => c.name === contactName);
+    if (!contact) {
+        console.error(`Kontakt mit dem Namen ${contactName} nicht gefunden.`);
+        return null;
+    }
+    return contact;
+}
+
+function addContactToAssigned(contact, contactName) {
+    let initials = getInitials(contactName);
+    let color = contact.color;
+    let assignedToId = getAssignedToId();
+    let assignedTo = document.getElementById(assignedToId);
+
+    assignedTo.innerHTML += renderAssignedContactHTML(initials, color, contactName);
+    selectedContacts[contactName] = true;
+}
+
 function addAssignedContact(contactName) {
+    if (!validateContactName(contactName)) {
+        return;
+    }
+
     if (!selectedContacts[contactName]) {
-        let initials = getInitials(contactName);
-        let color = getColorForInitials(initials);
-        let assignedToId = getAssignedToId();
-        let assignedTo = document.getElementById(assignedToId);
-        assignedTo.innerHTML += renderAssignedContactHTML(initials, color, contactName);
-        selectedContacts[contactName] = true;
+        let contact = findContact(contactName);
+        if (!contact) {
+            return;
+        }
+
+        addContactToAssigned(contact, contactName);
     }
 }
 

@@ -28,6 +28,7 @@ async function renderAddTask(category, selectedDiv, dropdown, itemsDiv, contact,
     await init();
     await fetchContacts();
     updateTestContactsFromServer();
+    renderContacts();
     await loadTasksFromServer();
     chooseMediumPrio(); 
     addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv);

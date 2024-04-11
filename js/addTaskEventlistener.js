@@ -113,11 +113,12 @@ function setupFormEventListeners() {
  */
 function handleDropdownClick(event, dropdownId, dropdownName) {
     let dropdown = document.getElementById(dropdownId);
-    let isClickInsideDropdown = dropdown.contains(event.target);
+    if (!dropdown) return; 
 
+    let isClickInsideDropdown = dropdown.contains(event.target);
     if (!isClickInsideDropdown && !dropdown.querySelector('.select-items').classList.contains('select-hide')) {
         toggleDropdown(dropdownId, true);
-        if (dropdownName === 'category') {
+        if (dropdownName === 'category' && document.getElementById('img-dropdown')) { 
             changeDropdownImg('choose-category', 'open');
         }
     }
@@ -129,8 +130,14 @@ function handleDropdownClick(event, dropdownId, dropdownName) {
 function setupDropdownCloseListener() {
     document.addEventListener('click', function(event) {
         let assignedToId = getAssignedToId();
-        handleDropdownClick(event, assignedToId, 'contacts');
-        handleDropdownClick(event, 'choose-category', 'category');
+
+        if (document.getElementById(assignedToId)) {
+            handleDropdownClick(event, assignedToId, 'contacts');
+        }
+
+        if (document.getElementById('choose-category')) {
+            handleDropdownClick(event, 'choose-category', 'category');
+        }
     });
 }
 

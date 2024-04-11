@@ -70,6 +70,7 @@ function openEditTask(index) {
     setupEventListenersForItemsDiv();
     initializeSelectedContacts(task);
     setupSubtaskEventListeners();
+    setupDropdownCloseListener();
     initializePrioritySelectionInEditMode(task.priority);
     getAssignedToId();
 }

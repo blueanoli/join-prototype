@@ -409,9 +409,12 @@ function getContactDetailsHTML(
     </div>
     <div>
       <h2 class="contacts-name">${contactsName}</h2>
-      <div class="contacts-details-edit-container">
+      <div 
+        class="contacts-details-edit-container">
         <div 
-          class="contacts-details-edit-icons" 
+          class="contacts-details-edit-icons"
+          onmouseover="changeEditContactImgBlue()"
+          onmouseout="changeEditContactImgDark()" 
           onclick="editContactDetailsOverlay(
             '${contactsName}', 
             '${contactsEmail}', 
@@ -420,14 +423,18 @@ function getContactDetailsHTML(
             '${contactsColor}'
           )"
         >
-          <img src="assets/img/pencil_grey.svg">
+          <img id="contacts-details-edit-img" src="assets/img/pencil_grey.svg">
           <span>Edit</span>
         </div>
-        <div class="contacts-details-edit-icons" onclick="deleteContact(
+        <div 
+          class="contacts-details-edit-icons"
+          onmouseover="changeDeleteContactImgBlue()"
+          onmouseout="changeDeleteContactImgDark()" 
+          onclick="deleteContact(
           '${contactsName}', 
           '${contactsEmail}', 
           '${contactsPhone}');">
-          <img src="assets/img/delete.svg">
+          <img id="contacts-details-delete-img" src="assets/img/delete_grey.svg">
           <span>Delete</span>
         </div>
       </div>
@@ -783,5 +790,45 @@ function editContactDetails(index, newEmail, newPhone) {
     uploadContacts();
     showContacts();
     hideAddContactContainer();
+  }
+}
+
+/* Changes the edit icon in contacts-edit overlay within the div from the dark- to the blue version 
+on hovering over the div */
+function changeEditContactImgBlue() {
+  let edit = document.getElementById("contacts-details-edit-img");
+
+  if (edit.src.includes("pencil_grey.svg")) {
+    edit.src = "assets/img/pencil_blue.svg";
+  }
+}
+
+/* Changes the edit icon in contacts-edit overlay within the div from the blue- to the dark version 
+on hovering out of the div */
+function changeEditContactImgDark() {
+  let edit = document.getElementById("contacts-details-edit-img");
+
+  if (edit.src.includes("pencil_blue.svg")) {
+    edit.src = "assets/img/pencil_grey.svg";
+  }
+}
+
+/* Changes the delete icon in contacts-edit overlay within the div from the dark- to the blue version 
+on hovering over the div */
+function changeDeleteContactImgBlue() {
+  let deleteImg = document.getElementById("contacts-details-delete-img");
+
+  if (deleteImg.src.includes("delete_grey.svg")) {
+    deleteImg.src = "assets/img/delete_blue.svg";
+  }
+}
+
+/* Changes the delete icon in contacts-edit overlay within the div from the blue- to the dark version 
+on hovering out of the div */
+function changeDeleteContactImgDark() {
+  let deleteImg = document.getElementById("contacts-details-delete-img");
+
+  if (deleteImg.src.includes("delete_blue.svg")) {
+    deleteImg.src = "assets/img/delete_grey.svg";
   }
 }

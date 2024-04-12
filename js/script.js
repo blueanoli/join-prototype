@@ -1,23 +1,6 @@
 const STORAGE_TOKEN = "SUAP8YLQYG530FE8HDED8CKFONZBVXBSJ39FDPIR";
 const STORAGE_URL = "https://remote-storage.developerakademie.org/item";
 const publicPages = ['index.html', 'external_privacy.html', 'external_legal.html', 'sign_up.html'];
-const colors = [
-  "--user-orange",
-  "--user-mid-orange",
-  "--user-light-orange",
-  "--user-green",
-  "--user-light-green",
-  "--user-purple",
-  "--user-light-purple",
-  "--user-red",
-  "--user-light-red",
-  "--user-yellow",
-  "--user-light-yellow",
-  "--user-pink",
-  "--user-light-pink",
-  "--user-blue",
-  "--user-light-blue",
-];
 let contacts = [];
 let contactsByLetter = [];
 let profileColors = [

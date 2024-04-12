@@ -49,14 +49,17 @@
     padding-bottom: 32px;
 }
 .info-container{
-    bottom: -345px;
-    left: 270px;
+    font-size: 14px;
+    position: absolute;
+    left: 330px;
+    bottom: -200px;
 }
 #close-task-btn{
     display: none;
 }
 .required-span{
     display: inline-block;
+    bottom: -10%;
 }
 #notification-container {
     left: 50%;
@@ -79,7 +82,7 @@
 /* MAX-WIDTH: 760PX */
 @media (max-width: 760px) {
     .info-container{
-      bottom: -400px;  
+      bottom: -360px;  
       padding-bottom: 10px;
     }
     .info-container{
@@ -165,18 +168,22 @@
 }
 .add-task-buttons{
     right: 0;
-    padding-bottom: calc(80px + 2%);
 }
 .left-input-container, .right-input-container{
     width: 100%;
 }
 .info-container{
-    bottom: -450px;  
+    bottom: -90px;  
+    left: 8px;    
     padding-bottom: 10px;
-    display: none;
+    visibility: visible;
+    white-space: nowrap;
+}
+.info-container p{
+    font-size: 12px;
 }
 .required-span{
-    bottom: calc(80px - 60%);
+    bottom: -25%;
     margin-left: 8px;
     font-size: 12px;
 }

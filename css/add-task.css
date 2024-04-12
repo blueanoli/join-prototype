@@ -173,9 +173,8 @@ textarea{
 }
 .info-container {
     font-size: 14px;
-    position: absolute;
-    left: 330px;
-    bottom: 25px;
+    position: relative;
+    bottom: -120px;
 }
 .red-asterisk {
     color: red;

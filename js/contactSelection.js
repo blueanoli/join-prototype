@@ -238,23 +238,36 @@ function filterContacts(){
     filterContactsBySearch(search);
 }
 
-/** Filters contacts displaying only those whose first or last name start with the search term */
-function filterContactsBySearch(search) {
-    search = search.toLowerCase();
+function getContactOption(index) {
+    return document.getElementById('contact-' + index);
+}
 
-    for (let i = 0; i < testContacts.length; i++) {
-        let contact = testContacts[i].toLowerCase();
-        let option = document.getElementById('contact-' + i);
-        let names = contact.split(' ');
+function filterContactOption(option, contactName, search) {
+    let names = contactName.toLowerCase().split(' ');
 
-        if (names[0].startsWith(search) || (names.length > 1 && names[1].startsWith(search))) {
-            option.style.display = 'flex';
-        } else {
-            option.style.display = 'none';
-        }
+    if (names.some(name => name.startsWith(search))) {
+        option.style.display = 'flex';
+    } else {
+        option.style.display = 'none';
     }
 }
 
+/** Filters contacts displaying only those whose first or last name start with the search term */
+function filterContactsBySearch(search) {
+    let index = 0;
+    for (const contactName in testContacts) {
+        if (testContacts.hasOwnProperty(contactName)) {
+            let option = getContactOption(index);
+
+            if (!option) {
+                index++;
+                continue;
+            }
+            filterContactOption(option, contactName, search);
+            index++;
+        }
+    }
+}
 /** Clears assign-contacts element, resets selection status to false and re-renders contacts */
 function clearAssignedContacts() {
     let assignedTo = document.getElementById('assign-contacts');

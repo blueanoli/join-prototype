@@ -437,11 +437,24 @@ function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
 
+  showNewContactBackground(contact);
   showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
   uploadContacts();
-  console.log("Added new contact:", contact);
+}
+
+function showNewContactBackground(contact) {
+  let foundContact = contacts.find(
+    (c) =>
+      c.name === contact.name &&
+      c.email === contact.email &&
+      c.phone === contact.phone
+  );
+
+  if (foundContact) {
+    console.log(foundContact);
+  }
 }
 
 /* Prevents the form-submit if the "cancel"-button is clicked */
@@ -489,7 +502,8 @@ function showContactDetails(
     contactsEmail,
     contactsPhone,
     acronym,
-    contactsColor
+    contactsColor,
+    contactsID
   );
 }
 
@@ -528,7 +542,8 @@ function getContactDetailsHTML(
   contactsEmail,
   contactsPhone,
   acronym,
-  contactsColor
+  contactsColor,
+  contactsID
 ) {
   return ` 
     <div class="contacts-details-header">
@@ -550,7 +565,8 @@ function getContactDetailsHTML(
             '${contactsEmail}', 
             '${contactsPhone}',
             '${acronym}',
-            '${contactsColor}'
+            '${contactsColor}',
+            '${contactsID}'
           )"
           >
             <img
@@ -595,7 +611,8 @@ function editContactDetailsOverlay(
   contactsEmail,
   contactsPhone,
   acronym,
-  contactsColor
+  contactsColor,
+  contactsID
 ) {
   let contactsAddContainer = document.querySelector(".contacts-add-container");
   contactsAddContainer.innerHTML = editContactDetailsOverlayHTML(
@@ -603,7 +620,8 @@ function editContactDetailsOverlay(
     contactsEmail,
     contactsPhone,
     acronym,
-    contactsColor
+    contactsColor,
+    contactsID
   );
 
   let nameInput = document.getElementById("name");
@@ -623,7 +641,8 @@ function editContactDetailsOverlayHTML(
   contactsEmail,
   contactsPhone,
   acronym,
-  contactsColor
+  contactsColor,
+  contactsID
 ) {
   return ` 
     <div class="contacts-add">
@@ -645,7 +664,8 @@ function editContactDetailsOverlayHTML(
           contactsEmail,
           contactsPhone,
           acronym,
-          contactsColor
+          contactsColor,
+          contactsID
         )}
       </div>
     </div>
@@ -658,11 +678,18 @@ function getEditContactDetailsFormHTML(
   contactsEmail,
   contactsPhone,
   acronym,
-  contactsColor
+  contactsColor,
+  contactsID
 ) {
   return `
     <form
-      onsubmit="checkEditedContactDetails('${contactsName}', '${contactsEmail}', '${contactsPhone}'); return false;"
+      onsubmit="checkEditedContactDetails(
+        '${contactsName}', 
+        '${contactsEmail}', 
+        '${contactsPhone}', 
+        '${acronym}', 
+        '${contactsColor}', 
+        '${contactsID}'); return false;"
     >
       <div class="contacts-add-main-profil-input-container">
         ${getEditContactDetailsFormAcronymHTML(acronym, contactsColor)}
@@ -827,7 +854,14 @@ function preventFormSubmitByEdit() {
 
 /* Checks if the email or phone number is already in use at other contacts by
 excluding the current contact's data */
-function checkEditedContactDetails(contactsName, contactsEmail, contactsPhone) {
+function checkEditedContactDetails(
+  contactsName,
+  contactsEmail,
+  contactsPhone,
+  acronym,
+  contactsColor,
+  contactsID
+) {
   let newEmail = document.getElementById("email").value;
   let newPhone = document.getElementById("phone").value;
 
@@ -842,7 +876,15 @@ function checkEditedContactDetails(contactsName, contactsEmail, contactsPhone) {
     resetAddContactsChanges();
     isExistingContactPhone(newPhone);
   } else {
-    editContactDetails(index, newEmail, newPhone);
+    editContactDetails(
+      index,
+      newEmail,
+      newPhone,
+      contactsName,
+      acronym,
+      contactsColor,
+      contactsID
+    );
   }
 }
 
@@ -867,7 +909,15 @@ function findExistingPhoneWithoutCurrent(index, newPhone) {
 }
 
 /* Changes the edit email or phone number */
-function editContactDetails(index, newEmail, newPhone) {
+function editContactDetails(
+  index,
+  newEmail,
+  newPhone,
+  contactsName,
+  acronym,
+  contactsColor,
+  contactsID
+) {
   if (index !== -1) {
     contacts[index].email = newEmail;
     contacts[index].phone = newPhone;
@@ -875,6 +925,14 @@ function editContactDetails(index, newEmail, newPhone) {
     uploadContacts();
     showContacts();
     hideAddContactContainer();
+    showContactDetails(
+      contactsName,
+      newEmail,
+      newPhone,
+      acronym,
+      contactsColor,
+      contactsID
+    );
   }
 }
 

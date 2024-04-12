@@ -155,10 +155,7 @@ function addBoardAnimation(text, imgSrc) {
  */
 function openAddTask(progressStatus) {
     if (shouldRedirectToMobileView()) return;
-
     if (isOverlayOpen) return;
-    prepareBoardForNewTask();
-    selectedContacts = {};
 
     let container = document.getElementById('add-task-container-board');
     activateOverlay(container);
@@ -201,6 +198,10 @@ function activateOverlay(container) {
     body.style.overflow = 'hidden';
     container.classList.remove('closing');
     container.classList.add('active');
+    
+    setTimeout(() => {
+        prepareBoardForNewTask();
+    }, 250); 
 }
 
 /**

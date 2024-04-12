@@ -42,9 +42,7 @@ let profileColors = [
 //FUNCTION SERVER UPLOAD --------------------------------------------------------------------------------------------------------
 async function uploadContacts() {
   try {
-    console.log("Uploading contacts...", contacts);
       await setItem("contacts", JSON.stringify(contacts));
-      console.log("Contacts uploaded successfully.");
   } catch (error) {
       console.error("Failed to upload contacts:", error);
   }
@@ -54,7 +52,6 @@ async function fetchContacts() {
   try {
     const contactsJSON = await getItem("contacts");
     contacts = JSON.parse(contactsJSON);
-    console.log("Contacts fetched successfully.");
 
     if (!window.location.pathname.endsWith('/board.html') && !window.location.pathname.endsWith('/add_task.html')) {
       generateLetterContainer(); 

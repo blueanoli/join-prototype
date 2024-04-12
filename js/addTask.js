@@ -252,6 +252,8 @@ function handleRedirect() {
     if (window.location.href.endsWith('board.html')) {
         closeAddTask();
         displayAllTasks();
+        populateColumnsWithTasks(sections);
+        checkAllSections();
     } else {
         window.location.href = "board.html";
     }

@@ -462,7 +462,6 @@ function editContactDetailsOverlay(
   contactsColor
 ) {
   let contactsAddContainer = document.querySelector(".contacts-add-container");
-  let contactsAdd = document.querySelector(".contacts-add");
   contactsAddContainer.innerHTML = editContactOverlayHTML(
     contactsName,
     contactsEmail,
@@ -480,12 +479,6 @@ function editContactDetailsOverlay(
   phoneInput.value = contactsPhone;
 
   contactsAddContainer.classList.add("fade-in");
-
-  setTimeout(() => {
-    if (contactsAdd.classList.contains("slide-out")) {
-      contactsAdd.classList.remove("slide-out");
-    }
-  }, 1000);
 }
 
 function editContactOverlayHTML(
@@ -510,82 +503,128 @@ function editContactOverlayHTML(
       <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
         <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
       </div>
-      <form onsubmit="checkEditedContactDetails('${contactsName}', '${contactsEmail}', '${contactsPhone}'); return false;">
-        <div class="contacts-add-main-profil-input-container">
-          <div class="contacts-details-acronym-container contacts-add-main-profil" style="background-color: ${contactsColor};">
-            <span>${acronym}</span>
-          </div>
-          <div class="contacts-add-main-input-area">
-            <div id="name-container" class="contacts-details-edit-input-container">
-              <input
-                required
-                readonly
-                id="name"
-                class="contacts-details-edit-input"
-                type="text"
-                placeholder="Name"
-              />
-              <div class="contacts-add-input-icons">
-                <img src="assets/img/person.svg" alt="person icon" />
-              </div>
-            </div>
-            <div id="email-container" class="contacts-add-input-container">
-              <input
-                required
-                id="email"
-                class="contacts-add-input"
-                type="email"
-                placeholder="Email"
-              />
-              <div class="contacts-add-input-icons">
-                <img src="assets/img/mail.svg" alt="email icon" />
-              </div>
-            </div>
-            <div id="phone-container" class="contacts-add-input-container">
-              <input
-                required
-                id="phone"
-                class="contacts-add-input"
-                type="tel"
-                maxlength="20"
-                value="+49"
-                placeholder="Phone"
-                onkeypress="addSpaceToPhoneNumber()"
-                onfocus="showPhoneFormat()"
-                onblur="removePhoneFormat()"
-              />
-              <div class="contacts-add-input-icons">
-                <img src="assets/img/phone.svg" alt="phone icon" />
-              </div>
-            </div>
-            <span
-              id="input-phone-format"
-              class="contacts-add-input-phone-format"
-            >
-              Format e.g.: +49 2222 22 222 2
-            </span>
-            <span id="input-message" class="contacts-add-input-message"></span>
-          </div>
-        </div>
-        <div class="contacts-edit-buttons-container">
-          <button
-            id="contacts-edit-delete-button"
-            class="contacts-edit-delete-button"
-            onclick="deleteContact(
-              '${contactsName}', 
-              '${contactsEmail}', 
-              '${contactsPhone}'); 
-              preventFormSubmitByEdit();
-              hideAddContactContainer()"
-          >Delete</button>
-          <button class="contacts-add-create-button">
-            Save
-            <img src="assets/img/addtask_check_white.svg" alt="check icon" />
-          </button>
-        </div>
-      </form>
+      ${getEditContactFormHTML(
+        contactsName,
+        contactsEmail,
+        contactsPhone,
+        acronym,
+        contactsColor
+      )}
     </div>
   </div>;`;
+}
+
+function getEditContactFormHTML(
+  contactsName,
+  contactsEmail,
+  contactsPhone,
+  acronym,
+  contactsColor
+) {
+  return `
+  <form onsubmit="checkEditedContactDetails('${contactsName}', '${contactsEmail}', '${contactsPhone}'); return false;">
+    <div class="contacts-add-main-profil-input-container">
+      ${getEditContactFormAcronymHTML(acronym, contactsColor)}
+      <div class="contacts-add-main-input-area">
+        ${getEditContactFormInputAreaHTML()}
+      </div>
+    </div>
+    <div class="contacts-edit-buttons-container">
+      ${getEditContactFormButtonsHTML(
+        contactsName,
+        contactsEmail,
+        contactsPhone
+      )}
+    </div>
+  </form>
+  `;
+}
+
+function getEditContactFormAcronymHTML(acronym, contactsColor) {
+  return `
+  <div
+    class="contacts-details-acronym-container contacts-add-main-profil"
+    style="background-color: ${contactsColor};"
+  >
+    <span>${acronym}</span>
+  </div>
+`;
+}
+
+function getEditContactFormInputAreaHTML() {
+  return `
+  <div id="name-container" class="contacts-details-edit-input-container">
+          <input
+            required
+            readonly
+            id="name"
+            class="contacts-details-edit-input"
+            type="text"
+            placeholder="Name"
+          />
+          <div class="contacts-add-input-icons">
+            <img src="assets/img/person.svg" alt="person icon" />
+          </div>
+        </div>
+        <div id="email-container" class="contacts-add-input-container">
+          <input
+            required
+            id="email"
+            class="contacts-add-input"
+            type="email"
+            placeholder="Email"
+          />
+          <div class="contacts-add-input-icons">
+            <img src="assets/img/mail.svg" alt="email icon" />
+          </div>
+        </div>
+        <div id="phone-container" class="contacts-add-input-container">
+          <input
+            required
+            id="phone"
+            class="contacts-add-input"
+            type="tel"
+            maxlength="20"
+            value="+49"
+            placeholder="Phone"
+            onkeypress="addSpaceToPhoneNumber()"
+            onfocus="showPhoneFormat()"
+            onblur="removePhoneFormat()"
+          />
+          <div class="contacts-add-input-icons">
+            <img src="assets/img/phone.svg" alt="phone icon" />
+          </div>
+        </div>
+        <span id="input-phone-format" class="contacts-add-input-phone-format">
+          Format e.g.: +49 2222 22 222 2
+        </span>
+        <span id="input-message" class="contacts-add-input-message"></span>
+  `;
+}
+
+function getEditContactFormButtonsHTML(
+  contactsName,
+  contactsEmail,
+  contactsPhone
+) {
+  return `
+ <button
+   id="contacts-edit-delete-button"
+   class="contacts-edit-delete-button"
+   onclick="deleteContact(
+           '${contactsName}', 
+           '${contactsEmail}', 
+           '${contactsPhone}'); 
+           preventFormSubmitByEdit();
+           hideAddContactContainer()"
+ >
+   Delete
+ </button>
+ <button class="contacts-add-create-button">
+   Save
+   <img src="assets/img/addtask_check_white.svg" alt="check icon" />
+ </button>
+ `;
 }
 
 /* Searches for the contact and deletes it from the contacts-array if the contact is found */

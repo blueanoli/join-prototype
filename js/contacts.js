@@ -132,7 +132,8 @@ function contactContainerHTML(contactsDiv, contact, letter, j) {
 
 /* Searches for the first letters of first- and second name and returns them */
 function getAcronyms(contactsName) {
-  let firstLetters = contactsName.match(/\b(\w)/g);
+  let words = contactsName.split(/\s+/);
+  let firstLetters = words.map((word) => word.charAt(0));
   let acronym = firstLetters.join("").toUpperCase();
 
   return acronym;
@@ -515,12 +516,12 @@ function editContactOverlayHTML(
             <span>${acronym}</span>
           </div>
           <div class="contacts-add-main-input-area">
-            <div id="name-container" class="contacts-add-input-container">
+            <div id="name-container" class="contacts-details-edit-input-container">
               <input
                 required
                 readonly
                 id="name"
-                class="contacts-add-input"
+                class="contacts-details-edit-input"
                 type="text"
                 placeholder="Name"
               />

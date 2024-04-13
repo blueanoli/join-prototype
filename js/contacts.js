@@ -436,26 +436,36 @@ function isExistingContactPhone(newPhone) {
 function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
+  // let contactID = getNewContactID(contact);
 
-  showNewContactBackground(contact);
+  console.log(contactID);
   showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
+  // showNewContactBackground(contactID);
   uploadContacts();
 }
 
-function showNewContactBackground(contact) {
-  let foundContact = contacts.find(
-    (c) =>
-      c.name === contact.name &&
-      c.email === contact.email &&
-      c.phone === contact.phone
-  );
+/* function showNewContactBackground(contactID) {
+  let contactDiv = document.getElementById(contactID);
 
-  if (foundContact) {
-    console.log(foundContact);
+  if (contactDiv) {
+    console.log(contactID);
   }
-}
+} */
+
+/* function getNewContactID(contact) {
+  let firstLetter = contact.name.charAt(0).toUpperCase();
+  let letterContacts = contactsByLetter[firstLetter];
+  let sortedContacts = sortBySecondName(letterContacts);
+
+  console.log(sortedContacts);
+  let index = sortedContacts.findIndex((c) => c === contact);
+  if (index !== -1) {
+    return firstLetter + index;
+  }
+  return null;
+} */ 
 
 /* Prevents the form-submit if the "cancel"-button is clicked */
 function preventFormSubmit() {
@@ -509,15 +519,15 @@ function showContactDetails(
 }
 
 function adjustDisplayForScreenSize() {
-  const container = document.querySelector('.contacts-contact-container');
+  const container = document.querySelector(".contacts-contact-container");
   if (window.innerWidth < 800) {
-    container.style.display = 'none';
+    container.style.display = "none";
   } else {
-    container.style.display = 'block';
+    container.style.display = "block";
   }
 }
 
-window.addEventListener('resize', adjustDisplayForScreenSize);
+window.addEventListener("resize", adjustDisplayForScreenSize);
 
 /* Changes the visuality of the interacted contact in the contact-list 
 dependent on focus or blur of the div - (only possible through adding tabindex=0 to the div)*/

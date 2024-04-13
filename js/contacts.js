@@ -436,36 +436,26 @@ function isExistingContactPhone(newPhone) {
 function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
-  // let contactID = getNewContactID(contact);
 
-  console.log(contactID);
+  showNewContactBackground(contact);
   showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
-  // showNewContactBackground(contactID);
   uploadContacts();
 }
 
-/* function showNewContactBackground(contactID) {
-  let contactDiv = document.getElementById(contactID);
+function showNewContactBackground(contact) {
+  let foundContact = contacts.find(
+    (c) =>
+      c.name === contact.name &&
+      c.email === contact.email &&
+      c.phone === contact.phone
+  );
 
-  if (contactDiv) {
-    console.log(contactID);
+  if (foundContact) {
+    console.log(foundContact);
   }
-} */
-
-/* function getNewContactID(contact) {
-  let firstLetter = contact.name.charAt(0).toUpperCase();
-  let letterContacts = contactsByLetter[firstLetter];
-  let sortedContacts = sortBySecondName(letterContacts);
-
-  console.log(sortedContacts);
-  let index = sortedContacts.findIndex((c) => c === contact);
-  if (index !== -1) {
-    return firstLetter + index;
-  }
-  return null;
-} */ 
+}
 
 /* Prevents the form-submit if the "cancel"-button is clicked */
 function preventFormSubmit() {
@@ -536,14 +526,24 @@ function goBackToContactList() {
 
 /* Function to adjust the display property */
 function adjustDisplayForScreenSize() {
-  const container = document.querySelector('.contacts-contact-container');
+  const contactContainer = document.querySelector('.contacts-contact-container');
+  const mainContainer = document.querySelector('.contacts-main-container');
+
   if (window.innerWidth < 800) {
-    container.style.display = 'none';
+    if (isContactDetailsVisible) {
+      contactContainer.style.display = 'none';
+      mainContainer.style.cssText = 'display: block !important';
+    } else {
+      contactContainer.style.display = 'block';
+      mainContainer.style.cssText = '';
+    }
   } else {
-    container.style.display = 'block';
+    contactContainer.style.display = 'block';
+    mainContainer.style.display = 'block';
   }
 }
 
+/* Event listener for window resize events */
 window.addEventListener('resize', adjustDisplayForScreenSize);
 
 /* Changes the visuality of the interacted contact in the contact-list 

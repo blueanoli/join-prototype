@@ -740,7 +740,7 @@ h3 {
 }
 
 .mobile-menu-icon {
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   gap: 5px;

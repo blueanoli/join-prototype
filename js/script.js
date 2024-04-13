@@ -206,6 +206,10 @@ function goBack() {
   window.history.back();
 }
 
+function goBackToContactlist() {
+  window.location.href = 'contacts.html';
+}
+
 /* Redirects to the board page. */ 
 function showBoardFromSummary() {
   window.location.href = 'board.html';

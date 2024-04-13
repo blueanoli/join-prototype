@@ -723,6 +723,23 @@ h3 {
   color: var(--light-blue);
 }
 
+.contacts-arrow-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 120px;
+  right: 20px;
+
+}
+
 @media (max-width: 1000px) {
   .contacts-contact-container {
     padding-left: 0;
@@ -750,8 +767,6 @@ h3 {
   .contacts-text {
     display: none;
   }
-
-
 
   .contacts-add-container.fade-in {
     align-items: inherit;
@@ -856,9 +871,22 @@ h3 {
 
 @media (max-width: 800px) {
   .contacts-main-container {
-    
+    display: none;
     padding: 32px 24px;
   }
+
+  .contacts-main-header {
+    margin: 0 !important;
+  }
+
+  .contacts-details-container {
+    margin: 30px 0 0;
+  }
+  
+  .contacts-arrow-button {
+    display: block !important;
+  }
+
 
   .contact-add-container-responsive {
     display: flex !important;

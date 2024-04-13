@@ -595,6 +595,11 @@ function getContactDetailsHTML(
       <button class="contacts-arrow-button d-none" onclick="goBackToContactlist()">
       <img class="arrow-left" src="assets/img/left_arrow.svg">
   </button>
+  <div class="mobile-menu-icon d-none">
+       <span class="mobile-dot"></span>
+      <span class="mobile-dot"></span>
+       <span class="mobile-dot"></span>
+</div>
       <div>
         <h2 class="contacts-name">${contactsName}</h2>
         <div class="contacts-details-edit-container">

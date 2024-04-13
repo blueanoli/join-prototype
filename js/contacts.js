@@ -655,16 +655,20 @@ function getContactDetailsHTML(
 
 /* Shows mobile menu */
 function showContactsMobileMenu() {
-  var container = document.querySelector('.contacts-details-edit-container');
-  container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'flex' : 'none';
+  if (window.innerWidth < 800) {
+    var container = document.querySelector('.contacts-details-edit-container');
+    container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'flex' : 'none';
+  }
 }
 
 document.addEventListener('click', function (event) {
-  var container = document.querySelector('.contacts-details-edit-container');
-  var mobileMenuIcon = document.querySelector('.mobile-menu-icon');
+  if (window.innerWidth < 800) {
+    var container = document.querySelector('.contacts-details-edit-container');
+    var mobileMenuIcon = document.querySelector('.mobile-menu-icon');
 
-  if (!container.contains(event.target) && !mobileMenuIcon.contains(event.target)) {
-    container.style.display = 'none';
+    if (!container.contains(event.target) && !mobileMenuIcon.contains(event.target)) {
+      container.style.display = 'none';
+    }
   }
 });
 

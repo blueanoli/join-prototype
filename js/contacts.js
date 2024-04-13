@@ -666,7 +666,7 @@ document.addEventListener('click', function (event) {
     var container = document.querySelector('.contacts-details-edit-container');
     var mobileMenuIcon = document.querySelector('.mobile-menu-icon');
 
-    if (!container.contains(event.target) && !mobileMenuIcon.contains(event.target)) {
+    if (container && mobileMenuIcon && !container.contains(event.target) && !mobileMenuIcon.contains(event.target)) {
       container.style.display = 'none';
     }
   }
@@ -710,6 +710,8 @@ function editContactDetailsOverlayHTML(
   contactsColor,
   contactsID
 ) {
+
+  const cancelIconSrc = window.innerWidth < 800 ? "assets/img/cancel_white.svg" : "assets/img/cancel_dark.svg";
   return ` 
     <div class="contacts-add">
       <img
@@ -723,7 +725,7 @@ function editContactDetailsOverlayHTML(
       </div>
       <div class="contacts-add-main-container">
         <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
-          <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
+          <img src="${cancelIconSrc}" alt="cancel icon" />
         </div>
         ${getEditContactDetailsFormHTML(
     contactsName,

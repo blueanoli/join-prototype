@@ -505,7 +505,19 @@ function showContactDetails(
     contactsColor,
     contactsID
   );
+  adjustDisplayForScreenSize();
 }
+
+function adjustDisplayForScreenSize() {
+  const container = document.querySelector('.contacts-contact-container');
+  if (window.innerWidth < 800) {
+    container.style.display = 'none';
+  } else {
+    container.style.display = 'block';
+  }
+}
+
+window.addEventListener('resize', adjustDisplayForScreenSize);
 
 /* Changes the visuality of the interacted contact in the contact-list 
 dependent on focus or blur of the div - (only possible through adding tabindex=0 to the div)*/

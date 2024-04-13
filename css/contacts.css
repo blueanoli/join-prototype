@@ -856,7 +856,7 @@ h3 {
 
 @media (max-width: 800px) {
   .contacts-main-container {
-    display: none;
+    
     padding: 32px 24px;
   }
 

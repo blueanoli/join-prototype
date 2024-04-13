@@ -723,6 +723,46 @@ h3 {
   color: var(--light-blue);
 }
 
+.contacts-arrow-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 120px;
+  right: 20px;
+}
+
+.mobile-menu-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  background-color: var(--dark-blue);
+  border-radius: 50%;
+  position: absolute;
+  right: 20px;
+  bottom: 120px;
+}
+
+.mobile-dot {
+  display: block;
+  width: 5px;
+  height: 5px;
+  background-color: white;
+  border-radius: 50%;
+}
+
 @media (max-width: 1000px) {
   .contacts-contact-container {
     padding-left: 0;
@@ -746,12 +786,28 @@ h3 {
     gap: 0;
   }
 
-  .contacts-main-header-border,
-  .contacts-text {
-    display: none;
+  .contacts-main-header {
+    flex-direction: column;
+    align-items: inherit;
+    gap: 10px;
+  }
+
+  .contacts-main-header-border {
+    width: 90px;
+    border-bottom: 3px solid var(--light-blue);
+    border-radius: 8px;
+    height: inherit;
+    order: 2;
   }
 
 
+  .contacts-text {
+    order: 1;
+  }
+
+  h1 {
+    order: 0;
+  }
 
   .contacts-add-container.fade-in {
     align-items: inherit;
@@ -822,9 +878,8 @@ h3 {
     font-size: 38px !important;
   }
 
-  .contacts-main-header-border,
-  .contacts-text {
-    display: none;
+  .contacts-main-header span {
+    font-size: 20px;
   }
 
   .contacts-add-join-logo {
@@ -856,9 +911,34 @@ h3 {
 
 @media (max-width: 800px) {
   .contacts-main-container {
-    
+    display: none;
     padding: 32px 24px;
   }
+
+  .mobile-menu-icon {
+    display: flex !important;
+  }
+
+  .contacts-details-edit-container {
+    display: none;
+  }
+
+  .contacts-details-container {
+    gap: 0;
+  }
+
+  .contacts-main-header {
+    margin: 0 !important;
+  }
+
+  .contacts-details-container {
+    margin: 30px 0 0;
+  }
+
+  .contacts-arrow-button {
+    display: block !important;
+  }
+
 
   .contact-add-container-responsive {
     display: flex !important;
@@ -906,7 +986,7 @@ h3 {
 
   .contacts-add-input {
     font-size: 14px;
-    
+
   }
 
   .contacts-contact-data {
@@ -925,6 +1005,6 @@ h3 {
 
 
   .contacts-add {
-    padding: 10px 0px 0px 0px!important;
+    padding: 10px 0px 0px 0px !important;
   }
 }

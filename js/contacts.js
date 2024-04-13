@@ -493,6 +493,9 @@ function showContactRegisterMsg() {
   }, 1600);
 }
 
+/* Flag to monitor if contact details are currently being shown */
+let isContactDetailsVisible = false;
+
 /* Displays a container with details about the clicked contact */
 function showContactDetails(
   contactsName,
@@ -515,19 +518,33 @@ function showContactDetails(
     contactsColor,
     contactsID
   );
+
+  isContactDetailsVisible = true;
+  /* Adjust display property based on the current screen size */
   adjustDisplayForScreenSize();
 }
 
+function goBackToContactList() {
+  const contactContainer = document.querySelector('.contacts-contact-container');
+  contactContainer.style.display = 'block';
+
+  const mainContainer = document.querySelector('.contacts-main-container');
+  mainContainer.style.display = 'none';
+
+  isContactDetailsVisible = false;  // Reset the flag
+}
+
+/* Function to adjust the display property */
 function adjustDisplayForScreenSize() {
-  const container = document.querySelector(".contacts-contact-container");
+  const container = document.querySelector('.contacts-contact-container');
   if (window.innerWidth < 800) {
-    container.style.display = "none";
+    container.style.display = 'none';
   } else {
-    container.style.display = "block";
+    container.style.display = 'block';
   }
 }
 
-window.addEventListener("resize", adjustDisplayForScreenSize);
+window.addEventListener('resize', adjustDisplayForScreenSize);
 
 /* Changes the visuality of the interacted contact in the contact-list 
 dependent on focus or blur of the div - (only possible through adding tabindex=0 to the div)*/
@@ -575,6 +592,14 @@ function getContactDetailsHTML(
       >
         <span class="contacts-acronym">${acronym}</span>
       </div>
+      <button class="contacts-arrow-button d-none" onclick="goBackToContactlist()">
+      <img class="arrow-left" src="assets/img/left_arrow.svg">
+  </button>
+  <div class="mobile-menu-icon d-none">
+       <span class="mobile-dot"></span>
+      <span class="mobile-dot"></span>
+       <span class="mobile-dot"></span>
+</div>
       <div>
         <h2 class="contacts-name">${contactsName}</h2>
         <div class="contacts-details-edit-container">
@@ -682,13 +707,13 @@ function editContactDetailsOverlayHTML(
           <img src="assets/img/cancel_dark.svg" alt="cancel icon" />
         </div>
         ${getEditContactDetailsFormHTML(
-          contactsName,
-          contactsEmail,
-          contactsPhone,
-          acronym,
-          contactsColor,
-          contactsID
-        )}
+    contactsName,
+    contactsEmail,
+    contactsPhone,
+    acronym,
+    contactsColor,
+    contactsID
+  )}
       </div>
     </div>
     `;
@@ -721,10 +746,10 @@ function getEditContactDetailsFormHTML(
       </div>
       <div class="contacts-edit-buttons-container">
         ${getEditContactDetailsFormButtonsHTML(
-          contactsName,
-          contactsEmail,
-          contactsPhone
-        )}
+    contactsName,
+    contactsEmail,
+    contactsPhone
+  )}
       </div>
     </form>
   `;

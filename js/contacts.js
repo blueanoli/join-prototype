@@ -170,7 +170,7 @@ function addContactOverlayHTML() {
       <span class="contacts-add-overlay-border"></span>
     </div>
     <div class="contacts-add-main-container">
-      <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
+      <div class="contacts-add-cancel  edit-cancel-icon" onclick="hideAddContactContainer()">
         <img
           id="cancel-dark"
           src="assets/img/cancel_dark.svg"

@@ -148,7 +148,7 @@ h3 {
   border-radius: 10px;
 }
 
-.contacts-contact-data-hover:hover {
+.contacts-contact-data:hover {
   cursor: pointer;
   background: linear-gradient(#f9f9f9, #f0f0f0);
 }

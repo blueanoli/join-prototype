@@ -451,12 +451,12 @@ function addNewContact(contact) {
   showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
-  showNewContact(contact);
+  showNewContactVisuality(contact);
   uploadContacts();
 }
 
 /* Changes the Background for an added contact for 5 sec. to highlight it and scrolls to it smoothly*/
-function showNewContact(contact) {
+function showNewContactVisuality(contact) {
   let contactsID = getContactID(contact);
   let contactsDiv = document.getElementById(contactsID);
 
@@ -525,6 +525,11 @@ function showContactDetails(
     contactsID
   );
 
+  let contactDiv = document.getElementById(contactsID);
+  if (contactDiv) {
+    contactDiv.classList.add("checked");
+  }
+
   isContactDetailsVisible = true;
   /* Adjust display property based on the current screen size */
   adjustDisplayForScreenSize();
@@ -567,15 +572,21 @@ dependent on focus or blur of the div - (only possible through adding tabindex=0
 function changeContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
   let nameColor = document.getElementById(`name-${contactsID}`);
+  let allContactsDiv = document.querySelectorAll(".contacts-contact-data");
+  let allContactsName = document.querySelectorAll("contacts-contact-details-name");
+
+  allContactsDiv.forEach(contactDiv => {
+    contactDiv.classList.remove("clicked");
+  });
+
+  allContactsName.forEach(contactsName => {
+    contactsName.classList.remove("clicked");
+  });
 
   if (!background.classList.contains("clicked")) {
     nameColor.classList.add("clicked");
     background.classList.add("clicked");
-    background.classList.remove("contacts-contact-data-hover");
-
-    background.addEventListener("blur", function () {
-      resetContactDetailsVisuality(contactsID);
-    });
+    background.classList.remove("hover");
   } else {
     resetContactDetailsVisuality(contactsID);
   }
@@ -588,7 +599,7 @@ function resetContactDetailsVisuality(contactsID) {
 
   nameColor.classList.remove("clicked");
   background.classList.remove("clicked");
-  background.classList.add("contacts-contact-data-hover");
+  nameColor.style.color = "";
 }
 
 /* Displays the container with the contact details */

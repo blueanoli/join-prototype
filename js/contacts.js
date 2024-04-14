@@ -47,8 +47,8 @@ function showContacts() {
 
       for (let j = 0; j < contacts.length; j++) {
         let contact = contacts[j];
-        setBackgroundColor(contact);
-        contactContainerHTML(contactsDiv, contact, letter, j);
+        setProfilColor(contact);
+        contactContainerHTML(contactsDiv, contact);
       }
     }
   }
@@ -83,15 +83,15 @@ function letterContainerHTML(contactsDiv, letter) {
 
 /* Saves the background color to local Storage and generates a key with 
 the contact's name and a random hex-color as value*/
-function setBackgroundColor(contact) {
+function setProfilColor(contact) {
   if (!contact.color) {
-    contact.color = getDifferentBackgroundColor();
+    contact.color = getDifferentProfilColor();
   }
   return contact.color;
 }
 
 /* Sets a random hex-color for each contact */
-function getDifferentBackgroundColor() {
+function getDifferentProfilColor() {
   let randomIndex = Math.floor(Math.random() * profileColors.length);
   let color = profileColors[randomIndex];
 
@@ -99,13 +99,13 @@ function getDifferentBackgroundColor() {
 }
 
 /* Displays the individual contact */
-function contactContainerHTML(contactsDiv, contact, letter, j) {
+function contactContainerHTML(contactsDiv, contact) {
   let contactsName = contact["name"];
   let contactsEmail = contact["email"];
   let contactsPhone = contact["phone"];
-  let contactsColor = setBackgroundColor(contact);
+  let contactsColor = setProfilColor(contact);
   let acronym = getAcronyms(contactsName);
-  let contactsID = getContactID(letter, j);
+  let contactsID = getContactID(contact);
 
   return (contactsDiv.innerHTML += `
   <div 
@@ -139,8 +139,20 @@ function getAcronyms(contactsName) {
   return acronym;
 }
 
-function getContactID(letter, j) {
-  return letter + j;
+function getContactID(contact) {
+  let firstLetter = contact["name"].charAt(0).toUpperCase();
+  let contactIndex = contacts.findIndex(
+    (c) =>
+      c.name === contact.name &&
+      c.email === contact.email &&
+      c.phone === contact.phone
+  );
+
+  if (contactIndex !== -1) {
+    return firstLetter + contactIndex;
+  } else {
+    return null;
+  }
 }
 
 /* The "Add Container" slides in while the background fades darker */
@@ -437,23 +449,28 @@ function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
 
-  showNewContactBackground(contact);
   showContactRegisterMsg();
   checkLetterContainer(contact, firstLetter);
   hideAddContactContainer();
+  showNewContact(contact);
   uploadContacts();
 }
 
-function showNewContactBackground(contact) {
-  let foundContact = contacts.find(
-    (c) =>
-      c.name === contact.name &&
-      c.email === contact.email &&
-      c.phone === contact.phone
-  );
+/* Changes the Background for an added contact for 5 sec. to highlight it and scrolls to it smoothly*/
+function showNewContact(contact) {
+  let contactsID = getContactID(contact);
+  let contactsDiv = document.getElementById(contactsID);
 
-  if (foundContact) {
-    console.log(foundContact);
+  if (contactsID) {
+    changeContactDetailsVisuality(contactsID);
+    setTimeout(() => {
+      contactsDiv.scrollIntoView({
+        behavior: "smooth"
+      });
+    }, 500);
+    setTimeout(() => {
+      resetContactDetailsVisuality(contactsID)
+    }, 5000);
   }
 }
 

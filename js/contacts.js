@@ -81,8 +81,7 @@ function letterContainerHTML(contactsDiv, letter) {
   <div class="contacts-letter-border"></div>`);
 }
 
-/* Saves the background color to local Storage and generates a key with 
-the contact's name and a random hex-color as value*/
+/* Checks if the contact has already a profil-color */
 function setProfilColor(contact) {
   if (!contact.color) {
     contact.color = getDifferentProfilColor();
@@ -744,7 +743,7 @@ function editContactDetailsOverlayHTML(
         <div class="contacts-add-cancel" onclick="hideAddContactContainer()">
           <img src="${cancelIconSrc}" alt="cancel icon" />
         </div>
-        ${getEditContactDetailsFormHTML(
+          ${getEditContactDetailsFormHTML(
     contactsName,
     contactsEmail,
     contactsPhone,
@@ -754,7 +753,7 @@ function editContactDetailsOverlayHTML(
   )}
       </div>
     </div>
-    `;
+  `;
 }
 
 /* Displays the Form Area in the Edit-Contact Overlay */
@@ -840,7 +839,6 @@ function getEditContactDetailsFormInputAreaHTML() {
         class="contacts-add-input"
         type="tel"
         maxlength="20"
-        value="+49"
         placeholder="Phone"
         onkeypress="addSpaceToPhoneNumber()"
         onfocus="showPhoneFormat()"

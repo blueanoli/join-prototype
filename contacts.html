@@ -18,34 +18,39 @@
   <body onload="init(); initContacts()">
     <div w3-include-html="assets/templates/desktop-template.html"></div>
     <div class="content-contact">
-    <div class="contacts-contact-container">
-      <div class="contact-main-container">
-        <div class="contact-add-container" onclick="showAddContactContainer()">
-          <span class="contact-add-text">Add new contact</span>
-          <img class="contact-add-icon" src="assets/img/add_contact.svg" />
+      <div class="contacts-contact-container">
+        <div class="contact-main-container">
+          <div
+            class="contact-add-container"
+            onclick="showAddContactContainer()"
+          >
+            <span class="contact-add-text">Add new contact</span>
+            <img class="contact-add-icon" src="assets/img/add_contact.svg" />
+          </div>
+          <div
+            class="contact-add-container-responsive d-none"
+            onclick="showAddContactContainer()"
+          >
+            <img class="contact-add-icon" src="assets/img/add_contact.svg" />
+          </div>
+          <div id="contacts-contact"></div>
         </div>
-        <div class="contact-add-container-responsive d-none" onclick="showAddContactContainer()">
-          <img class="contact-add-icon" src="assets/img/add_contact.svg" />
+      </div>
+      <div class="contacts-main-container">
+        <div class="contacts-main-header">
+          <h1>Contacts</h1>
+          <span class="contacts-main-header-border"></span>
+          <span class="contacts-text">Better with a Team</span>
         </div>
-        <div id="contacts-contact"></div>
+        <div id="contacts-details" class="contacts-details-container"></div>
+        <div
+          id="contacts-register-msg"
+          class="contacts-add-register-msg-hidden"
+        >
+          <span>Contact successfully created</span>
+        </div>
       </div>
+      <div class="contacts-add-container"></div>
     </div>
-    <div class="contacts-main-container">
-      <div class="contacts-main-header">
-        <h1>Contacts</h1>
-        <span class="contacts-main-header-border"></span>
-        <span class="contacts-text">Better with a Team</span>
-      </div>
-      <div id="contacts-details" class="contacts-details-container">   
-      </div>
-      <div id="contacts-register-msg" class="contacts-add-register-msg-hidden">
-        <span>Contact successfully created</span>
-      </div>
-    </div>
-    <div class="contacts-add-container"></div>
-  </div>
   </body>
 </html>
-
-
-

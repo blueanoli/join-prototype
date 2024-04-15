@@ -109,7 +109,6 @@ function contactContainerHTML(contactsDiv, contact) {
   return (contactsDiv.innerHTML += `
   <div 
     id="${contactsID}"
-    tabindex="0" 
     class="contacts-contact-data contacts-contact-data-hover" 
     onclick="showContactDetails(
       '${contactsName}', 
@@ -138,6 +137,8 @@ function getAcronyms(contactsName) {
   return acronym;
 }
 
+/* Searches for the contact with the first letter of its name and the index-number and then returns it
+if the contact is found */
 function getContactID(contact) {
   let firstLetter = contact["name"].charAt(0).toUpperCase();
   let contactIndex = contacts.findIndex(
@@ -455,21 +456,30 @@ function addNewContact(contact) {
   uploadContacts();
 }
 
-/* Changes the Background for an added contact for 5 sec. to highlight it and scrolls to it smoothly*/
+/* Changes the Background for an added contact to highlight it and scrolls 
+to the newly added contact smoothly. Also displays the new contact details */
 function showNewContactVisuality(contact) {
+  let contactsName = contact["name"];
+  let contactsEmail = contact["email"];
+  let contactsPhone = contact["phone"];
+  let contactsColor = setProfilColor(contact);
+  let acronym = getAcronyms(contactsName);
   let contactsID = getContactID(contact);
   let contactsDiv = document.getElementById(contactsID);
 
   if (contactsID) {
     changeContactDetailsVisuality(contactsID);
-    setTimeout(() => {
-      contactsDiv.scrollIntoView({
-        behavior: "smooth"
-      });
-    }, 500);
-    setTimeout(() => {
-      resetContactDetailsVisuality(contactsID)
-    }, 5000);
+
+    contactsDiv.scrollIntoView({ behavior: "smooth" });
+
+    showContactDetails(
+      contactsName,
+      contactsEmail,
+      contactsPhone,
+      acronym,
+      contactsColor,
+      contactsID
+    );
   }
 }
 
@@ -567,13 +577,13 @@ function adjustDisplayForScreenSize() {
 /* Event listener for window resize events */
 window.addEventListener('resize', adjustDisplayForScreenSize);
 
-/* Changes the visuality of the interacted contact in the contact-list 
-dependent on focus or blur of the div - (only possible through adding tabindex=0 to the div)*/
+/* Changes the visuality of the interacted contact in the contact-list and resets to standard
+for every contact */
 function changeContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
   let nameColor = document.getElementById(`name-${contactsID}`);
   let allContactsDiv = document.querySelectorAll(".contacts-contact-data");
-  let allContactsName = document.querySelectorAll("contacts-contact-details-name");
+  let allContactsName = document.querySelectorAll(".contacts-contact-details-name");
 
   allContactsDiv.forEach(contactDiv => {
     contactDiv.classList.remove("clicked");
@@ -586,7 +596,6 @@ function changeContactDetailsVisuality(contactsID) {
   if (!background.classList.contains("clicked")) {
     nameColor.classList.add("clicked");
     background.classList.add("clicked");
-    background.classList.remove("hover");
   } else {
     resetContactDetailsVisuality(contactsID);
   }
@@ -599,7 +608,6 @@ function resetContactDetailsVisuality(contactsID) {
 
   nameColor.classList.remove("clicked");
   background.classList.remove("clicked");
-  nameColor.style.color = "";
 }
 
 /* Displays the container with the contact details */

@@ -335,6 +335,28 @@ async function switchTemplate(currentTemplate, isPublic) {
     await switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic);
   }
 }
+/* Specific functions for switching to appropriate templates based on the current environment and device type. */
+async function switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
+  if (currentTemplate !== 'assets/templates/mobile-template.html') {
+    includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
+    cssLink.setAttribute('href', 'css/mobile-template.css');
+    await includeHTML();
+    if (isPublic) {
+      disableContent();
+    }
+  }
+}
+
+async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
+  if (currentTemplate !== 'assets/templates/desktop-template.html' || !currentTemplate) {
+    includeDiv.setAttribute('w3-include-html', 'assets/templates/desktop-template.html');
+    cssLink.setAttribute('href', 'css/desktop-template.css');
+    await includeHTML();
+    if (isPublic) {
+      disableContent();
+    }
+  }
+}
 
 /**
  * Adjusts the visibility of the desktop menu based on screen size and page type.

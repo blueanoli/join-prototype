@@ -921,6 +921,7 @@ h3 {
 
   .contact-add-container {
     width: auto;
+    gap: 8px;
   }
 
   .contacts-add-overlay h2 {

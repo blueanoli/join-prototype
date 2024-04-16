@@ -5,7 +5,7 @@
 function addSubtask() {
     let subtask = document.getElementById('subtasks').value;
     let subtaskcontainer = document.getElementById('subtask-container');
-    let subtaskId = 'subtask-' + subtaskCounter++;
+    let subtaskId = `subtask-${Date.now()}-${subtaskCounter++}`;
 
     subtaskcontainer.innerHTML += renderSubtaskHTML(subtask, subtaskId);
 
@@ -47,7 +47,7 @@ function saveEditedSubtask(subtaskId) {
     let subtaskDiv = document.getElementById(subtaskId);
     let inputField = document.getElementById(`edit-${subtaskId}`);
     let newValue = inputField.value;
-    
+
     subtaskDiv.innerHTML = `
         <ul>
             <li>${newValue}</li>
@@ -68,14 +68,14 @@ function saveEditedSubtask(subtaskId) {
 function clearSubtasks() {
     let subtaskContainer = document.getElementById('subtask-container');
     subtaskContainer.innerHTML = '';
-    subtaskCounter = 0; 
+    subtaskCounter = 0;
 }
 
 /**
 *  Resets subtask input field
 */
 function cancelSubtask() {
-    document.getElementById('subtasks').value = ''; 
+    document.getElementById('subtasks').value = '';
     document.getElementById('icon-container').innerHTML = `
         <img class="icon-plus" src="assets/img/addtask_plus.svg" alt="">
     `;

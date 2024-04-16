@@ -159,8 +159,8 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
  * @returns {string} - Generated HTML string.
  */
 function renderMiniTaskHTML(task, index) {
-  let subtasks = Array.isArray(task.subtasks) ? task.subtasks : []; 
-  let completedSubtasks = subtasks.filter(subtask => subtask.completed).length; 
+  let subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+  let completedSubtasks = subtasks.filter(subtask => subtask.completed).length;
   let totalSubtasks = task.subtasks.length;
   let progressPercentage = totalSubtasks > 0 ? (completedSubtasks / totalSubtasks) * 100 : 0;
   const categorySvgPath = getCategorySvgPath(task.category);

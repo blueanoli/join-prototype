@@ -47,11 +47,15 @@ function closeTaskOverlay() {
 
 /** Generates HTML for each subtask */
 function generateSubtasksHtml(task) {
-    return task.subtasks.map((subtask, subtaskIndex) => {
-        let subtaskId = `edit-subtask-${task.id}-${subtaskIndex}`;
-        return renderEditSubtaskHTML(subtask.title, subtaskId, subtask.completed);
+    return task.subtasks.map((subtask) => {
+        // Stelle sicher, dass jede Subtask eine eindeutige ID basierend auf der aktuellen Zeit erhält.
+        if (!subtask.id) {
+            subtask.id = `edit-subtask-${task.id}-${Date.now()}`;
+        }
+        return renderEditSubtaskHTML(subtask.title, subtask.id, subtask.completed);
     }).join('');
 }
+
 
 /** Sets task to edit mode */
 function openEditTask(index) {
@@ -266,30 +270,48 @@ function closeAddTask() {
  * generates subtask ID, and appends rendered subtask HTML to subtask container.
  * Clears subtask input and updates 'edit-icon-container' HTML.
  */
-async function addEditSubtask() {
+async function addEditSubtask(taskId) {
     let subtaskInput = document.getElementById('edit-subtasks');
     let subtaskValue = subtaskInput.value.trim();
+    if (!subtaskValue) return;
 
-    if (subtaskValue) {
-        let taskIndex = tasksData.length - 1;
-        tasksData[taskIndex].subtasks.push({ title: subtaskValue, completed: false });
-        await saveTasksToServer();
-
-        let subtasksHtml = generateSubtasksHtml(tasksData[taskIndex], taskIndex);
-        document.getElementById('subtask-container').innerHTML = subtasksHtml;
-
-        subtaskInput.value = '';
+    let task = tasksData.find(t => t.id === taskId);
+    if (!task) {
+        return;
     }
+
+    let newSubtaskId = `subtask-${taskId}-${Date.now()}`;
+    task.subtasks.push({ id: newSubtaskId, title: subtaskValue, completed: false });
+
+    await saveTasksToServer();
+
+    let subtasksHtml = generateSubtasksHtml(task);
+    document.getElementById('subtask-container').innerHTML = subtasksHtml;
+    subtaskInput.value = '';
 }
+
 
 /**
  * Removes subtask with given ID from DOM and updates tasks data in storage.
  * @param {string} subtaskId - ID of subtask to remove.
  */
 async function removeEditSubtask(subtaskId) {
-    let subtask = document.getElementById(subtaskId);
-    subtask.remove();
-    await saveTasksToServer();
+    let subtaskElement = document.getElementById(subtaskId);
+    if (subtaskElement) {
+        subtaskElement.remove();
+    }
+
+    const pureSubtaskId = subtaskId.replace('edit-', '');
+    let taskId = pureSubtaskId.split('-')[1];
+    let task = tasksData.find(t => t.id === taskId);
+    if (!task) {
+        return;
+    }
+
+    if (task.subtasks && task.subtasks.some(st => st.id === pureSubtaskId)) {
+        task.subtasks = task.subtasks.filter(st => st.id !== pureSubtaskId);
+        await saveTasksToServer();
+    }
 }
 
 /**

@@ -1,132 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Join</title>
-    <link rel="icon" type="image/png" href="assets/img/logo_dark.svg" />
-    <link rel="stylesheet" href="css/fonts.css" />
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/script.js" defer></script>
-    <script src="js/login.js" defer></script>
-    <script src="js/register.js" defer></script>
-  </head>
-  <body onload="initRegister()" class="login-body">
-    <div class="login-container">
-      <img class="login-logo" src="assets/img/logo_dark.svg" alt="join-logo" />
-      <div class="signup-main">
-        <div class="singup-arrow-container">
-          <a href="index.html"
-            ><img
-              class="signup-arrow-left"
-              src="assets/img/left_arrow.svg"
-              alt="back to login button"
-          /></a>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join</title>
+  <link rel="icon" type="image/png" href="assets/img/logo_dark.svg" />
+  <link rel="stylesheet" href="css/fonts.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/script.js" defer></script>
+  <script src="js/login.js" defer></script>
+  <script src="js/register.js" defer></script>
+</head>
+
+<body onload="initRegister()" class="login-body">
+  <div class="login-container">
+    <img class="login-logo" src="assets/img/logo_dark.svg" alt="join-logo" />
+    <div class="signup-main">
+      <div class="singup-arrow-container">
+        <a href="index.html"><img class="signup-arrow-left" src="assets/img/left_arrow.svg"
+            alt="back to login button" /></a>
+      </div>
+      <h1 class="sign-up-headline">Sign up</h1>
+      <span class="login-underline"></span>
+      <form onsubmit="addNewUser(); return false;">
+        <div class="signup-input-area">
+          <div class="login-input-container">
+            <input required id="name" class="login-input" type="text" placeholder="Name" />
+            <img src="assets/img/person.svg" />
+          </div>
+          <div id="signup-email-container" class="login-input-container">
+            <input required id="email" class="login-input" type="email" placeholder="Email" />
+            <img src="assets/img/mail.svg" />
+          </div>
+          <div class="login-input-container">
+            <input required id="password" class="login-input" type="password" placeholder="Password"
+              onfocus="hidePasswordImg()" onblur="defaultPasswordImg()" />
+            <img id="login-password-icon" src="assets/img/password.svg" onclick="toggleVisibilityPassword()" />
+          </div>
+          <div id="password-confirmed-container" class="login-input-container">
+            <input required id="password-confirmed" class="login-input" type="password" placeholder="Confirm Password"
+              onfocus="hidePasswordConfirmedImg()" onblur="defaultPasswordConfirmedImg()" />
+            <img id="login-password-confirmed-icon" src="assets/img/password.svg"
+              onclick="toggleVisibilityPasswordConfirmed()" />
+          </div>
         </div>
-        <h1>Sign up</h1>
-        <span class="login-underline"></span>
-        <form onsubmit="addNewUser(); return false;">
-          <div class="signup-input-area">
-            <div class="login-input-container">
-              <input
-                required
-                id="name"
-                class="login-input"
-                type="text"
-                placeholder="Name"
-              />
-              <img src="assets/img/person.svg" />
-            </div>
-            <div id="signup-email-container" class="login-input-container">
-              <input
-                required
-                id="email"
-                class="login-input"
-                type="email"
-                placeholder="Email"
-              />
-              <img src="assets/img/mail.svg" />
-            </div>
-            <div class="login-input-container">
-              <input
-                required
-                id="password"
-                class="login-input"
-                type="password"
-                placeholder="Password"
-                onfocus="hidePasswordImg()"
-                onblur="defaultPasswordImg()"
-              />
-              <img
-                id="login-password-icon"
-                src="assets/img/password.svg"
-                onclick="toggleVisibilityPassword()"
-              />
-            </div>
-            <div
-              id="password-confirmed-container"
-              class="login-input-container"
-            >
-              <input
-                required
-                id="password-confirmed"
-                class="login-input"
-                type="password"
-                placeholder="Confirm Password"
-                onfocus="hidePasswordConfirmedImg()"
-                onblur="defaultPasswordConfirmedImg()"
-              />
-              <img
-                id="login-password-confirmed-icon"
-                src="assets/img/password.svg"
-                onclick="toggleVisibilityPasswordConfirmed()"
-              />
-            </div>
-          </div>
-          <div id="password-wrong-text" class="login-wrong-password-hidden">
-            <span>Ups! your password don't match.</span>
-          </div>
-          <div class="signup-policy">
-            <img
-              id="signup-checkbox"
-              class="signup-checkbox login-checkbox"
-              src="assets/img/checkboxempty.svg"
-              onclick="checkedSignUpCheckbox()"
-            />
-            <span class="signup-accept-privacy"
-              >I accept the
-              <a
-                class="signup-policy-link"
-                target="_blank"
-                href="external_privacy.html"
-                >Privacy Policy</a
-              ></span
-            >
-          </div>
-          <div
-            id="signup-button"
-            class="log-in-button-container signup-button-visibility"
-          >
-            <button class="log-in-button">Sign up</button>
-          </div>
-        </form>
-      </div>
-      <div
-        class="login-register-msg-container-hidden"
-        id="register-msg-container"
-      >
-        <span class="login-register-msg-hidden" id="register-msg"
-          >You Singed up successfully</span
-        >
-      </div>
-      <div class="login-legal-footer">
-        <a class="login-legal-link" href="external_privacy.html" target="_blank"
-          >Privacy Policy</a
-        >
-        <a class="login-legal-link" href="external_legal.html" target="_blank"
-          >Legal Notice</a
-        >
-      </div>
+        <div id="password-wrong-text" class="login-wrong-password-hidden">
+          <span>Ups! your password don't match.</span>
+        </div>
+        <div class="signup-policy">
+          <img id="signup-checkbox" class="signup-checkbox login-checkbox" src="assets/img/checkboxempty.svg"
+            onclick="checkedSignUpCheckbox()" />
+          <span class="signup-accept-privacy">I accept the
+            <a class="signup-policy-link" target="_blank" href="external_privacy.html">Privacy Policy</a></span>
+        </div>
+        <div id="signup-button" class="log-in-button-container signup-button-visibility">
+          <button class="log-in-button">Sign up</button>
+        </div>
+      </form>
     </div>
-  </body>
+    <div class="login-register-msg-container-hidden" id="register-msg-container">
+      <span class="login-register-msg-hidden" id="register-msg">You Singed up successfully</span>
+    </div>
+    <div class="login-legal-footer">
+      <a class="login-legal-link" href="external_privacy.html" target="_blank">Privacy Policy</a>
+      <a class="login-legal-link" href="external_legal.html" target="_blank">Legal Notice</a>
+    </div>
+  </div>
+</body>
+
 </html>

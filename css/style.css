@@ -658,4 +658,12 @@ h3 {
   .login-sign-up-button {
     padding: 10px 11px;
   }
+
+  .signup-input-area {
+    gap: 10px !important;
+  }
+
+  .sign-up-headline {
+    font-size: 34px;
+  }
 }

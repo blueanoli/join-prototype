@@ -4,12 +4,12 @@ async function renderSummary() {
     updateSummaryData();
 }
 
-/* Show current daytime and greeting username or guest. */ 
+/* Show current daytime and greeting username or guest. */
 function dashboardGreeting() {
     let now = new Date();
     let hour = now.getHours();
-    let greeting; 
-    let userName = sessionStorage.getItem('username') || 'Guest'; 
+    let greeting;
+    let userName = sessionStorage.getItem('username') || 'Guest';
 
     if (hour < 12) {
         greeting = "<span class='greetingTime'>Good morning,</span><br>";
@@ -22,7 +22,7 @@ function dashboardGreeting() {
     document.getElementById('greeting').innerHTML = greeting + " " + "<span class='greetingUserName'>" + userName + "</span>";
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initializeTodoBoxes();
     dashboardGreeting();
 });
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 /* Attaches mouse enter and leave event listeners to todo-box elements to trigger visual changes.*/
 function initializeTodoBoxes() {
     let todoBoxes = document.querySelectorAll('.todo-box');
-    todoBoxes.forEach(function(box) {
+    todoBoxes.forEach(function (box) {
         box.addEventListener('mouseenter', enterTodoBox);
         box.addEventListener('mouseleave', leaveTodoBox);
     });
@@ -54,7 +54,7 @@ function leaveTodoBox() {
 function updateImageOnEnter(img) {
     if (!img) return;
     if (img.src.includes('pencil_white.svg')) {
-        img.src = '/assets/img/pencil_grey.svg';
+        img.src = 'assets/img/pencil_grey.svg';
         img.style.width = '32px';
         img.style.height = '32px';
     } else if (img.src.includes('summary_done_white.svg')) {
@@ -66,8 +66,8 @@ function updateImageOnEnter(img) {
 function resetImageOnLeave(img) {
     if (!img) return;
     if (img.src.includes('pencil_grey.svg')) {
-        img.src = '/assets/img/pencil_white.svg';
-        img.style.width = ''; 
+        img.src = 'assets/img/pencil_white.svg';
+        img.style.width = '';
         img.style.height = '';
     } else if (img.src.includes('summary_done_dark.svg')) {
         img.src = '/assets/img/summary_done_white.svg';
@@ -77,40 +77,40 @@ function resetImageOnLeave(img) {
 /*  Modifies the text color of elements within a given element. */
 function updateTextColors(element, color) {
     const texts = element.querySelectorAll('.summary-text, .number, span');
-    texts.forEach(function(text) {
+    texts.forEach(function (text) {
         text.style.color = color;
     });
 }
 
 /* Task counts based on their progress and priority. */
 async function updateSummaryData() {
-    let storedTasksString = await getItem('tasksData'); 
+    let storedTasksString = await getItem('tasksData');
     let tasksData = JSON.parse(storedTasksString || '[]');
 
-    const summaryCounts = { 
-        'todo': 0, 
-        'in-progress': 0, 
-        'feedback': 0, 
-        'done': 0, 
-        'urgent': 0 
+    const summaryCounts = {
+        'todo': 0,
+        'in-progress': 0,
+        'feedback': 0,
+        'done': 0,
+        'urgent': 0
     };
-  
+
     tasksData.forEach(task => {
-      if (task.progress) {
-        summaryCounts[task.progress] = (summaryCounts[task.progress] || 0) + 1;
-      }
-      if (task.priority === 'urgent') {
-        summaryCounts['urgent']++;
-      }
+        if (task.progress) {
+            summaryCounts[task.progress] = (summaryCounts[task.progress] || 0) + 1;
+        }
+        if (task.priority === 'urgent') {
+            summaryCounts['urgent']++;
+        }
     });
-  
+
     const updateTextContent = (id, text) => {
-      const element = document.getElementById(id);
-      if (element) {
-        element.textContent = text;
-      }
+        const element = document.getElementById(id);
+        if (element) {
+            element.textContent = text;
+        }
     };
-  
+
     updateTextContent('todo-count', summaryCounts['todo']);
     updateTextContent('done-count', summaryCounts['done']);
     updateTextContent('urgent-count', summaryCounts['urgent']);
@@ -119,16 +119,16 @@ async function updateSummaryData() {
     updateTextContent('all-tasks-count', tasksData.length);
 
     updateNextDeadline(tasksData);
-  }
+}
 
-  /* Converts a date to a more readable format, standardizing date displays. */
-  function formatDate(date) {
+/* Converts a date to a more readable format, standardizing date displays. */
+function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
 
 /* Displays the nearest upcoming task deadline, highlighting important dates. */
-  async function updateNextDeadline(tasksData) {   
+async function updateNextDeadline(tasksData) {
     tasksData = tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());
 
     tasksData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));

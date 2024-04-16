@@ -1,229 +1,292 @@
 /* MAX WIDTH 1360px */
 @media (max-width: 1360px) {
-    .progress-header{
+    .progress-header {
         gap: 16px;
     }
 }
+
 /* MAX WIDTH 1290px */
 @media (max-width: 1290px) {
-    .progress-header{
+    .progress-header {
         gap: 12px;
     }
 }
+
 /* MIN WIDTH 1000px */
 @media (min-width: 725px) {
     #add-task-btn-board-mobile {
         display: none;
+    }
+
+    .header-wrapper {
+        width: 1%;
+    }
 }
-.header-wrapper{
-    width: 1%;
-}
-}
+
 /* MAX WIDTH 1290px */
 @media (max-width: 1290px) {
-    .board-header{
+    .board-header {
         margin-left: 240px;
     }
-    .progress-container{
+
+    .progress-container {
         margin-left: 240px;
         width: 78%;
     }
 }
+
 /* MAX WIDTH 1240px */
 @media (max-width: 1240px) {
     .progress-header {
         flex-direction: column;
         gap: 8px;
     }
+
     .progress-title {
         align-items: center;
     }
-    .dotted-container, .dotted-container-drag-drop {
-        flex: 1; 
+
+    .dotted-container,
+    .dotted-container-drag-drop {
+        flex: 1;
         display: flex;
-        height: auto; 
+        height: auto;
     }
-    .dotted-container{
+
+    .dotted-container {
         gap: 16px;
         overflow-x: auto;
         padding-top: 16px;
         padding-bottom: 16px;
     }
+
     .dotted-container-drag-drop {
         width: 15%;
         margin-left: 16px;
         display: none;
     }
-    .progress-column > div:last-child {
+
+    .progress-column>div:last-child {
         margin-right: 0;
     }
+
     .progress-column {
         width: 90%;
         padding-bottom: 20px;
     }
-    #add-task-container-board{
+
+    #add-task-container-board {
         width: 90%;
     }
-    .add-task-headline{
+
+    .add-task-headline {
         margin-left: 16px;
     }
-    .add-task{
+
+    .add-task {
         margin-left: 16px;
     }
-    .minitask-menu{
+
+    .minitask-menu {
         display: flex
     }
-    .mini-task-container:hover{
+
+    .mini-task-container:hover {
         transform: rotate(0deg);
     }
 
 }
+
 /* MAX WIDTH 1000px */
 @media (max-width: 1000px) {
     .progress-header {
         flex-direction: column;
         gap: 4px;
     }
+
     .progress-title {
         align-items: center;
     }
-    .board-header{
+
+    .board-header {
         margin-left: 24px;
         margin-right: 24px;
         width: 95%;
     }
-    .progress-container{
+
+    .progress-container {
         margin-left: 24px;
         margin-right: 24px;
         width: 95%;
         min-height: 100vh;
     }
-    .board-container{
+
+    .board-container {
         min-height: auto;
         padding-bottom: calc(80px + 50%);
     }
+
     .progress-column {
-        flex-direction: row; 
-        flex-wrap: wrap; 
-        justify-content: flex-start; 
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
         align-items: flex-start;
         width: 100%;
         padding-bottom: 20px;
     }
-    .dotted-container, .dotted-container-drag-drop {
-        flex: 1; 
+
+    .dotted-container,
+    .dotted-container-drag-drop {
+        flex: 1;
         display: flex;
-        height: auto; 
+        height: auto;
     }
-    .dotted-container{
+
+    .dotted-container {
         gap: 16px;
         min-width: 300px;
         overflow-x: auto;
         padding-top: 16px;
         padding-bottom: 16px;
     }
+
     .dotted-container-drag-drop {
         width: 15%;
         margin-left: 16px;
         display: none;
     }
-    .progress-column > div:last-child {
+
+    .progress-column>div:last-child {
         margin-right: 0;
     }
-    .mini-task-container{
+
+    .mini-task-container {
         max-width: 200px;
         width: fit-content;
     }
-    .progress-column, .dotted-container {
+
+    .progress-column,
+    .dotted-container {
         min-height: auto;
     }
 }
+
 /* MAX WIDTH 725px */
 @media (max-width: 725px) {
-    .board-header{
+    .board-header {
         flex-direction: column;
     }
-    .header-wrapper h1{
+
+    .header-wrapper h1 {
         font-size: 48px;
     }
-    #add-task-btn-board{
+
+    #add-task-btn-board {
         display: none;
     }
-    .header-wrapper{
+
+    .header-wrapper {
         display: flex;
         justify-content: space-between;
         width: 90%;
         margin-bottom: 40px;
     }
-    .board-search-container{
+
+    .board-search-container {
         width: 90%;
         padding-bottom: 24px;
     }
-    .board-input-wrapper{
+
+    .board-input-wrapper {
         width: 100%;
     }
+
     #add-task-btn-board-mobile {
         cursor: pointer;
         width: 40px;
     }
-    .board-container{
+
+    .board-container {
         padding-bottom: calc(80px + 90%);
     }
-    .dotted-container{
+
+    .dotted-container {
         width: 90%;
     }
-    .progress-container{
+
+    .progress-container {
         margin-left: 16px;
         margin-right: 16px;
         margin-top: 24px;
         width: 90%;
     }
-    .progress-title img{
+
+    .progress-title img {
         width: 30px;
     }
-    .progress-title span{
+
+    .progress-title span {
         font-size: 24px;
     }
-    .edit-task-container span{
+
+    .edit-task-container span {
         font-size: 16px;
     }
-    .edit-task-title-container h1{
+
+    .edit-task-title-container h1 {
         font-size: 36px;
     }
-    .edit-task-contacts-container{
+
+    .edit-task-contacts-container {
         max-height: 150px;
     }
-    .edit-task-subtasks-container{
+
+    .edit-task-subtasks-container {
         max-height: 150px;
     }
 }
+
 /* MAX WIDTH 500px */
 @media (max-width: 500px) {
-    .edit-mode-priority-container div{
+    .edit-mode-priority-container div {
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 4px 0;
     }
 }
+
 /* MAX WIDTH 400px */
 @media (max-width: 400px) {
-    .dotted-container{
+    .dotted-container {
         min-width: 200px;
     }
-    .board-header{
+
+    .board-header {
         margin-left: 16px;
         margin-top: 48px;
     }
-    .edit-task-container{
+
+    .edit-task-container {
         padding: 0 16px;
         width: 95%;
+        max-height: 650px;
     }
-    .edit-mode-task-container{
+
+    .edit-task-contacts-container {
+        max-height: 100px;
+    }
+
+    .edit-task-subtasks-container {
+        max-height: 100px;
+    }
+
+    .edit-mode-task-container {
         max-width: 320px;
         height: 95%;
     }
-    .board-container{
+
+    .board-container {
         padding-bottom: calc(150px + 160%);
     }
 }

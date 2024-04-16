@@ -22,30 +22,46 @@ let profileColors = [
   "#B10DC9",
 ];
 
-//FUNCTION SERVER UPLOAD --------------------------------------------------------------------------------------------------------
+/**
+ * Uploads contacts to the server.
+ * @async
+ * @function uploadContacts
+ */
 async function uploadContacts() {
   try {
-      await setItem("contacts", JSON.stringify(contacts));
+    await setItem("contacts", JSON.stringify(contacts));
   } catch (error) {
-      console.error("Failed to upload contacts:", error);
+    console.error("Failed to upload contacts:", error);
   }
 }
 
+/**
+ * Fetches contacts from the server.
+ * @async
+ * @function fetchContacts
+ */
 async function fetchContacts() {
   try {
     const contactsJSON = await getItem("contacts");
     contacts = JSON.parse(contactsJSON);
 
     if (!window.location.pathname.endsWith('/board.html') && !window.location.pathname.endsWith('/add_task.html')) {
-      generateLetterContainer(); 
+      generateLetterContainer();
     }
-    
+
   } catch (error) {
     console.error("Failed to fetch contacts:", error);
   }
 }
 
-/* Asynchronously stores data in remote storage using a POST request with a unique token for authentication. */
+/**
+ * Asynchronously stores data in remote storage.
+ * @async
+ * @function setItem
+ * @param {string} key - Key under which the data is stored.
+ * @param {string} value - Data to store.
+ * @returns {Promise<Object>} The response from the server as JSON.
+ */
 async function setItem(key, value) {
   const payload = { key, value, token: STORAGE_TOKEN };
   return fetch(STORAGE_URL, {
@@ -54,7 +70,13 @@ async function setItem(key, value) {
   }).then((res) => res.json());
 }
 
-/* Retrieves data from remote storage using a token and key. */
+/**
+ * Retrieves data from remote storage.
+ * @async
+ * @function getItem
+ * @param {string} key - Key under which the data is stored.
+ * @returns {Promise<string>} The stored data as a string.
+ */
 async function getItem(key) {
   const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
   return fetch(url)
@@ -65,20 +87,31 @@ async function getItem(key) {
     });
 }
 
-/* Initializes page-specific functions. */
+/**
+ * Initializes user-specific functions after page load.
+ * @async
+ * @function initPageFunctions
+ */
 async function initPageFunctions() {
   updateUserIcon();
-  setActive(); 
+  setActive();
 }
 
-/* Initializes external pages */ 
+/**
+ * Initializes functions specific to external pages.
+ * @async
+ * @function externalInit
+ */
 async function externalInit() {
   await includeHTML();
   disableContent();
   initPageFunctions();
 }
 
-/* Hides or modifies elements not applicable to external or unauthenticated users. */
+/**
+ * Modifies the UI for external or unauthenticated users.
+ * @function disableContent
+ */
 function disableContent() {
   const actions = [
     { id: 'menu-items', action: element => element.style.display = 'none' },
@@ -96,20 +129,31 @@ function disableContent() {
   });
 }
 
-/* Special initialization for help pages, remove help icon. */
+/**
+ * Initializes functions for help pages and hides help icons.
+ * @async
+ * @function helpInit
+ */
 async function helpInit() {
   await includeHTML();
   document.getElementById('help-icon').style.display = 'none';
   initPageFunctions();
 }
 
-/* General initialization function for loading. */ 
+/**
+ * General initialization for page components.
+ * @async
+ * @function init
+ */
 async function init() {
   await includeHTML();
   initPageFunctions();
 }
 
-/* Checks if the user is logged in and redirects to the login page if accessing a non-public page without authentication. */ 
+/**
+ * Checks if the user is logged in and redirects if not.
+ * @function checkIfIsLoggedIn
+ */
 function checkIfIsLoggedIn() {
   const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
   const currentPage = window.location.pathname.split('/').pop();
@@ -120,7 +164,6 @@ function checkIfIsLoggedIn() {
   }
 }
 
-/* Handles post-load activities like showing login prompts or initializing page content based on login status. */
 document.addEventListener('DOMContentLoaded', async () => {
   if (sessionStorage.getItem('loginRequired') === 'true') {
     sessionStorage.removeItem('loginRequired');
@@ -138,7 +181,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-/* Dynamically includes templates. */
+/**
+ * Includes HTML snippets from external files.
+ * @async
+ * @function includeHTML
+ */
 async function includeHTML() {
   let includeElements = document.querySelectorAll("[w3-include-html]");
   for (let i = 0; i < includeElements.length; i++) {
@@ -154,7 +201,10 @@ async function includeHTML() {
   initPageFunctions();
 }
 
-/* Marks the current navigation link as active based on the URL. */
+/**
+ * Marks the current navigation link as active.
+ * @function setActive
+ */
 function setActive() {
   let currentPagePath = window.location.pathname;
   document
@@ -168,14 +218,21 @@ function setActive() {
     });
 }
 
-/* Displays the user menu and disables page scrolling to focus on the menu. */
+/**
+ * Displays the user menu and disables scrolling.
+ * @function openUserMenu
+ */
 function openUserMenu() {
   document.getElementById("user-menu").classList.remove("d-none");
   document.body.style.overflow = "hidden";
   document.addEventListener("click", closeUserMenu, true);
 }
 
-/* Hides the user menu and re-enables scrolling when clicking outside the menu. */
+/**
+ * Hides the user menu and re-enables page scrolling.
+ * @function closeUserMenu
+ * @param {Event} event - The click event outside the user menu.
+ */
 function closeUserMenu(event) {
   const userMenu = document.getElementById("user-menu");
   if (userMenu.contains(event.target)) {
@@ -186,7 +243,12 @@ function closeUserMenu(event) {
   document.removeEventListener("click", closeUserMenu, true);
 }
 
-/* Extracts initials from a full name. */
+/**
+ * Extracts initials from a full name.
+ * @function getInitials
+ * @param {string} name - Full name of the user.
+ * @returns {string} The initials of the user.
+ */
 function getInitials(name) {
   return name
     .split(" ")
@@ -195,13 +257,19 @@ function getInitials(name) {
     .toUpperCase();
 }
 
-/* Clears session storage and redirects to the login page, effectively logging out the user. */
+/**
+ * Clears session storage and logs out the user.
+ * @function logout
+ */
 function logout() {
   sessionStorage.clear();
   window.location.href = 'index.html';
 }
 
-/* Navigates to the previous page in the browser history. */
+/**
+ * Navigates to the previous page in the browser history.
+ * @function goBack
+ */
 function goBack() {
   window.history.back();
 }
@@ -210,12 +278,18 @@ function goBackToContactlist() {
   window.location.href = 'contacts.html';
 }
 
-/* Redirects to the board page. */ 
+/**
+ * Redirects to the board page from the summary.
+ * @function showBoardFromSummary
+ */
 function showBoardFromSummary() {
   window.location.href = 'board.html';
 }
 
-/* Updates the user icon display based on the stored username. */
+/**
+ * Updates the display of the user icon based on the session username.
+ * @function updateUserIcon
+ */
 function updateUserIcon() {
   let userIcon = document.querySelector('.user-icon');
   if (userIcon) {
@@ -234,13 +308,23 @@ function updateUserIcon() {
   }
 }
 
-/* Determines if the current page is publicly accessible, affecting page behavior and content. */
+/**
+ * Determines if the current page is publicly accessible.
+ * @function isPublicPage
+ * @returns {boolean} True if the page is public, otherwise false.
+ */
 function isPublicPage() {
   let currentPage = window.location.pathname.split('/').pop();
   return publicPages.includes(currentPage);
 }
 
-/* Dynamically switches between mobile and desktop templates based on screen size and public access.*/
+/**
+ * Dynamically switches between mobile and desktop templates based on screen size.
+ * @async
+ * @function switchTemplate
+ * @param {string} currentTemplate - Currently active template.
+ * @param {boolean} isPublic - Indicates if the current page is public.
+ */
 async function switchTemplate(currentTemplate, isPublic) {
   let includeDiv = document.querySelector('[w3-include-html]');
   let cssLink = document.querySelector('link[href*="template.css"]');
@@ -252,34 +336,14 @@ async function switchTemplate(currentTemplate, isPublic) {
   }
 }
 
-/* Specific functions for switching to appropriate templates based on the current environment and device type. */
-async function switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
-  if (currentTemplate !== 'assets/templates/mobile-template.html') {
-    includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
-    cssLink.setAttribute('href', 'css/mobile-template.css');
-    await includeHTML();
-    if (isPublic) {
-      disableContent();
-    }
-  }
-}
-
-async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
-  if (currentTemplate !== 'assets/templates/desktop-template.html' || !currentTemplate) {
-    includeDiv.setAttribute('w3-include-html', 'assets/templates/desktop-template.html');
-    cssLink.setAttribute('href', 'css/desktop-template.css');
-    await includeHTML();
-    if (isPublic) {
-      disableContent();
-    }
-  }
-}
-
-/* Adjusts the visibility of the desktop menu based on screen size and page type. */
+/**
+ * Adjusts the visibility of the desktop menu based on screen size and page type.
+ * @function adjustMenuDisplay
+ */
 function adjustMenuDisplay() {
   let isPublic = isPublicPage();
   let desktopMenu = document.querySelector('.desktop-menu');
-  
+
   if (window.innerWidth < 1000 && isPublic) {
     if (desktopMenu) {
       desktopMenu.style.display = 'none';
@@ -291,7 +355,11 @@ function adjustMenuDisplay() {
   }
 }
 
-/* Checks the browser window size and switches templates as needed. */
+/**
+ * Checks the browser window size and switches templates as needed.
+ * @async
+ * @function checkWindowSize
+ */
 async function checkWindowSize() {
   let includeDiv = document.querySelector('[w3-include-html]');
   if (includeDiv) {
@@ -303,7 +371,10 @@ async function checkWindowSize() {
   setActive();
 }
 
-/* Ensures the template and layout adapt to window size changes, maintaining usability and appearance. */
+/**
+ * Ensures the template and layout adapt to window size changes, maintaining usability and appearance.
+ * @function windowResizeHandler
+ */
 window.addEventListener('resize', checkWindowSize);
 document.addEventListener('DOMContentLoaded', () => {
   checkWindowSize();

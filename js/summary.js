@@ -1,10 +1,17 @@
-/* Initializes and updates summary data. */
+/**
+ * Initializes and updates summary data.
+ * @async
+ * @function renderSummary
+ */
 async function renderSummary() {
     await init();
     updateSummaryData();
 }
 
-/* Show current daytime and greeting username or guest. */
+/**
+ * Displays the current daytime greeting and username or defaults to guest.
+ * @function dashboardGreeting
+ */
 function dashboardGreeting() {
     let now = new Date();
     let hour = now.getHours();
@@ -27,7 +34,10 @@ document.addEventListener('DOMContentLoaded', function () {
     dashboardGreeting();
 });
 
-/* Attaches mouse enter and leave event listeners to todo-box elements to trigger visual changes.*/
+/**
+ * Attaches mouse enter and leave event listeners to todo-box elements to trigger visual changes.
+ * @function initializeTodoBoxes
+ */
 function initializeTodoBoxes() {
     let todoBoxes = document.querySelectorAll('.todo-box');
     todoBoxes.forEach(function (box) {
@@ -36,21 +46,31 @@ function initializeTodoBoxes() {
     });
 }
 
-/* Updates image and text colors when the mouse enters a todo box. */
+/**
+ * Updates image and text colors when the mouse enters a todo box.
+ * @function enterTodoBox
+ */
 function enterTodoBox() {
     const img = this.querySelector('.summary-item img');
     updateImageOnEnter(img);
     updateTextColors(this, 'white');
 }
 
-/* Resets image and text colors to their original state when the mouse leaves a todo box. */
+/**
+ * Resets image and text colors to their original state when the mouse leaves a todo box.
+ * @function leaveTodoBox
+ */
 function leaveTodoBox() {
     const img = this.querySelector('.summary-item img');
     resetImageOnLeave(img);
     updateTextColors(this, '');
 }
 
-/* Changes the image source and styling on mouse enter */
+/**
+ * Changes the image source and styling on mouse enter.
+ * @function updateImageOnEnter
+ * @param {HTMLImageElement} img - The image element to be updated.
+ */
 function updateImageOnEnter(img) {
     if (!img) return;
     if (img.src.includes('pencil_white.svg')) {
@@ -62,7 +82,11 @@ function updateImageOnEnter(img) {
     }
 }
 
-/* Reverts the image source and styling on mouse leave, restoring the original appearance. */
+/**
+ * Reverts the image source and styling on mouse leave, restoring the original appearance.
+ * @function resetImageOnLeave
+ * @param {HTMLImageElement} img - The image element to be reverted.
+ */
 function resetImageOnLeave(img) {
     if (!img) return;
     if (img.src.includes('pencil_grey.svg')) {
@@ -74,7 +98,12 @@ function resetImageOnLeave(img) {
     }
 }
 
-/*  Modifies the text color of elements within a given element. */
+/**
+ * Modifies the text color of elements within a given element.
+ * @function updateTextColors
+ * @param {HTMLElement} element - The container element whose text colors are to be updated.
+ * @param {string} color - The color to apply to the text elements.
+ */
 function updateTextColors(element, color) {
     const texts = element.querySelectorAll('.summary-text, .number, span');
     texts.forEach(function (text) {
@@ -82,7 +111,11 @@ function updateTextColors(element, color) {
     });
 }
 
-/* Task counts based on their progress and priority. */
+/**
+ * Counts tasks based on their progress and priority and updates the summary data.
+ * @async
+ * @function updateSummaryData
+ */
 async function updateSummaryData() {
     let storedTasksString = await getItem('tasksData');
     let tasksData = JSON.parse(storedTasksString || '[]');
@@ -121,13 +154,23 @@ async function updateSummaryData() {
     updateNextDeadline(tasksData);
 }
 
-/* Converts a date to a more readable format, standardizing date displays. */
+/**
+ * Converts a date to a more readable format, standardizing date displays.
+ * @function formatDate
+ * @param {Date} date - The date to format.
+ * @returns {string} - The formatted date string.
+ */
 function formatDate(date) {
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
 
-/* Displays the nearest upcoming task deadline, highlighting important dates. */
+/**
+ * Displays the nearest upcoming task deadline, highlighting important dates.
+ * @async
+ * @function updateNextDeadline
+ * @param {Array} tasksData - An array of task objects with due dates.
+ */
 async function updateNextDeadline(tasksData) {
     tasksData = tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());
 

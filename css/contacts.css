@@ -819,6 +819,17 @@ h3 {
     gap: 0;
   }
 
+  .contacts-add-input-phone-format {
+    bottom: 134px;
+  }
+
+  .contacts-add-input-message {
+    display: block;
+    position: absolute;
+    bottom: 134px;
+    font-size: 14px;
+  }
+
   .contacts-main-header {
     flex-direction: column;
     align-items: inherit;
@@ -1052,6 +1063,13 @@ h3 {
 
   }
 
+  .contacts-add-input-message {
+    display: block;
+    position: absolute;
+    bottom: 134px;
+    font-size: 10px;
+  }
+
   .contacts-contact-details-name {
     font-size: 16px;
   }
@@ -1067,5 +1085,11 @@ h3 {
 
   .contacts-details-edit-input {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  .contacts-add-input-phone-format {
+    bottom: 134px;
   }
 }

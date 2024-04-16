@@ -488,8 +488,35 @@ h3 {
 }
 
 @media (max-width: 1000px) {
+  @keyframes logo {
+    100% {
+      top: 25px;
+      left: 77px;
+      width: 100px;
+      height: 122px;
+    }
+  }
+
+  #animated-logo {
+    top: 25px;
+    left: 77px;
+    width: 100px;
+    height: 122px;
+  }
+
+  .login-logo {
+    top: 25px;
+    left: 77px;
+    width: 100px;
+    height: 122px;
+  }
+
   .login-main {
     padding: 32px 115px;
+  }
+
+  .signup-main {
+    padding: 16px 44px;
   }
 
   .arrow-container button {
@@ -517,10 +544,6 @@ h3 {
     gap: 12px;
   }
 
-  .signup-main {
-    padding: 32px 44px;
-  }
-
   .singup-arrow-container {
     top: 48px;
   }
@@ -533,8 +556,27 @@ h3 {
 }
 
 @media (max-width: 500px) {
+  @keyframes logo {
+    100% {
+      top: 10px;
+      left: 25px;
+      width: 60px;
+      height: 80px;
+    }
+  }
+
   #animated-logo {
+    top: 10px;
     left: 25px;
+    width: 60px;
+    height: 80px;
+  }
+
+  .login-logo {
+    top: 10px;
+    left: 25px;
+    width: 60px;
+    height: 80px;
   }
 
   .login-main {
@@ -569,6 +611,7 @@ h3 {
 
   .log-in-button-container {
     gap: 12px;
+    margin-top: 16px;
   }
 
   .log-in-button {
@@ -579,9 +622,13 @@ h3 {
     padding: 15px 12px;
   }
 
+  .login-legal-footer {
+    bottom: 20px;
+  }
+
   .signup-main {
     width: 75%;
-    padding: 32px 36px;
+    padding: 16px 36px;
   }
 
   .singup-arrow-container {
@@ -604,7 +651,6 @@ h3 {
   #animated-logo {
     left: 25px;
     top: 10px;
-    left: 30px;
     width: 60px;
     height: 80px;
   }

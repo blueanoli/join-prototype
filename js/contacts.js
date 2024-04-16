@@ -468,10 +468,11 @@ function showNewContactVisuality(contact) {
   let contactsDiv = document.getElementById(contactsID);
 
   if (contactsID) {
-    changeContactDetailsVisuality(contactsID);
+    setTimeout(() => {
+      changeContactDetailsVisuality(contactsID);
 
-    contactsDiv.scrollIntoView({ behavior: "smooth" });
-
+      contactsDiv.scrollIntoView({ behavior: "smooth" });
+    }, 250);
     showContactDetails(
       contactsName,
       contactsEmail,

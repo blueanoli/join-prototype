@@ -7,10 +7,10 @@
 function handleTaskClick(index) {
     let task = tasksData[index];
     let overlayContainer = document.getElementById('edit-task-overlay');
-    
+
     renderTaskOverlayHTML(task, index);
     activateOverlay(overlayContainer);
-    overlayContainer.style.display = 'block'; 
+    overlayContainer.style.display = 'block';
 }
 
 /** Deactivates overlay by removing active class and hiding container */
@@ -20,7 +20,8 @@ function deactivateOverlay(container) {
 
     overlay.classList.remove('active');
     body.style.overflow = 'auto';
-    container.style.display = 'none'; 
+    container.style.display = 'none';
+    isOverlayOpen = false;
 }
 
 /** Clears innerHTML of specified container */
@@ -59,7 +60,7 @@ function openEditTask(index) {
     let task = tasksData[index];
 
     if (!task || !task.assignedTo) {
-        return; 
+        return;
     }
 
     let assignedContactsHtml = generateAssignedContactsHtml(task);
@@ -82,7 +83,7 @@ function initializePrioritySelectionInEditMode(taskPriority) {
 
 /** Updates task details at specified index */
 async function updateTaskDetails(index) {
-    let task = tasksData[index]; 
+    let task = tasksData[index];
     task.title = document.getElementById('edit-title').value;
     task.description = document.getElementById('edit-description').value;
     task.dueDate = document.getElementById('due-date').value;
@@ -109,12 +110,12 @@ function validateTask(task) {
 }
 
 /** Saves changes to task and closes overlay */
-async function saveEditedTask(index){
+async function saveEditedTask(index) {
     let task = await updateTaskDetails(index);
     if (!validateTask(task)) {
         return;
     }
-    
+
     await saveTasksToServer();
     addBoardAnimation("Task was updated", "assets/img/addtask_check_white.svg");
     setTimeout(closeTaskOverlay, 1500);
@@ -198,10 +199,11 @@ function activateOverlay(container) {
     body.style.overflow = 'hidden';
     container.classList.remove('closing');
     container.classList.add('active');
-    
+    isOverlayOpen = true;
+
     setTimeout(() => {
         prepareBoardForNewTask();
-    }, 250); 
+    }, 250);
 }
 
 /**
@@ -255,7 +257,7 @@ function closeAddTask() {
     body.style.overflow = '';
     container.removeAttribute('w3-include-html');
 
-    isOverlayOpen = false; 
+    isOverlayOpen = false;
     selectedContacts = {};
 }
 
@@ -265,18 +267,18 @@ function closeAddTask() {
  * Clears subtask input and updates 'edit-icon-container' HTML.
  */
 async function addEditSubtask() {
-    let subtaskInput = document.getElementById('edit-subtasks'); 
+    let subtaskInput = document.getElementById('edit-subtasks');
     let subtaskValue = subtaskInput.value.trim();
 
     if (subtaskValue) {
-        let taskIndex = tasksData.length - 1;  
+        let taskIndex = tasksData.length - 1;
         tasksData[taskIndex].subtasks.push({ title: subtaskValue, completed: false });
-        await saveTasksToServer();  
+        await saveTasksToServer();
 
         let subtasksHtml = generateSubtasksHtml(tasksData[taskIndex], taskIndex);
         document.getElementById('subtask-container').innerHTML = subtasksHtml;
 
-        subtaskInput.value = ''; 
+        subtaskInput.value = '';
     }
 }
 
@@ -312,7 +314,7 @@ function editEditSubtask(subtaskId) {
 function saveEditedEditSubtask(subtaskId) {
     let inputField = document.querySelector(`#${subtaskId} input`);
     let newValue = inputField.value.trim();
-    if(newValue) {
+    if (newValue) {
         let subtaskElement = document.getElementById(subtaskId);
         subtaskElement.innerHTML = renderSavedEditSubtaskHTML(newValue, subtaskId);
     }

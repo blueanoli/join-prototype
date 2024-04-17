@@ -19,14 +19,17 @@ function getAssignedContactsContainerId() {
     return isEditMode ? 'edit-assign-contacts' : 'assign-contacts';
 }
 
+/**
+ * Updates the test contacts from the server.
+ */
 function updateTestContactsFromServer() {
     let updatedTestContacts = {};
-  
+
     contacts.forEach(contact => {
-      updatedTestContacts[contact.name] = contact.color;
+        updatedTestContacts[contact.name] = contact.color;
     });
     testContacts = updatedTestContacts;
-  } 
+}
 
 /**
  * Initializes selectedContacts object with contacts assigned to task.
@@ -77,11 +80,11 @@ function toggleContactSelection(contactName) {
 function updateDropdownDisplay(contactName, isSelected) {
     const contactOptions = document.querySelectorAll('.option-item');
     contactOptions.forEach(option => {
-        if (option.textContent.trim().includes(contactName)) { 
+        if (option.textContent.trim().includes(contactName)) {
             const checkboxIcon = option.querySelector('.checkbox-icon');
             if (isSelected) {
                 option.classList.add('selected');
-                checkboxIcon.src = 'assets/img/checkboxchecked_white.svg'; 
+                checkboxIcon.src = 'assets/img/checkboxchecked_white.svg';
             } else {
                 option.classList.remove('selected');
                 checkboxIcon.src = 'assets/img/checkboxempty.svg';
@@ -97,14 +100,14 @@ function updateDropdownDisplay(contactName, isSelected) {
  */
 function updateAssignedContactsView() {
     const assignedContactsContainer = document.getElementById(getAssignedContactsContainerId());
-    assignedContactsContainer.innerHTML = ''; 
+    assignedContactsContainer.innerHTML = '';
 
     for (const contactName in selectedContacts) {
         if (selectedContacts[contactName]) {
             let contact = contacts.find(c => c.name === contactName);
-            if (contact) { 
+            if (contact) {
                 let initials = getInitials(contactName);
-                let color = contact.color; 
+                let color = contact.color;
                 let newContactHtml = renderAssignedContactHTML(initials, color, contactName);
                 assignedContactsContainer.innerHTML += newContactHtml;
             }
@@ -125,7 +128,7 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
             let contact = contacts.find(contact => contact.name === name);
             return {
                 name,
-                color: contact.color, 
+                color: contact.color,
                 initials: getInitials(name)
             };
         });
@@ -134,14 +137,13 @@ function transformSelectedContactsToAssignedTo(selectedContacts) {
 /**
  * Creates HTML option for contact and appends it to itemsDiv.
  * Option includes contact's initials, color, checkbox image, and selected class and background color if contact is selected.
- * 
  * @param {string} contact - Name of contact.
  * @param {HTMLElement} itemsDiv - Div to which contact option will be appended.
  * @param {number} index - Index of contact in list.
  */
 function createContactOption(contactName, color, itemsDiv, index) {
     let initials = getInitials(contactName);
-    let isChecked = selectedContacts[contactName] === true; 
+    let isChecked = selectedContacts[contactName] === true;
     let checkboxImage = isChecked ? "checkboxchecked_white.svg" : "checkboxempty.svg";
     let selectedClass = isChecked ? " selected" : "";
     let backgroundColorStyle = isChecked ? " style='background-color: var(--dark-blue);'" : "";
@@ -151,19 +153,23 @@ function createContactOption(contactName, color, itemsDiv, index) {
 }
 
 
-/** Creates and appends new contact option for each contact in Array to the dropdown menu */
+/**
+ * Creates and appends new contact option for each contact in Array to the dropdown menu
+*/
 function renderContacts() {
     let itemsDivId = getAssignedToId();
     let itemsDiv = document.getElementById(itemsDivId).querySelector('.select-items');
     itemsDiv.innerHTML = '';
 
     Object.keys(testContacts).forEach((contactName, index) => {
-        let color = testContacts[contactName]; 
+        let color = testContacts[contactName];
         createContactOption(contactName, color, itemsDiv, index);
     });
 }
 
-/** Adds contact to assign-contacts element if it's not already present */
+/**
+ * Adds contact to assign-contacts element if it's not already present
+ */
 function validateContactName(contactName) {
     if (!contactName) {
         console.error('addAssignedContact wurde mit undefined contactName aufgerufen');
@@ -172,6 +178,11 @@ function validateContactName(contactName) {
     return true;
 }
 
+/**
+ * Finds a contact by name.
+ * @param {string} contactName - The name of the contact.
+ * @returns {Object|null} The contact object or null if not found.
+ */
 function findContact(contactName) {
     let contact = contacts.find(c => c.name === contactName);
     if (!contact) {
@@ -181,6 +192,11 @@ function findContact(contactName) {
     return contact;
 }
 
+/**
+ * Adds a contact to the assigned list.
+ * @param {Object} contact - The contact object.
+ * @param {string} contactName - The name of the contact.
+ */
 function addContactToAssigned(contact, contactName) {
     let initials = getInitials(contactName);
     let color = contact.color;
@@ -191,6 +207,10 @@ function addContactToAssigned(contact, contactName) {
     selectedContacts[contactName] = true;
 }
 
+/**
+ * Adds a contact to the assigned list if valid and not already selected.
+ * @param {string} contactName - The name of the contact.
+ */
 function addAssignedContact(contactName) {
     if (!validateContactName(contactName)) {
         return;
@@ -201,12 +221,14 @@ function addAssignedContact(contactName) {
         if (!contact) {
             return;
         }
-
         addContactToAssigned(contact, contactName);
     }
 }
 
-/** Removes contact from assign-contacts element if it's present */
+/** 
+ * Removes contact from assign-contacts element if it's present 
+ * @param {string} contactName - Name of contact to remove
+*/
 function removeAssignedContact(contactName) {
     let assignedToId = getAssignedToId();
     let assignedTo = document.getElementById(assignedToId);
@@ -217,7 +239,11 @@ function removeAssignedContact(contactName) {
     selectedContacts[contactName] = false;
 }
 
-/** Updates checkbox image for specified contact to reflect whether or not its selected */
+/** 
+ * Updates checkbox image for specified contact to reflect whether or not its selected 
+ * @param {string} contact - Name of contact to update
+ * @param {boolean} isChecked - Whether or not contact is selected
+ * */
 function updateCheckboxForContact(contact, isChecked) {
     let assignedToId = getAssignedToId();
     let dropdown = document.getElementById(assignedToId);
@@ -232,16 +258,29 @@ function updateCheckboxForContact(contact, isChecked) {
     });
 }
 
-/** Gets search term from contact-search-input field and filters contacts */
-function filterContacts(){
+/** 
+ * Gets search term from contact-search-input field and filters contacts 
+*/
+function filterContacts() {
     let search = document.getElementById('contact-search-input').value.toLowerCase();
     filterContactsBySearch(search);
 }
 
+/**
+ * Retrieves a contact option element by index.
+ * @param {number} index - The index of the contact.
+ * @returns {Element} The contact option element.
+ */
 function getContactOption(index) {
     return document.getElementById('contact-' + index);
 }
 
+/**
+ * Filters a contact option based on a search term.
+ * @param {Element} option - The contact option element.
+ * @param {string} contactName - The name of the contact.
+ * @param {string} search - The search term.
+ */
 function filterContactOption(option, contactName, search) {
     let names = contactName.toLowerCase().split(' ');
 
@@ -252,7 +291,10 @@ function filterContactOption(option, contactName, search) {
     }
 }
 
-/** Filters contacts displaying only those whose first or last name start with the search term */
+/** 
+ * Filters contacts displaying only those whose first or last name start with the search term 
+ * @param {string} search - Search term to filter contacts by
+ * */
 function filterContactsBySearch(search) {
     let index = 0;
     for (const contactName in testContacts) {
@@ -268,14 +310,16 @@ function filterContactsBySearch(search) {
         }
     }
 }
-/** Clears assign-contacts element, resets selection status to false and re-renders contacts */
+/** 
+ * Clears assign-contacts element, resets selection status to false and re-renders contacts
+*/
 function clearAssignedContacts() {
     let assignedTo = document.getElementById('assign-contacts');
     assignedTo.innerHTML = '';
 
     for (let key in selectedContacts) {
-        if (selectedContacts.hasOwnProperty(key)) { 
-            selectedContacts[key] = false; 
+        if (selectedContacts.hasOwnProperty(key)) {
+            selectedContacts[key] = false;
         }
     }
     renderContacts();

@@ -4,30 +4,36 @@ const categoryToSvgMap = {
     "User Story": "assets/img/user_story.svg"
 };
 
-/** Initializes the task data. */
+/** 
+ * Initializes the task data. 
+*/
 async function initializeTaskData() {
     const storedTasks = await getItem('tasksData');
     if (!storedTasks) {
-        await saveTasksToServer(); 
+        await saveTasksToServer();
     } else {
-        tasksData = JSON.parse(storedTasks); 
-        displayAllTasks(); 
+        tasksData = JSON.parse(storedTasks);
+        displayAllTasks();
     }
 }
 
-/** Saves the task data to the server. */
+/** 
+ * Saves the task data to the server.
+*/
 async function saveTasksToServer() {
-    await setItem('tasksData', JSON.stringify(tasksData)); 
+    await setItem('tasksData', JSON.stringify(tasksData));
 }
 
-/** Loads the task data from the server. */
+/** 
+ * Loads the task data from the server. 
+*/
 async function loadTasksFromServer() {
     const storedTasks = await getItem('tasksData');
     if (storedTasks) {
-        tasksData = JSON.parse(storedTasks); 
+        tasksData = JSON.parse(storedTasks);
     }
     if (typeof displayAllTasks === "function") {
-        displayAllTasks(); 
+        displayAllTasks();
     }
 }
 
@@ -41,7 +47,7 @@ async function updateTaskProgress(taskId, newColumnId) {
     if (task) {
         const newProgress = newColumnId.replace('board-', '').replace('-container', '');
         task.progress = newProgress;
-        await saveTasksToServer(); 
+        await saveTasksToServer();
     }
 }
 
@@ -54,9 +60,9 @@ async function updateTaskProgress(taskId, newColumnId) {
 async function updateTaskProgressMobile(event, index, newProgress) {
     event.stopPropagation();
     tasksData[index].progress = newProgress;
-    await saveTasksToServer(); 
-    displayAllTasks(); 
-    checkAllSections(); 
+    await saveTasksToServer();
+    displayAllTasks();
+    checkAllSections();
 }
 
 /**

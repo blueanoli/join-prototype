@@ -4,23 +4,8 @@ const publicPages = ['index.html', 'external_privacy.html', 'external_legal.html
 let contacts = [];
 let contactsByLetter = [];
 let profileColors = [
-  "#FF5733",
-  "#FFC300",
-  "#C70039",
-  "#900C3F",
-  "#FF5733",
-  "#FFC300",
-  "#73C6B6",
-  "#3D9970",
-  "#85144b",
-  "#001f3f",
-  "#0074D9",
-  "#7FDBFF",
-  "#B10DC9",
-  "#F012BE",
-  "#85144b",
-  "#B10DC9",
-];
+  "#FF5733", "#FFC300", "#C70039", "#900C3F", "#FF5733", "#FFC300", "#73C6B6", "#3D9970", "#85144b",
+  "#001f3f", "#0074D9", "#7FDBFF", "#B10DC9", "#F012BE", "#85144b", "#B10DC9"];
 
 /**
  * Uploads contacts to the server.
@@ -274,6 +259,10 @@ function goBack() {
   window.history.back();
 }
 
+/**
+ * Navigates back to the contact list page.
+ * @function goBackToContactlist
+ */
 function goBackToContactlist() {
   window.location.href = 'contacts.html';
 }
@@ -335,7 +324,14 @@ async function switchTemplate(currentTemplate, isPublic) {
     await switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic);
   }
 }
-/* Specific functions for switching to appropriate templates based on the current environment and device type. */
+
+/**
+ * Switches to the mobile template if not already in use.
+ * @param {string} currentTemplate - The current template path.
+ * @param {Element} includeDiv - The div element to include the template in.
+ * @param {Element} cssLink - The link element for the template's CSS.
+ * @param {boolean} isPublic - Whether the template is public.
+ */
 async function switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
   if (currentTemplate !== 'assets/templates/mobile-template.html') {
     includeDiv.setAttribute('w3-include-html', 'assets/templates/mobile-template.html');
@@ -347,6 +343,13 @@ async function switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPu
   }
 }
 
+/**
+ * Switches to the desktop template if not already in use.
+ * @param {string} currentTemplate - The current template path.
+ * @param {Element} includeDiv - The div element to include the template in.
+ * @param {Element} cssLink - The link element for the template's CSS.
+ * @param {boolean} isPublic - Whether the template is public.
+ */
 async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isPublic) {
   if (currentTemplate !== 'assets/templates/desktop-template.html' || !currentTemplate) {
     includeDiv.setAttribute('w3-include-html', 'assets/templates/desktop-template.html');

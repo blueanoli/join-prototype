@@ -1,6 +1,5 @@
 /** 
 * Adds new subtask to the subtask-container, resets input field and updates icon container
-* 
 */
 function addSubtask() {
     let subtask = document.getElementById('subtasks').value;

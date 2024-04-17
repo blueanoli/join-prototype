@@ -69,14 +69,18 @@ function handleMouseLeave(minitask, hoverTimer) {
     minitask.style.cursor = 'pointer';
 }
 
-/** Initializes drag and drop events.*/
+/**
+ * Initializes drag and drop events
+*/
 function initializeDragAndDrop() {
     initializeTasksDragEvents();
     initializeColumnsDragEvents();
     initializeHoverEffect();
 }
 
-/** Initializes drag events for all mini task containers */
+/**
+ * Initializes drag events for all mini task containers
+*/
 function initializeTasksDragEvents() {
     document.querySelectorAll('.mini-task-container').forEach(item => {
         item.addEventListener('dragstart', handleDragStartEvent);
@@ -161,7 +165,9 @@ function isLargeScreen() {
     return window.innerWidth > 1240;
 }
 
-/** Handles window resize event by reinitializing drag and drop functionality.*/
+/**
+ * Handles window resize event by reinitializing drag and drop functionality
+*/
 function handleResize() {
     initializeDragAndDrop();
 }
@@ -176,7 +182,9 @@ function handleDragStart(event) {
     document.addEventListener('mousemove', handleMouseMove);
 }
 
-/** Adds 'dragstart' and 'dragend' event listeners to all mini task containers. */
+/**
+ * Adds 'dragstart' and 'dragend' event listeners to all mini task containers
+*/
 document.querySelectorAll('.mini-task-container').forEach(item => {
     item.addEventListener('dragstart', handleDragStart);
     item.addEventListener('dragend', function (e) {
@@ -185,13 +193,15 @@ document.querySelectorAll('.mini-task-container').forEach(item => {
 });
 
 /**
- * Handles drag over event. */
+ * Handles drag over event.
+*/
 function handleDragOver(event) {
     event.preventDefault();
 }
 
 /**
- * Handles drop event. */
+ * Handles drop event
+*/
 function handleDrop(event) {
     event.preventDefault();
     let taskIndex = event.dataTransfer.getData('text/plain');
@@ -249,7 +259,9 @@ function hidePlaceholderIfPresent(targetContainer) {
     }
 }
 
-/** Handles drag end event. */
+/**
+ * Handles drag end event
+*/
 function handleDragEnd(event) {
     event.target.classList.remove('dragging');
     document.querySelectorAll('.dotted-container-drag-drop').forEach(dropZone => {

@@ -91,7 +91,9 @@ function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
     changeDropdownImg('choose-category', 'close');
 }
 
-/** Sets EventListener to prevent form from being submitted on pressing Enter */
+/**
+ * Sets up event listeners for the form to prevent submission on pressing Enter.
+ */
 function setupFormEventListeners() {
     document.getElementById('add-task').addEventListener('submit', function (event) {
         event.preventDefault();
@@ -126,7 +128,7 @@ function handleDropdownClick(event, dropdownId, dropdownName) {
 
 /**
  * Sets up a click event listener on the document to handle dropdown clicks.
- */
+*/
 function setupDropdownCloseListener() {
     document.addEventListener('click', function (event) {
         let assignedToId = getAssignedToId();
@@ -141,7 +143,9 @@ function setupDropdownCloseListener() {
     });
 }
 
-/** Sets Input Listener to Subtask to update icon-container on input */
+/** 
+ * Sets Input Listener to Subtask to update icon-container on input
+*/
 function addSubtaskEventListener() {
     document.getElementById('subtasks').addEventListener('input', function () {
         let inputField = document.getElementById('subtasks');
@@ -157,7 +161,9 @@ function addSubtaskEventListener() {
     });
 }
 
-/** Sets Input Listener to Subtask to allow add and save on pressing Enter */
+/**
+ * Sets Input Listener to Subtask to allow add and save on pressing Enter
+*/
 function setupInputEventListener() {
     document.getElementById('subtasks').addEventListener('keydown', function (event) {
         if (event.key === 'Enter' || event.key === 13) {
@@ -175,8 +181,9 @@ function setupInputEventListener() {
     });
 }
 
-/** Adds click event listener which triggers handleContactClick */
-/** Adds click event listener which triggers handleContactClick */
+/**
+ * Adds click event listener which triggers handleContactClick
+ */
 function setupEventListenersForItemsDiv() {
     let assignedToId = getAssignedToId();
     let itemsDiv = document.getElementById(assignedToId).querySelector('.select-items');
@@ -194,7 +201,9 @@ function setupEventListenersForItemsDiv() {
 }
 
 
-/** Adds all event listeners to the page */
+/**
+*Adds all event listeners to the page
+*/
 function addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {
     setupFormEventListeners();
     setupDropdownCloseListener();

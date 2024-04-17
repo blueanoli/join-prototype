@@ -1,3 +1,6 @@
+/**
+ * Initializes the login process.
+ */
 function initLogin() {
   statusVisit();
   loadUsers();

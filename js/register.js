@@ -1,5 +1,8 @@
 let users = [];
 
+/**
+ * Initializes the registration process.
+ */
 async function initRegister() {
   loadUsers();
 }

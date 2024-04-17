@@ -1,8 +1,14 @@
+/**
+ * Initializes the contacts by checking login status and fetching contacts.
+ */
 async function initContacts() {
   isNotLoggedIn();
   await fetchContacts();
 }
 
+/**
+ * Redirects to the index page if the user is not logged in.
+ */
 function isNotLoggedIn() {
   if (sessionStorage.getItem("isLoggedIn") !== "true") {
     window.location.href = "index.html";

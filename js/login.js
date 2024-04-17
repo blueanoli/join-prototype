@@ -4,8 +4,10 @@ function initLogin() {
   showLoginData();
 }
 
-/* Used to check if it's the person first visit in the current session 
-and sets its value to false, so it won't execute repeatedly */
+/**
+ * Used to check if it's the person first visit in the current session 
+ * and sets its value to false, so it won't execute repeatedly
+ */
 function statusVisit() {
   let isFirstVisit = sessionStorage.getItem("isFirstVisit");
   if (isFirstVisit === null || isFirstVisit === "true") {
@@ -14,7 +16,9 @@ function statusVisit() {
   }
 }
 
-/* Executes the animated Logo if it's the first visit in the current session */
+/**
+ * Executes the animated Logo if it's the first visit in the current session
+ */
 function playLogoAnimation() {
   let animatedLogoContainer = document.querySelector(
     ".animated-logo-container"
@@ -28,14 +32,18 @@ function playLogoAnimation() {
   }
 }
 
-/* Used to Log-in throught Guest Log-in button*/
+/**
+ * Used to Log-in throught Guest Log-in button
+ */
 function guestLogin() {
   sessionStorage.setItem('isLoggedIn', 'true');
   sessionStorage.setItem('username', 'Guest');
   window.location.href = "summary.html";
 }
 
-/* Searches for the login data by Log-in submit */
+/**
+ * Searches for the login data by Log-in submit
+ */
 function searchUser() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -58,7 +66,12 @@ function searchUser() {
   }
 }
 
-/* Shows appropriate text and adds border-color if password is wrong + removes the changes from emailNotRegistered() */
+/**
+ * Shows appropriate text and adds border-color if password is wrong + 
+ * removes the changes from emailNotRegistered() 
+ * @param {string} passwordContainer - The Div of the password container
+ * @param {string} wrongPassword - "wrong-password"-text
+ */
 function isWrongPassword(passwordContainer, wrongPassword) {
   let emailContainer = document.getElementById("login-email-container");
   let isNotRegisteredText = wrongPassword.querySelector("span");
@@ -74,7 +87,12 @@ function isWrongPassword(passwordContainer, wrongPassword) {
   wrongPassword.classList.add("login-wrong-password-text");
 }
 
-/* Shows appropriate text and adds border-color if email is not registered + removes the changes from isWrongPassword() */
+/**
+ * Shows appropriate text and adds border-color if email is not registered + 
+ * removes the changes from isWrongPassword()
+ * @param {string} passwordContainer - The Div of the password container
+ * @param {string} wrongPassword - "wrong-password"-text
+ */
 function emailNotRegistered(passwordContainer, wrongPassword) {
   let emailContainer = document.getElementById("login-email-container");
   let isNotRegisteredText = wrongPassword.querySelector("span");
@@ -90,7 +108,9 @@ function emailNotRegistered(passwordContainer, wrongPassword) {
   wrongPassword.classList.add("login-wrong-password-text");
 }
 
-/* Changes the src of the checkbox-img either if it's checked or not*/
+/**
+ * Changes the src of the checkbox-img either if it's checked or not
+ */
 function checkedLoginCheckbox() {
   let checkbox = document.getElementById("login-checkbox");
 
@@ -103,7 +123,9 @@ function checkedLoginCheckbox() {
   }
 }
 
-/* Saves the Login Data in localStorage if the remember checkbox is clicked */
+/**
+ * Saves the Login Data in localStorage if the remember checkbox is clicked
+ */
 function rememberLoginData() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -112,7 +134,9 @@ function rememberLoginData() {
   localStorage.setItem("password", password.value);
 }
 
-/* Shows the saved Login Data from localStorage and displays it in the Input-field if the value is not null */
+/**
+ * Shows the saved Login Data from localStorage and displays it in the Input-field if the value is not null
+ */
 function showLoginData() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -125,7 +149,11 @@ function showLoginData() {
   password.value = passwordData;
 }
 
-/* Changes the Checkbox-Img to the appropriate src by checking the localStorage */
+/**
+ * Changes the Checkbox-Img to the appropriate src by checking the localStorage
+ * @param {string} emailData - In local Storage stored email
+ * @param {string} passwordData - In local Storage stored password
+ */
 function changeCheckboxImg(emailData, passwordData) {
   let checkbox = document.getElementById("login-checkbox");
 
@@ -136,7 +164,9 @@ function changeCheckboxImg(emailData, passwordData) {
   }
 }
 
-/* Sets the localStorage value of the appropriate key to null and displays it in the input-fields */
+/**
+ * Sets the localStorage value of the appropriate key to null and displays it in the input-fields
+ */
 function deleteLoginData() {
   let email = document.getElementById("email");
   let password = document.getElementById("password");
@@ -148,13 +178,17 @@ function deleteLoginData() {
   password.value = "";
 }
 
-/* Changes the src of password img on input focus */
+/**
+ * Changes the src of password img on input focus
+ */
 function hidePasswordImg() {
   let passwordImg = document.getElementById("login-password-icon");
   passwordImg.src = "assets/img/visibility_off.svg";
 }
 
-/* Toggles the visibility of the password on image-click and changes the password img */
+/**
+ * Toggles the visibility of the password on image-click and changes the password img
+ */
 function toggleVisibilityPassword() {
   let passwordImg = document.getElementById("login-password-icon");
   let password = document.getElementById("password");
@@ -168,7 +202,9 @@ function toggleVisibilityPassword() {
   }
 }
 
-/* Sets the password img to the default img when the inputfield is empty and not focused */
+/**
+ * Sets the password img to the default img when the inputfield is empty and not focused
+ */
 function defaultPasswordImg() {
   let passwordImg = document.getElementById("login-password-icon");
   let passwordInput = document.getElementById("password");
@@ -178,12 +214,17 @@ function defaultPasswordImg() {
   }
 }
 
-/* Same Code as above but for the second password field in sign_up.html */
+/**
+ * Changes the src of password confirmed img on input focus
+ */
 function hidePasswordConfirmedImg() {
   let passwordImg = document.getElementById("login-password-confirmed-icon");
   passwordImg.src = "assets/img/visibility_off.svg";
 }
 
+/**
+ * Toggles the visibility of the password confirmed on image-click and changes the password img
+ */
 function toggleVisibilityPasswordConfirmed() {
   let passwordImg = document.getElementById("login-password-confirmed-icon");
   let password = document.getElementById("password-confirmed");
@@ -197,6 +238,9 @@ function toggleVisibilityPasswordConfirmed() {
   }
 }
 
+/**
+ * Sets the password confirmed img to the default img when the inputfield is empty and not focused
+ */
 function defaultPasswordConfirmedImg() {
   let passwordImg = document.getElementById("login-password-confirmed-icon");
   let passwordInput = document.getElementById("password-confirmed");

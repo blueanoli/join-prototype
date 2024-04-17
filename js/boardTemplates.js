@@ -131,7 +131,7 @@ function renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, ind
       <div class="edit-task-subtasks-container edit-mode-task-subtasks-container">
         <span class="task-container-mini-headlines">Subtasks:</span>
         <div class="add-subtask edit-mode-add-subtask">
-          <input class="edit-subtask-input" type="text" id="edit-subtasks" placeholder="Add new subtask">
+          <input oninput="renderEditSubtaskIconHTML(${index})" class="edit-subtask-input" type="text" id="edit-subtasks" placeholder="Add new subtask">
             <div class="edit-add-subtask-icon-container" id="edit-icon-container">
               <img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">
             </div>
@@ -297,11 +297,19 @@ function renderMinitaskMenuHTML(index) {
  * Generates HTML for edit subtask icons.
  * @returns {string} - Generated HTML string.
  */
-function renderEditSubtaskIconHTML() {
-  return /*html*/`
-  <img onclick="cancelEditSubtask()" class="icon-cancel edit-mode-icon-cancel" src="assets/img/cancel_dark.svg" alt="">
-  <div class="subtask-line edit-mode-subtask-line"></div>
-  <img onclick="addEditSubtask()" class="icon-confirm edit-mode-icon-confirm" src="assets/img/addtask_check.svg" alt="">`;
+function renderEditSubtaskIconHTML(index) {
+  let iconContainer = document.getElementById('edit-icon-container');
+  let subtaskInput = document.getElementById('edit-subtasks');
+
+  if (subtaskInput.value.trim() !== '') {
+    iconContainer.innerHTML = /*html*/`
+        <img onclick="cancelEditSubtask(${index})" class="icon-cancel edit-mode-icon-cancel" src="assets/img/cancel_dark.svg" alt="">
+        <div class="subtask-line edit-mode-subtask-line"></div>
+        <img onclick="addEditSubtask(${index})" class="icon-confirm edit-mode-icon-confirm" src="assets/img/addtask_check.svg" alt="">
+      `;
+  } else {
+    iconContainer.innerHTML = `<img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+  }
 }
 
 /**

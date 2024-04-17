@@ -29,7 +29,7 @@ function handleContactClick(event, contactName, optionDiv) {
  * @returns {HTMLElement} - Checkbox element.
  */
 function getCheckboxFromEvent(event, optionDiv) {
-    if (!optionDiv) return null; 
+    if (!optionDiv) return null;
     let isCheckboxClicked = event.target.classList.contains('checkbox-icon');
     return isCheckboxClicked ? event.target : optionDiv.querySelector('.checkbox-icon');
 }
@@ -52,7 +52,7 @@ function isContactSelected(contact) {
  */
 function deselectContact(contactName, checkbox, optionDiv) {
     checkbox.src = "assets/img/checkboxempty.svg";
-    optionDiv.style.backgroundColor = ""; 
+    optionDiv.style.backgroundColor = "";
     optionDiv.classList.remove("selected");
 }
 
@@ -66,7 +66,7 @@ function deselectContact(contactName, checkbox, optionDiv) {
 function selectContact(contactName, checkbox, optionDiv) {
     checkbox.src = "assets/img/checkboxchecked_white.svg";
     addAssignedContact(contactName);
-    optionDiv.style.backgroundColor = "var(--dark-blue)"; 
+    optionDiv.style.backgroundColor = "var(--dark-blue)";
     optionDiv.classList.add("selected");
 }
 
@@ -93,11 +93,11 @@ function handleCategoryClick(event, category, selectedDiv, dropdown, itemsDiv) {
 
 /** Sets EventListener to prevent form from being submitted on pressing Enter */
 function setupFormEventListeners() {
-    document.getElementById('add-task').addEventListener('submit', function(event) {
+    document.getElementById('add-task').addEventListener('submit', function (event) {
         event.preventDefault();
     });
 
-    document.getElementById('add-task').addEventListener('keydown', function(event) {
+    document.getElementById('add-task').addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
         }
@@ -113,12 +113,12 @@ function setupFormEventListeners() {
  */
 function handleDropdownClick(event, dropdownId, dropdownName) {
     let dropdown = document.getElementById(dropdownId);
-    if (!dropdown) return; 
+    if (!dropdown) return;
 
     let isClickInsideDropdown = dropdown.contains(event.target);
     if (!isClickInsideDropdown && !dropdown.querySelector('.select-items').classList.contains('select-hide')) {
         toggleDropdown(dropdownId, true);
-        if (dropdownName === 'category' && document.getElementById('img-dropdown')) { 
+        if (dropdownName === 'category' && document.getElementById('img-dropdown')) {
             changeDropdownImg('choose-category', 'open');
         }
     }
@@ -128,7 +128,7 @@ function handleDropdownClick(event, dropdownId, dropdownName) {
  * Sets up a click event listener on the document to handle dropdown clicks.
  */
 function setupDropdownCloseListener() {
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         let assignedToId = getAssignedToId();
 
         if (document.getElementById(assignedToId)) {
@@ -142,12 +142,12 @@ function setupDropdownCloseListener() {
 }
 
 /** Sets Input Listener to Subtask to update icon-container on input */
-function addSubtaskEventListener(){
-    document.getElementById('subtasks').addEventListener('input', function() {
+function addSubtaskEventListener() {
+    document.getElementById('subtasks').addEventListener('input', function () {
         let inputField = document.getElementById('subtasks');
         let iconContainer = document.getElementById('icon-container');
-    
-        if(inputField.value.trim() !== '') {
+
+        if (inputField.value.trim() !== '') {
             iconContainer.innerHTML = renderSubtaskIconHTML();
         } else {
             iconContainer.innerHTML = `
@@ -159,14 +159,14 @@ function addSubtaskEventListener(){
 
 /** Sets Input Listener to Subtask to allow add and save on pressing Enter */
 function setupInputEventListener() {
-    document.getElementById('subtasks').addEventListener('keydown', function(event) {
+    document.getElementById('subtasks').addEventListener('keydown', function (event) {
         if (event.key === 'Enter' || event.key === 13) {
-            event.preventDefault(); 
-    
+            event.preventDefault();
+
             let isEditing = document.querySelector('.editing');
-    
+
             if (isEditing) {
-                let subtaskId = isEditing.id; 
+                let subtaskId = isEditing.id;
                 saveEditedSubtask(subtaskId);
             } else {
                 addSubtask();
@@ -180,19 +180,19 @@ function setupInputEventListener() {
 function setupEventListenersForItemsDiv() {
     let assignedToId = getAssignedToId();
     let itemsDiv = document.getElementById(assignedToId).querySelector('.select-items');
-        
-    itemsDiv.addEventListener('click', function(event) {
+
+    itemsDiv.addEventListener('click', function (event) {
         let optionDiv = event.target.closest('.option-item');
-        if (!optionDiv) return; 
-    
+        if (!optionDiv) return;
+
         // Hier extrahieren wir den Kontaktname basierend auf dem Index.
         let index = parseInt(optionDiv.id.split('-')[1], 10);
         let contactName = Object.keys(testContacts)[index];  // Verwende Object.keys(), um den Namen des Kontakts basierend auf dem Index zu erhalten.
-    
+
         handleContactClick(event, contactName, optionDiv);
     });
 }
- 
+
 
 /** Adds all event listeners to the page */
 function addAllEventListeners(category, selectedDiv, dropdown, itemsDiv, contact, optionDiv) {

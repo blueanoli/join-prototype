@@ -270,24 +270,34 @@ function closeAddTask() {
  * generates subtask ID, and appends rendered subtask HTML to subtask container.
  * Clears subtask input and updates 'edit-icon-container' HTML.
  */
-async function addEditSubtask(taskId) {
-    let subtaskInput = document.getElementById('edit-subtasks');
-    let subtaskValue = subtaskInput.value.trim();
-    if (!subtaskValue) return;
+async function addEditSubtask(taskIndex) {
+    if (taskIndex === undefined || taskIndex < 0 || taskIndex >= tasksData.length) {
+        return;
+    }
 
-    let task = tasksData.find(t => t.id === taskId);
+    let task = tasksData[taskIndex];
     if (!task) {
         return;
     }
 
-    let newSubtaskId = `subtask-${taskId}-${Date.now()}`;
-    task.subtasks.push({ id: newSubtaskId, title: subtaskValue, completed: false });
+    let subtaskInput = document.getElementById('edit-subtasks');
+    let subtaskValue = subtaskInput.value.trim();
 
-    await saveTasksToServer();
+    if (subtaskValue) {
+        let newSubtaskId = `subtask-${task.id}-${Date.now()}`;
+        let newSubtask = {
+            id: newSubtaskId,
+            title: subtaskValue,
+            completed: false
+        };
 
-    let subtasksHtml = generateSubtasksHtml(task);
-    document.getElementById('subtask-container').innerHTML = subtasksHtml;
-    subtaskInput.value = '';
+        task.subtasks.push(newSubtask);
+        await saveTasksToServer();
+
+        let newSubtaskHtml = renderEditSubtaskHTML(newSubtask.title, newSubtask.id, newSubtask.completed);
+        document.getElementById('subtask-container').insertAdjacentHTML('beforeend', newSubtaskHtml);
+        subtaskInput.value = '';
+    }
 }
 
 
@@ -296,22 +306,9 @@ async function addEditSubtask(taskId) {
  * @param {string} subtaskId - ID of subtask to remove.
  */
 async function removeEditSubtask(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
-    if (subtaskElement) {
-        subtaskElement.remove();
-    }
-
-    const pureSubtaskId = subtaskId.replace('edit-', '');
-    let taskId = pureSubtaskId.split('-')[1];
-    let task = tasksData.find(t => t.id === taskId);
-    if (!task) {
-        return;
-    }
-
-    if (task.subtasks && task.subtasks.some(st => st.id === pureSubtaskId)) {
-        task.subtasks = task.subtasks.filter(st => st.id !== pureSubtaskId);
-        await saveTasksToServer();
-    }
+    let subtask = document.getElementById(subtaskId);
+    subtask.remove();
+    await saveTasksToServer();
 }
 
 /**
@@ -354,11 +351,11 @@ function clearEditSubtasks() {
  *
  * @param {string} subtaskId - ID of subtask to cancel editing.
  */
-function cancelEditSubtask(subtaskId) {
-    let subtaskElement = document.getElementById(subtaskId);
-    let originalValue = subtaskElement.dataset.originalValue;
-    subtaskElement.innerHTML = renderSavedEditSubtaskHTML(originalValue, subtaskId);
+function cancelEditSubtask() {
+    let subtaskElement = document.getElementById('edit-subtasks');
+    subtaskElement.value = '';
 }
+
 
 /**
  * Opens mini task menu for task at given index.

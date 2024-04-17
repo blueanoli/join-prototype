@@ -199,7 +199,7 @@ function handleDrop(event) {
     let targetContainer = getTargetContainer(event);
 
     if (!targetContainer || !taskElement) {
-        return; 
+        return;
     }
 
     moveTaskToContainer(taskElement, targetContainer);
@@ -343,18 +343,18 @@ function disableEditFormEnterKeySubmission() {
 }
 
 /** Adds an event listener to the edit subtask input. */
-function addEditSubtaskEventListener() {
-    let subtaskInput = document.getElementById('edit-subtasks');
-    let iconContainer = document.getElementById('edit-icon-container');
+// function addEditSubtaskEventListener() {
+//     let subtaskInput = document.getElementById('edit-subtasks');
+//     let iconContainer = document.getElementById('edit-icon-container');
 
-    subtaskInput.addEventListener('input', function () {
-        if (subtaskInput.value.trim() !== '') {
-            iconContainer.innerHTML = renderEditSubtaskIconHTML();
-        } else {
-            iconContainer.innerHTML = `<img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
-        }
-    });
-}
+//     subtaskInput.addEventListener('input', function () {
+//         if (subtaskInput.value.trim() !== '') {
+//             iconContainer.innerHTML = renderEditSubtaskIconHTML();
+//         } else {
+//             iconContainer.innerHTML = `<img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
+//         }
+//     });
+// }
 
 /**  Sets up an event listener for the edit input. */
 function setupEditInputEventListener() {
@@ -374,6 +374,7 @@ function setupEditInputEventListener() {
     });
 }
 
+
 /** Adds event listeners to the board  */
 function addBoardEventListeners() {
     document.body.addEventListener('click', function (event) {
@@ -391,6 +392,6 @@ function addBoardEventListeners() {
 function setupSubtaskEventListeners() {
     setupEditFormEventListeners();
     disableEditFormEnterKeySubmission();
-    addEditSubtaskEventListener();
+    // addEditSubtaskEventListener();
     setupEditInputEventListener();
 }

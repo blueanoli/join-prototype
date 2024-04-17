@@ -74,7 +74,7 @@ function openEditTask(index) {
 
     setupEventListenersForItemsDiv();
     initializeSelectedContacts(task);
-    setupSubtaskEventListeners();
+    setupSubtaskEventListeners(index);
     setupDropdownCloseListener();
     initializePrioritySelectionInEditMode(task.priority);
     getAssignedToId();
@@ -265,41 +265,64 @@ function closeAddTask() {
     selectedContacts = {};
 }
 
+function validateTaskIndex(taskIndex) {
+    if (taskIndex === undefined || taskIndex < 0 || taskIndex >= tasksData.length) {
+        return false;
+    }
+    return true;
+}
+
+function getTask(taskIndex) {
+    return tasksData[taskIndex];
+}
+
+function getSubtaskInputValue() {
+    let subtaskInput = document.getElementById('edit-subtasks');
+    return subtaskInput.value.trim();
+}
+
+function createNewSubtask(task, subtaskValue) {
+    let newSubtaskId = `subtask-${task.id}-${Date.now()}`;
+    return {
+        id: newSubtaskId,
+        title: subtaskValue,
+        completed: false
+    };
+}
+
+function addNewSubtaskToDOM(newSubtask) {
+    let newSubtaskHtml = renderEditSubtaskHTML(newSubtask.title, newSubtask.id, newSubtask.completed);
+    document.getElementById('subtask-container').insertAdjacentHTML('beforeend', newSubtaskHtml);
+}
+
+function clearSubtaskInput() {
+    let subtaskInput = document.getElementById('edit-subtasks');
+    subtaskInput.value = '';
+}
+
 /**
  * Adds subtask to task being edited. Gets subtask input value and if not empty, calculates task and subtask indices,
  * generates subtask ID, and appends rendered subtask HTML to subtask container.
  * Clears subtask input and updates 'edit-icon-container' HTML.
  */
-async function addEditSubtask(taskIndex) {
-    if (taskIndex === undefined || taskIndex < 0 || taskIndex >= tasksData.length) {
+function addEditSubtask(taskIndex) {
+    if (!validateTaskIndex(taskIndex)) {
         return;
     }
 
-    let task = tasksData[taskIndex];
+    let task = getTask(taskIndex);
     if (!task) {
         return;
     }
 
-    let subtaskInput = document.getElementById('edit-subtasks');
-    let subtaskValue = subtaskInput.value.trim();
+    let subtaskValue = getSubtaskInputValue();
 
     if (subtaskValue) {
-        let newSubtaskId = `subtask-${task.id}-${Date.now()}`;
-        let newSubtask = {
-            id: newSubtaskId,
-            title: subtaskValue,
-            completed: false
-        };
-
-        task.subtasks.push(newSubtask);
-        await saveTasksToServer();
-
-        let newSubtaskHtml = renderEditSubtaskHTML(newSubtask.title, newSubtask.id, newSubtask.completed);
-        document.getElementById('subtask-container').insertAdjacentHTML('beforeend', newSubtaskHtml);
-        subtaskInput.value = '';
+        let newSubtask = createNewSubtask(task, subtaskValue);
+        addNewSubtaskToDOM(newSubtask);
+        clearSubtaskInput();
     }
 }
-
 
 /**
  * Removes subtask with given ID from DOM and updates tasks data in storage.
@@ -355,7 +378,6 @@ function cancelEditSubtask() {
     let subtaskElement = document.getElementById('edit-subtasks');
     subtaskElement.value = '';
 }
-
 
 /**
  * Opens mini task menu for task at given index.

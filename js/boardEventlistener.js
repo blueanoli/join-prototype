@@ -279,7 +279,9 @@ async function updateTaskStatus(taskIndex, newColumnId) {
     checkAllSections();
 }
 
-/** Handles mouse move event */
+/** 
+ * Handles mouse move event
+ */
 function handleMouseMove(event) {
     let scrollSpeed = 1;
     let scrollMargin = 200;
@@ -301,7 +303,9 @@ function handleMouseMove(event) {
     }
 }
 
-/** Changes color of button on mouseover and mouseout events. */
+/**
+ *  Changes color of button on mouseover and mouseout events
+ */
 function changeButtonColor() {
     let btnMobile = document.getElementById('add-task-btn-board-mobile');
 
@@ -316,7 +320,9 @@ function changeButtonColor() {
     }
 }
 
-/** Sets up event listeners for edit form. */
+/** 
+ * Sets up event listeners for edit form
+ */
 function setupEditFormEventListeners() {
     let editForm = document.querySelector('.edit-task-container');
     if (editForm) {
@@ -329,7 +335,9 @@ function setupEditFormEventListeners() {
     }
 }
 
-/** Disables form submission on pressing the Enter key. */
+/** 
+ * Disables form submission on pressing the Enter key.
+ */
 function disableEditFormEnterKeySubmission() {
     let form = document.getElementById('edit-task-container');
     if (form) {
@@ -342,40 +350,23 @@ function disableEditFormEnterKeySubmission() {
     }
 }
 
-/** Adds an event listener to the edit subtask input. */
-// function addEditSubtaskEventListener() {
-//     let subtaskInput = document.getElementById('edit-subtasks');
-//     let iconContainer = document.getElementById('edit-icon-container');
-
-//     subtaskInput.addEventListener('input', function () {
-//         if (subtaskInput.value.trim() !== '') {
-//             iconContainer.innerHTML = renderEditSubtaskIconHTML();
-//         } else {
-//             iconContainer.innerHTML = `<img class="icon-plus edit-mode-plus-icon" src="assets/img/addtask_plus.svg" alt="">`;
-//         }
-//     });
-// }
-
-/**  Sets up an event listener for the edit input. */
-function setupEditInputEventListener() {
+/**  
+ * Sets up an event listener for the edit input. 
+ */
+function setupEditInputEventListener(index) {
     let subtaskInput = document.getElementById('edit-subtasks');
     subtaskInput.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             event.preventDefault();
-
-            let isEditing = document.querySelector('.editing');
-            if (isEditing) {
-                let subtaskId = isEditing.id;
-                saveEditedEditSubtask(subtaskId);
-            } else {
-                addEditSubtask();
-            }
+            event.stopPropagation();
+            addEditSubtask(index);
         }
     });
 }
 
-
-/** Adds event listeners to the board  */
+/** 
+ * Adds event listeners to the board  
+ */
 function addBoardEventListeners() {
     document.body.addEventListener('click', function (event) {
         if (event.target.matches('.edit-icon-task')) {
@@ -388,10 +379,11 @@ function addBoardEventListeners() {
     window.addEventListener('resize', handleResize);
 }
 
-/** Sets up event listeners for subtasks. */
-function setupSubtaskEventListeners() {
+/**
+ *  Sets up event listeners for subtasks. 
+ */
+function setupSubtaskEventListeners(index) {
     setupEditFormEventListeners();
     disableEditFormEnterKeySubmission();
-    // addEditSubtaskEventListener();
-    setupEditInputEventListener();
+    setupEditInputEventListener(index);
 }

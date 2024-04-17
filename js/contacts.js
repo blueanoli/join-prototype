@@ -1,6 +1,5 @@
 async function initContacts() {
   isNotLoggedIn();
-  console.log("Initializing contacts...", contacts);
   await fetchContacts();
 }
 

@@ -279,6 +279,7 @@
 
     .edit-task-subtasks-container {
         max-height: 100px;
+        margin-top: 60px;
     }
 
     .edit-mode-task-container {

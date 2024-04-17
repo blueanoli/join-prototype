@@ -78,7 +78,7 @@ function updateImageOnEnter(img) {
         img.style.width = '32px';
         img.style.height = '32px';
     } else if (img.src.includes('summary_done_white.svg')) {
-        img.src = '/assets/img/summary_done_dark.svg';
+        img.src = 'assets/img/summary_done_dark.svg';
     }
 }
 
@@ -94,7 +94,7 @@ function resetImageOnLeave(img) {
         img.style.width = '';
         img.style.height = '';
     } else if (img.src.includes('summary_done_dark.svg')) {
-        img.src = '/assets/img/summary_done_white.svg';
+        img.src = 'assets/img/summary_done_white.svg';
     }
 }
 

@@ -39,7 +39,7 @@
     }
 
     .subtask .icon-container {
-        right: -85%;
+        right: -90%;
     }
 
     .date-icon {
@@ -207,8 +207,17 @@
         height: 24px;
     }
 
+    .subtask input {
+        width: 95%;
+    }
+
     .edit-subtask-container {
-        width: 50%;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .subtask .icon-container {
+        right: -76%;
     }
 
     .add-task {

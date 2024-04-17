@@ -271,15 +271,25 @@
         padding: 0 16px;
         width: 95%;
         max-height: 650px;
+        overflow-y: hidden;
     }
 
     .edit-task-contacts-container {
-        max-height: 100px;
+        max-height: 110px;
+        padding: 16px 0;
     }
 
     .edit-task-subtasks-container {
         max-height: 100px;
-        margin-top: 60px;
+        margin-top: 0;
+    }
+
+    .edit-mode-task-subtasks-container {
+        margin-top: 30px;
+    }
+
+    .subtasks-check-container span {
+        font-size: 14px;
     }
 
     .edit-mode-task-container {
@@ -289,5 +299,19 @@
 
     .board-container {
         padding-bottom: calc(150px + 160%);
+    }
+
+    .test-contact {
+        height: 15px;
+        width: 15px;
+        font-size: 14px;
+    }
+
+    .edit-task-title-container {
+        padding: 4px 0 16px 0;
+    }
+
+    .edit-task-due-date-container {
+        padding: 16px 0;
     }
 }

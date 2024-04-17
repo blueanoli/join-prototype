@@ -121,7 +121,6 @@ function disableContent() {
  */
 async function helpInit() {
   await includeHTML();
-  document.getElementById('help-icon').style.display = 'none';
   initPageFunctions();
 }
 

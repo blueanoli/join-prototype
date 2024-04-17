@@ -26,11 +26,11 @@
 /* MAX WIDTH 1290px */
 @media (max-width: 1290px) {
     .board-header {
-        margin-left: 240px;
+        margin-left: 270px;
     }
 
     .progress-container {
-        margin-left: 240px;
+        margin-left: 270px;
         width: 78%;
     }
 }

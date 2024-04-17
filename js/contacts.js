@@ -9,7 +9,9 @@ function isNotLoggedIn() {
   }
 }
 
-/* Generates a div with a letter if it's the first letter of a contact */
+/**
+ * Generates a div with a letter if it's the first letter of a contact
+ */
 function generateLetterContainer() {
   for (let i = 0; i < contacts.length; i++) {
     let contact = contacts[i];
@@ -19,7 +21,11 @@ function generateLetterContainer() {
   }
 }
 
-/* Checks if the Letter is already avaiable and adds it in the appropriate array if not */
+/**
+ * Checks if the Letter is already avaiable and adds it in the appropriate array if not
+ * @param {object} contact - A contact with details about name, email, phone number and profile color
+ * @param {string} firstLetter - The first letter this contact 
+ */
 function checkLetterContainer(contact, firstLetter) {
   if (!contactsByLetter[firstLetter]) {
     contactsByLetter[firstLetter] = [];
@@ -28,7 +34,9 @@ function checkLetterContainer(contact, firstLetter) {
   showContacts();
 }
 
-/* Generates a object key with the generated letter and saves the contact in the appropriate ordered object */
+/**
+ * Generates a object key with the generated letter and saves the contact in the appropriate ordered object
+ */
 function showContacts() {
   let letters = Object.keys(contactsByLetter);
   let sortedLetters = letters.sort();
@@ -53,9 +61,13 @@ function showContacts() {
   }
 }
 
-/* Sorts the contact alphabetical by the second name if it's available */
-function sortBySecondName(contactList) {
-  contactList.sort((a, b) => {
+/**
+ * Compares names of two contacts by index-order and sorts the contact alphabetical by the second name if it's available
+ * @param {string} contactName - Full Name from showContacts()
+ * @returns - Sorted Contacts by second name
+ */
+function sortBySecondName(contactName) {
+  contactName.sort((a, b) => {
     let lastNameA = "";
     let lastNameB = "";
 
@@ -68,10 +80,15 @@ function sortBySecondName(contactList) {
     return lastNameA.localeCompare(lastNameB);
   });
 
-  return contactList;
+  return contactName;
 }
 
-/* Displays the letter div */
+/**
+ * Displays the letter div
+ * @param {string} contactsDiv - Generated letter container by id "contacts-contact"
+ * @param {string} letter - Generated letter from contacts first name
+ * @returns - Generated letter container
+ */
 function letterContainerHTML(contactsDiv, letter) {
   return (contactsDiv.innerHTML += `
   <div class="contacts-letter-container">
@@ -80,7 +97,11 @@ function letterContainerHTML(contactsDiv, letter) {
   <div class="contacts-letter-border"></div>`);
 }
 
-/* Checks if the contact has already a profil-color */
+/**
+ * Checks if the contact has already a profil-color
+ * @param {object} contact - A contact with details about name, email, phone number and profile color
+ * @returns - The contact color
+ */
 function setProfilColor(contact) {
   if (!contact.color) {
     contact.color = getDifferentProfilColor();
@@ -88,7 +109,10 @@ function setProfilColor(contact) {
   return contact.color;
 }
 
-/* Sets a random hex-color for each contact */
+/**
+ * Sets a random hex-color for each contact
+ * @returns - Random hex-color for contact
+ */
 function getDifferentProfilColor() {
   let randomIndex = Math.floor(Math.random() * profileColors.length);
   let color = profileColors[randomIndex];
@@ -96,7 +120,12 @@ function getDifferentProfilColor() {
   return color;
 }
 
-/* Displays the individual contact */
+/**
+ * Displays the individual contact
+ * @param {*} contactsDiv - Generated letter container by id "contacts-contact"
+ * @param {*} contact - A contact with details about name, email, phone number and profile color
+ * @returns - The alphabetical-sorted contact in a letter container, also sorted by the second name 
+ */
 function contactContainerHTML(contactsDiv, contact) {
   let contactsName = contact["name"];
   let contactsEmail = contact["email"];
@@ -127,7 +156,11 @@ function contactContainerHTML(contactsDiv, contact) {
   </div>`);
 }
 
-/* Searches for the first letters of first- and second name and returns them */
+/**
+ * Searches for the first letters of first- and second name
+ * @param {string} contactsName - The Name of the contact
+ * @returns - Acrnoym (first letter of the contacts first- and second name)
+ */
 function getAcronyms(contactsName) {
   let words = contactsName.split(/\s+/);
   let firstLetters = words.map((word) => word.charAt(0));
@@ -136,8 +169,12 @@ function getAcronyms(contactsName) {
   return acronym;
 }
 
-/* Searches for the contact with the first letter of its name and the index-number and then returns it
-if the contact is found */
+/**
+ * Searches for the contact with the first letter of its name and the index-number and then returns it 
+ * as contactID if the contact is found
+ * @param {object} contact - A contact with details about name, email, phone number and profile color
+ * @returns - The contactID if the contact is found
+ */
 function getContactID(contact) {
   let firstLetter = contact["name"].charAt(0).toUpperCase();
   let contactIndex = contacts.findIndex(
@@ -154,7 +191,9 @@ function getContactID(contact) {
   }
 }
 
-/* The "Add Container" slides in while the background fades darker */
+/**
+ * The "Add Container" slides in while the background fades darker
+ */
 function showAddContactContainer() {
   let contactsAddContainer = document.querySelector(".contacts-add-container");
   contactsAddContainer.innerHTML = addContactOverlayHTML();
@@ -162,11 +201,15 @@ function showAddContactContainer() {
   clearAddContainerInputfields();
   resetAddContactsChanges();
 
+  document.body.style.overflowY = "hidden";
   contactsAddContainer.classList.add("fade-in");
   contactsAdd.classList.remove("slide-out");
 }
 
-/* Displays the Add-Contact Overlay */
+/**
+ * Displays the Add-Contact Overlay
+ * @returns Add-Contact Overlay
+ */
 function addContactOverlayHTML() {
   return ` 
   <div class="contacts-add">
@@ -201,7 +244,10 @@ function addContactOverlayHTML() {
   </div>`;
 }
 
-/* Displays the Form Area in the Add-Contact Overlay */
+/**
+ * Displays the Form Area in the Add-Contact Overlay
+ * @returns Form Area in the Add-Contact Overlay
+ */
 function getAddContactOverlayFormHTML() {
   return `
     <div class="contacts-add-main-profil-input-container">
@@ -218,7 +264,10 @@ function getAddContactOverlayFormHTML() {
   `;
 }
 
-/* Displays the Form Input Area in the Add-Contact Overlay */
+/**
+ * Displays the Form Input Area in the Add-Contact Overlay
+ * @returns Form Input Area in the Add-Contact Overlay
+ */
 function getAddContactOverlayFormInputAreaHTML() {
   return `
     <div id="name-container" class="contacts-add-input-container">
@@ -254,7 +303,7 @@ function getAddContactOverlayFormInputAreaHTML() {
         maxlength="20"
         value="+49"
         placeholder="Phone"
-        onkeypress="addSpaceToPhoneNumber()"
+        onkeypress="addSpaceToPhoneNumber(); allowOnlyDigitsPhoneNumber()"
         onfocus="showPhoneFormat()"
         onblur="removePhoneFormat()"
       />
@@ -269,7 +318,10 @@ function getAddContactOverlayFormInputAreaHTML() {
   `;
 }
 
-/* Displays the Form Area Buttons in the Add-Contact Overlay */
+/**
+ * Displays the Form Area Buttons in the Add-Contact Overlay
+ * @returns Form Area Buttons in the Add-Contact Overlay
+ */
 function getAddContactOverlayFormButtonsHTML() {
   return `
     <button
@@ -293,8 +345,10 @@ function getAddContactOverlayFormButtonsHTML() {
   `;
 }
 
-/* Clears the "Add Container" input-fields and sets the phone input-field 
-back to its primarily value */
+/**
+ * Clears the "Add Container" input-fields and sets the phone input-field 
+ * back to its primarily value
+ */
 function clearAddContainerInputfields() {
   let nameInput = document.getElementById("name");
   let emailInput = document.getElementById("email");
@@ -305,13 +359,16 @@ function clearAddContainerInputfields() {
   phoneInput.value = "+49";
 }
 
-/* The "Add Container" slides out while the background fades bright again */
+/**
+ * The "Add Container" slides out while the background fades bright again
+ */
 function hideAddContactContainer() {
   let contactsAddContainer = document.querySelector(".contacts-add-container");
   let contactsAdd = document.querySelector(".contacts-add");
 
   if (contactsAddContainer) {
     resetAddContactsChanges();
+    document.body.style.overflowY = "visible";
     contactsAddContainer.classList.remove("fade-in");
     contactsAddContainer.classList.add("fade-out");
     setTimeout(function () {
@@ -321,8 +378,10 @@ function hideAddContactContainer() {
   }
 }
 
-/* Changes the "Add Contact" cancel-icon within the button from the dark- to the blue version 
-on hovering over the button */
+/**
+ * Changes the "Add Contact" cancel-icon within the button from the dark- to the blue version 
+ * on hovering over the button
+ */
 function changeAddContactCancelBlue() {
   let cancel = document.getElementById("contacts-add-cancel-img");
 
@@ -331,8 +390,10 @@ function changeAddContactCancelBlue() {
   }
 }
 
-/* Changes the "Add Contact" cancel-icon within the button from the blue- to the dark version 
-on hovering out of the button */
+/**
+ * Changes the "Add Contact" cancel-icon within the button from the blue- to the dark version 
+ * on hovering out of the button
+ */
 function changeAddContactCancelDark() {
   let cancel = document.getElementById("contacts-add-cancel-img");
 
@@ -341,8 +402,10 @@ function changeAddContactCancelDark() {
   }
 }
 
-/* Adds automatically a space between the phone number at specified lengths 
-when the user is typing in the phone input-field */
+/**
+ * Adds automatically a space between the phone number at specified lengths 
+ * when the user is typing in the phone input-field
+ */
 function addSpaceToPhoneNumber() {
   let phone = document.getElementById("phone").value;
   if (
@@ -355,21 +418,41 @@ function addSpaceToPhoneNumber() {
   }
 }
 
-/* Displays an example of the required format of the phone input-field */
+/**
+ * Allows only digits and backspace in the phone number input-field by not 
+ * inserting letters if the user is typing them 
+ */
+function allowOnlyDigitsPhoneNumber() {
+  let phone = document.getElementById("phone");
+
+  phone.onkeydown = function (event) {
+    if (isNaN(event.key) && event.key !== 'Backspace') {
+      event.preventDefault();
+    }
+  };
+}
+
+/**
+ * Displays an example of the required format of the phone input-field
+ */
 function showPhoneFormat() {
   let phone = document.getElementById("input-phone-format");
 
   phone.classList.add("shown");
 }
 
-/* Hides the example of the required format of the phone input-field */
+/**
+ * Hides the example of the required format of the phone input-field
+ */
 function removePhoneFormat() {
   let phone = document.getElementById("input-phone-format");
 
   phone.classList.remove("shown");
 }
 
-/* Check's if the contact values are already exisiting */
+/**
+ * Check's if the contact values are already exisiting
+ */
 function addContact() {
   let newName = document.getElementById("name").value;
   let newEmail = document.getElementById("email").value;
@@ -400,7 +483,9 @@ function addContact() {
   uploadContacts();
 }
 
-/* Resets Changes of an invalid contact-add submit */
+/**
+ * Resets Changes of an invalid contact-add submit
+ */
 function resetAddContactsChanges() {
   let nameContainer = document.getElementById("name-container");
   let emailContainer = document.getElementById("email-container");
@@ -413,7 +498,10 @@ function resetAddContactsChanges() {
   textBox.classList.remove("shown");
 }
 
-/* Shows that the name is already taken */
+/**
+ * Shows that the name is already taken
+ * @param {string} newName - The Name of the wanted added contact
+ */
 function isExistingContactName(newName) {
   let nameContainer = document.getElementById("name-container");
   let textBox = document.getElementById("input-message");
@@ -423,7 +511,10 @@ function isExistingContactName(newName) {
   textBox.innerHTML = `<b>${newName}</b> is already in the Contact-list.`;
 }
 
-/* Shows that the email is already taken */
+/**
+ * Shows that the email is already taken
+ * @param {string} newEmail - The Email of the wanted added contact
+ */
 function isExistingContactEmail(newEmail) {
   let emailContainer = document.getElementById("email-container");
   let textBox = document.getElementById("input-message");
@@ -433,7 +524,10 @@ function isExistingContactEmail(newEmail) {
   textBox.innerHTML = `The Email: <b>${newEmail}</b> is already existing.`;
 }
 
-/* Shows that the phone number is already taken */
+/**
+ * Shows that the phone number is already taken
+ * @param {string} newPhone - The Phone number of the wanted added contact
+ */
 function isExistingContactPhone(newPhone) {
   let phoneContainer = document.getElementById("phone-container");
   let textBox = document.getElementById("input-message");
@@ -443,7 +537,10 @@ function isExistingContactPhone(newPhone) {
   textBox.innerHTML = `The number: <b>${newPhone}</b> is already in use.`;
 }
 
-/* Adds a new contact to the list if everything is valid */
+/**
+ * Adds a new contact to the list if everything is valid
+ * @param {object} contact - A contact with details about name, email, phone number and profile color
+ */
 function addNewContact(contact) {
   contacts.push(contact);
   let firstLetter = contact["name"].charAt(0).toUpperCase();
@@ -455,8 +552,11 @@ function addNewContact(contact) {
   uploadContacts();
 }
 
-/* Changes the Background for an added contact to highlight it and scrolls 
-to the newly added contact smoothly. Also displays the new contact details */
+/**
+ * Changes the Background for an added contact to highlight it and scrolls to the newly added 
+ * contact smoothly. Also displays the new contact details 
+ * @param {*} contact - A contact with details about name, email, phone number and profile color
+ */
 function showNewContactVisuality(contact) {
   let contactsName = contact["name"];
   let contactsEmail = contact["email"];
@@ -483,7 +583,9 @@ function showNewContactVisuality(contact) {
   }
 }
 
-/* Prevents the form-submit if the "cancel"-button is clicked */
+/**
+ * Prevents the form-submit if the "cancel"-button is clicked
+ */
 function preventFormSubmit() {
   let cancelButton = document.getElementById("contacts-add-cancel-button");
 
@@ -492,8 +594,9 @@ function preventFormSubmit() {
   });
 }
 
-/* Slides the register-msg in if the registration was successful and slides 
-it out after a specified delay */
+/**
+ * Slides the register-msg in if the registration was successful and slides it out after a specified delay
+ */
 function showContactRegisterMsg() {
   let registerMsg = document.getElementById("contacts-register-msg");
 
@@ -509,10 +612,20 @@ function showContactRegisterMsg() {
   }, 1600);
 }
 
-/* Flag to monitor if contact details are currently being shown */
+/**
+ * Flag to monitor if contact details are currently being shown
+ */
 let isContactDetailsVisible = false;
 
-/* Displays a container with details about the clicked contact */
+/**
+ * Displays a container with details about the clicked contact
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ */
 function showContactDetails(
   contactsName,
   contactsEmail,
@@ -541,10 +654,13 @@ function showContactDetails(
   }
 
   isContactDetailsVisible = true;
-  /* Adjust display property based on the current screen size */
+
   adjustDisplayForScreenSize();
 }
 
+/**
+ * Displays the contact list container again after removed
+ */
 function goBackToContactList() {
   const contactContainer = document.querySelector('.contacts-contact-container');
   contactContainer.style.display = 'block';
@@ -552,10 +668,12 @@ function goBackToContactList() {
   const mainContainer = document.querySelector('.contacts-main-container');
   mainContainer.style.display = 'none';
 
-  isContactDetailsVisible = false;  // Reset the flag
+  isContactDetailsVisible = false;
 }
 
-/* Function to adjust the display property */
+/**
+ * Function to adjust the display property
+ */
 function adjustDisplayForScreenSize() {
   const contactContainer = document.querySelector('.contacts-contact-container');
   const mainContainer = document.querySelector('.contacts-main-container');
@@ -574,11 +692,16 @@ function adjustDisplayForScreenSize() {
   }
 }
 
-/* Event listener for window resize events */
+/**
+ * Event listener for window resize events
+ */
 window.addEventListener('resize', adjustDisplayForScreenSize);
 
-/* Changes the visuality of the interacted contact in the contact-list and resets to standard
-for every contact */
+/**
+ * Changes the visuality of the interacted contact in the contact-list and resets 
+ * to standard for every contact
+ * @param {string} contactsID - The individually ID of the contact
+ */
 function changeContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
   let nameColor = document.getElementById(`name-${contactsID}`);
@@ -601,7 +724,10 @@ function changeContactDetailsVisuality(contactsID) {
   }
 }
 
-/* Resets the visual changes of the changeContactDetailsVisuality()-Function */
+/**
+ * Resets the visual changes of the changeContactDetailsVisuality()-Function
+ * @param {string} contactsID - The individually ID of the contact
+ */
 function resetContactDetailsVisuality(contactsID) {
   let background = document.getElementById(`${contactsID}`);
   let nameColor = document.getElementById(`name-${contactsID}`);
@@ -610,7 +736,16 @@ function resetContactDetailsVisuality(contactsID) {
   background.classList.remove("clicked");
 }
 
-/* Displays the container with the contact details */
+/**
+ * Displays the container with the contact details
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ * @returns - A Container with the Details of the contact
+ */
 function getContactDetailsHTML(
   contactsName,
   contactsEmail,
@@ -688,25 +823,35 @@ function getContactDetailsHTML(
     </div>`;
 }
 
-/* Shows mobile menu */
+/**
+ * Shows mobile menu
+ */
 function showContactsMobileMenu() {
   if (window.innerWidth < 800) {
     var container = document.querySelector('.contacts-details-edit-container');
     container.style.display = (container.style.display === 'none' || container.style.display === '') ? 'flex' : 'none';
   }
+  document.addEventListener('click', function (event) {
+    if (window.innerWidth < 800) {
+      var container = document.querySelector('.contacts-details-edit-container');
+      var mobileMenuIcon = document.querySelector('.mobile-menu-icon');
+
+      if (container && mobileMenuIcon && !container.contains(event.target) && !mobileMenuIcon.contains(event.target)) {
+        container.style.display = 'none';
+      }
+    }
+  });
 }
 
-document.addEventListener('click', function (event) {
-  if (window.innerWidth < 800) {
-    var container = document.querySelector('.contacts-details-edit-container');
-    var mobileMenuIcon = document.querySelector('.mobile-menu-icon');
-
-    if (container && mobileMenuIcon && !container.contains(event.target) && !mobileMenuIcon.contains(event.target)) {
-      container.style.display = 'none';
-    }
-  }
-});
-
+/**
+ * Initializes the Overlay for the Contact-Editor
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ */
 function editContactDetailsOverlay(
   contactsName,
   contactsEmail,
@@ -733,10 +878,19 @@ function editContactDetailsOverlay(
   emailInput.value = contactsEmail;
   phoneInput.value = contactsPhone;
 
+  document.body.style.overflowY = "hidden";
   contactsAddContainer.classList.add("fade-in");
 }
 
-/* Displays the Edit-Contact Overlay */
+/**
+ * Displays the Overlay for the Contact-Editor
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ */
 function editContactDetailsOverlayHTML(
   contactsName,
   contactsEmail,
@@ -775,7 +929,16 @@ function editContactDetailsOverlayHTML(
   `;
 }
 
-/* Displays the Form Area in the Edit-Contact Overlay */
+/**
+ * Displays the Form Area in the Edit-Contact Overlay
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ * @returns - The Form Area in the Edit-Contact Overlay
+ */
 function getEditContactDetailsFormHTML(
   contactsName,
   contactsEmail,
@@ -811,7 +974,12 @@ function getEditContactDetailsFormHTML(
   `;
 }
 
-/* Displays the Acronyms-Area in the Edit-Contact Overlay */
+/**
+ * Displays the Acronyms-Area in the Edit-Contact Overlay
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @returns - The Acronyms-Area in the Edit-Contact Overlay
+ */
 function getEditContactDetailsFormAcronymHTML(acronym, contactsColor) {
   return `
     <div
@@ -823,7 +991,10 @@ function getEditContactDetailsFormAcronymHTML(acronym, contactsColor) {
   `;
 }
 
-/* Displays the Form Input Area in the Edit-Contact Overlay */
+/**
+ * Displays the Form Input Area in the Edit-Contact Overlay
+ * @returns - The Form Input Area in the Edit-Contact Overlay
+ */
 function getEditContactDetailsFormInputAreaHTML() {
   return `
     <div id="name-container" class="contacts-details-edit-input-container">
@@ -859,7 +1030,7 @@ function getEditContactDetailsFormInputAreaHTML() {
         type="tel"
         maxlength="20"
         placeholder="Phone"
-        onkeypress="addSpaceToPhoneNumber()"
+        onkeypress="addSpaceToPhoneNumber(); allowOnlyDigitsPhoneNumber()"
         onfocus="showPhoneFormat()"
         onblur="removePhoneFormat()"
       />
@@ -874,7 +1045,13 @@ function getEditContactDetailsFormInputAreaHTML() {
   `;
 }
 
-/* Displays the Form Area Buttons in the Edit-Contact Overlay */
+/**
+ * Displays the Form Area Buttons in the Edit-Contact Overlay
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @returns - The Form Area Buttons in the Edit-Contact Overlay
+ */
 function getEditContactDetailsFormButtonsHTML(
   contactsName,
   contactsEmail,
@@ -900,7 +1077,12 @@ function getEditContactDetailsFormButtonsHTML(
   `;
 }
 
-/* Searches for the contact and deletes it from the contacts-array if the contact is found */
+/**
+ * Searches for the contact and deletes it from the contacts-array if the contact is found
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ */
 function deleteContact(contactsName, contactsEmail, contactsPhone) {
   let index = contacts.findIndex(
     (c) =>
@@ -917,8 +1099,13 @@ function deleteContact(contactsName, contactsEmail, contactsPhone) {
   showEmptyContactDetails();
 }
 
-/* Searches for the first letter of the to-deleted contact and deletes it if it's the only contact
-with this letter as it's first letter */
+/**
+ * Searches for the first letter of the to-deleted contact and deletes it if it's the only contact 
+ * with this letter as it's first letter
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ */
 function deleteContactLetterContainer(
   contactsName,
   contactsEmail,
@@ -939,13 +1126,17 @@ function deleteContactLetterContainer(
   uploadContacts();
 }
 
-/* Displays a blank contact-details container after deleting the contact */
+/**
+ * Displays a blank contact-details container after deleting the contact
+ */
 function showEmptyContactDetails() {
   let detailsContainer = document.getElementById("contacts-details");
   detailsContainer.innerHTML = "";
 }
 
-/* Prevents the submitting of the form if the contact is edited */
+/**
+ * Prevents the submitting of the form if the contact is edited
+ */
 function preventFormSubmitByEdit() {
   let deleteButton = document.getElementById("contacts-edit-delete-button");
 
@@ -954,8 +1145,15 @@ function preventFormSubmitByEdit() {
   });
 }
 
-/* Checks if the email or phone number is already in use at other contacts by
-excluding the current contact's data */
+/**
+ * Checks if the email or phone number is already in use at other contacts by excluding the current contacts data
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ */
 function checkEditedContactDetails(
   contactsName,
   contactsEmail,
@@ -990,7 +1188,13 @@ function checkEditedContactDetails(
   }
 }
 
-/* Searches for the contact index */
+/**
+ * Searches for the contact index
+ * @param {string} contactsName - The contacts full name
+ * @param {string} contactsEmail - The contacts email
+ * @param {string} contactsPhone - The contacts phone number
+ * @returns - The contact index
+ */
 function findContactIndex(contactsName, contactsEmail, contactsPhone) {
   return contacts.findIndex(
     (c) =>
@@ -1000,17 +1204,36 @@ function findContactIndex(contactsName, contactsEmail, contactsPhone) {
   );
 }
 
-/* Searches for the exisiting emails without the email of the current to-edited contact */
+/**
+ * Searches for the exisiting emails without the email of the current to-edited contact
+ * @param {number} index - The index of contact
+ * @param {string} newEmail - The wanted email
+ * @returns - If found = the contact and if not found = null
+ */
 function findExistingEmailWithoutCurrent(index, newEmail) {
   return contacts.find((c, i) => i !== index && c.email === newEmail);
 }
 
-/* Searches for the exisiting phone numbers without the phone number of the current to-edited contact */
+/**
+ * Searches for the exisiting phone numbers without the phone number of the current to-edited contact
+ * @param {number} index - The index of contact
+ * @param {string} newEmail - The wanted phone number
+ * @returns - If found = the contact and if not found = null
+ */
 function findExistingPhoneWithoutCurrent(index, newPhone) {
   return contacts.find((c, i) => i !== index && c.phone === newPhone);
 }
 
-/* Changes the edit email or phone number */
+/**
+ * Changes the edit email or phone number
+ * @param {number} index - The index of contact
+ * @param {string} newEmail - The new edited email
+ * @param {string} newPhone - The new edited phone number
+ * @param {string} contactsName - The contacts full name
+ * @param {string} acronym - The contacts acrnoyms
+ * @param {string} contactsColor - The contacts profile color
+ * @param {string} contactsID - The contacts ID
+ */
 function editContactDetails(
   index,
   newEmail,
@@ -1038,8 +1261,10 @@ function editContactDetails(
   }
 }
 
-/* Changes the edit icon in contacts-edit overlay within the div from the dark- to the blue version 
-on hovering over the div */
+/**
+ * Changes the edit icon in contacts-edit overlay within the div from the dark- to the blue version 
+ * on hovering over the div
+ */
 function changeEditContactImgBlue() {
   let edit = document.getElementById("contacts-details-edit-img");
 
@@ -1048,8 +1273,10 @@ function changeEditContactImgBlue() {
   }
 }
 
-/* Changes the edit icon in contacts-edit overlay within the div from the blue- to the dark version 
-on hovering out of the div */
+/**
+ * Changes the edit icon in contacts-edit overlay within the div from the blue- to the dark version 
+ * on hovering out of the div
+ */
 function changeEditContactImgDark() {
   let edit = document.getElementById("contacts-details-edit-img");
 
@@ -1058,8 +1285,10 @@ function changeEditContactImgDark() {
   }
 }
 
-/* Changes the delete icon in contacts-edit overlay within the div from the dark- to the blue version 
-on hovering over the div */
+/**
+ * Changes the delete icon in contacts-edit overlay within the div from the dark- to the blue version 
+ * on hovering over the div
+ */
 function changeDeleteContactImgBlue() {
   let deleteImg = document.getElementById("contacts-details-delete-img");
 
@@ -1068,8 +1297,10 @@ function changeDeleteContactImgBlue() {
   }
 }
 
-/* Changes the delete icon in contacts-edit overlay within the div from the blue- to the dark version 
-on hovering out of the div */
+/**
+ * Changes the delete icon in contacts-edit overlay within the div from the blue- to the dark version 
+ * on hovering out of the div
+ */
 function changeDeleteContactImgDark() {
   let deleteImg = document.getElementById("contacts-details-delete-img");
 

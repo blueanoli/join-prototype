@@ -980,6 +980,11 @@ h3 {
     display: none;
   }
 
+  .contacts-contact-container::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
   .mobile-menu-icon {
     display: flex !important;
   }

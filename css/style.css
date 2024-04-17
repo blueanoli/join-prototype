@@ -90,7 +90,7 @@ h1 {
   width: 100vw;
   height: 100vh;
   background-color: white;
-  animation: logo-bg 1s ease 0s 1 normal forwards;
+  animation: logo-bg 3s ease 0s 1 normal forwards;
 }
 
 @keyframes logo-bg {

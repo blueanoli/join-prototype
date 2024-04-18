@@ -8,6 +8,25 @@ let profileColors = [
   "#001f3f", "#0074D9", "#7FDBFF", "#B10DC9", "#F012BE", "#85144b", "#B10DC9"];
 
 /**
+* Initializes the page once the DOM is fully loaded.
+*/
+document.addEventListener('DOMContentLoaded', async () => {
+  if (sessionStorage.getItem('loginRequired') === 'true') {
+    sessionStorage.removeItem('loginRequired');
+    document.getElementById('checkLogin').classList.remove('d-none');
+  }
+  if (checkIfIsLoggedIn()) {
+    await includeHTML();
+    let isPublic = isPublicPage();
+    if (isPublic) {
+      disableContent();
+    }
+    initPageFunctions();
+    await checkWindowSize();
+  }
+});
+
+/**
  * Uploads contacts to the server.
  * @async
  * @function uploadContacts
@@ -33,7 +52,6 @@ async function fetchContacts() {
     if (!window.location.pathname.endsWith('/board.html') && !window.location.pathname.endsWith('/add_task.html')) {
       generateLetterContainer();
     }
-
   } catch (error) {
     console.error("Failed to fetch contacts:", error);
   }
@@ -105,7 +123,6 @@ function disableContent() {
     { id: 'privacy-link', action: element => element.setAttribute('href', 'external_privacy.html') },
     { id: 'legal-link', action: element => element.setAttribute('href', 'external_legal.html') }
   ];
-
   actions.forEach(({ id, action }) => {
     const element = document.getElementById(id);
     if (element) {
@@ -116,7 +133,6 @@ function disableContent() {
 
 /**
  * Initializes functions for help pages and hides help icons.
- * @async
  * @function helpInit
  */
 async function helpInit() {
@@ -126,7 +142,6 @@ async function helpInit() {
 
 /**
  * General initialization for page components.
- * @async
  * @function init
  */
 async function init() {
@@ -148,26 +163,8 @@ function checkIfIsLoggedIn() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  if (sessionStorage.getItem('loginRequired') === 'true') {
-    sessionStorage.removeItem('loginRequired');
-    document.getElementById('checkLogin').classList.remove('d-none');
-  }
-
-  if (checkIfIsLoggedIn()) {
-    await includeHTML();
-    let isPublic = isPublicPage();
-    if (isPublic) {
-      disableContent();
-    }
-    initPageFunctions();
-    await checkWindowSize();
-  }
-});
-
 /**
  * Includes HTML snippets from external files.
- * @async
  * @function includeHTML
  */
 async function includeHTML() {
@@ -282,7 +279,6 @@ function updateUserIcon() {
   let userIcon = document.querySelector('.user-icon');
   if (userIcon) {
     let username = sessionStorage.getItem('username');
-
     if (username && username !== 'Guest') {
       let names = username.split(' ');
       if (names.length > 1) {
@@ -308,7 +304,6 @@ function isPublicPage() {
 
 /**
  * Dynamically switches between mobile and desktop templates based on screen size.
- * @async
  * @function switchTemplate
  * @param {string} currentTemplate - Currently active template.
  * @param {boolean} isPublic - Indicates if the current page is public.
@@ -316,7 +311,6 @@ function isPublicPage() {
 async function switchTemplate(currentTemplate, isPublic) {
   let includeDiv = document.querySelector('[w3-include-html]');
   let cssLink = document.querySelector('link[href*="template.css"]');
-
   if (window.innerWidth < 1000) {
     await switchToMobileTemplate(currentTemplate, includeDiv, cssLink, isPublic);
   } else {
@@ -367,7 +361,6 @@ async function switchToDesktopTemplate(currentTemplate, includeDiv, cssLink, isP
 function adjustMenuDisplay() {
   let isPublic = isPublicPage();
   let desktopMenu = document.querySelector('.desktop-menu');
-
   if (window.innerWidth < 1000 && isPublic) {
     if (desktopMenu) {
       desktopMenu.style.display = 'none';

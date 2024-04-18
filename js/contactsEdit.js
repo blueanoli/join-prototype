@@ -152,12 +152,11 @@ function getEditContactDetailsFormAcronymHTML(acronym, contactsColor) {
  */
 function getEditContactDetailsFormInputAreaHTML() {
     return `
-    <div id="name-container" class="contacts-details-edit-input-container">
+    <div id="name-container" class="contacts-add-input-container">
       <input
         required
-        readonly
         id="name"
-        class="contacts-details-edit-input"
+        class="contacts-add-input"
         type="text"
         placeholder="Name"
       />
@@ -266,7 +265,7 @@ function preventFormSubmitByEdit() {
 }
 
 /**
- * Checks if the email or phone number is already in use at other contacts by excluding the current contacts data
+ * Checks if the name, email or phone number is already in use at other contacts by excluding the current contacts data
  * @param {string} contactsName - The contacts full name
  * @param {string} contactsEmail - The contacts email
  * @param {string} contactsPhone - The contacts phone number
@@ -282,14 +281,19 @@ function checkEditedContactDetails(
     contactsColor,
     contactsID
 ) {
+    let newName = document.getElementById("name").value;
     let newEmail = document.getElementById("email").value;
     let newPhone = document.getElementById("phone").value;
 
     let index = findContactIndex(contactsName, contactsEmail, contactsPhone);
+    let existingContactName = findExistingNameWithoutCurrent(index, newName);
     let existingContactEmail = findExistingEmailWithoutCurrent(index, newEmail);
     let existingContactPhone = findExistingPhoneWithoutCurrent(index, newPhone);
 
-    if (existingContactEmail) {
+    if (existingContactName) {
+        resetAddContactsChanges();
+        isExistingContactName(newName);
+    } else if (existingContactEmail) {
         resetAddContactsChanges();
         isExistingContactEmail(newEmail);
     } else if (existingContactPhone) {
@@ -298,9 +302,9 @@ function checkEditedContactDetails(
     } else {
         editContactDetails(
             index,
+            newName,
             newEmail,
             newPhone,
-            contactsName,
             acronym,
             contactsColor,
             contactsID
@@ -322,6 +326,16 @@ function findContactIndex(contactsName, contactsEmail, contactsPhone) {
             c.email === contactsEmail &&
             c.phone === contactsPhone
     );
+}
+
+/**
+ * Searches for the exisiting name without the name of the current to-edited contact
+ * @param {number} index - The index of contact
+ * @param {string} newName - The wanted name
+ * @returns - If found = the contact and if not found = null
+ */
+function findExistingNameWithoutCurrent(index, newName) {
+    return contacts.find((c, i) => i !== index && c.name === newName);
 }
 
 /**
@@ -347,23 +361,24 @@ function findExistingPhoneWithoutCurrent(index, newPhone) {
 /**
  * Changes the edit email or phone number
  * @param {number} index - The index of contact
- * @param {string} newEmail - The new edited email
- * @param {string} newPhone - The new edited phone number
- * @param {string} contactsName - The contacts full name
+ * @param {string} newName - The possibly new full name
+ * @param {string} newEmail - The possibly new edited email
+ * @param {string} newPhone - The possibly new edited phone number
  * @param {string} acronym - The contacts acrnoyms
  * @param {string} contactsColor - The contacts profile color
  * @param {string} contactsID - The contacts ID
  */
 function editContactDetails(
     index,
+    newName,
     newEmail,
     newPhone,
-    contactsName,
     acronym,
     contactsColor,
     contactsID
 ) {
     if (index !== -1) {
+        contacts[index].name = newName;
         contacts[index].email = newEmail;
         contacts[index].phone = newPhone;
 
@@ -371,7 +386,7 @@ function editContactDetails(
         showContacts();
         hideAddContactContainer();
         showContactDetails(
-            contactsName,
+            newName,
             newEmail,
             newPhone,
             acronym,

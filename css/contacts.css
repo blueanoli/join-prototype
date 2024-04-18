@@ -648,35 +648,6 @@ h3 {
   padding: 21px 0;
 }
 
-.contacts-details-edit-input-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #d1d1d1;
-  border-radius: 10px;
-  width: 378px;
-  padding: 12px 21px 12px 21px;
-  background-color: var(--background-grey);
-  cursor: not-allowed;
-  user-select: none;
-}
-
-.contacts-details-edit-input {
-  outline: none;
-  border: none;
-  font-size: 20px;
-  flex: 1;
-  user-select: none;
-  pointer-events: none;
-  cursor: not-allowed;
-  background-color: var(--background-grey);
-}
-
-.test {
-  background-color: blue;
-}
-
 .contacts-details-email-phone-container {
   display: flex;
   flex-direction: column;

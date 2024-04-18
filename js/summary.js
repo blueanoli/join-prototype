@@ -1,3 +1,8 @@
+document.addEventListener('DOMContentLoaded', function () {
+    initializeTodoBoxes();
+    dashboardGreeting();
+});
+
 /**
  * Initializes and updates summary data.
  * @async
@@ -17,7 +22,6 @@ function dashboardGreeting() {
     let hour = now.getHours();
     let greeting;
     let userName = sessionStorage.getItem('username') || 'Guest';
-
     if (hour < 12) {
         greeting = "<span class='greetingTime'>Good morning,</span><br>";
     } else if (hour < 18) {
@@ -25,14 +29,8 @@ function dashboardGreeting() {
     } else {
         greeting = "<span class='greetingTime'>Good evening,</span><br>";
     }
-
     document.getElementById('greeting').innerHTML = greeting + " " + "<span class='greetingUserName'>" + userName + "</span>";
 }
-
-document.addEventListener('DOMContentLoaded', function () {
-    initializeTodoBoxes();
-    dashboardGreeting();
-});
 
 /**
  * Attaches mouse enter and leave event listeners to todo-box elements to trigger visual changes.
@@ -112,47 +110,75 @@ function updateTextColors(element, color) {
 }
 
 /**
- * Counts tasks based on their progress and priority and updates the summary data.
- * @async
- * @function updateSummaryData
+ * Fetches stored data and parses it to JSON.
+ * @param {string} itemKey - Key for the item in the storage.
+ * @returns {Promise<Object[]>} - A promise that resolves to an array of task objects.
  */
-async function updateSummaryData() {
-    let storedTasksString = await getItem('tasksData');
-    let tasksData = JSON.parse(storedTasksString || '[]');
+async function getItemAndParse(itemKey) {
+    let storedString = await getItem(itemKey);
+    return JSON.parse(storedString || '[]');
+}
 
-    const summaryCounts = {
+/**
+ * Counts tasks based on their progress and priority.
+ * @param {Object[]} tasksData - Array of task objects.
+ * @returns {Object} - Object containing counts of tasks by status and priority.
+ */
+function calculateSummaryCounts(tasksData) {
+    const counts = {
         'todo': 0,
         'in-progress': 0,
         'feedback': 0,
         'done': 0,
         'urgent': 0
     };
-
     tasksData.forEach(task => {
         if (task.progress) {
-            summaryCounts[task.progress] = (summaryCounts[task.progress] || 0) + 1;
+            counts[task.progress] = (counts[task.progress] || 0) + 1;
         }
         if (task.priority === 'urgent') {
-            summaryCounts['urgent']++;
+            counts['urgent']++;
         }
     });
+    return counts;
+}
 
-    const updateTextContent = (id, text) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.textContent = text;
-        }
-    };
+/**
+ * Helper function to update text content of an element.
+ * @param {string} id - Element ID.
+ * @param {string} text - Text content to set.
+ */
+function updateTextContent(id, text) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = text;
+    }
+}
 
+/**
+ * Updates multiple UI elements with their respective text.
+ * @param {Object} summaryCounts - Object containing counts of tasks by status and priority.
+ * @param {number} totalTasks - Total number of tasks.
+ */
+function updateAllTextContents(summaryCounts, totalTasks) {
     updateTextContent('todo-count', summaryCounts['todo']);
     updateTextContent('done-count', summaryCounts['done']);
     updateTextContent('urgent-count', summaryCounts['urgent']);
     updateTextContent('progress-count', summaryCounts['in-progress']);
     updateTextContent('feedback-count', summaryCounts['feedback']);
-    updateTextContent('all-tasks-count', tasksData.length);
+    updateTextContent('all-tasks-count', totalTasks);
+}
 
+/**
+ * Counts tasks based on their progress and priority and updates the summary data.
+ */
+async function updateSummaryData() {
+    let tasksData = await getItemAndParse('tasksData');
+    const summaryCounts = calculateSummaryCounts(tasksData);
+    updateAllTextContents(summaryCounts, tasksData.length);
     updateNextDeadline(tasksData);
 }
+
 
 /**
  * Converts a date to a more readable format, standardizing date displays.
@@ -166,17 +192,29 @@ function formatDate(date) {
 }
 
 /**
- * Displays the nearest upcoming task deadline, highlighting important dates.
- * @async
- * @function updateNextDeadline
- * @param {Array} tasksData - An array of task objects with due dates.
+ * Filters tasks to find those with due dates in the future.
+ * @param {Object[]} tasksData - An array of task objects with due dates.
+ * @returns {Object[]} - Filtered tasks with upcoming due dates.
  */
-async function updateNextDeadline(tasksData) {
-    tasksData = tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());
+function filterUpcomingTasks(tasksData) {
+    return tasksData.filter(task => task.dueDate && new Date(task.dueDate) >= new Date());
+}
 
+/**
+ * Finds the nearest upcoming deadline from a list of tasks.
+ * @param {Object[]} tasksData - An array of task objects with future due dates.
+ * @returns {string|null} - The nearest deadline date, or null if no deadlines are found.
+ */
+function findNearestDeadline(tasksData) {
     tasksData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+    return tasksData.length > 0 ? tasksData[0].dueDate : null;
+}
 
-    const nextDeadline = tasksData.length > 0 ? tasksData[0].dueDate : null;
+/**
+ * Updates the UI elements to display the next deadline or hide them if no deadline.
+ * @param {string|null} nextDeadline - The nearest deadline date, or null.
+ */
+function updateDeadlineDisplay(nextDeadline) {
     const deadlineElement = document.getElementById('deadline-date');
     const deadlineTextElement = document.getElementById('deadline-text');
 
@@ -189,4 +227,16 @@ async function updateNextDeadline(tasksData) {
             document.getElementById('vertical-line').classList.add('d-none');
         }
     }
+}
+
+/**
+ * Displays the nearest upcoming task deadline, highlighting important dates.
+ * @async
+ * @function updateNextDeadline
+ * @param {Array} tasksData - An array of task objects with due dates.
+ */
+async function updateNextDeadline(tasksData) {
+    let upcomingTasks = filterUpcomingTasks(tasksData);
+    let nextDeadline = findNearestDeadline(upcomingTasks);
+    updateDeadlineDisplay(nextDeadline);
 }

@@ -43,16 +43,30 @@ function clearOverlayContent(container) {
 function closeTaskOverlay() {
     isEditMode = false;
     let overlayContainer = document.getElementById('edit-task-overlay');
-
     if (originalTask) {
         tasksData[originalTask.index] = originalTask.data;
         originalTask = null;
     }
-
     deactivateOverlay(overlayContainer);
     clearOverlayContent(overlayContainer);
     displayAllTasks();
     checkAllSections();
+
+}
+
+/**
+ * Sets up a listener for click events on the document. If the click event target is not within the edit overlay and the active overlay is not 'add-task', it closes the task overlay.
+ */
+function setupOverlayCloseListener() {
+    document.addEventListener('click', function (event) {
+        let editOverlay = document.getElementById('edit-task-overlay');
+        let container = document.getElementById('add-task-container-board');
+        if (container.getAttribute('data-active-overlay') === 'add-task') {
+            return;
+        } if (!editOverlay.contains(event.target)) {
+            closeTaskOverlay();
+        }
+    }, true);
 }
 
 /** 
@@ -60,19 +74,38 @@ function closeTaskOverlay() {
  * @param(index) - index of task to edit
 */
 function openEditTask(index) {
+    prepareAndSetOverlayContent(index);
+    setupListenersAndInitialize(index);
+}
+
+/**
+ * Prepares and sets the overlay content for editing a task.
+ *
+ * @param {number} index - The index of the task.
+ */
+function prepareAndSetOverlayContent(index) {
     isEditMode = true;
     let editOverlay = document.getElementById('edit-task-overlay');
     let task = tasksData[index];
-
     if (!task || !task.assignedTo) {
         return;
     }
-
     let assignedContactsHtml = generateAssignedContactsHtml(task);
     let subtasksHtml = generateSubtasksHtml(task, index);
     let htmlContent = renderEditTaskOverlayHTML(task, assignedContactsHtml, subtasksHtml, index);
     editOverlay.innerHTML = htmlContent;
+}
 
+/**
+ * Sets up event listeners and initializes selected contacts, priority selection, and assigned ID for a task.
+ *
+ * @param {number} index - The index of the task.
+ */
+function setupListenersAndInitialize(index) {
+    let task = tasksData[index];
+    if (!task || !task.assignedTo) {
+        return;
+    }
     setupEventListenersForItemsDiv();
     initializeSelectedContacts(task);
     setupSubtaskEventListeners(index);
@@ -212,6 +245,7 @@ function activateOverlay(container) {
  */
 function loadTaskForm(container, progressStatus) {
     container.setAttribute('w3-include-html', 'assets/templates/task-form.html');
+    container.setAttribute('data-active-overlay', 'add-task');
 
     includeHTML().then(() => {
         activateContainer(progressStatus);
@@ -240,11 +274,27 @@ function activateContainer(progressStatus) {
  * removes 'active' class from overlay, resets body's overflow style, removes 'w3-include-html' attribute from container, and sets overlay open to false.
  */
 function closeAddTask() {
-    if (!isOverlayOpen) return;
-    populateColumnsWithTasks(sections)
-    checkAllSections();
+    manageTasks();
+    updateUI();
+}
 
+/**
+ * Manages tasks by populating columns with tasks, checking all sections, and resetting overlay and selected contacts state.
+ */
+function manageTasks() {
+    if (!isOverlayOpen) return;
+    populateColumnsWithTasks(sections);
+    checkAllSections();
+    isOverlayOpen = false;
+    selectedContacts = {};
+}
+
+/**
+ * Updates the UI by closing the task container, deactivating the overlay, and resetting the body overflow and container attributes.
+ */
+function updateUI() {
     let container = document.getElementById('add-task-container-board');
+    container.removeAttribute('data-active-overlay');
     let overlay = document.getElementById('page-overlay');
     let body = document.body;
 
@@ -252,9 +302,6 @@ function closeAddTask() {
     overlay.classList.remove('active');
     body.style.overflow = '';
     container.removeAttribute('w3-include-html');
-
-    isOverlayOpen = false;
-    selectedContacts = {};
 }
 
 /**

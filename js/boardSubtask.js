@@ -78,17 +78,38 @@ function clearSubtaskInput() {
  * @param {number} taskIndex - Index of task being edited.
  */
 function addEditSubtask(taskIndex) {
-    if (!validateTaskIndex(taskIndex)) {
-        return;
-    }
-
-    let task = getTask(taskIndex);
+    let task = validateAndFetchTask(taskIndex);
     if (!task) {
         return;
     }
-
     let subtaskValue = getSubtaskInputValue();
+    createAndAddSubtask(task, subtaskValue);
+}
 
+/**
+ * Validates the task index and fetches the task.
+ *
+ * @param {number} taskIndex - The index of the task.
+ * @returns {Object|null} The task object or null if invalid index or task not found.
+ */
+function validateAndFetchTask(taskIndex) {
+    if (!validateTaskIndex(taskIndex)) {
+        return null;
+    }
+    let task = getTask(taskIndex);
+    if (!task) {
+        return null;
+    }
+    return task;
+}
+
+/**
+ * Creates a new subtask and adds it to the DOM if the subtask value is not empty.
+ *
+ * @param {Object} task - The task object.
+ * @param {string} subtaskValue - The value of the subtask.
+ */
+function createAndAddSubtask(task, subtaskValue) {
     if (subtaskValue) {
         let newSubtask = createNewSubtask(task, subtaskValue);
         addNewSubtaskToDOM(newSubtask);

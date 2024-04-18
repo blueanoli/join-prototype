@@ -19,6 +19,7 @@ async function renderBoard() {
     updateTestContactsFromServer();
     checkAllSections();
     addBoardEventListeners();
+    setupOverlayCloseListener();
 }
 
 /**
@@ -53,7 +54,7 @@ function updateImageElement(index, j, subtask) {
 /**
 * Changes completion status of specified subtask
 */
-async function changeSubtaskStatus(index, j){
+async function changeSubtaskStatus(index, j) {
     let task = tasksData[index];
     let subtask = task.subtasks[j];
     if (!isValidIndex(index, tasksData)) {
@@ -95,18 +96,18 @@ function hideToastMessage(element) {
 function displayAllTasks() {
 
     for (let j = 0; j < sections.length; j++) {
-        let section = sections[j]; 
-        let column = document.getElementById(section.id); 
+        let section = sections[j];
+        let column = document.getElementById(section.id);
 
         if (column) {
-            column.innerHTML = ''; 
+            column.innerHTML = '';
 
             for (let i = 0; i < tasksData.length; i++) {
-                let task = tasksData[i]; 
+                let task = tasksData[i];
 
                 if (task.progress === section.id.replace('board-', '').replace('-container', '')) {
-                    let taskElement = renderMiniTaskHTML(task, i); 
-                    column.innerHTML += taskElement; 
+                    let taskElement = renderMiniTaskHTML(task, i);
+                    column.innerHTML += taskElement;
                 }
             }
         }
@@ -165,7 +166,7 @@ function getFilteredTasks(searchText, tasksData) {
     return tasksData.filter(task => {
         if (typeof task.title === 'string' && typeof task.description === 'string') {
             return task.title.split(' ').some(word => word.toLowerCase().startsWith(searchText)) ||
-                   task.description.split(' ').some(word => word.toLowerCase().startsWith(searchText));
+                task.description.split(' ').some(word => word.toLowerCase().startsWith(searchText));
         }
         return false;
     });
@@ -214,8 +215,8 @@ function filterTasks() {
     if (filteredTasks.length > 0) {
         populateColumnsWithTasks(filteredTasks, tasksData);
         feedbackElement.style.display = 'none';
-    }else{
+    } else {
         feedbackElement.style.display = 'block';
     }
-    checkAllSections();    
+    checkAllSections();
 }

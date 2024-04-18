@@ -25,7 +25,6 @@ function initializeMinitaskHoverEvents(minitask) {
  */
 function setHoverEvents(minitask) {
     let hoverTimer;
-
     minitask.addEventListener('mouseenter', () => handleMouseEnter(minitask, hoverTimer));
     minitask.addEventListener('mousedown', () => handleMouseDown(minitask));
     minitask.addEventListener('mouseup', () => handleMouseUp(minitask));
@@ -103,7 +102,6 @@ function initializeColumnsDragEvents() {
  */
 function initializeColumnDragEvents(column) {
     const dropZone = column.querySelector('.dotted-container-drag-drop');
-
     column.addEventListener('dragover', event => handleDragOverEvent(event, dropZone));
     column.addEventListener('dragleave', event => handleDragLeaveEvent(event, column, dropZone));
     column.addEventListener('drop', handleDropEvent);
@@ -207,11 +205,9 @@ function handleDrop(event) {
     let taskIndex = event.dataTransfer.getData('text/plain');
     let taskElement = getTaskElement(taskIndex);
     let targetContainer = getTargetContainer(event);
-
     if (!targetContainer || !taskElement) {
         return;
     }
-
     moveTaskToContainer(taskElement, targetContainer);
     hidePlaceholderIfPresent(targetContainer);
     updateTaskStatus(parseInt(taskIndex, 10), targetContainer.id);
@@ -267,7 +263,6 @@ function handleDragEnd(event) {
     document.querySelectorAll('.dotted-container-drag-drop').forEach(dropZone => {
         dropZone.style.display = 'none';
     });
-
     if (autoScrollInterval) {
         clearInterval(autoScrollInterval);
     }
@@ -286,7 +281,6 @@ async function updateTaskStatus(taskIndex, newColumnId) {
 
     tasksData[taskIndex].progress = newColumnId.replace('board-', '').replace('-container', '');
     saveTasksToServer();
-
     displayAllTasks();
     checkAllSections();
 }
@@ -295,20 +289,32 @@ async function updateTaskStatus(taskIndex, newColumnId) {
  * Handles mouse move event
  */
 function handleMouseMove(event) {
-    let scrollSpeed = 1;
-    let scrollMargin = 200;
+    checkAndClearInterval();
+    handleScrolling(event);
+}
 
+/**
+ * Checks if an auto-scroll interval is active and clears it if it is.
+ */
+function checkAndClearInterval() {
     if (autoScrollInterval) {
         clearInterval(autoScrollInterval);
     }
+}
 
+/**
+ * Handles scrolling based on the mouse position. If the mouse is within a certain margin from the top or bottom of the window, it starts auto-scrolling.
+ *
+ * @param {Event} event - The mousemove event.
+ */
+function handleScrolling(event) {
+    let scrollSpeed = 1;
+    let scrollMargin = 200;
     if (event.clientY < scrollMargin + 500) {
         autoScrollInterval = setInterval(() => {
             window.scrollTo({ top: window.scrollY - scrollSpeed, behavior: 'smooth' });
         }, 500);
-    }
-
-    else if (window.innerHeight - event.clientY < scrollMargin + 500) {
+    } else if (window.innerHeight - event.clientY < scrollMargin + 500) {
         autoScrollInterval = setInterval(() => {
             window.scrollTo({ top: window.scrollY + scrollSpeed, behavior: 'smooth' });
         }, 500);

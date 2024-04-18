@@ -1,4 +1,27 @@
 /**
+ * Generates HTML for task overlay subtasks.
+ * @param {Array} subtasks - Array of subtasks.
+ * @param {number} index - Index of the main task.
+ * @returns {string} HTML for subtasks.
+ */
+function generateOverlaySubtasksHTML(subtasks, index) {
+  let subtasksHTML = '';
+  if (subtasks.length > 0) {
+    subtasksHTML = /*html*/`
+      <div class="edit-task-subtasks-container">
+        <span class="task-container-mini-headlines">Subtasks:</span>
+        ${subtasks.map((subtask, j) => `
+          <div class="subtasks-check-container">
+              <img onclick="changeSubtaskStatus(${index}, ${j})" class="subtask-check" id="subtask-check" src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
+              <span>${subtask.title}</span>
+          </div>
+        `).join('')}
+      </div>`;
+  }
+  return subtasksHTML;
+}
+
+/**
  * Renders HTML for task overlay.
  * @param {Object} task - Task object to be rendered.
  * @param {number} index - Index of task in task list.
@@ -12,6 +35,7 @@ function renderTaskOverlayHTML(task, index) {
     (dueDate.getMonth() + 1).toString().padStart(2, '0') + '/' +
     dueDate.getFullYear();
   let subtasks = Array.isArray(task.subtasks) ? task.subtasks : [];
+  let subtasksHTML = generateOverlaySubtasksHTML(subtasks, index);
 
   const htmlContent = /*html*/`
       <div class="edit-task-container" id="edit-task-container">
@@ -47,15 +71,7 @@ function renderTaskOverlayHTML(task, index) {
             `).join('')}
           </div>
         </div>
-        <div class="edit-task-subtasks-container">
-          <span class="task-container-mini-headlines">Subtasks:</span>
-          ${subtasks.map((subtask, j) => `
-    <div class="subtasks-check-container">
-        <img onclick="changeSubtaskStatus(${index}, ${j})" class="subtask-check" id="subtask-check" src="assets/img/checkbox${subtask.completed ? 'checked' : 'empty'}.svg" alt="${subtask.completed ? 'Completed' : 'Not completed'}">
-        <span>${subtask.title}</span>
-    </div>
-`).join('')}
-        </div>
+        ${subtasksHTML}
         <div class="edit-task-footer">
           <div onclick="deleteTask(${index})" class="edit-task-footer-icons">
             <img src="assets/img/delete.svg" alt="Delete">

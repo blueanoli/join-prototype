@@ -2,21 +2,9 @@
  * Initializes the login process.
  */
 function initLogin() {
-  statusVisit();
+  playLogoAnimation();
   loadUsers();
   showLoginData();
-}
-
-/**
- * Used to check if it's the person first visit in the current session 
- * and sets its value to false, so it won't execute repeatedly
- */
-function statusVisit() {
-  let isFirstVisit = sessionStorage.getItem("isFirstVisit");
-  if (isFirstVisit === null || isFirstVisit === "true") {
-    playLogoAnimation();
-    sessionStorage.setItem("isFirstVisit", "false");
-  }
 }
 
 /**

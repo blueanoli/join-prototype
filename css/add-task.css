@@ -177,6 +177,7 @@ textarea {
     position: absolute;
     gap: 16px;
     bottom: -130px;
+    padding-bottom: 20px;
     right: 5%;
     white-space: nowrap;
 }
@@ -535,14 +536,14 @@ textarea {
 #assign-contacts-board {
     display: flex;
     gap: 4px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
 }
 
 #edit-assign-contacts {
     display: flex;
     gap: 4px;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
 }
 

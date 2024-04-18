@@ -279,6 +279,11 @@
         padding: 16px 0;
     }
 
+    .additional-contacts {
+        height: 15px;
+        width: 15px;
+    }
+
     .edit-task-subtasks-container {
         max-height: 100px;
         margin-top: 0;
